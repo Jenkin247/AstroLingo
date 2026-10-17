@@ -52,7 +52,11 @@
     <string name="note_repeated">That time happened twice when the clocks went back. We used the first one.</string>
     <string name="note_local_mean_time">Clocks before 1906 followed local time, so old records can be a few minutes off.</string>
     <string name="your_kundli_title">Your kundli</string>
-    <string name="your_kundli_time_unknown">Your birth time is not known, so this chart uses noon. The Moon sign is usually right; the lagna and houses may not be.</string>
+    <string name="your_kundli_time_unknown">Your birth time is not known, so houses are counted from your Moon sign (Chandra lagna). The Moon sign is usually right even without a time; the lagna is not shown.</string>
+    <string name="chart_from_lagna">From lagna</string>
+    <string name="chart_from_moon">From Moon</string>
+    <string name="chart_description_moon">Moon chart. Houses counted from the Moon in %1$s. Planet details are listed below.</string>
+    <string name="kundli_reveal_sitara">Here is your kundli! Your Moon is in %1$s. We will explore what that means together.</string>
     <string name="me_privacy">Your birth details and kundli are stored only on this phone, encrypted. They are never sent to Sitara, ads or analytics.</string>
     <string name="me_delete">Delete my birth details</string>
     <string name="me_delete_title">Delete your birth details?</string>

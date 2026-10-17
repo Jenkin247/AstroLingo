@@ -65,6 +65,20 @@ data class Kundli(
 
     /** Janma nakshatra: the Moon's nakshatra at birth. */
     val birthNakshatra: NakshatraPosition get() = of(Graha.CHANDRA).nakshatra
+
+    /**
+     * Chandra lagna chart: the same grahas with houses counted from the Moon's sign.
+     * Used when the birth time is unknown, because the Moon's sign rarely changes within a day
+     * while the lagna changes every two hours or so. Source: Astro Guru convention, BPHS ch. 7.
+     */
+    fun fromMoon(): Kundli {
+        val moon = of(Graha.CHANDRA)
+        return copy(
+            lagnaLongitude = moon.siderealLongitude,
+            lagna = moon.rashi,
+            grahas = grahas.map { it.copy(house = KundliCalculator.wholeSignHouse(it.rashi, moon.rashi)) },
+        )
+    }
 }
 
 /** Calculates kundlis. Pure function of the input; no I/O and no clock. */
