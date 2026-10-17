@@ -136,7 +136,6 @@ fun KundliScreen(
                     R.string.kundli_reveal_sitara,
                     stringResource(R.string.rashi_with_english, kundli.moonSign.displayName(), kundli.moonSign.englishName),
                 ),
-                markLagna = !fromMoon,
             modifier = Modifier.graphicsLayer { alpha = progress },
             )
         }
