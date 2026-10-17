@@ -34,6 +34,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.astrolingo.app.R
+import com.astrolingo.app.ui.kundli.KundliScreen
+import com.astrolingo.app.ui.kundli.SampleChart
 import com.astrolingo.app.ui.sitara.SitaraAvatar
 import com.astrolingo.app.ui.theme.AstroLingoTheme
 import com.astrolingo.app.ui.theme.Spacing
@@ -64,7 +66,15 @@ fun AstroLingoApp() {
             }
         },
     ) { padding ->
-        PlaceholderScreen(tab = selected, modifier = Modifier.padding(padding))
+        when (selected) {
+            Tab.KUNDLI -> KundliScreen(
+                kundli = SampleChart.kundli,
+                title = stringResource(R.string.sample_chart_title),
+                note = stringResource(R.string.sample_chart_note),
+                modifier = Modifier.padding(padding),
+            )
+            else -> PlaceholderScreen(tab = selected, modifier = Modifier.padding(padding))
+        }
     }
 }
 
