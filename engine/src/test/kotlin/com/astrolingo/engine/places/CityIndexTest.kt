@@ -78,10 +78,17 @@ class CityIndexTest {
     }
 
     @Test
-    fun `a location reading snaps to the nearest bundled place`() {
-        // A fictional reading a little east of central Pune, and one in Hounslow near Heathrow.
+    fun `a location reading gives the biggest place nearby, not the neighbourhood`() {
+        // Fictional readings: Islington, the Annex in Toronto, east Pune, and a rural spot far from any city.
+        assertThat(index.nearest(51.538, -0.103)?.name).isEqualTo("London")
+        assertThat(index.nearest(43.672, -79.404)?.name).isEqualTo("Toronto")
         assertThat(index.nearest(18.52, 73.87)?.name).isEqualTo("Pune")
-        assertThat(index.nearest(51.47, -0.36)?.name).isEqualTo("Hounslow")
-        assertThat(index.nearest(51.47, -0.36)?.zone?.id).isEqualTo("Europe/London")
+        assertThat(index.nearest(51.538, -0.103)?.zone?.id).isEqualTo("Europe/London")
+    }
+
+    @Test
+    fun `with no place within 25 km the nearest one is used`() {
+        val city = checkNotNull(index.nearest(29.0, 72.0)) // Thar desert, fictional reading
+        assertThat(index.search(city.name).map { it.id }).contains(city.id)
     }
 }

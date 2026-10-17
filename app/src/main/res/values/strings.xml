@@ -141,6 +141,8 @@
     <string name="onboarding_deity_sitara">Some people like a deity of the day; others prefer none. Your choice stays on this phone, and you can change it in Me.</string>
     <string name="onboarding_deity_yes">Yes, show a deity</string>
     <string name="onboarding_deity_no">No, leave deities out</string>
+    <string name="today_ask_place">These times are for your birthplace. Tell us where you live now, so sunrise and Rahu kaal match your day.</string>
+    <string name="today_ask_place_button">Set where I live</string>
     <string name="today_change_place">Change</string>
     <string name="today_place_title">Where are you today?</string>
     <string name="today_place_note">Sunrise and Rahu kaal follow where you are now, not where you were born. This stays on your phone.</string>

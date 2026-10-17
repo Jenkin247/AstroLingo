@@ -149,6 +149,11 @@ fun TodayScreen(
         } else {
             Text(stringResource(R.string.today_no_sunrise), style = MaterialTheme.typography.bodyMedium)
         }
+        if (!placeGiven) {
+            // Profiles saved before onboarding asked where the user lives: ask once here instead.
+            Text(stringResource(R.string.today_ask_place), style = MaterialTheme.typography.bodyMedium)
+            Button(onClick = { choosingPlace = true }) { Text(stringResource(R.string.today_ask_place_button)) }
+        }
         Row(verticalAlignment = Alignment.CenterVertically) {
             Text(
                 stringResource(R.string.today_times_for, place.label),
@@ -255,8 +260,12 @@ private fun tithiName(tithi: Tithi): String = when {
     )
 }
 
+/** Rounded to the nearest minute, so 09:46:57 reads 9:47 as in a printed panchang. */
 private fun time(utcMillis: Long, zone: ZoneId): String =
-    Instant.ofEpochMilli(utcMillis).atZone(zone).toLocalTime().format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT))
+    Instant.ofEpochMilli(utcMillis + HALF_MINUTE_MILLIS).atZone(zone).toLocalTime()
+        .format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT))
+
+private const val HALF_MINUTE_MILLIS = 30_000L
 
 private val DayStrength.label: Int
     get() = when (this) {

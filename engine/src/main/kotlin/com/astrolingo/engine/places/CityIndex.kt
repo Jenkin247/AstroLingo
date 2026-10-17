@@ -64,11 +64,16 @@ class CityIndex private constructor(private val cities: List<City>) {
     }
 
     /**
-     * The bundled place nearest a location reading, so the app can store a city and never the reading itself.
-     * Plain great-circle distance; a few kilometres change sunrise and Rahu kaal by seconds.
+     * The place a location reading belongs to, so the app can store a city and never the reading itself.
+     * The biggest place within [NEARBY_KM] wins, so a reading in Islington gives London rather than the
+     * neighbourhood; with nothing that close, the nearest place. A few kilometres change sunrise and Rahu kaal
+     * by seconds.
      */
-    fun nearest(latitudeDegrees: Double, longitudeDegrees: Double): City? =
-        cities.minByOrNull { distanceRadians(latitudeDegrees, longitudeDegrees, it.latitudeDegrees, it.longitudeDegrees) }
+    fun nearest(latitudeDegrees: Double, longitudeDegrees: Double): City? {
+        val byDistance = cities.map { it to distanceKm(latitudeDegrees, longitudeDegrees, it.latitudeDegrees, it.longitudeDegrees) }
+        return byDistance.filter { it.second <= NEARBY_KM }.maxByOrNull { it.first.population }?.first
+            ?: byDistance.minByOrNull { it.second }?.first
+    }
 
     private fun rank(names: List<String>, q: String): Int? {
         return when {
@@ -117,14 +122,17 @@ class CityIndex private constructor(private val cities: List<City>) {
         }
 
         /** Lower case without accents: "Mahesāna" becomes "mahesana". */
-        /** Central angle between two points (haversine), in radians. */
-        private fun distanceRadians(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
+        private const val NEARBY_KM = 25.0
+        private const val EARTH_RADIUS_KM = 6371.0
+
+        /** Great-circle distance between two points (haversine), in kilometres. */
+        private fun distanceKm(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
             val p1 = Math.toRadians(lat1)
             val p2 = Math.toRadians(lat2)
             val dp = p2 - p1
             val dl = Math.toRadians(lon2 - lon1)
             val h = Math.sin(dp / 2).let { it * it } + Math.cos(p1) * Math.cos(p2) * Math.sin(dl / 2).let { it * it }
-            return 2 * Math.asin(Math.sqrt(h.coerceIn(0.0, 1.0)))
+            return 2 * EARTH_RADIUS_KM * Math.asin(Math.sqrt(h.coerceIn(0.0, 1.0)))
         }
 
         internal fun fold(text: String): String =
