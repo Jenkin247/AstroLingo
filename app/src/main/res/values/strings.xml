@@ -46,6 +46,7 @@
     <string name="onboarding_place_loading">Loading places…</string>
     <string name="onboarding_place_none">We couldn\'t find that place. Try the nearest town, or your district\'s main town.</string>
     <string name="onboarding_check_title">Is this right?</string>
+    <string name="onboarding_check_lives_in">Lives in %1$s now</string>
     <string name="onboarding_check_time_unknown">Birth time not known</string>
     <string name="onboarding_show_kundli">Show my kundli</string>
     <string name="onboarding_private_note">Your birth details stay encrypted on this phone. We never share them.</string>
@@ -88,6 +89,9 @@
     <string name="today_deity">Deity of the day: %1$s</string>
     <string name="today_rahu_kaal">Rahu kaal %1$s to %2$s</string>
     <string name="today_moon">Moon in %1$s, %2$s</string>
+    <string name="today_moon_change">%1$s until %2$s, then %3$s</string>
+    <string name="today_until">Until %1$s: %2$s</string>
+    <string name="today_from">From %1$s: %2$s</string>
     <string name="today_sun">Sunrise %1$s, sunset %2$s</string>
     <string name="today_times_for">Times for %1$s</string>
     <string name="today_no_sunrise">The Sun doesn\'t rise or set here today, so there is no Rahu kaal or panchang.</string>
@@ -120,6 +124,19 @@
     <string name="colour_pink">Pink</string>
     <string name="colour_dark_blue">Dark blue</string>
     <string name="me_show_deity">Show the deity of the day</string>
+    <string name="location_use">Use my location</string>
+    <string name="location_finding">Finding where you are…</string>
+    <string name="location_note">We only need your town, so we ask for approximate location once. It stays on your phone.</string>
+    <string name="location_denied">No problem. Type your town or city below instead.</string>
+    <string name="location_unavailable">We couldn\'t get your location. Type your town or city below instead.</string>
+    <string name="onboarding_home_title">Where do you live now?</string>
+    <string name="onboarding_home_sitara">Sunrise and Rahu kaal follow where you live now, not where you were born.</string>
+    <string name="onboarding_home_birthplace">Where I was born (%1$s)</string>
+    <string name="onboarding_home_elsewhere">Somewhere else</string>
+    <string name="onboarding_deity_title">Show a deity of the day on your card?</string>
+    <string name="onboarding_deity_sitara">Some people like a deity of the day; others prefer none. Your choice stays on this phone, and you can change it in Me.</string>
+    <string name="onboarding_deity_yes">Yes, show a deity</string>
+    <string name="onboarding_deity_no">No, leave deities out</string>
     <string name="today_change_place">Change</string>
     <string name="today_place_title">Where are you today?</string>
     <string name="today_place_note">Sunrise and Rahu kaal follow where you are now, not where you were born. This stays on your phone.</string>

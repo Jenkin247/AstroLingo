@@ -40,6 +40,7 @@ import com.astrolingo.app.R
 import com.astrolingo.app.ui.kundli.SampleChart
 import com.astrolingo.app.ui.kundli.displayName
 import com.astrolingo.app.ui.places.CitySearch
+import com.astrolingo.app.ui.places.UseMyLocation
 import com.astrolingo.app.ui.theme.AstroLingoTheme
 import com.astrolingo.app.ui.theme.Spacing
 import com.astrolingo.engine.jyotish.DailyCardFacts
@@ -100,11 +101,21 @@ fun TodayScreen(
                     style = MaterialTheme.typography.headlineSmall,
                     color = AstroLingoTheme.tabColors.onPastel,
                 )
-                Text(
-                    stringArrayResource(R.array.daily_tara)[facts.tara.ordinal],
-                    style = MaterialTheme.typography.bodyLarge,
-                    color = AstroLingoTheme.tabColors.onPastel,
-                )
+                val taraLines = stringArrayResource(R.array.daily_tara)
+                val change = facts.panchang.nakshatraChange
+                val after = facts.taraAfterChange
+                val starLines = if (change != null && after != null) {
+                    val at = time(change.atUtcMillis, place.zone)
+                    listOf(
+                        stringResource(R.string.today_until, at, taraLines[facts.taraAtSunrise.ordinal]),
+                        stringResource(R.string.today_from, at, taraLines[after.ordinal]),
+                    )
+                } else {
+                    listOf(taraLines[facts.tara.ordinal])
+                }
+                starLines.forEach {
+                    Text(it, style = MaterialTheme.typography.bodyLarge, color = AstroLingoTheme.tabColors.onPastel)
+                }
             }
             Text(
                 stringArrayResource(R.array.daily_vara)[card.vara.ordinal],
@@ -170,6 +181,7 @@ private fun PlaceDialog(current: City, onDismiss: () -> Unit, onPick: (City?) ->
             ) {
                 Text(stringResource(R.string.today_place_title), style = MaterialTheme.typography.headlineSmall)
                 Text(stringResource(R.string.today_place_note), style = MaterialTheme.typography.bodyMedium)
+                UseMyLocation(index = index, onFound = { picked = it })
                 CitySearch(index = index, selected = picked, onSelect = { picked = it }, modifier = Modifier.weight(1f))
                 Row(horizontalArrangement = Arrangement.spacedBy(Spacing.sm)) {
                     TextButton(onClick = { onPick(null) }) { Text(stringResource(R.string.today_place_birthplace)) }
@@ -194,11 +206,15 @@ private fun PanchangDetails(facts: DailyCardFacts, zone: ZoneId) {
         )
         Text(stringArrayResource(R.array.daily_rahu_tip)[facts.strength.ordinal], style = MaterialTheme.typography.bodyMedium)
         Text(tithiName(p.tithi), style = MaterialTheme.typography.bodyLarge)
+        val rashi = stringResource(R.string.rashi_with_english, p.moonRashi.displayName(), p.moonRashi.englishName)
+        val star = p.nakshatra.nakshatra.displayName()
         Text(
             stringResource(
                 R.string.today_moon,
-                stringResource(R.string.rashi_with_english, p.moonRashi.displayName(), p.moonRashi.englishName),
-                p.nakshatra.nakshatra.displayName(),
+                p.moonRashiChange?.let { stringResource(R.string.today_moon_change, rashi, time(it.atUtcMillis, zone), it.next.displayName()) }
+                    ?: rashi,
+                p.nakshatraChange?.let { stringResource(R.string.today_moon_change, star, time(it.atUtcMillis, zone), it.next.displayName()) }
+                    ?: star,
             ),
             style = MaterialTheme.typography.bodyLarge,
         )
