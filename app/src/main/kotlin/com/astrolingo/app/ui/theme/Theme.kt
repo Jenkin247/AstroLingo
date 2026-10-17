@@ -94,6 +94,8 @@ fun AstroLingoTheme(
     CompositionLocalProvider(LocalTabColors provides if (darkTheme) DarkTabColors else LightTabColors) {
         MaterialTheme(
             colorScheme = if (darkTheme) DarkScheme else LightScheme,
+            typography = AstroLingoTypography,
+            shapes = AstroLingoShapes,
             content = content,
         )
     }

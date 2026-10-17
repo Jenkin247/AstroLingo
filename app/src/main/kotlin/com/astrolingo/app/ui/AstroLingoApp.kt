@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.automirrored.filled.List
@@ -35,7 +34,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.astrolingo.app.R
+import com.astrolingo.app.ui.sitara.SitaraAvatar
 import com.astrolingo.app.ui.theme.AstroLingoTheme
+import com.astrolingo.app.ui.theme.Spacing
 
 /** The four top-level destinations, in bottom-bar order. */
 enum class Tab(@StringRes val label: Int, @StringRes val placeholder: Int, val icon: ImageVector) {
@@ -80,12 +81,13 @@ private fun PlaceholderScreen(tab: Tab, modifier: Modifier = Modifier) {
     Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Column(
             modifier = Modifier
-                .padding(24.dp)
+                .padding(Spacing.lg)
                 .fillMaxWidth()
-                .background(tint, RoundedCornerShape(20.dp))
-                .padding(24.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp),
+                .background(tint, MaterialTheme.shapes.medium)
+                .padding(Spacing.lg),
+            verticalArrangement = Arrangement.spacedBy(Spacing.sm),
         ) {
+            if (tab == Tab.LEARN) SitaraAvatar(size = 96.dp)
             Text(
                 text = stringResource(tab.label),
                 style = MaterialTheme.typography.headlineMedium,
