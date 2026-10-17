@@ -7,6 +7,7 @@ composeBom = "2025.06.00"
 junit = "4.13.2"
 truth = "1.4.4"
 sqlcipher = "4.19.1"
+androidxSqlite = "2.7.0"
 tink = "1.24.0"
 blockstore = "16.4.0"
 
@@ -23,6 +24,7 @@ androidx-compose-material-icons-core = { group = "androidx.compose.material", na
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 truth = { group = "com.google.truth", name = "truth", version.ref = "truth" }
 sqlcipher-android = { group = "net.zetetic", name = "sqlcipher-android", version.ref = "sqlcipher" }
+androidx-sqlite = { group = "androidx.sqlite", name = "sqlite", version.ref = "androidxSqlite" }
 tink-android = { group = "com.google.crypto.tink", name = "tink-android", version.ref = "tink" }
 play-services-blockstore = { group = "com.google.android.gms", name = "play-services-auth-blockstore", version.ref = "blockstore" }
 

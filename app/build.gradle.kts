@@ -56,6 +56,7 @@ dependencies {
 
     // Encryption spike (debug builds only, see docs/spikes/encryption-restore.md). Moves to main in sprint 2-3.
     debugImplementation(libs.sqlcipher.android)
+    debugImplementation(libs.androidx.sqlite) // SQLCipher's SQLiteDatabase implements SupportSQLiteDatabase
     debugImplementation(libs.tink.android)
     debugImplementation(libs.play.services.blockstore)
 
