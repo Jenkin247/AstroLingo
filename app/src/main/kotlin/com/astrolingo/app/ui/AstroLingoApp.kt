@@ -71,7 +71,8 @@ enum class Tab(@StringRes val label: Int, @StringRes val placeholder: Int, val i
 private sealed interface ProfileState {
     data object Loading : ProfileState
     data object Missing : ProfileState
-    class Ready(val birth: ResolvedBirth, val kundli: Kundli) : ProfileState
+    /** @property reveal true right after onboarding, until the Kundli tab has played its reveal. */
+    class Ready(val birth: ResolvedBirth, val kundli: Kundli, val reveal: Boolean = false) : ProfileState
 }
 
 /** Resolves saved answers to a chart. Loads the city list only for the rare old Bombay/Calcutta clock case. */
@@ -99,7 +100,7 @@ fun AstroLingoApp(profiles: ProfileRepository) {
         ProfileState.Loading -> Box(Modifier.fillMaxSize())
         ProfileState.Missing -> OnboardingFlow(
             onFinished = { answers, resolved ->
-                profile = ProfileState.Ready(resolved, KundliCalculator.calculate(resolved.moment))
+                profile = ProfileState.Ready(resolved, KundliCalculator.calculate(resolved.moment), reveal = true)
                 selected = Tab.KUNDLI
                 scope.launch(Dispatchers.IO) {
                     // If saving fails the chart still shows; onboarding is asked again on next launch.
@@ -112,6 +113,7 @@ fun AstroLingoApp(profiles: ProfileRepository) {
             profile = current,
             selected = selected,
             onSelect = { selected = it },
+            onRevealed = { profile = ProfileState.Ready(current.birth, current.kundli) },
             onDelete = {
                 scope.launch {
                     withContext(Dispatchers.IO) { runCatching { profiles.deleteAll() } }
@@ -124,7 +126,13 @@ fun AstroLingoApp(profiles: ProfileRepository) {
 }
 
 @Composable
-private fun Tabs(profile: ProfileState.Ready, selected: Tab, onSelect: (Tab) -> Unit, onDelete: () -> Unit) {
+private fun Tabs(
+    profile: ProfileState.Ready,
+    selected: Tab,
+    onSelect: (Tab) -> Unit,
+    onRevealed: () -> Unit,
+    onDelete: () -> Unit,
+) {
     Scaffold(
         bottomBar = {
             NavigationBar {
@@ -145,6 +153,9 @@ private fun Tabs(profile: ProfileState.Ready, selected: Tab, onSelect: (Tab) -> 
                 title = stringResource(R.string.your_kundli_title),
                 note = if (profile.birth.timeKnown) null else stringResource(R.string.your_kundli_time_unknown),
                 modifier = Modifier.padding(padding),
+                timeKnown = profile.birth.timeKnown,
+                reveal = profile.reveal,
+                onRevealed = onRevealed,
             )
             Tab.ME -> MeScreen(onDelete = onDelete, modifier = Modifier.padding(padding))
             else -> PlaceholderScreen(tab = selected, modifier = Modifier.padding(padding))

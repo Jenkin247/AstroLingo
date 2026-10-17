@@ -75,5 +75,17 @@ class KundliCalculatorTest {
         assertThat(elapsedMillis).isLessThan(1000L)
     }
 
+    @Test
+    fun `Moon chart puts the Moon's sign in house 1 and keeps every graha's sign`() {
+        val kundli = KundliCalculator.calculate(delhi)
+        val moon = kundli.fromMoon()
+        assertThat(moon.lagna).isEqualTo(Rashi.TULA)
+        assertThat(moon.of(Graha.CHANDRA).house).isEqualTo(1)
+        // Guru in Mesha is the 7th sign from Tula.
+        assertThat(moon.of(Graha.GURU).house).isEqualTo(7)
+        assertThat(moon.grahas.map { it.rashi }).isEqualTo(kundli.grahas.map { it.rashi })
+        assertThat(moon.fromMoon()).isEqualTo(moon)
+    }
+
     private fun millis(iso: String): Long = Instant.parse(iso).toEpochMilli()
 }

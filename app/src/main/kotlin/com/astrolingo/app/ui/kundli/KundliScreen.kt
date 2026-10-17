@@ -1,6 +1,9 @@
 // Kundli tab: the chart in the user's preferred style and the list of grahas below it.
 package com.astrolingo.app.ui.kundli
 
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.tween
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -18,14 +21,20 @@ import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.astrolingo.app.R
+import com.astrolingo.app.ui.sitara.SitaraSays
 import com.astrolingo.app.ui.theme.AstroLingoTheme
 import com.astrolingo.app.ui.theme.Spacing
 import com.astrolingo.engine.chart.ChartStyle
@@ -39,11 +48,34 @@ import kotlin.math.floor
  * @param kundli the chart to show.
  * @param title who the chart belongs to, for example "Your kundli" or "Sample chart".
  * @param note optional line under the title.
+ * @param timeKnown false when the birth time is unknown: only the Moon chart is shown, since the lagna can't be trusted.
+ * @param reveal true the first time the user sees their own chart: it fades and turns into place, and Sitara says hello.
+ * @param onRevealed called when the user leaves the screen after the reveal, so it plays only once.
  */
 @OptIn(ExperimentalMaterial3Api::class) // segmented buttons; stable in recent Material 3, harmless otherwise
 @Composable
-fun KundliScreen(kundli: Kundli, title: String, note: String?, modifier: Modifier = Modifier) {
+fun KundliScreen(
+    kundli: Kundli,
+    title: String,
+    note: String?,
+    modifier: Modifier = Modifier,
+    timeKnown: Boolean = true,
+    reveal: Boolean = false,
+    onRevealed: () -> Unit = {},
+) {
     var style by rememberSaveable { mutableStateOf(ChartStyle.NORTH_INDIAN) }
+    var fromMoon by rememberSaveable(timeKnown) { mutableStateOf(!timeKnown) }
+    val shown = remember(kundli, fromMoon) { if (fromMoon) kundli.fromMoon() else kundli }
+    var revealed by remember { mutableStateOf(!reveal) }
+    val progress by animateFloatAsState(
+        targetValue = if (revealed) 1f else 0f,
+        animationSpec = tween(durationMillis = REVEAL_MILLIS, easing = FastOutSlowInEasing),
+        label = "reveal",
+    )
+    LaunchedEffect(Unit) { revealed = true }
+    // The reveal and Sitara's hello stay for this visit; leaving the tab marks them as seen.
+    val latestOnRevealed by rememberUpdatedState(onRevealed)
+    DisposableEffect(reveal) { onDispose { if (reveal) latestOnRevealed() } }
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -66,18 +98,51 @@ fun KundliScreen(kundli: Kundli, title: String, note: String?, modifier: Modifie
                 }
             }
         }
+        if (timeKnown) {
+            SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
+                listOf(false, true).forEachIndexed { index, moon ->
+                    SegmentedButton(
+                        selected = fromMoon == moon,
+                        onClick = { fromMoon = moon },
+                        shape = SegmentedButtonDefaults.itemShape(index, 2),
+                    ) {
+                        Text(stringResource(if (moon) R.string.chart_from_moon else R.string.chart_from_lagna))
+                    }
+                }
+            }
+        }
         KundliChart(
-            kundli = kundli,
+            kundli = shown,
             style = style,
-            description = stringResource(R.string.chart_description, kundli.lagna.displayName(), kundli.moonSign.displayName()),
+            description = if (fromMoon) {
+                stringResource(R.string.chart_description_moon, shown.moonSign.displayName())
+            } else {
+                stringResource(R.string.chart_description, shown.lagna.displayName(), shown.moonSign.displayName())
+            },
+            modifier = Modifier.graphicsLayer {
+                alpha = progress
+                scaleX = REVEAL_START_SCALE + (1f - REVEAL_START_SCALE) * progress
+                scaleY = scaleX
+                rotationZ = REVEAL_START_DEGREES * (1f - progress)
+            },
         )
+        if (reveal) {
+            SitaraSays(
+                text = stringResource(R.string.kundli_reveal_sitara, kundli.moonSign.displayName()),
+                modifier = Modifier.graphicsLayer { alpha = progress },
+            )
+        }
         Text(stringResource(R.string.grahas_heading), style = MaterialTheme.typography.titleLarge)
-        kundli.grahas.forEach { position ->
+        shown.grahas.forEach { position ->
             GrahaRow(position)
             HorizontalDivider()
         }
     }
 }
+
+private const val REVEAL_MILLIS = 1400
+private const val REVEAL_START_SCALE = 0.6f
+private const val REVEAL_START_DEGREES = -30f
 
 @Composable
 private fun GrahaRow(position: GrahaPosition) {
