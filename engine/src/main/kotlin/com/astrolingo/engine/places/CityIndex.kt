@@ -63,6 +63,13 @@ class CityIndex private constructor(private val cities: List<City>) {
             .map { cities[it.first] }
     }
 
+    /**
+     * The bundled place nearest a location reading, so the app can store a city and never the reading itself.
+     * Plain great-circle distance; a few kilometres change sunrise and Rahu kaal by seconds.
+     */
+    fun nearest(latitudeDegrees: Double, longitudeDegrees: Double): City? =
+        cities.minByOrNull { distanceRadians(latitudeDegrees, longitudeDegrees, it.latitudeDegrees, it.longitudeDegrees) }
+
     private fun rank(names: List<String>, q: String): Int? {
         return when {
             names.any { it == q } -> RANK_EXACT
@@ -110,6 +117,16 @@ class CityIndex private constructor(private val cities: List<City>) {
         }
 
         /** Lower case without accents: "Mahesāna" becomes "mahesana". */
+        /** Central angle between two points (haversine), in radians. */
+        private fun distanceRadians(lat1: Double, lon1: Double, lat2: Double, lon2: Double): Double {
+            val p1 = Math.toRadians(lat1)
+            val p2 = Math.toRadians(lat2)
+            val dp = p2 - p1
+            val dl = Math.toRadians(lon2 - lon1)
+            val h = Math.sin(dp / 2).let { it * it } + Math.cos(p1) * Math.cos(p2) * Math.sin(dl / 2).let { it * it }
+            return 2 * Math.asin(Math.sqrt(h.coerceIn(0.0, 1.0)))
+        }
+
         internal fun fold(text: String): String =
             diacritics.replace(Normalizer.normalize(text, Normalizer.Form.NFD), "").lowercase()
     }

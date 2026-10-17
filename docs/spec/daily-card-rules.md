@@ -17,6 +17,7 @@ The daily card is chosen by fixed Vedic rules on the phone, never by AI. The rul
 
 - **Which day.** The card belongs to the local civil date. A panchang day starts at sunrise, so every Moon value is taken **at that date's sunrise** at the current place. A reminder at 6:00 before a 7:13 sunrise still shows that date's card.
 - **Sunrise and sunset.** Visible sunrise: the Sun's upper limb on the horizon with standard refraction, as most printed panchangs use. Checked within 2 minutes of the reference.
+- **When the Moon changes during the day.** Guru ruling, sprint 3. We keep the sunrise (udaya) values, as a panchang does, and also list when the Moon leaves that nakshatra or sign before sunset, as printed panchangs list a nakshatra's end time. Muhurta texts (Muhurta Chintamani) use the nakshatra in force at the moment of action, so the card shows both halves: "Until 9:47 am … / From 9:47 am …". The **headline** (strength, theme, gochar house) uses whatever holds for most of the daytime, which is the value at the midpoint between sunrise and sunset; the Moon moves under 13°20′ in any daytime, so it changes star (and sign) at most once. Change times are found by halving to under a second and checked within a minute of the reference.
 - **Polar day or night.** No sunrise means no panchang; the card shows the colour and deity only.
 
 ## The facts
@@ -30,7 +31,7 @@ The daily card is chosen by fixed Vedic rules on the phone, never by AI. The rul
    - Needs care: 4, 8, 12
 5. **Tara bala.** Count from the birth nakshatra (which is 1) to today's, then fold into nine: Janma, Sampat, Vipat, Kshema, Pratyak, Sadhana, Naidhana, Mitra, Parama Mitra.
    - Favourable: Sampat, Kshema, Sadhana, Mitra, Parama Mitra
-   - Mixed: Janma
+   - Mixed: Janma. Many families treat the birth star's return as a day for care, so its line leans gentle: "go gently and check in with yourself".
    - Needs care: Vipat, Pratyak, Naidhana
 6. **Strength of the day.** Gochar and tara each score +1 (favourable), 0 (mixed) or −1 (needs care).
    - Total 2: **Strong**
@@ -63,4 +64,4 @@ Only the birth Moon is needed. With no birth time we use 12:00 local time. If th
 
 ## Tests
 
-Engine unit tests cover every row above: weekday table, tara counting and wrap past Revati, gochar leanings, the strength table, Rahu kaal parts, tithi boundaries, Purnima and Amavasya on real dates, sunrise in Delhi and London, and the polar case.
+Engine unit tests cover every row above, plus a star change before midday (Delhi, 17 October 2026, Mula to Purva Ashadha at 9:47 am), a sign change after midday (Delhi, 5 January 2025) and a day with no change: weekday table, tara counting and wrap past Revati, gochar leanings, the strength table, Rahu kaal parts, tithi boundaries, Purnima and Amavasya on real dates, sunrise in Delhi and London, and the polar case.

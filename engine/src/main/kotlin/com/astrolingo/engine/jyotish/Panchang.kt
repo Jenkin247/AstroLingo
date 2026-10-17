@@ -79,7 +79,16 @@ data class Tithi(val number: Int) {
 }
 
 /**
- * One day's panchang at one place. The Moon's values are taken at sunrise, as a panchang does.
+ * The Moon moving into a new nakshatra or sign between sunrise and sunset.
+ *
+ * @property atUtcMillis when it moves, to the second.
+ * @property next where it moves to.
+ */
+data class MoonChange<T>(val atUtcMillis: Long, val next: T)
+
+/**
+ * One day's panchang at one place. The Moon's values are taken at sunrise, as a panchang does, and a change
+ * during the daytime is listed with its time, as a printed panchang lists a nakshatra's end time.
  *
  * @property date the civil date it describes.
  * @property sunriseUtcMillis visible sunrise (upper limb, standard refraction).
@@ -89,6 +98,8 @@ data class Tithi(val number: Int) {
  * @property moonRashi the Moon's sidereal sign at sunrise.
  * @property nakshatra the Moon's nakshatra at sunrise.
  * @property rahuKaal the eighth of the daytime ruled by Rahu.
+ * @property nakshatraChange when the Moon leaves [nakshatra] before sunset, or null if it stays all day.
+ * @property moonRashiChange when the Moon leaves [moonRashi] before sunset, or null if it stays all day.
  */
 data class DayPanchang(
     val date: LocalDate,
@@ -99,12 +110,26 @@ data class DayPanchang(
     val moonRashi: Rashi,
     val nakshatra: NakshatraPosition,
     val rahuKaal: TimeWindow,
-)
+    val nakshatraChange: MoonChange<Nakshatra>? = null,
+    val moonRashiChange: MoonChange<Rashi>? = null,
+) {
+    private val middayUtcMillis: Long get() = sunriseUtcMillis + (sunsetUtcMillis - sunriseUtcMillis) / 2
+
+    /** The nakshatra that holds for most of the daytime. The Moon changes at most once between sunrise and sunset. */
+    val daytimeNakshatra: Nakshatra
+        get() = nakshatraChange?.takeIf { it.atUtcMillis <= middayUtcMillis }?.next ?: nakshatra.nakshatra
+
+    /** The Moon sign that holds for most of the daytime. */
+    val daytimeMoonRashi: Rashi
+        get() = moonRashiChange?.takeIf { it.atUtcMillis <= middayUtcMillis }?.next ?: moonRashi
+}
 
 /** Calculates the daily panchang. Pure function of the input; no I/O and no clock. */
 object PanchangCalculator {
     private const val DAYTIME_PARTS = 8
     private const val SEARCH_DAYS = 1.0
+    private const val RASHI_SPAN_DEGREES = 30.0
+    private const val MILLIS_PER_SECOND = 1000L
 
     /**
      * Panchang for a civil date at a place.
@@ -121,9 +146,11 @@ object PanchangCalculator {
         val sunrise = searchRiseSet(Body.Sun, observer, Direction.Rise, midnight, SEARCH_DAYS) ?: return null
         val sunset = searchRiseSet(Body.Sun, observer, Direction.Set, sunrise, SEARCH_DAYS) ?: return null
 
-        val ayanamsa = Ayanamsa.lahiri(sunrise.tt / 36525.0)
         val moonTropical = eclipticGeoMoon(sunrise).lon
-        val moonSidereal = normalizeDegrees(moonTropical - ayanamsa)
+        val moonSidereal = moonSidereal(sunrise)
+        val moonAtSunset = moonSidereal(sunset)
+        val nakshatra = Nakshatra.positionOf(moonSidereal)
+        val rashi = Rashi.of(moonSidereal)
         val sunTropical = sunPosition(sunrise).elon
 
         val vara = Vara.of(date.dayOfWeek)
@@ -135,10 +162,32 @@ object PanchangCalculator {
             sunsetUtcMillis = setMillis,
             vara = vara,
             tithi = Tithi.of(moonTropical - sunTropical),
-            moonRashi = Rashi.of(moonSidereal),
-            nakshatra = Nakshatra.positionOf(moonSidereal),
+            moonRashi = rashi,
+            nakshatra = nakshatra,
             rahuKaal = rahuKaal(riseMillis, setMillis, vara),
+            nakshatraChange = Nakshatra.positionOf(moonAtSunset).nakshatra.takeIf { it != nakshatra.nakshatra }?.let {
+                MoonChange(crossing(sunrise, sunset, (nakshatra.nakshatra.ordinal + 1) * Nakshatra.SPAN_DEGREES), it)
+            },
+            moonRashiChange = Rashi.of(moonAtSunset).takeIf { it != rashi }?.let {
+                MoonChange(crossing(sunrise, sunset, (rashi.ordinal + 1) * RASHI_SPAN_DEGREES), it)
+            },
         )
+    }
+
+    /** The Moon's sidereal longitude (Lahiri) at a moment. */
+    private fun moonSidereal(time: Time): Double =
+        normalizeDegrees(eclipticGeoMoon(time).lon - Ayanamsa.lahiri(time.tt / 36525.0))
+
+    /** When the Moon crosses [boundaryDegrees] between [from] and [to], found by halving to under a second. */
+    private fun crossing(from: Time, to: Time, boundaryDegrees: Double): Long {
+        var before = from.toMillisecondsSince1970()
+        var after = to.toMillisecondsSince1970()
+        while (after - before > MILLIS_PER_SECOND) {
+            val middle = before + (after - before) / 2
+            val past = normalizeDegrees(moonSidereal(Time.fromMillisecondsSince1970(middle)) - boundaryDegrees + 180.0) >= 180.0
+            if (past) after = middle else before = middle
+        }
+        return after
     }
 
     /** Rahu kaal: the daytime split into eight equal parts, and the vara's part from the traditional table. */

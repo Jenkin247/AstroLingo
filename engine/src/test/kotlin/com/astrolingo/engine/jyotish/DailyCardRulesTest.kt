@@ -71,6 +71,34 @@ class DailyCardRulesTest {
     }
 
     @Test
+    fun `a star change before midday sets the headline and both taras are kept`() {
+        // Born under Ashwini. Sunrise in Mula, the 19th star, so Janma (19 is 1 in the third cycle of nine);
+        // from the morning the Moon is in Purva Ashadha, the 20th star, so Sampat.
+        val day = panchang(Rashi.DHANU, Nakshatra.MULA, Vara.SHANIVARA).copy(
+            sunriseUtcMillis = 0L,
+            sunsetUtcMillis = 12 * 3_600_000L,
+            nakshatraChange = MoonChange(3 * 3_600_000L, Nakshatra.PURVA_ASHADHA),
+        )
+        val facts = DailyCardRules.facts(Rashi.MESHA, Nakshatra.ASHWINI, day)
+        assertThat(facts.taraAtSunrise).isEqualTo(Tara.JANMA)
+        assertThat(facts.taraAfterChange).isEqualTo(Tara.SAMPAT)
+        assertThat(facts.tara).isEqualTo(Tara.SAMPAT)
+        assertThat(facts.strength).isEqualTo(DayStrength.STEADY) // Dhanu is the 9th (mixed), Sampat favourable
+    }
+
+    @Test
+    fun `a star change after midday leaves the headline on the sunrise star`() {
+        val day = panchang(Rashi.DHANU, Nakshatra.MULA, Vara.SHANIVARA).copy(
+            sunriseUtcMillis = 0L,
+            sunsetUtcMillis = 12 * 3_600_000L,
+            nakshatraChange = MoonChange(9 * 3_600_000L, Nakshatra.PURVA_ASHADHA),
+        )
+        val facts = DailyCardRules.facts(Rashi.MESHA, Nakshatra.ASHWINI, day)
+        assertThat(facts.tara).isEqualTo(Tara.JANMA)
+        assertThat(facts.taraAfterChange).isEqualTo(Tara.SAMPAT)
+    }
+
+    @Test
     fun `every weekday lord has one colour and one deity`() {
         Vara.entries.forEach {
             assertThat(DayColour.of(it.lord).graha).isEqualTo(it.lord)

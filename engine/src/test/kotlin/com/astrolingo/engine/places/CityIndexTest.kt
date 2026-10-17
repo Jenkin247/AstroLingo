@@ -76,4 +76,12 @@ class CityIndexTest {
         assertThat(HistoricCityClock.toAskAbout(kolkata, LocalDate.of(1946, 1, 1), index)).isEqualTo(HistoricCityClock.CALCUTTA_TIME)
         assertThat(HistoricCityClock.toAskAbout(pune, LocalDate.of(1946, 1, 1), index)).isNull()
     }
+
+    @Test
+    fun `a location reading snaps to the nearest bundled place`() {
+        // A fictional reading a little east of central Pune, and one in Hounslow near Heathrow.
+        assertThat(index.nearest(18.52, 73.87)?.name).isEqualTo("Pune")
+        assertThat(index.nearest(51.47, -0.36)?.name).isEqualTo("Hounslow")
+        assertThat(index.nearest(51.47, -0.36)?.zone?.id).isEqualTo("Europe/London")
+    }
 }

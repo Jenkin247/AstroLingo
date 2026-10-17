@@ -81,10 +81,12 @@ enum class DayStrength { STRONG, STEADY, GENTLE }
  * @property panchang the day's panchang at the user's current place.
  * @property colour colour of the day.
  * @property deity deity of the day; the app hides it when the user turned deities off.
- * @property gocharHouse house of today's Moon counted from the birth Moon sign, 1 to 12.
+ * @property gocharHouse house of the daytime Moon sign counted from the birth Moon sign, 1 to 12.
  * @property gocharLeaning how that house leans.
- * @property tara today's tara from the birth nakshatra.
- * @property strength the headline.
+ * @property tara the tara that holds for most of the daytime, from the birth nakshatra.
+ * @property taraAtSunrise the tara at sunrise; differs from [tara] when the Moon changes star before midday.
+ * @property taraAfterChange the tara after the Moon changes star during the daytime, or null when it does not.
+ * @property strength the headline, from the gochar and tara that hold for most of the daytime.
  */
 data class DailyCardFacts(
     val panchang: DayPanchang,
@@ -93,6 +95,8 @@ data class DailyCardFacts(
     val gocharHouse: Int,
     val gocharLeaning: Leaning,
     val tara: Tara,
+    val taraAtSunrise: Tara,
+    val taraAfterChange: Tara?,
     val strength: DayStrength,
 )
 
@@ -109,9 +113,9 @@ object DailyCardRules {
      * @param today the panchang for the day at the user's current place.
      */
     fun facts(birthMoonSign: Rashi, birthNakshatra: Nakshatra, today: DayPanchang): DailyCardFacts {
-        val house = KundliCalculator.wholeSignHouse(today.moonRashi, birthMoonSign)
+        val house = KundliCalculator.wholeSignHouse(today.daytimeMoonRashi, birthMoonSign)
         val houseLeaning = gocharLeaning(house)
-        val tara = Tara.of(birthNakshatra, today.nakshatra.nakshatra)
+        val tara = Tara.of(birthNakshatra, today.daytimeNakshatra)
         val lord = today.vara.lord
         return DailyCardFacts(
             panchang = today,
@@ -120,6 +124,8 @@ object DailyCardRules {
             gocharHouse = house,
             gocharLeaning = houseLeaning,
             tara = tara,
+            taraAtSunrise = Tara.of(birthNakshatra, today.nakshatra.nakshatra),
+            taraAfterChange = today.nakshatraChange?.let { Tara.of(birthNakshatra, it.next) },
             strength = strength(houseLeaning, tara.leaning),
         )
     }
