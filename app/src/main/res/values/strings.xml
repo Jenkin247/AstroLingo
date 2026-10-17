@@ -81,4 +81,43 @@
     <string name="day_part_afternoon">Afternoon, noon to 6 pm</string>
     <string name="day_part_evening">Evening, 6 pm to midnight</string>
     <string name="day_part_not_sure">I\'m not sure</string>
+    <string name="today_strong">A strong day</string>
+    <string name="today_steady">A steady day</string>
+    <string name="today_gentle">A gentle day</string>
+    <string name="today_colour">Colour of the day: %1$s</string>
+    <string name="today_deity">Deity of the day: %1$s</string>
+    <string name="today_rahu_kaal">Rahu kaal %1$s to %2$s</string>
+    <string name="today_moon">Moon in %1$s, %2$s</string>
+    <string name="today_sun">Sunrise %1$s, sunset %2$s</string>
+    <string name="today_times_for">Times for %1$s</string>
+    <string name="today_no_sunrise">The Sun doesn\'t rise or set here today, so there is no Rahu kaal or panchang.</string>
+    <string name="tithi_shukla">Shukla %1$s</string>
+    <string name="tithi_krishna">Krishna %1$s</string>
+    <string name="tithi_purnima">Purnima, full moon</string>
+    <string name="tithi_amavasya">Amavasya, new moon</string>
+    <string-array name="tithi_names">
+        <item>Pratipada</item>
+        <item>Dwitiya</item>
+        <item>Tritiya</item>
+        <item>Chaturthi</item>
+        <item>Panchami</item>
+        <item>Shashthi</item>
+        <item>Saptami</item>
+        <item>Ashtami</item>
+        <item>Navami</item>
+        <item>Dashami</item>
+        <item>Ekadashi</item>
+        <item>Dwadashi</item>
+        <item>Trayodashi</item>
+        <item>Chaturdashi</item>
+        <item>Purnima</item>
+    </string-array>
+    <string name="colour_orange">Orange</string>
+    <string name="colour_white">White</string>
+    <string name="colour_red">Red</string>
+    <string name="colour_green">Green</string>
+    <string name="colour_yellow">Yellow</string>
+    <string name="colour_pink">Pink</string>
+    <string name="colour_dark_blue">Dark blue</string>
+    <string name="me_show_deity">Show the deity of the day</string>
 </resources>
