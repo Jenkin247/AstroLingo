@@ -52,6 +52,7 @@ import com.astrolingo.engine.places.City
 import com.astrolingo.engine.places.CityIndex
 import java.time.Instant
 import java.time.LocalDate
+import java.time.LocalTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
@@ -64,6 +65,8 @@ import kotlinx.coroutines.withContext
  * @param kundli the user's chart; only the birth Moon is used.
  * @param place where sunrise and Rahu kaal are worked out.
  * @param showDeity false when the user turned deities off; then no deity is ever shown.
+ * @param placeGiven true when the user told us where they live; the greeting then follows the local time there,
+ *   otherwise it stays generic.
  * @param onPlaceChange called with the place the user picked, or null to go back to the birthplace.
  */
 @Composable
@@ -72,6 +75,7 @@ fun TodayScreen(
     place: City,
     showDeity: Boolean,
     modifier: Modifier = Modifier,
+    placeGiven: Boolean = false,
     onPlaceChange: (City?) -> Unit = {},
 ) {
     var choosingPlace by remember { mutableStateOf(false) }
@@ -85,6 +89,10 @@ fun TodayScreen(
             .padding(Spacing.md),
         verticalArrangement = Arrangement.spacedBy(Spacing.md),
     ) {
+        Text(
+            stringResource(if (placeGiven) greeting(LocalTime.now(place.zone)) else R.string.today_greeting),
+            style = MaterialTheme.typography.headlineSmall,
+        )
         Text(card.date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)), style = MaterialTheme.typography.titleMedium)
         val facts = card.facts
         Column(
@@ -226,6 +234,17 @@ private fun PanchangDetails(facts: DailyCardFacts, zone: ZoneId) {
     }
 }
 
+/** Good morning until noon, afternoon until 5 pm, evening after that and through the night. */
+private fun greeting(now: LocalTime): Int = when (now.hour) {
+    in MORNING_FROM until NOON -> R.string.today_greeting_morning
+    in NOON until EVENING_FROM -> R.string.today_greeting_afternoon
+    else -> R.string.today_greeting_evening
+}
+
+private const val MORNING_FROM = 4
+private const val NOON = 12
+private const val EVENING_FROM = 17
+
 @Composable
 private fun tithiName(tithi: Tithi): String = when {
     tithi.isPurnima -> stringResource(R.string.tithi_purnima)
@@ -279,5 +298,5 @@ private val DayColour.swatch: Color
 @Composable
 private fun TodayScreenPreview() {
     val pune = City(1259229, "Pune", "Maharashtra", "IN", 18.51957, 73.85535, ZoneId.of("Asia/Kolkata"), 0, emptyList())
-    AstroLingoTheme { Surface { TodayScreen(SampleChart.kundli, pune, showDeity = true) } }
+    AstroLingoTheme { Surface { TodayScreen(SampleChart.kundli, pune, showDeity = true, placeGiven = true) } }
 }

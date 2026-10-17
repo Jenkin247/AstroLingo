@@ -100,8 +100,9 @@ fun OnboardingFlow(onFinished: (OnboardingAnswers, ResolvedBirth) -> Unit, modif
     }
     val city: City? = cityId?.let { id -> index?.byId(id) }
     val home: City? = homeId?.let { id -> index?.byId(id) }
-    // Null means "same as the birthplace", which is also what an older profile without this answer gets.
-    val currentPlace: City? = if (livesElsewhere) home?.takeIf { it != city } else null
+    // An explicit answer, even "where I was born", so Today can greet by local time. Null only for profiles saved
+    // before this question existed.
+    val currentPlace: City? = if (livesElsewhere) home else city
     val details: BirthDetails? = if (date != null && city != null) {
         BirthDetails(
             date = date,
@@ -367,7 +368,7 @@ private fun CheckStep(
             style = MaterialTheme.typography.titleMedium,
         )
         Text(details.city.label, style = MaterialTheme.typography.titleMedium)
-        if (livesIn != null) {
+        if (livesIn != null && livesIn != details.city) {
             Text(stringResource(R.string.onboarding_check_lives_in, livesIn.label), style = MaterialTheme.typography.bodyLarge)
         }
 

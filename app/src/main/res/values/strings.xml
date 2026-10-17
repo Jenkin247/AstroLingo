@@ -82,6 +82,10 @@
     <string name="day_part_afternoon">Afternoon, noon to 6 pm</string>
     <string name="day_part_evening">Evening, 6 pm to midnight</string>
     <string name="day_part_not_sure">I\'m not sure</string>
+    <string name="today_greeting">Namaste!</string>
+    <string name="today_greeting_morning">Good morning!</string>
+    <string name="today_greeting_afternoon">Good afternoon!</string>
+    <string name="today_greeting_evening">Good evening!</string>
     <string name="today_strong">A strong day</string>
     <string name="today_steady">A steady day</string>
     <string name="today_gentle">A gentle day</string>

@@ -185,8 +185,10 @@ private fun Tabs(
                 kundli = profile.kundli,
                 place = profile.answers.todayPlace,
                 showDeity = profile.answers.showDeity,
+                placeGiven = profile.answers.currentPlace != null,
                 modifier = Modifier.padding(padding),
-                onPlaceChange = { place -> onAnswersChange(profile.answers.copy(currentPlace = place)) },
+                // "Use my birthplace" is an answer too, so it is stored as the birthplace rather than cleared.
+                onPlaceChange = { place -> onAnswersChange(profile.answers.copy(currentPlace = place ?: profile.answers.birth.city)) },
             )
             Tab.ME -> MeScreen(
                 showDeity = profile.answers.showDeity,
