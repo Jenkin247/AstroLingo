@@ -53,4 +53,10 @@
     <string name="note_local_mean_time">Clocks before 1906 followed local time, so old records can be a few minutes off.</string>
     <string name="your_kundli_title">Your kundli</string>
     <string name="your_kundli_time_unknown">Your birth time is not known, so this chart uses noon. The Moon sign is usually right; the lagna and houses may not be.</string>
+    <string name="me_privacy">Your birth details and kundli are stored only on this phone, encrypted. They are never sent to Sitara, ads or analytics.</string>
+    <string name="me_delete">Delete my birth details</string>
+    <string name="me_delete_title">Delete your birth details?</string>
+    <string name="me_delete_body">Your birth details and kundli will be removed from this phone. You can enter them again afterwards.</string>
+    <string name="me_delete_confirm">Delete</string>
+    <string name="me_delete_cancel">Keep</string>
 </resources>
