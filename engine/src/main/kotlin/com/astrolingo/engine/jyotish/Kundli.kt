@@ -66,6 +66,25 @@ data class Kundli(
     /** Janma nakshatra: the Moon's nakshatra at birth. */
     val birthNakshatra: NakshatraPosition get() = of(Graha.CHANDRA).nakshatra
 
+    /** The Sun's sign in Western (tropical) astrology, used to explain why the Vedic one differs. */
+    val westernSunSign: Rashi get() = Rashi.of(normalizeDegrees(of(Graha.SURYA).siderealLongitude + ayanamsa))
+
+    /**
+     * The neighbouring sign the lagna would be in if the birth time were a few minutes off, or null when
+     * the lagna sits well inside its sign. The lagna moves about a degree every four minutes.
+     *
+     * @param marginDegrees how close to a sign edge counts as near (test users' feedback: about 2°).
+     */
+    fun lagnaNeighbourIfNearEdge(marginDegrees: Double = 2.0): Rashi? {
+        val inSign = lagnaLongitude % Rashi.SPAN_DEGREES
+        val count = Rashi.entries.size
+        return when {
+            inSign < marginDegrees -> Rashi.entries[(lagna.ordinal + count - 1) % count]
+            inSign > Rashi.SPAN_DEGREES - marginDegrees -> Rashi.entries[(lagna.ordinal + 1) % count]
+            else -> null
+        }
+    }
+
     /**
      * Chandra lagna chart: the same grahas with houses counted from the Moon's sign.
      * Used when the birth time is unknown, because the Moon's sign rarely changes within a day

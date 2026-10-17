@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -20,6 +21,7 @@ import androidx.compose.material3.SegmentedButtonDefaults
 import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -38,6 +40,7 @@ import com.astrolingo.app.ui.sitara.SitaraSays
 import com.astrolingo.app.ui.theme.AstroLingoTheme
 import com.astrolingo.app.ui.theme.Spacing
 import com.astrolingo.engine.chart.ChartStyle
+import com.astrolingo.engine.jyotish.Graha
 import com.astrolingo.engine.jyotish.GrahaPosition
 import com.astrolingo.engine.jyotish.Kundli
 import kotlin.math.floor
@@ -132,10 +135,46 @@ fun KundliScreen(
                 modifier = Modifier.graphicsLayer { alpha = progress },
             )
         }
+        val neighbour = if (timeKnown && !fromMoon) shown.lagnaNeighbourIfNearEdge() else null
+        if (neighbour != null) {
+            Text(
+                stringResource(R.string.lagna_near_edge, shown.lagna.displayName(), neighbour.displayName()),
+                style = MaterialTheme.typography.bodyMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+        WesternSignNote(kundli)
         Text(stringResource(R.string.grahas_heading), style = MaterialTheme.typography.titleLarge)
+        Text(
+            stringResource(R.string.grahas_glossary),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
         shown.grahas.forEach { position ->
             GrahaRow(position)
             HorizontalDivider()
+        }
+    }
+}
+
+/** The question every Western-astrology user asks first, answered with their own Sun. */
+@Composable
+private fun WesternSignNote(kundli: Kundli) {
+    var open by rememberSaveable { mutableStateOf(false) }
+    Column {
+        TextButton(onClick = { open = !open }, modifier = Modifier.heightIn(min = Spacing.touchTarget)) {
+            Text(stringResource(R.string.western_sign_question))
+        }
+        if (open) {
+            val sun = kundli.of(Graha.SURYA).rashi
+            Text(
+                stringResource(
+                    R.string.western_sign_answer,
+                    stringResource(R.string.rashi_with_english, sun.displayName(), sun.englishName),
+                    kundli.westernSunSign.englishName,
+                ),
+                style = MaterialTheme.typography.bodyMedium,
+            )
         }
     }
 }
@@ -153,7 +192,8 @@ private fun GrahaRow(position: GrahaPosition) {
         }
         Column(Modifier.weight(1.4f)) {
             Text(
-                "${position.rashi.displayName()} ${formatDegrees(position.degreeInRashi)}",
+                "${stringResource(R.string.rashi_with_english, position.rashi.displayName(), position.rashi.englishName)} " +
+                    formatDegrees(position.degreeInRashi),
                 style = MaterialTheme.typography.bodyMedium,
             )
             Text(
