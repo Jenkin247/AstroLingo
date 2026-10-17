@@ -1,4 +1,4 @@
-// App shell: the four tabs (Today, Learn, Kundli, Me) with placeholder screens.
+// App shell: onboarding first, then the four tabs (Today, Learn, Kundli, Me).
 // Each feature replaces its placeholder in the sprint named on screen.
 package com.astrolingo.app.ui
 
@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.automirrored.filled.List
@@ -23,6 +24,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -34,11 +36,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.astrolingo.app.R
+import com.astrolingo.app.onboarding.OnboardingFlow
+import com.astrolingo.app.onboarding.ResolvedBirth
 import com.astrolingo.app.ui.kundli.KundliScreen
-import com.astrolingo.app.ui.kundli.SampleChart
 import com.astrolingo.app.ui.sitara.SitaraAvatar
 import com.astrolingo.app.ui.theme.AstroLingoTheme
 import com.astrolingo.app.ui.theme.Spacing
+import com.astrolingo.engine.jyotish.Kundli
+import com.astrolingo.engine.jyotish.KundliCalculator
 
 /** The four top-level destinations, in bottom-bar order. */
 enum class Tab(@StringRes val label: Int, @StringRes val placeholder: Int, val icon: ImageVector) {
@@ -48,10 +53,26 @@ enum class Tab(@StringRes val label: Int, @StringRes val placeholder: Int, val i
     ME(R.string.tab_me, R.string.placeholder_me, Icons.Filled.Person),
 }
 
-/** Root composable: bottom navigation plus the selected tab's screen. */
+/**
+ * Root composable: onboarding until birth details are in, then bottom navigation plus the selected tab.
+ * The user's chart is held in memory only until encrypted profile storage lands (ADR 0002).
+ */
 @Composable
 fun AstroLingoApp() {
+    var birth by remember { mutableStateOf<ResolvedBirth?>(null) }
     var selected by rememberSaveable { mutableStateOf(Tab.TODAY) }
+    val current = birth
+    if (current == null) {
+        OnboardingFlow(
+            onFinished = { _, resolved ->
+                birth = resolved
+                selected = Tab.KUNDLI
+            },
+            modifier = Modifier.safeDrawingPadding(),
+        )
+        return
+    }
+    val kundli: Kundli = remember(current) { KundliCalculator.calculate(current.moment) }
     Scaffold(
         bottomBar = {
             NavigationBar {
@@ -68,9 +89,9 @@ fun AstroLingoApp() {
     ) { padding ->
         when (selected) {
             Tab.KUNDLI -> KundliScreen(
-                kundli = SampleChart.kundli,
-                title = stringResource(R.string.sample_chart_title),
-                note = stringResource(R.string.sample_chart_note),
+                kundli = kundli,
+                title = stringResource(R.string.your_kundli_title),
+                note = if (current.timeKnown) null else stringResource(R.string.your_kundli_time_unknown),
                 modifier = Modifier.padding(padding),
             )
             else -> PlaceholderScreen(tab = selected, modifier = Modifier.padding(padding))
