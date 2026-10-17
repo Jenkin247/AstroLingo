@@ -151,7 +151,12 @@ private fun Tabs(
             Tab.KUNDLI -> KundliScreen(
                 kundli = profile.kundli,
                 title = stringResource(R.string.your_kundli_title),
-                note = if (profile.birth.timeKnown) null else stringResource(R.string.your_kundli_time_unknown),
+                note = when {
+                    profile.birth.timeKnown -> null
+                    profile.birth.moonUncertain ->
+                        stringResource(R.string.your_kundli_time_unknown) + " " + stringResource(R.string.your_kundli_moon_uncertain)
+                    else -> stringResource(R.string.your_kundli_time_unknown)
+                },
                 modifier = Modifier.padding(padding),
                 timeKnown = profile.birth.timeKnown,
                 reveal = profile.reveal,

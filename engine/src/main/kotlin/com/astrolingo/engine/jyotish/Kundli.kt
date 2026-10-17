@@ -75,15 +75,14 @@ data class Kundli(
      *
      * @param marginDegrees how close to a sign edge counts as near (test users' feedback: about 2°).
      */
-    fun lagnaNeighbourIfNearEdge(marginDegrees: Double = 2.0): Rashi? {
-        val inSign = lagnaLongitude % Rashi.SPAN_DEGREES
-        val count = Rashi.entries.size
-        return when {
-            inSign < marginDegrees -> Rashi.entries[(lagna.ordinal + count - 1) % count]
-            inSign > Rashi.SPAN_DEGREES - marginDegrees -> Rashi.entries[(lagna.ordinal + 1) % count]
-            else -> null
-        }
-    }
+    fun lagnaNeighbourIfNearEdge(marginDegrees: Double = 2.0): Rashi? = neighbourIfNearEdge(lagnaLongitude, marginDegrees)
+
+    /**
+     * For a Western Sun within [marginDegrees] of a sign change, the sign next door: newspaper horoscopes
+     * draw the line on fixed dates, so a "cusp" birth may be told the neighbouring sign.
+     */
+    fun westernSunCuspNeighbour(marginDegrees: Double = 1.0): Rashi? =
+        neighbourIfNearEdge(normalizeDegrees(of(Graha.SURYA).siderealLongitude + ayanamsa), marginDegrees)
 
     /**
      * Chandra lagna chart: the same grahas with houses counted from the Moon's sign.
@@ -162,4 +161,16 @@ object KundliCalculator {
      * Source: BPHS ch. 7 (bhava from rashi), Astro Guru convention for AstroLingo.
      */
     fun wholeSignHouse(rashi: Rashi, lagna: Rashi): Int = (rashi.ordinal - lagna.ordinal + 12) % 12 + 1
+}
+
+/** The sign next to [longitude]'s sign when it is within [marginDegrees] of the shared edge, else null. */
+private fun neighbourIfNearEdge(longitude: Double, marginDegrees: Double): Rashi? {
+    val sign = Rashi.of(longitude)
+    val inSign = longitude % Rashi.SPAN_DEGREES
+    val count = Rashi.entries.size
+    return when {
+        inSign < marginDegrees -> Rashi.entries[(sign.ordinal + count - 1) % count]
+        inSign > Rashi.SPAN_DEGREES - marginDegrees -> Rashi.entries[(sign.ordinal + 1) % count]
+        else -> null
+    }
 }

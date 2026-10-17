@@ -26,10 +26,12 @@ import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.TimePicker
 import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.produceState
@@ -43,6 +45,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.astrolingo.app.R
+import com.astrolingo.app.ui.kundli.displayName
 import com.astrolingo.app.ui.sitara.SitaraSays
 import com.astrolingo.app.ui.theme.Spacing
 import com.astrolingo.engine.jyotish.BirthTimeNote
@@ -53,6 +56,8 @@ import java.time.Instant
 import java.time.LocalDate
 import java.time.LocalTime
 import java.time.ZoneOffset
+import java.time.format.DateTimeFormatter
+import java.time.format.FormatStyle
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -74,20 +79,31 @@ fun OnboardingFlow(onFinished: (OnboardingAnswers, ResolvedBirth) -> Unit, modif
     var goal by rememberSaveable { mutableStateOf<DailyGoal?>(null) }
     var level by rememberSaveable { mutableStateOf<Level?>(null) }
     var timeUnknown by rememberSaveable { mutableStateOf(false) }
+    // Test users: an untouched picker must not become a real birth time, so Next waits for a choice.
+    var timeChosen by rememberSaveable { mutableStateOf(false) }
+    var dayPart by rememberSaveable { mutableStateOf<DayPart?>(null) }
     var cityId by rememberSaveable { mutableStateOf<Long?>(null) }
     var useCityClock by rememberSaveable { mutableStateOf(false) }
     val dateState = rememberDatePickerState(
         initialSelectedDateMillis = null,
+        // Open on 1990 rather than this month, so older users scroll less to reach their year.
+        initialDisplayedMonthMillis = LocalDate.of(INITIAL_YEAR, 1, 1).atStartOfDay(ZoneOffset.UTC).toInstant().toEpochMilli(),
         yearRange = 1900..LocalDate.now().year,
     )
-    val timeState = rememberTimePickerState(initialHour = 6, initialMinute = 0, is24Hour = false)
+    val timeState = rememberTimePickerState(initialHour = INITIAL_HOUR, initialMinute = 0, is24Hour = false)
 
     val date: LocalDate? = dateState.selectedDateMillis?.let {
         Instant.ofEpochMilli(it).atZone(ZoneOffset.UTC).toLocalDate()
     }
     val city: City? = cityId?.let { id -> index?.byId(id) }
     val details: BirthDetails? = if (date != null && city != null) {
-        BirthDetails(date, if (timeUnknown) null else LocalTime.of(timeState.hour, timeState.minute), city, useCityClock)
+        BirthDetails(
+            date = date,
+            time = if (timeUnknown) null else LocalTime.of(timeState.hour, timeState.minute),
+            city = city,
+            useCityClock = useCityClock,
+            dayPart = if (timeUnknown) dayPart else null,
+        )
     } else {
         null
     }
@@ -155,6 +171,14 @@ fun OnboardingFlow(onFinished: (OnboardingAnswers, ResolvedBirth) -> Unit, modif
                 ) {
                     StepTitle(stringResource(R.string.onboarding_time_title))
                     if (!timeUnknown) TimePicker(state = timeState)
+                    LaunchedEffect(timeState.hour, timeState.minute) {
+                        if (timeState.hour != INITIAL_HOUR || timeState.minute != 0) timeChosen = true
+                    }
+                    if (!timeUnknown && !timeChosen) {
+                        OutlinedButton(onClick = { timeChosen = true }, modifier = Modifier.heightIn(min = Spacing.touchTarget)) {
+                            Text(stringResource(R.string.onboarding_time_is_initial, formatTime(LocalTime.of(INITIAL_HOUR, 0))))
+                        }
+                    }
                     if (!timeUnknown && timeState.hour < AFTER_MIDNIGHT_HOURS) {
                         // Test users: families often call 12:20 am on the 8th "the night of the 7th".
                         SitaraSays(stringResource(R.string.onboarding_time_after_midnight))
@@ -169,7 +193,7 @@ fun OnboardingFlow(onFinished: (OnboardingAnswers, ResolvedBirth) -> Unit, modif
                     if (timeUnknown) {
                         SitaraSays(stringResource(R.string.onboarding_time_unknown_sitara))
                     }
-                    NextButton(enabled = true) { step = Step.PLACE }
+                    NextButton(enabled = timeUnknown || timeChosen) { step = Step.PLACE }
                 }
                 Step.PLACE -> PlaceStep(
                     index = index,
@@ -183,6 +207,7 @@ fun OnboardingFlow(onFinished: (OnboardingAnswers, ResolvedBirth) -> Unit, modif
                         details = details,
                         index = index!!,
                         onUseCityClock = { useCityClock = it },
+                        onDayPart = { dayPart = it },
                         onConfirm = { resolved ->
                             onFinished(
                                 OnboardingAnswers(checkNotNull(purpose), goal, checkNotNull(level), details),
@@ -288,16 +313,20 @@ private fun CheckStep(
     details: BirthDetails,
     index: CityIndex,
     onUseCityClock: (Boolean) -> Unit,
+    onDayPart: (DayPart?) -> Unit,
     onConfirm: (ResolvedBirth) -> Unit,
     modifier: Modifier = Modifier,
 ) {
     val clock = remember(details.date, details.time, details.city) { BirthDetailsResolver.cityClockToAsk(details, index) }
     val resolved = remember(details) { BirthDetailsResolver.resolve(details, index) }
+    val moonByPart = remember(details.date, details.time, details.city, details.useCityClock) {
+        BirthDetailsResolver.moonByDayPart(details, index)
+    }
     Column(modifier.verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(Spacing.md)) {
         StepTitle(stringResource(R.string.onboarding_check_title))
-        Text(details.date.toString(), style = MaterialTheme.typography.titleMedium)
+        Text(details.date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.LONG)), style = MaterialTheme.typography.titleMedium)
         Text(
-            details.time?.toString() ?: stringResource(R.string.onboarding_check_time_unknown),
+            details.time?.let(::formatTime) ?: stringResource(R.string.onboarding_check_time_unknown),
             style = MaterialTheme.typography.titleMedium,
         )
         Text(details.city.label, style = MaterialTheme.typography.titleMedium)
@@ -311,6 +340,17 @@ private fun CheckStep(
             )
             ClockOption(stringResource(R.string.city_clock_ist), selected = !details.useCityClock) { onUseCityClock(false) }
             ClockOption(stringResource(R.string.city_clock_local), selected = details.useCityClock) { onUseCityClock(true) }
+        }
+        if (moonByPart != null) {
+            SitaraSays(stringResource(R.string.day_part_question))
+            DayPart.entries.forEach { part ->
+                val moon = moonByPart.getValue(part).map { it.label() }.joinToString(stringResource(R.string.day_part_or))
+                ClockOption(
+                    stringResource(R.string.day_part_option, stringResource(part.label), moon),
+                    selected = details.dayPart == part,
+                ) { onDayPart(part) }
+            }
+            ClockOption(stringResource(R.string.day_part_not_sure), selected = details.dayPart == null) { onDayPart(null) }
         }
         resolved.notes.forEach { note ->
             val text = when (note) {
@@ -345,3 +385,22 @@ private fun ClockOption(label: String, selected: Boolean, onClick: () -> Unit) {
 
 /** Birth times before 4 am get a reminder that the date is the calendar date, not "the night of". */
 private const val AFTER_MIDNIGHT_HOURS = 4
+
+private const val INITIAL_HOUR = 6
+private const val INITIAL_YEAR = 1990
+
+/** "5:45 am" or "05:45", following the phone's language. */
+private fun formatTime(time: LocalTime): String = time.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT))
+
+private val DayPart.label: Int
+    get() = when (this) {
+        DayPart.NIGHT -> R.string.day_part_night
+        DayPart.MORNING -> R.string.day_part_morning
+        DayPart.AFTERNOON -> R.string.day_part_afternoon
+        DayPart.EVENING -> R.string.day_part_evening
+    }
+
+/** "Meena (Pisces), Revati". */
+@Composable
+private fun MoonPlace.label(): String =
+    stringResource(R.string.rashi_with_english, rashi.displayName(), rashi.englishName) + ", " + nakshatra.displayName()

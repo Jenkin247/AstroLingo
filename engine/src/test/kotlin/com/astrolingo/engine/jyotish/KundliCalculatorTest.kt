@@ -94,6 +94,18 @@ class KundliCalculatorTest {
     }
 
     @Test
+    fun `Western Sun on a cusp names the neighbouring sign`() {
+        // Tropical Sun 270.5°: half a degree into Capricorn, so Sagittarius is next door.
+        val kundli = KundliCalculator.calculate(delhi)
+        val sun = kundli.of(Graha.SURYA)
+        fun withTropicalSun(tropical: Double) = kundli.copy(
+            grahas = kundli.grahas.map { if (it.graha == Graha.SURYA) sun.copy(siderealLongitude = tropical - kundli.ayanamsa) else it },
+        )
+        assertThat(withTropicalSun(270.5).westernSunCuspNeighbour()).isEqualTo(Rashi.DHANU)
+        assertThat(withTropicalSun(275.0).westernSunCuspNeighbour()).isNull()
+    }
+
+    @Test
     fun `lagna near a sign edge names the neighbouring sign`() {
         val kundli = KundliCalculator.calculate(delhi)
         fun at(longitude: Double) = kundli.copy(lagnaLongitude = longitude, lagna = Rashi.of(longitude))

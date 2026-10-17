@@ -3,6 +3,7 @@ package com.astrolingo.app.profile
 
 import com.astrolingo.app.onboarding.BirthDetails
 import com.astrolingo.app.onboarding.DailyGoal
+import com.astrolingo.app.onboarding.DayPart
 import com.astrolingo.app.onboarding.Level
 import com.astrolingo.app.onboarding.OnboardingAnswers
 import com.astrolingo.app.onboarding.Purpose
@@ -25,6 +26,7 @@ object ProfileCodec {
     private const val K_DATE = "birth_date"
     private const val K_TIME = "birth_time"
     private const val K_CITY_CLOCK = "use_city_clock"
+    private const val K_DAY_PART = "day_part"
     private const val K_CITY_ID = "city_id"
     private const val K_CITY_NAME = "city_name"
     private const val K_CITY_ADMIN = "city_admin"
@@ -45,6 +47,7 @@ object ProfileCodec {
             put(K_DATE, birth.date.toString())
             birth.time?.let { put(K_TIME, it.toString()) }
             put(K_CITY_CLOCK, birth.useCityClock.toString())
+            birth.dayPart?.let { put(K_DAY_PART, it.name) }
             put(K_CITY_ID, city.id.toString())
             put(K_CITY_NAME, city.name)
             put(K_CITY_ADMIN, city.admin)
@@ -81,6 +84,7 @@ object ProfileCodec {
                 time = rows[K_TIME]?.let(LocalTime::parse),
                 city = city,
                 useCityClock = rows.getValue(K_CITY_CLOCK).toBooleanStrict(),
+                dayPart = rows[K_DAY_PART]?.let(DayPart::valueOf),
             ),
         )
     }.getOrNull()

@@ -36,9 +36,16 @@ import kotlin.math.min
  * @param kundli the chart to draw.
  * @param style North Indian (houses fixed) or South Indian (signs fixed).
  * @param description spoken by TalkBack in place of the drawing; the planet list below the chart carries the detail.
+ * @param markLagna false for a Moon chart, whose first house is the Moon's sign, not the lagna: no "La" mark.
  */
 @Composable
-fun KundliChart(kundli: Kundli, style: ChartStyle, description: String, modifier: Modifier = Modifier) {
+fun KundliChart(
+    kundli: Kundli,
+    style: ChartStyle,
+    description: String,
+    modifier: Modifier = Modifier,
+    markLagna: Boolean = true,
+) {
     val cells = remember(kundli, style) { ChartLayout.layout(kundli, style) }
     val textMeasurer = rememberTextMeasurer()
     val line = MaterialTheme.colorScheme.onSurfaceVariant
@@ -64,7 +71,7 @@ fun KundliChart(kundli: Kundli, style: ChartStyle, description: String, modifier
             val path = cellPath(cell)
             if (cell.isLagna) drawPath(path, lagnaFill)
             drawPath(path, line, style = stroke)
-            drawLabels(cell, style, textMeasurer, grahaStyle, signStyle)
+            drawLabels(cell, style, markLagna, textMeasurer, grahaStyle, signStyle)
         }
         if (style == ChartStyle.NORTH_INDIAN) {
             drawRect(line, style = stroke)
@@ -84,6 +91,7 @@ private fun DrawScope.cellPath(cell: ChartCell): Path = Path().apply {
 private fun DrawScope.drawLabels(
     cell: ChartCell,
     style: ChartStyle,
+    markLagna: Boolean,
     textMeasurer: TextMeasurer,
     grahaStyle: TextStyle,
     signStyle: TextStyle,
@@ -92,7 +100,7 @@ private fun DrawScope.drawLabels(
     // North Indian prints the sign number in each house; South Indian's boxes are fixed signs, so they're named.
     val signLabel = when (style) {
         ChartStyle.NORTH_INDIAN -> cell.rashi.number.toString()
-        ChartStyle.SOUTH_INDIAN -> cell.rashi.englishName.take(SIGN_LETTERS) + if (cell.isLagna) " · La" else ""
+        ChartStyle.SOUTH_INDIAN -> cell.rashi.englishName.take(SIGN_LETTERS) + if (cell.isLagna && markLagna) " · La" else ""
     }
     val grahas = cell.grahas.joinToString(" ") { ChartLayout.abbreviation(it) }
     val lines = listOf(signLabel to signStyle, grahas to grahaStyle).filter { it.first.isNotEmpty() }
