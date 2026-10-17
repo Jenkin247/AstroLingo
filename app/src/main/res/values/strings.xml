@@ -12,4 +12,11 @@
     <string name="placeholder_kundli">Your kundli arrives in sprint 2.</string>
     <string name="placeholder_me">Profile and privacy controls arrive in sprint 5.</string>
     <string name="sitara_description">Sitara, your AstroLingo guide</string>
+    <string name="chart_north">North Indian</string>
+    <string name="chart_south">South Indian</string>
+    <string name="chart_description">Kundli chart. Lagna in %1$s, Moon in %2$s. Planet details are listed below.</string>
+    <string name="grahas_heading">Grahas</string>
+    <string name="graha_detail">%1$s pada %2$d, house %3$d</string>
+    <string name="sample_chart_title">Sample chart</string>
+    <string name="sample_chart_note">Asha Testwal, a fictional person born 15 August 1990, 6:30 am, Pune. Your own kundli appears here after you add your birth details.</string>
 </resources>
