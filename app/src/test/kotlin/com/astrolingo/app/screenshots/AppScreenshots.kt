@@ -81,6 +81,23 @@ class AppScreenshots {
         shot("07_me")
     }
 
+    @Test
+    fun darkTheme() {
+        val answers = OnboardingAnswers(
+            purpose = Purpose.GUIDANCE,
+            goal = null,
+            level = Level.SOME,
+            birth = BirthDetails(LocalDate.of(1990, 8, 15), LocalTime.of(6, 30), index.search("Pune").first()),
+            currentPlace = index.search("London").first(),
+        )
+        compose.setContent { AstroLingoTheme(darkTheme = true) { AstroLingoApp(InMemoryProfileRepository(answers)) } }
+        waitForText("Rahu kaal")
+        shot("08_today_dark")
+        compose.onNodeWithText("Kundli").performClick()
+        compose.waitForIdle()
+        shot("09_kundli_dark")
+    }
+
     private companion object {
         const val WAIT_MILLIS = 15_000L
     }

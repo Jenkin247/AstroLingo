@@ -13,6 +13,9 @@ import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Info
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
@@ -36,6 +39,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.astrolingo.app.R
+import com.astrolingo.app.ui.components.InfoCard
 import com.astrolingo.app.ui.sitara.SitaraSays
 import com.astrolingo.app.ui.theme.AstroLingoTheme
 import com.astrolingo.app.ui.theme.Spacing
@@ -114,22 +118,29 @@ fun KundliScreen(
                 }
             }
         }
-        KundliChart(
-            kundli = shown,
-            style = style,
-            description = if (fromMoon) {
-                stringResource(R.string.chart_description_moon, shown.moonSign.displayName())
-            } else {
-                stringResource(R.string.chart_description, shown.lagna.displayName(), shown.moonSign.displayName())
-            },
-            markLagna = !fromMoon,
-            modifier = Modifier.graphicsLayer {
-                alpha = progress
-                scaleX = REVEAL_START_SCALE + (1f - REVEAL_START_SCALE) * progress
-                scaleY = scaleX
-                rotationZ = REVEAL_START_DEGREES * (1f - progress)
-            },
-        )
+        InfoCard {
+            KundliChart(
+                kundli = shown,
+                style = style,
+                description = if (fromMoon) {
+                    stringResource(R.string.chart_description_moon, shown.moonSign.displayName())
+                } else {
+                    stringResource(R.string.chart_description, shown.lagna.displayName(), shown.moonSign.displayName())
+                },
+                markLagna = !fromMoon,
+                modifier = Modifier.graphicsLayer {
+                    alpha = progress
+                    scaleX = REVEAL_START_SCALE + (1f - REVEAL_START_SCALE) * progress
+                    scaleY = scaleX
+                    rotationZ = REVEAL_START_DEGREES * (1f - progress)
+                },
+            )
+        }
+        if (timeKnown && kundli.lagna == kundli.moonSign) {
+            InfoCard(icon = Icons.Filled.Info, title = stringResource(R.string.chart_same_sign_title)) {
+                Text(stringResource(R.string.chart_same_sign, kundli.moonSign.displayName()), style = MaterialTheme.typography.bodyMedium)
+            }
+        }
         if (reveal) {
             SitaraSays(
                 text = stringResource(
@@ -147,16 +158,17 @@ fun KundliScreen(
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
-        WesternSignNote(kundli)
-        Text(stringResource(R.string.grahas_heading), style = MaterialTheme.typography.titleLarge)
-        Text(
-            stringResource(R.string.grahas_glossary),
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
-        )
-        shown.grahas.forEach { position ->
-            GrahaRow(position)
-            HorizontalDivider()
+        InfoCard { WesternSignNote(kundli) }
+        InfoCard(title = stringResource(R.string.grahas_heading), icon = Icons.Filled.Star) {
+            Text(
+                stringResource(if (fromMoon) R.string.grahas_glossary_moon else R.string.grahas_glossary),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            shown.grahas.forEachIndexed { i, position ->
+                if (i > 0) HorizontalDivider()
+                GrahaRow(position)
+            }
         }
     }
 }

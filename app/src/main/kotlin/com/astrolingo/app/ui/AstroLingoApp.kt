@@ -13,19 +13,28 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.toggleable
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SegmentedButton
+import androidx.compose.material3.SegmentedButtonDefaults
+import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -54,10 +63,12 @@ import com.astrolingo.app.onboarding.ResolvedBirth
 import com.astrolingo.app.profile.InMemoryProfileRepository
 import com.astrolingo.app.profile.ProfileRepository
 import com.astrolingo.app.today.TodayScreen
+import com.astrolingo.app.ui.components.InfoCard
 import com.astrolingo.app.ui.kundli.KundliScreen
 import com.astrolingo.app.ui.sitara.SitaraAvatar
 import com.astrolingo.app.ui.theme.AstroLingoTheme
 import com.astrolingo.app.ui.theme.Spacing
+import com.astrolingo.app.ui.theme.ThemeMode
 import com.astrolingo.engine.jyotish.Kundli
 import com.astrolingo.engine.jyotish.KundliCalculator
 import com.astrolingo.engine.places.CityIndex
@@ -97,9 +108,15 @@ private fun ready(answers: OnboardingAnswers): ProfileState.Ready {
 /**
  * Root composable: onboarding until a profile exists, then bottom navigation plus the selected tab.
  * The profile is read from and saved to [profiles] off the main thread.
+ *
+ * @param themeMode the light or dark choice shown in Me; [onThemeMode] is called when the user changes it.
  */
 @Composable
-fun AstroLingoApp(profiles: ProfileRepository) {
+fun AstroLingoApp(
+    profiles: ProfileRepository,
+    themeMode: ThemeMode = ThemeMode.SYSTEM,
+    onThemeMode: (ThemeMode) -> Unit = {},
+) {
     val scope = rememberCoroutineScope()
     var profile by remember { mutableStateOf<ProfileState>(ProfileState.Loading) }
     var selected by rememberSaveable { mutableStateOf(Tab.TODAY) }
@@ -128,6 +145,8 @@ fun AstroLingoApp(profiles: ProfileRepository) {
             selected = selected,
             onSelect = { selected = it },
             onRevealed = { profile = current.copy(reveal = false) },
+            themeMode = themeMode,
+            onThemeMode = onThemeMode,
             onAnswersChange = { answers ->
                 profile = current.copy(answers = answers)
                 scope.launch(Dispatchers.IO) { runCatching { profiles.save(answers) } }
@@ -149,6 +168,8 @@ private fun Tabs(
     selected: Tab,
     onSelect: (Tab) -> Unit,
     onRevealed: () -> Unit,
+    themeMode: ThemeMode,
+    onThemeMode: (ThemeMode) -> Unit,
     onAnswersChange: (OnboardingAnswers) -> Unit,
     onDelete: () -> Unit,
 ) {
@@ -193,6 +214,8 @@ private fun Tabs(
             Tab.ME -> MeScreen(
                 showDeity = profile.answers.showDeity,
                 onShowDeity = { show -> onAnswersChange(profile.answers.copy(showDeity = show)) },
+                themeMode = themeMode,
+                onThemeMode = onThemeMode,
                 onDelete = onDelete,
                 modifier = Modifier.padding(padding),
             )
@@ -201,27 +224,53 @@ private fun Tabs(
     }
 }
 
-/** Me tab for now: what is stored and a way to delete it. The full profile screen comes in sprint 5. */
+/** Me tab for now: privacy, settings and a way to delete the birth details. The full profile screen comes in sprint 5. */
+@OptIn(ExperimentalMaterial3Api::class) // segmented buttons; stable in recent Material 3, harmless otherwise
 @Composable
-private fun MeScreen(showDeity: Boolean, onShowDeity: (Boolean) -> Unit, onDelete: () -> Unit, modifier: Modifier = Modifier) {
+private fun MeScreen(
+    showDeity: Boolean,
+    onShowDeity: (Boolean) -> Unit,
+    themeMode: ThemeMode,
+    onThemeMode: (ThemeMode) -> Unit,
+    onDelete: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
     var confirming by remember { mutableStateOf(false) }
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(Spacing.lg),
+            .verticalScroll(rememberScrollState())
+            .padding(Spacing.md),
         verticalArrangement = Arrangement.spacedBy(Spacing.md),
     ) {
         Text(stringResource(R.string.tab_me), style = MaterialTheme.typography.headlineMedium)
-        Text(stringResource(R.string.me_privacy), style = MaterialTheme.typography.bodyLarge)
-        Row(
-            Modifier
-                .fillMaxWidth()
-                .toggleable(value = showDeity, role = Role.Switch, onValueChange = onShowDeity)
-                .heightIn(min = Spacing.touchTarget),
-            verticalAlignment = Alignment.CenterVertically,
-        ) {
-            Text(stringResource(R.string.me_show_deity), Modifier.weight(1f), style = MaterialTheme.typography.bodyLarge)
-            Switch(checked = showDeity, onCheckedChange = null)
+        InfoCard(title = stringResource(R.string.me_block_privacy), icon = Icons.Filled.Lock) {
+            Text(stringResource(R.string.me_privacy), style = MaterialTheme.typography.bodyMedium)
+        }
+        InfoCard(title = stringResource(R.string.me_block_settings), icon = Icons.Filled.Settings) {
+            Text(stringResource(R.string.me_appearance), style = MaterialTheme.typography.titleSmall)
+            SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
+                ThemeMode.entries.forEachIndexed { index, mode ->
+                    SegmentedButton(
+                        selected = themeMode == mode,
+                        onClick = { onThemeMode(mode) },
+                        shape = SegmentedButtonDefaults.itemShape(index, ThemeMode.entries.size),
+                    ) {
+                        Text(stringResource(mode.label))
+                    }
+                }
+            }
+            HorizontalDivider()
+            Row(
+                Modifier
+                    .fillMaxWidth()
+                    .toggleable(value = showDeity, role = Role.Switch, onValueChange = onShowDeity)
+                    .heightIn(min = Spacing.touchTarget),
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Text(stringResource(R.string.me_show_deity), Modifier.weight(1f), style = MaterialTheme.typography.bodyLarge)
+                Switch(checked = showDeity, onCheckedChange = null)
+            }
         }
         OutlinedButton(onClick = { confirming = true }) { Text(stringResource(R.string.me_delete)) }
     }
@@ -242,6 +291,13 @@ private fun MeScreen(showDeity: Boolean, onShowDeity: (Boolean) -> Unit, onDelet
         )
     }
 }
+
+private val ThemeMode.label: Int
+    get() = when (this) {
+        ThemeMode.SYSTEM -> R.string.me_appearance_system
+        ThemeMode.LIGHT -> R.string.me_appearance_light
+        ThemeMode.DARK -> R.string.me_appearance_dark
+    }
 
 /** Temporary screen for a tab, tinted with that tab's pastel colour. */
 @Composable
