@@ -1,4 +1,5 @@
-// Onboarding: purpose, daily goal (learners), level, then birth date, time and place, then a check of what we'll use.
+// Onboarding: purpose, daily goal (learners), level, then birth date, time and place, where the user lives now,
+// whether to show a deity, then a check of what we'll use.
 // Sign-in (sprint 3) and the reminder time (sprint 4) slot in after the kundli reveal.
 package com.astrolingo.app.onboarding
 
@@ -44,6 +45,7 @@ import androidx.compose.ui.unit.dp
 import com.astrolingo.app.R
 import com.astrolingo.app.ui.kundli.displayName
 import com.astrolingo.app.ui.places.CitySearch
+import com.astrolingo.app.ui.places.UseMyLocation
 import com.astrolingo.app.ui.sitara.SitaraSays
 import com.astrolingo.app.ui.theme.Spacing
 import com.astrolingo.engine.jyotish.BirthTimeNote
@@ -59,7 +61,7 @@ import java.time.format.FormatStyle
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-private enum class Step { PURPOSE, GOAL, LEVEL, DATE, TIME, PLACE, CHECK }
+private enum class Step { PURPOSE, GOAL, LEVEL, DATE, TIME, PLACE, HOME, DEITY, CHECK }
 
 /**
  * The whole onboarding flow. State survives rotation; nothing is stored until [onFinished].
@@ -82,6 +84,9 @@ fun OnboardingFlow(onFinished: (OnboardingAnswers, ResolvedBirth) -> Unit, modif
     var dayPart by rememberSaveable { mutableStateOf<DayPart?>(null) }
     var cityId by rememberSaveable { mutableStateOf<Long?>(null) }
     var useCityClock by rememberSaveable { mutableStateOf(false) }
+    var livesElsewhere by rememberSaveable { mutableStateOf(false) }
+    var homeId by rememberSaveable { mutableStateOf<Long?>(null) }
+    var showDeity by rememberSaveable { mutableStateOf<Boolean?>(null) }
     val dateState = rememberDatePickerState(
         initialSelectedDateMillis = null,
         // Open on 1990 rather than this month, so older users scroll less to reach their year.
@@ -94,6 +99,10 @@ fun OnboardingFlow(onFinished: (OnboardingAnswers, ResolvedBirth) -> Unit, modif
         Instant.ofEpochMilli(it).atZone(ZoneOffset.UTC).toLocalDate()
     }
     val city: City? = cityId?.let { id -> index?.byId(id) }
+    val home: City? = homeId?.let { id -> index?.byId(id) }
+    // An explicit answer, even "where I was born", so Today can greet by local time. Null only for profiles saved
+    // before this question existed.
+    val currentPlace: City? = if (livesElsewhere) home else city
     val details: BirthDetails? = if (date != null && city != null) {
         BirthDetails(
             date = date,
@@ -114,7 +123,9 @@ fun OnboardingFlow(onFinished: (OnboardingAnswers, ResolvedBirth) -> Unit, modif
             Step.DATE -> Step.LEVEL
             Step.TIME -> Step.DATE
             Step.PLACE -> Step.TIME
-            Step.CHECK -> Step.PLACE
+            Step.HOME -> Step.PLACE
+            Step.DEITY -> Step.HOME
+            Step.CHECK -> Step.DEITY
         }
     }
 
@@ -197,18 +208,45 @@ fun OnboardingFlow(onFinished: (OnboardingAnswers, ResolvedBirth) -> Unit, modif
                     index = index,
                     selected = city,
                     onSelect = { cityId = it.id; useCityClock = false },
-                    onNext = { step = Step.CHECK },
+                    onNext = { step = Step.HOME },
                     modifier = Modifier.weight(1f),
+                )
+                Step.HOME -> HomeStep(
+                    index = index,
+                    birthplace = city,
+                    livesElsewhere = livesElsewhere,
+                    home = home,
+                    onLivesElsewhere = { livesElsewhere = it },
+                    onSelect = { homeId = it.id },
+                    onNext = { step = Step.DEITY },
+                    modifier = Modifier.weight(1f),
+                )
+                Step.DEITY -> ChoiceStep(
+                    title = stringResource(R.string.onboarding_deity_title),
+                    options = listOf(true, false),
+                    label = { stringResource(if (it) R.string.onboarding_deity_yes else R.string.onboarding_deity_no) },
+                    selected = showDeity,
+                    onSelect = { showDeity = it },
+                    onNext = { step = Step.CHECK },
+                    sitara = stringResource(R.string.onboarding_deity_sitara),
                 )
                 Step.CHECK -> if (details != null && index != null) {
                     CheckStep(
                         details = details,
+                        livesIn = currentPlace,
                         index = index!!,
                         onUseCityClock = { useCityClock = it },
                         onDayPart = { dayPart = it },
                         onConfirm = { resolved ->
                             onFinished(
-                                OnboardingAnswers(checkNotNull(purpose), goal, checkNotNull(level), details),
+                                OnboardingAnswers(
+                                    purpose = checkNotNull(purpose),
+                                    goal = goal,
+                                    level = checkNotNull(level),
+                                    birth = details,
+                                    showDeity = showDeity ?: true,
+                                    currentPlace = currentPlace,
+                                ),
                                 resolved,
                             )
                         },
@@ -280,8 +318,37 @@ private fun PlaceStep(
 }
 
 @Composable
+private fun HomeStep(
+    index: CityIndex?,
+    birthplace: City?,
+    livesElsewhere: Boolean,
+    home: City?,
+    onLivesElsewhere: (Boolean) -> Unit,
+    onSelect: (City) -> Unit,
+    onNext: () -> Unit,
+    modifier: Modifier = Modifier,
+) {
+    Column(modifier, verticalArrangement = Arrangement.spacedBy(Spacing.sm)) {
+        SitaraSays(stringResource(R.string.onboarding_home_sitara))
+        StepTitle(stringResource(R.string.onboarding_home_title))
+        ClockOption(stringResource(R.string.onboarding_home_birthplace, birthplace?.name.orEmpty()), selected = !livesElsewhere) {
+            onLivesElsewhere(false)
+        }
+        ClockOption(stringResource(R.string.onboarding_home_elsewhere), selected = livesElsewhere) { onLivesElsewhere(true) }
+        if (livesElsewhere) {
+            UseMyLocation(index = index, onFound = onSelect)
+            CitySearch(index = index, selected = home, onSelect = onSelect, modifier = Modifier.weight(1f))
+        } else {
+            Spacer(Modifier.weight(1f))
+        }
+        NextButton(enabled = !livesElsewhere || home != null, onClick = onNext)
+    }
+}
+
+@Composable
 private fun CheckStep(
     details: BirthDetails,
+    livesIn: City?,
     index: CityIndex,
     onUseCityClock: (Boolean) -> Unit,
     onDayPart: (DayPart?) -> Unit,
@@ -301,6 +368,9 @@ private fun CheckStep(
             style = MaterialTheme.typography.titleMedium,
         )
         Text(details.city.label, style = MaterialTheme.typography.titleMedium)
+        if (livesIn != null && livesIn != details.city) {
+            Text(stringResource(R.string.onboarding_check_lives_in, livesIn.label), style = MaterialTheme.typography.bodyLarge)
+        }
 
         if (clock != null) {
             Text(

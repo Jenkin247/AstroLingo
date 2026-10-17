@@ -49,6 +49,7 @@ import com.astrolingo.app.R
 import com.astrolingo.app.onboarding.BirthDetailsResolver
 import com.astrolingo.app.onboarding.OnboardingAnswers
 import com.astrolingo.app.onboarding.OnboardingFlow
+import com.astrolingo.app.onboarding.Purpose
 import com.astrolingo.app.onboarding.ResolvedBirth
 import com.astrolingo.app.profile.InMemoryProfileRepository
 import com.astrolingo.app.profile.ProfileRepository
@@ -112,7 +113,9 @@ fun AstroLingoApp(profiles: ProfileRepository) {
         ProfileState.Missing -> OnboardingFlow(
             onFinished = { answers, resolved ->
                 profile = ProfileState.Ready(answers, resolved, KundliCalculator.calculate(resolved.moment), reveal = true)
-                selected = Tab.KUNDLI
+                // Guidance users came for the card; learners see their kundli revealed first. The reveal still plays
+                // the first time a guidance user opens Kundli.
+                selected = if (answers.purpose == Purpose.LEARN) Tab.KUNDLI else Tab.TODAY
                 scope.launch(Dispatchers.IO) {
                     // If saving fails the chart still shows; onboarding is asked again on next launch.
                     runCatching { profiles.save(answers) }
@@ -182,8 +185,10 @@ private fun Tabs(
                 kundli = profile.kundli,
                 place = profile.answers.todayPlace,
                 showDeity = profile.answers.showDeity,
+                placeGiven = profile.answers.currentPlace != null,
                 modifier = Modifier.padding(padding),
-                onPlaceChange = { place -> onAnswersChange(profile.answers.copy(currentPlace = place)) },
+                // "Use my birthplace" is an answer too, so it is stored as the birthplace rather than cleared.
+                onPlaceChange = { place -> onAnswersChange(profile.answers.copy(currentPlace = place ?: profile.answers.birth.city)) },
             )
             Tab.ME -> MeScreen(
                 showDeity = profile.answers.showDeity,

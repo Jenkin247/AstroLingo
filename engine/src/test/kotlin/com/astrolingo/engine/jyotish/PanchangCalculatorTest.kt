@@ -81,6 +81,38 @@ class PanchangCalculatorTest {
     }
 
     @Test
+    fun `the Moon entering Purva Ashadha at 9 47 am in Delhi is listed and holds for most of the day`() {
+        // Reference: a scratch Swiss Ephemeris run (Lahiri), never committed: Moon crosses 253°20' at 04:17:17 UTC.
+        val day = delhi("2026-10-17")
+        assertThat(day.nakshatra.nakshatra).isEqualTo(Nakshatra.MULA)
+        val change = checkNotNull(day.nakshatraChange)
+        assertThat(change.next).isEqualTo(Nakshatra.PURVA_ASHADHA)
+        assertThat(abs(change.atUtcMillis - utc("2026-10-17T04:17:17Z"))).isAtMost(60_000L)
+        assertThat(day.daytimeNakshatra).isEqualTo(Nakshatra.PURVA_ASHADHA)
+        assertThat(day.moonRashiChange).isNull()
+        assertThat(day.daytimeMoonRashi).isEqualTo(Rashi.DHANU)
+    }
+
+    @Test
+    fun `a sign change after midday keeps the sunrise sign for the card`() {
+        // Reference: Moon enters Meena at 09:04:58 UTC, after Delhi's midday.
+        val day = delhi("2025-01-05")
+        assertThat(day.moonRashi).isEqualTo(Rashi.KUMBHA)
+        val change = checkNotNull(day.moonRashiChange)
+        assertThat(change.next).isEqualTo(Rashi.MEENA)
+        assertThat(abs(change.atUtcMillis - utc("2025-01-05T09:04:58Z"))).isAtMost(60_000L)
+        assertThat(day.daytimeMoonRashi).isEqualTo(Rashi.KUMBHA)
+    }
+
+    @Test
+    fun `a day without a change lists none`() {
+        val day = delhi("2025-01-01")
+        assertThat(day.nakshatraChange).isNull()
+        assertThat(day.moonRashiChange).isNull()
+        assertThat(day.daytimeNakshatra).isEqualTo(day.nakshatra.nakshatra)
+    }
+
+    @Test
     fun `no sunrise in the polar night gives no panchang`() {
         val day = PanchangCalculator.forDay(LocalDate.parse("2025-12-21"), ZoneId.of("Europe/Oslo"), 78.22, 15.65)
         assertThat(day).isNull()

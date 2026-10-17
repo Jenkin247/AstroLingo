@@ -13,6 +13,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -34,6 +35,8 @@ import com.astrolingo.engine.places.CityIndex
 @Composable
 fun CitySearch(index: CityIndex?, selected: City?, onSelect: (City) -> Unit, modifier: Modifier = Modifier) {
     var query by rememberSaveable { mutableStateOf(selected?.label ?: "") }
+    // A place picked from outside the field (Use my location) shows up in it too.
+    LaunchedEffect(selected) { selected?.let { query = it.label } }
     val results = remember(query, index) { if (index == null || query == selected?.label) emptyList() else index.search(query) }
     Column(modifier, verticalArrangement = Arrangement.spacedBy(Spacing.sm)) {
         OutlinedTextField(
