@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Sitara, first look (sprint 1, in-house): a calm star-gazer, faith- and gender-neutral.
+     Source: docs/design/sitara.svg. Lottie idle and thinking loops come with Ask Sitara (ADR 0007). -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120">
+    <path
+        android:pathData="M8,64.0 a52,52 0 1,0 104,0 a52,52 0 1,0 -104,0 Z"
+        android:fillColor="#C3B8F2"
+        android:fillAlpha="0.35" />
+    <path
+        android:pathData="M81,22.0 a11,11 0 1,0 22,0 a11,11 0 1,0 -22,0 Z"
+        android:fillColor="#F7DE8F"
+        android:fillAlpha="0.45" />
+    <path
+        android:pathData="M92,13 L94.6,19.4 L101,22 L94.6,24.6 L92,31 L89.4,24.6 L83,22 L89.4,19.4 Z"
+        android:fillColor="#F7DE8F" />
+    <path
+        android:pathData="M20.4,34.0 a1.6,1.6 0 1,0 3.2,0 a1.6,1.6 0 1,0 -3.2,0 Z"
+        android:fillColor="#2C7D74"
+        android:fillAlpha="0.5" />
+    <path
+        android:pathData="M102.8,52.0 a1.2,1.2 0 1,0 2.4,0 a1.2,1.2 0 1,0 -2.4,0 Z"
+        android:fillColor="#2C7D74"
+        android:fillAlpha="0.5" />
+    <path
+        android:pathData="M29,16.0 a1,1 0 1,0 2,0 a1,1 0 1,0 -2,0 Z"
+        android:fillColor="#2C7D74"
+        android:fillAlpha="0.5" />
+    <path
+        android:pathData="M28,116 C28,90 42,76 60,76 C78,76 92,90 92,116 Z"
+        android:fillColor="#2C7D74" />
+    <path
+        android:pathData="M40,116 C40,96 48,86 60,86 C72,86 80,96 80,116 Z"
+        android:fillColor="#A8DDD3" />
+    <path
+        android:pathData="M50,76 Q60,84 70,76 L70,72 L50,72 Z"
+        android:fillColor="#2C7D74" />
+    <path
+        android:pathData="M40,52.0 a20,20 0 1,0 40,0 a20,20 0 1,0 -40,0 Z"
+        android:fillColor="#FBE7D6" />
+    <path
+        android:pathData="M38,62 C35,40 45,28 60,28 C76,28 85,40 82,62 C80,63 78,62 77,60 C78,50 74,43 66,41 C60,44 52,44 47,40 C44,46 43,54 44,60 C43,62 40,63 38,62 Z"
+        android:fillColor="#253042" />
+    <path
+        android:pathData="M53,51 Q56,48 59,51"
+        android:strokeColor="#253042"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M66,50 Q69,47 72,50"
+        android:strokeColor="#253042"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M57,61 Q61.5,64.5 66,60.5"
+        android:strokeColor="#253042"
+        android:strokeWidth="1.8"
+        android:strokeLineCap="round" />
+    <path
+        android:pathData="M47.4,58.0 a2.6,2.6 0 1,0 5.2,0 a2.6,2.6 0 1,0 -5.2,0 Z"
+        android:fillColor="#F4B6CB"
+        android:fillAlpha="0.8" />
+    <path
+        android:pathData="M70.4,57.0 a2.6,2.6 0 1,0 5.2,0 a2.6,2.6 0 1,0 -5.2,0 Z"
+        android:fillColor="#F4B6CB"
+        android:fillAlpha="0.8" />
+    <path
+        android:pathData="M60,96 L61.8,100.2 L66,102 L61.8,103.8 L60,108 L58.2,103.8 L54,102 L58.2,100.2 Z"
+        android:fillColor="#F7DE8F" />
+</vector>
