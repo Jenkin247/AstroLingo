@@ -87,5 +87,22 @@ class KundliCalculatorTest {
         assertThat(moon.fromMoon()).isEqualTo(moon)
     }
 
+    @Test
+    fun `Western Sun sign is one sign ahead for most births`() {
+        // 1 January 2000: tropical Sun 280° is Capricorn; sidereal 256° is Dhanu.
+        assertThat(KundliCalculator.calculate(delhi).westernSunSign).isEqualTo(Rashi.MAKARA)
+    }
+
+    @Test
+    fun `lagna near a sign edge names the neighbouring sign`() {
+        val kundli = KundliCalculator.calculate(delhi)
+        fun at(longitude: Double) = kundli.copy(lagnaLongitude = longitude, lagna = Rashi.of(longitude))
+        assertThat(at(30.5).lagnaNeighbourIfNearEdge()).isEqualTo(Rashi.MESHA)
+        assertThat(at(59.0).lagnaNeighbourIfNearEdge()).isEqualTo(Rashi.MITHUNA)
+        assertThat(at(359.5).lagnaNeighbourIfNearEdge()).isEqualTo(Rashi.MESHA)
+        assertThat(at(0.5).lagnaNeighbourIfNearEdge()).isEqualTo(Rashi.MEENA)
+        assertThat(at(45.0).lagnaNeighbourIfNearEdge()).isNull()
+    }
+
     private fun millis(iso: String): Long = Instant.parse(iso).toEpochMilli()
 }

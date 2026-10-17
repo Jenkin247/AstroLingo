@@ -7,16 +7,21 @@
     <string name="tab_kundli">Kundli</string>
     <string name="tab_me">Me</string>
     <string name="tagline">The language of the stars</string>
-    <string name="placeholder_today">Your daily card arrives in sprint 3.</string>
-    <string name="placeholder_learn">Your learning path arrives in sprint 4.</string>
-    <string name="placeholder_kundli">Your kundli arrives in sprint 2.</string>
-    <string name="placeholder_me">Profile and privacy controls arrive in sprint 5.</string>
+    <string name="placeholder_today">Your daily card is coming soon: a short reading for each day, based on your Moon sign.</string>
+    <string name="placeholder_learn">Lessons are coming soon. Sitara will teach you to read your own kundli, a few minutes a day.</string>
+    <string name="placeholder_kundli">Your kundli is coming soon.</string>
+    <string name="placeholder_me">Your profile and privacy settings are coming soon.</string>
     <string name="sitara_description">Sitara, your AstroLingo guide</string>
     <string name="chart_north">North Indian</string>
     <string name="chart_south">South Indian</string>
     <string name="chart_description">Kundli chart. Lagna in %1$s, Moon in %2$s. Planet details are listed below.</string>
     <string name="grahas_heading">Grahas</string>
     <string name="graha_detail">%1$s pada %2$d, house %3$d</string>
+    <string name="rashi_with_english">%1$s (%2$s)</string>
+    <string name="grahas_glossary">Pada: one of the four quarters of a nakshatra. House: the area of life a graha sits in, counted from your lagna.</string>
+    <string name="western_sign_question">Why is my Sun sign different from my Western sign?</string>
+    <string name="western_sign_answer">Western astrology measures signs from the seasons, while Vedic astrology measures them against the stars. Over the centuries the two have drifted about 24 degrees apart, so your Vedic Sun is usually one sign before your Western one. Your Sun is in %1$s here; in Western astrology it would be %2$s.</string>
+    <string name="lagna_near_edge">Your lagna is near the edge of %1$s. If your birth time is a few minutes off, it could be %2$s. A birth certificate time helps.</string>
     <string name="sample_chart_title">Sample chart</string>
     <string name="sample_chart_note">Asha Testwal, a fictional person born 15 August 1990, 6:30 am, Pune. Your own kundli appears here after you add your birth details.</string>
     <string name="onboarding_back">Back</string>
@@ -38,7 +43,7 @@
     <string name="onboarding_place_title">Where were you born?</string>
     <string name="onboarding_place_hint">Town or city</string>
     <string name="onboarding_place_loading">Loading places…</string>
-    <string name="onboarding_place_none">No match. Try the nearest bigger town.</string>
+    <string name="onboarding_place_none">We couldn\'t find that place. Try the nearest town, or your district\'s main town.</string>
     <string name="onboarding_check_title">Is this right?</string>
     <string name="onboarding_check_time_unknown">Birth time not known</string>
     <string name="onboarding_show_kundli">Show my kundli</string>
@@ -63,4 +68,6 @@
     <string name="me_delete_body">Your birth details and kundli will be removed from this phone. You can enter them again afterwards.</string>
     <string name="me_delete_confirm">Delete</string>
     <string name="me_delete_cancel">Keep</string>
+    <string name="onboarding_place_village">Small village? Pick the nearest town. A few kilometres makes almost no difference.</string>
+    <string name="onboarding_time_after_midnight">Born after midnight? Make sure the date is the calendar date. A birth at 12:20 am on the 8th is often called "the night of the 7th", but it is the 8th.</string>
 </resources>

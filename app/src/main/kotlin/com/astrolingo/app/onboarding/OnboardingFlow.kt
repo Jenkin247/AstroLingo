@@ -155,6 +155,10 @@ fun OnboardingFlow(onFinished: (OnboardingAnswers, ResolvedBirth) -> Unit, modif
                 ) {
                     StepTitle(stringResource(R.string.onboarding_time_title))
                     if (!timeUnknown) TimePicker(state = timeState)
+                    if (!timeUnknown && timeState.hour < AFTER_MIDNIGHT_HOURS) {
+                        // Test users: families often call 12:20 am on the 8th "the night of the 7th".
+                        SitaraSays(stringResource(R.string.onboarding_time_after_midnight))
+                    }
                     Row(
                         Modifier.fillMaxWidth().clickable { timeUnknown = !timeUnknown }.heightIn(min = Spacing.touchTarget),
                         verticalAlignment = Alignment.CenterVertically,
@@ -253,6 +257,7 @@ private fun PlaceStep(
             value = query,
             onValueChange = { query = it },
             label = { Text(stringResource(R.string.onboarding_place_hint)) },
+            supportingText = { Text(stringResource(R.string.onboarding_place_village)) },
             singleLine = true,
             enabled = index != null,
             modifier = Modifier.fillMaxWidth(),
@@ -337,3 +342,6 @@ private fun ClockOption(label: String, selected: Boolean, onClick: () -> Unit) {
         Text(label, Modifier.padding(start = Spacing.sm))
     }
 }
+
+/** Birth times before 4 am get a reminder that the date is the calendar date, not "the night of". */
+private const val AFTER_MIDNIGHT_HOURS = 4
