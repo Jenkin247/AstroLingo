@@ -27,6 +27,7 @@ class CourseLoaderTest {
                 { "id": "grahas.sun.1", "type": "learn", "title": { "en": "Surya" }, "body": { "en": "The soul.", "hi": "" },
                   "term": { "devanagari": "सूर्य", "roman": "Surya" }, "visual": { "kind": "glyph", "value": "☉" } },
                 { "id": "grahas.sun.2", "type": "learn", "title": { "en": "Wheel" }, "body": { "en": "Simha." }, "visual": { "kind": "zodiac", "value": 5 } },
+                { "id": "grahas.sun.5", "type": "learn", "title": { "en": "Shani" }, "body": { "en": "Time." }, "visual": { "kind": "graha", "value": "SHANI" }, "flip": true },
                 { "id": "grahas.sun.3", "type": "yourChart", "fact": "SUN_HOUSE", "title": { "en": "Your Sun" },
                   "body": { "en": "Your Sun is in house {value}." }, "unknownTime": { "en": "Add your birth time to see this." } },
                 { "id": "grahas.sun.4", "type": "quiz", "question": { "en": "Q" }, "options": [ { "en": "x" }, { "en": "y" }, { "en": "z" } ], "answer": 1, "explanation": { "en": "e" } }
@@ -47,14 +48,20 @@ class CourseLoaderTest {
     fun `reads chapters, lessons and every card type`() {
         assertThat(course.contentVersion).isEqualTo(3)
         val lesson = course.chapters.single().lessons.single()
-        assertThat(lesson.cards.map { it::class }).containsExactly(LearnCard::class, LearnCard::class, YourChartCard::class, QuizCard::class).inOrder()
+        assertThat(lesson.cards.map { it::class }).containsExactly(LearnCard::class, LearnCard::class, LearnCard::class, YourChartCard::class, QuizCard::class).inOrder()
         val sun = lesson.cards[0] as LearnCard
         assertThat(sun.term?.devanagari).isEqualTo("सूर्य")
         assertThat(sun.visual?.kind).isEqualTo(VisualKind.GLYPH)
         assertThat(sun.visual?.value).isEqualTo("☉")
+        assertThat(sun.flip).isFalse()
         assertThat((lesson.cards[1] as LearnCard).visual?.number).isEqualTo(5)
-        assertThat((lesson.cards[2] as YourChartCard).fact).isEqualTo(ChartFact.SUN_HOUSE)
-        assertThat((lesson.cards[3] as QuizCard).isCorrect(1)).isTrue()
+        val shani = lesson.cards[2] as LearnCard
+        assertThat(shani.flip).isTrue()
+        assertThat(shani.visual?.kind).isEqualTo(VisualKind.GRAHA)
+        assertThat(shani.visual?.value).isEqualTo("SHANI")
+        assertThat(shani.visual?.number).isNull()
+        assertThat((lesson.cards[3] as YourChartCard).fact).isEqualTo(ChartFact.SUN_HOUSE)
+        assertThat((lesson.cards[4] as QuizCard).isCorrect(1)).isTrue()
         assertThat(lesson.quizzes).hasSize(1)
     }
 
@@ -77,7 +84,7 @@ class CourseLoaderTest {
 
     @Test
     fun `your chart text fills in the value or says the time is needed`() {
-        val card = course.chapters.single().lessons.single().cards[2] as YourChartCard
+        val card = course.chapters.single().lessons.single().cards[3] as YourChartCard
         assertThat(card.text(Language.ENGLISH, "10")).isEqualTo("Your Sun is in house 10.")
         assertThat(card.text(Language.ENGLISH, null)).isEqualTo("Add your birth time to see this.")
     }
@@ -86,7 +93,7 @@ class CourseLoaderTest {
     fun `cards are found by id for bookmarks`() {
         val location = course.locate("grahas.sun.3")!!
         assertThat(location.chapter.id).isEqualTo("grahas")
-        assertThat(location.index).isEqualTo(2)
+        assertThat(location.index).isEqualTo(3)
         assertThat(location.card.id).isEqualTo("grahas.sun.3")
         assertThat(course.locate("nope")).isNull()
         assertThat(course.chapterOf("grahas.sun")?.id).isEqualTo("grahas")

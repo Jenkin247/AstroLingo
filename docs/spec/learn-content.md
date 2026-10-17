@@ -50,6 +50,11 @@ Every card has a unique `id`: the lesson id, a dot and a number (`grahas.sun-moo
 | `zodiac` | rashi number 1–12, or 0 for none | The zodiac wheel with that sign lit |
 | `houses` | house number 1–12, or 0 for none | The North Indian house diagram with that house lit |
 | `nakshatras` | nakshatra number 1–27, or 0 for none | The ring of 27 nakshatras with that one lit |
+| `graha` | `SURYA`, `CHANDRA`, `MANGAL`, `BUDHA`, `GURU`, `SHUKRA`, `SHANI`, `RAHU` or `KETU` | A drawn picture of that graha (Shani with its rings, Surya glowing…) |
+
+**Flip cards** (PO, 17 Oct 2026): add `"flip": true` to a learn card with a visual and its front shows only the
+picture and the title; the learner taps to turn it over and read the text, then swipes up. Used for the card that
+introduces each graha.
 
 **yourChart**: the lesson applied to the user's own kundli.
 ```json

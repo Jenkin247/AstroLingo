@@ -59,15 +59,20 @@ enum class VisualKind {
     /** The ring of 27 nakshatras with one (1 to 27) lit, or none for 0. */
     @SerialName("nakshatras")
     NAKSHATRAS,
+
+    /** A drawn picture of one graha; the value is its name as in the engine, e.g. SHANI. */
+    @SerialName("graha")
+    GRAHA,
 }
 
 /**
- * The picture on a learn card. [value] is the symbol for [VisualKind.GLYPH] and a number for the others.
+ * The picture on a learn card. [value] is the symbol for [VisualKind.GLYPH], the graha's name for
+ * [VisualKind.GRAHA] and a number for the others.
  */
 @Serializable
 data class Visual(val kind: VisualKind, val value: String) {
     /** The lit sign, house or nakshatra, or 0 for none; null for a glyph. */
-    val number: Int? get() = if (kind == VisualKind.GLYPH) null else value.toIntOrNull()
+    val number: Int? get() = if (kind == VisualKind.GLYPH || kind == VisualKind.GRAHA) null else value.toIntOrNull()
 }
 
 /**
@@ -105,6 +110,8 @@ sealed interface TeachingCard : Card {
  *
  * @property term the Sanskrit word introduced on this card, if any.
  * @property visual the picture shown above the text, if any.
+ * @property flip true for a card whose front shows only the picture and title; tapping turns it over to the text
+ *   (PO, 17 Oct 2026: graha cards).
  */
 @Serializable
 @SerialName("learn")
@@ -114,6 +121,7 @@ data class LearnCard(
     val body: LocalizedText,
     val term: Term? = null,
     val visual: Visual? = null,
+    val flip: Boolean = false,
 ) : TeachingCard
 
 /**

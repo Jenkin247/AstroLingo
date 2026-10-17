@@ -12,6 +12,7 @@ CONTENT = pathlib.Path(__file__).resolve().parents[2] / "learn/src/main/resource
 FACTS_NO_TIME = {"SUN_RASHI", "MOON_RASHI", "MOON_NAKSHATRA", "MOON_NAKSHATRA_LORD"}
 FACTS_TIME = {"LAGNA", "LAGNA_LORD", "SUN_HOUSE", "MOON_HOUSE", "GURU_HOUSE", "SHANI_HOUSE"}
 VISUAL_RANGE = {"zodiac": 12, "houses": 12, "nakshatras": 27}
+GRAHAS = {"SURYA", "CHANDRA", "MANGAL", "BUDHA", "GURU", "SHUKRA", "SHANI", "RAHU", "KETU"}
 LIMITS = {"title": 40, "body": 320, "question": 140, "explanation": 260}
 
 
@@ -92,11 +93,16 @@ def check_chapter(path, ids):
                     if fact in FACTS_TIME:
                         text(errors, f"{cid} unknownTime", card.get("unknownTime"), LIMITS["body"])
                 visual = card.get("visual")
+                if card.get("flip") and (kind != "learn" or not visual):
+                    errors.append(f"{cid}: only a learn card with a visual can flip")
                 if visual:
                     k, v = visual.get("kind"), visual.get("value")
                     if k == "glyph":
                         if not isinstance(v, str) or not 1 <= len(v) <= 2:
                             errors.append(f"{cid}: glyph must be 1 or 2 characters")
+                    elif k == "graha":
+                        if v not in GRAHAS:
+                            errors.append(f"{cid}: unknown graha {v}")
                     elif k in VISUAL_RANGE:
                         if not isinstance(v, int) or not 0 <= v <= VISUAL_RANGE[k]:
                             errors.append(f"{cid}: {k} value out of range")
