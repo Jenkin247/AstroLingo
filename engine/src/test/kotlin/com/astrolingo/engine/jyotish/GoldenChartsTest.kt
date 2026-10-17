@@ -8,7 +8,8 @@ import org.junit.Test
 
 /**
  * The Astro Guru's golden set: 50 fictional people checked against an independent reference
- * (astropy and ERFA, see tools/golden/generate_golden.py). Every graha and the lagna must agree within 1 arcminute.
+ * (JPL DE421 and ERFA, see tools/golden/generate_golden.py). Every graha, Rahu (true node) and the lagna
+ * must agree within 1 arcminute; Ketu is checked as Rahu's opposite.
  */
 class GoldenChartsTest {
     private data class GoldenChart(
@@ -49,9 +50,9 @@ class GoldenChartsTest {
     }
 
     @Test
-    fun `set has fifty charts with seven grahas each`() {
+    fun `set has fifty charts with seven grahas and Rahu each`() {
         assertWithMessage("charts").that(charts).hasSize(50)
-        charts.forEach { assertWithMessage(it.name).that(it.grahas.keys).hasSize(7) }
+        charts.forEach { assertWithMessage(it.name).that(it.grahas.keys).hasSize(8) }
     }
 
     @Test
@@ -73,6 +74,11 @@ class GoldenChartsTest {
                 assertWithMessage("${chart.name} $graha")
                     .that(arcminutesApart(kundli.of(graha).siderealLongitude, expected)).isAtMost(1.0)
             }
+            val ketu = normalizeDegrees(chart.grahas.getValue(Graha.RAHU) + HALF_CIRCLE_DEGREES)
+            assertWithMessage("${chart.name} KETU")
+                .that(arcminutesApart(kundli.of(Graha.KETU).siderealLongitude, ketu)).isAtMost(1.0)
         }
     }
 }
+
+private const val HALF_CIRCLE_DEGREES = 180.0

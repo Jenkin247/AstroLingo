@@ -129,7 +129,7 @@ object KundliCalculator {
             bodies.forEach { (graha, body) ->
                 put(graha, equatorialToEcliptic(geoVector(body, time, Aberration.Corrected)).elon)
             }
-            val rahu = LunarNode.trueRahu(centuries)
+            val rahu = LunarNode.trueRahu(time)
             put(Graha.RAHU, rahu)
             put(Graha.KETU, normalizeDegrees(rahu + HALF_CIRCLE_DEGREES))
         }
