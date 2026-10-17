@@ -54,6 +54,10 @@ dependencies {
     implementation(libs.androidx.compose.material.icons.core)
     debugImplementation(libs.androidx.compose.ui.tooling)
 
+    // Encrypted profile database (ADR 0002).
+    implementation(libs.sqlcipher.android)
+    implementation(libs.androidx.sqlite) // SQLCipher's SQLiteDatabase implements SupportSQLiteDatabase
+
     testImplementation(libs.junit)
     testImplementation(libs.truth)
 }

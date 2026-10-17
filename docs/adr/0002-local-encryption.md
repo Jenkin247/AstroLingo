@@ -22,3 +22,6 @@ Option 3.
 - SQLCipher adds a few MB to the APK. Accepted.
 - If the Keystore key is lost (for example after a factory reset), the local database is unrecoverable. The user restores from sync (ADR 0003) or re-enters their birth details.
 - QA checks that the database file has no plaintext birth fields, and that `adb backup` gets nothing.
+
+## Update, sprint 2
+The first stored data is a single profile, so it lives in one key/value table opened directly through SQLCipher (`EncryptedProfileStore`), with no Room yet. Room on the same SQLCipher database is added when lesson progress needs real tables. The rest of this decision is unchanged.

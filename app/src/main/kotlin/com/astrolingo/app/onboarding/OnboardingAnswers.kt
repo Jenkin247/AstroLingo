@@ -33,7 +33,10 @@ data class BirthDetails(
     val time: LocalTime?,
     val city: City,
     val useCityClock: Boolean = false,
-)
+) {
+    /** Never print birth details, so they can't reach logs or crash reports (ADR 0002). */
+    override fun toString(): String = "BirthDetails(redacted)"
+}
 
 /**
  * Birth details turned into a moment the engine can use.
@@ -48,7 +51,9 @@ data class ResolvedBirth(
     val timeKnown: Boolean,
     val notes: Set<BirthTimeNote>,
     val laterMoment: BirthMoment?,
-)
+) {
+    override fun toString(): String = "ResolvedBirth(redacted)"
+}
 
 /** Everything onboarding collects. Kept on the phone only (ADR 0002). */
 data class OnboardingAnswers(

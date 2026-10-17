@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import com.astrolingo.app.profile.EncryptedProfileStore
 import com.astrolingo.app.ui.AstroLingoApp
 import com.astrolingo.app.ui.theme.AstroLingoTheme
 
@@ -13,9 +14,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        val profiles = EncryptedProfileStore(this)
         setContent {
             AstroLingoTheme {
-                AstroLingoApp()
+                AstroLingoApp(profiles)
             }
         }
     }
