@@ -1,5 +1,5 @@
 # Runs on every pull request and every push to main: engine tests, app unit tests,
-# Android lint and a debug APK the Product Owner can install on a phone.
+# Android lint, screenshots of the main screens and a debug APK the Product Owner can install on a phone.
 name: CI
 
 on:
@@ -15,6 +15,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    permissions:
+      contents: write # only for the screenshots branch below
     steps:
       - uses: actions/checkout@v4
 
@@ -46,6 +48,27 @@ jobs:
           name: astrolingo-debug-apk
           path: app/build/outputs/apk/debug/*.apk
           retention-days: 14
+
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: app/build/outputs/roborazzi/
+          retention-days: 14
+
+      # Also on a branch per PR, so the screenshots can be viewed on GitHub without downloading a zip.
+      - name: Publish screenshots to a branch
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        working-directory: app/build/outputs/roborazzi
+        run: |
+          git init -q -b screenshots
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add ./*.png
+          git commit -q -m "Screenshots for ${{ github.event.pull_request.head.sha }}"
+          git push -f -q "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git" \
+            HEAD:refs/heads/screenshots/pr-${{ github.event.pull_request.number }}
 
       - name: Upload test and lint reports
         if: always()
