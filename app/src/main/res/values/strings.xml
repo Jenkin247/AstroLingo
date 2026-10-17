@@ -161,7 +161,7 @@
     <string name="me_block_privacy">Your privacy</string>
     <string name="me_block_settings">Settings</string>
     <string name="me_appearance">Appearance</string>
-    <string name="me_appearance_system">Same as phone</string>
+    <string name="me_appearance_system">Auto</string>
     <string name="me_appearance_light">Light</string>
     <string name="me_appearance_dark">Dark</string>
 </resources>
