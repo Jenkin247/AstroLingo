@@ -27,6 +27,7 @@ object ProfileCodec {
     private const val K_TIME = "birth_time"
     private const val K_CITY_CLOCK = "use_city_clock"
     private const val K_DAY_PART = "day_part"
+    private const val K_SHOW_DEITY = "show_deity"
     private const val K_CITY_ID = "city_id"
     private const val K_CITY_NAME = "city_name"
     private const val K_CITY_ADMIN = "city_admin"
@@ -44,6 +45,7 @@ object ProfileCodec {
             put(K_PURPOSE, answers.purpose.name)
             answers.goal?.let { put(K_GOAL, it.name) }
             put(K_LEVEL, answers.level.name)
+            put(K_SHOW_DEITY, answers.showDeity.toString())
             put(K_DATE, birth.date.toString())
             birth.time?.let { put(K_TIME, it.toString()) }
             put(K_CITY_CLOCK, birth.useCityClock.toString())
@@ -86,6 +88,7 @@ object ProfileCodec {
                 useCityClock = rows.getValue(K_CITY_CLOCK).toBooleanStrict(),
                 dayPart = rows[K_DAY_PART]?.let(DayPart::valueOf),
             ),
+            showDeity = rows[K_SHOW_DEITY]?.toBooleanStrict() ?: true,
         )
     }.getOrNull()
 }

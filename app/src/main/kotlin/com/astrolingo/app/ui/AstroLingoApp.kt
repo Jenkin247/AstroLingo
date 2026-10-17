@@ -7,30 +7,34 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.foundation.selection.toggleable
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.automirrored.filled.List
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Star
-import androidx.compose.material3.Icon
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -38,15 +42,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.astrolingo.app.R
-import com.astrolingo.app.onboarding.OnboardingFlow
 import com.astrolingo.app.onboarding.BirthDetailsResolver
 import com.astrolingo.app.onboarding.OnboardingAnswers
+import com.astrolingo.app.onboarding.OnboardingFlow
 import com.astrolingo.app.onboarding.ResolvedBirth
 import com.astrolingo.app.profile.InMemoryProfileRepository
 import com.astrolingo.app.profile.ProfileRepository
+import com.astrolingo.app.today.TodayScreen
 import com.astrolingo.app.ui.kundli.KundliScreen
 import com.astrolingo.app.ui.sitara.SitaraAvatar
 import com.astrolingo.app.ui.theme.AstroLingoTheme
@@ -72,14 +78,19 @@ private sealed interface ProfileState {
     data object Loading : ProfileState
     data object Missing : ProfileState
     /** @property reveal true right after onboarding, until the Kundli tab has played its reveal. */
-    class Ready(val birth: ResolvedBirth, val kundli: Kundli, val reveal: Boolean = false) : ProfileState
+    data class Ready(
+        val answers: OnboardingAnswers,
+        val birth: ResolvedBirth,
+        val kundli: Kundli,
+        val reveal: Boolean = false,
+    ) : ProfileState
 }
 
 /** Resolves saved answers to a chart. Loads the city list only for the rare old Bombay/Calcutta clock case. */
 private fun ready(answers: OnboardingAnswers): ProfileState.Ready {
     val index = if (answers.birth.useCityClock) CityIndex.bundled() else CityIndex.load(ByteArrayInputStream(ByteArray(0)))
     val birth = BirthDetailsResolver.resolve(answers.birth, index)
-    return ProfileState.Ready(birth, KundliCalculator.calculate(birth.moment))
+    return ProfileState.Ready(answers, birth, KundliCalculator.calculate(birth.moment))
 }
 
 /**
@@ -100,7 +111,7 @@ fun AstroLingoApp(profiles: ProfileRepository) {
         ProfileState.Loading -> Box(Modifier.fillMaxSize())
         ProfileState.Missing -> OnboardingFlow(
             onFinished = { answers, resolved ->
-                profile = ProfileState.Ready(resolved, KundliCalculator.calculate(resolved.moment), reveal = true)
+                profile = ProfileState.Ready(answers, resolved, KundliCalculator.calculate(resolved.moment), reveal = true)
                 selected = Tab.KUNDLI
                 scope.launch(Dispatchers.IO) {
                     // If saving fails the chart still shows; onboarding is asked again on next launch.
@@ -113,7 +124,12 @@ fun AstroLingoApp(profiles: ProfileRepository) {
             profile = current,
             selected = selected,
             onSelect = { selected = it },
-            onRevealed = { profile = ProfileState.Ready(current.birth, current.kundli) },
+            onRevealed = { profile = current.copy(reveal = false) },
+            onShowDeity = { show ->
+                val answers = current.answers.copy(showDeity = show)
+                profile = current.copy(answers = answers)
+                scope.launch(Dispatchers.IO) { runCatching { profiles.save(answers) } }
+            },
             onDelete = {
                 scope.launch {
                     withContext(Dispatchers.IO) { runCatching { profiles.deleteAll() } }
@@ -131,6 +147,7 @@ private fun Tabs(
     selected: Tab,
     onSelect: (Tab) -> Unit,
     onRevealed: () -> Unit,
+    onShowDeity: (Boolean) -> Unit,
     onDelete: () -> Unit,
 ) {
     Scaffold(
@@ -162,7 +179,18 @@ private fun Tabs(
                 reveal = profile.reveal,
                 onRevealed = onRevealed,
             )
-            Tab.ME -> MeScreen(onDelete = onDelete, modifier = Modifier.padding(padding))
+            Tab.TODAY -> TodayScreen(
+                kundli = profile.kundli,
+                place = profile.answers.birth.city,
+                showDeity = profile.answers.showDeity,
+                modifier = Modifier.padding(padding),
+            )
+            Tab.ME -> MeScreen(
+                showDeity = profile.answers.showDeity,
+                onShowDeity = onShowDeity,
+                onDelete = onDelete,
+                modifier = Modifier.padding(padding),
+            )
             else -> PlaceholderScreen(tab = selected, modifier = Modifier.padding(padding))
         }
     }
@@ -170,7 +198,7 @@ private fun Tabs(
 
 /** Me tab for now: what is stored and a way to delete it. The full profile screen comes in sprint 5. */
 @Composable
-private fun MeScreen(onDelete: () -> Unit, modifier: Modifier = Modifier) {
+private fun MeScreen(showDeity: Boolean, onShowDeity: (Boolean) -> Unit, onDelete: () -> Unit, modifier: Modifier = Modifier) {
     var confirming by remember { mutableStateOf(false) }
     Column(
         modifier = modifier
@@ -180,6 +208,16 @@ private fun MeScreen(onDelete: () -> Unit, modifier: Modifier = Modifier) {
     ) {
         Text(stringResource(R.string.tab_me), style = MaterialTheme.typography.headlineMedium)
         Text(stringResource(R.string.me_privacy), style = MaterialTheme.typography.bodyLarge)
+        Row(
+            Modifier
+                .fillMaxWidth()
+                .toggleable(value = showDeity, role = Role.Switch, onValueChange = onShowDeity)
+                .heightIn(min = Spacing.touchTarget),
+            verticalAlignment = Alignment.CenterVertically,
+        ) {
+            Text(stringResource(R.string.me_show_deity), Modifier.weight(1f), style = MaterialTheme.typography.bodyLarge)
+            Switch(checked = showDeity, onCheckedChange = null)
+        }
         OutlinedButton(onClick = { confirming = true }) { Text(stringResource(R.string.me_delete)) }
     }
     if (confirming) {

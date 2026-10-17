@@ -32,6 +32,7 @@ class ProfileCodecTest {
         val ravi = asha.copy(
             purpose = Purpose.GUIDANCE,
             goal = null,
+            showDeity = false,
             birth = asha.birth.copy(time = null, useCityClock = true, dayPart = DayPart.EVENING),
         )
         val rows = ProfileCodec.encode(ravi)
