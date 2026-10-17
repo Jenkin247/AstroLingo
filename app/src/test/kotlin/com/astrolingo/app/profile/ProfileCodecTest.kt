@@ -2,6 +2,7 @@ package com.astrolingo.app.profile
 
 import com.astrolingo.app.onboarding.BirthDetails
 import com.astrolingo.app.onboarding.DailyGoal
+import com.astrolingo.app.onboarding.DayPart
 import com.astrolingo.app.onboarding.Level
 import com.astrolingo.app.onboarding.OnboardingAnswers
 import com.astrolingo.app.onboarding.Purpose
@@ -31,7 +32,7 @@ class ProfileCodecTest {
         val ravi = asha.copy(
             purpose = Purpose.GUIDANCE,
             goal = null,
-            birth = asha.birth.copy(time = null, useCityClock = true),
+            birth = asha.birth.copy(time = null, useCityClock = true, dayPart = DayPart.EVENING),
         )
         val rows = ProfileCodec.encode(ravi)
         assertThat(rows).doesNotContainKey("birth_time")

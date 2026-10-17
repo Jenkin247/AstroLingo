@@ -20,6 +20,7 @@
     <string name="rashi_with_english">%1$s (%2$s)</string>
     <string name="grahas_glossary">Pada: one of the four quarters of a nakshatra. House: the area of life a graha sits in, counted from your lagna.</string>
     <string name="western_sign_question">Why is my Sun sign different from my Western sign?</string>
+    <string name="western_sign_cusp">You were born on the cusp: your Western Sun is within a degree of %1$s, so some horoscopes may call you that.</string>
     <string name="western_sign_answer">Western astrology measures signs from the seasons, while Vedic astrology measures them against the stars. Over the centuries the two have drifted about 24 degrees apart, so your Vedic Sun is usually one sign before your Western one. Your Sun is in %1$s here; in Western astrology it would be %2$s.</string>
     <string name="lagna_near_edge">Your lagna is near the edge of %1$s. If your birth time is a few minutes off, it could be %2$s. A birth certificate time helps.</string>
     <string name="sample_chart_title">Sample chart</string>
@@ -52,12 +53,13 @@
     <string name="city_clock_calcutta">Before 1948, Calcutta kept its own clock, 23 minutes ahead of IST. Which time is on your record?</string>
     <string name="city_clock_ist">Indian Standard Time (most records)</string>
     <string name="city_clock_local">The old city time</string>
-    <string name="note_clocks_ahead">Clocks were set ahead that day (summer time or India\'s wartime clocks). We\'ve allowed for it.</string>
+    <string name="note_clocks_ahead">Clocks were an hour ahead of standard time that day (daylight saving or wartime time). We\'ve allowed for it.</string>
     <string name="note_skipped">That time was skipped when the clocks changed, so we moved it forward by an hour. Check your record.</string>
     <string name="note_repeated">That time happened twice when the clocks went back. We used the first one.</string>
     <string name="note_local_mean_time">Clocks before 1906 followed local time, so old records can be a few minutes off.</string>
     <string name="your_kundli_title">Your kundli</string>
-    <string name="your_kundli_time_unknown">Your birth time is not known, so houses are counted from your Moon sign (Chandra lagna). The Moon sign is usually right even without a time; the lagna is not shown.</string>
+    <string name="your_kundli_time_unknown">Your birth time is not known, so houses are counted from your Moon sign (Chandra lagna) and the lagna is not shown.</string>
+    <string name="your_kundli_moon_uncertain">The Moon moved into a new sign or nakshatra around your birth, so it could be one step off. Adding your birth time makes it exact.</string>
     <string name="chart_from_lagna">From lagna</string>
     <string name="chart_from_moon">From Moon</string>
     <string name="chart_description_moon">Moon chart. Houses counted from the Moon in %1$s. Planet details are listed below.</string>
@@ -70,4 +72,13 @@
     <string name="me_delete_cancel">Keep</string>
     <string name="onboarding_place_village">Small village? Pick the nearest town. A few kilometres makes almost no difference.</string>
     <string name="onboarding_time_after_midnight">Born after midnight? Make sure the date is the calendar date. A birth at 12:20 am on the 8th is often called "the night of the 7th", but it is the 8th.</string>
+    <string name="onboarding_time_is_initial">My birth time is %1$s</string>
+    <string name="day_part_question">The Moon changed sign or nakshatra on the day you were born. Roughly when were you born?</string>
+    <string name="day_part_option">%1$s: Moon in %2$s</string>
+    <string name="day_part_or">" or "</string>
+    <string name="day_part_night">Night, midnight to 6 am</string>
+    <string name="day_part_morning">Morning, 6 am to noon</string>
+    <string name="day_part_afternoon">Afternoon, noon to 6 pm</string>
+    <string name="day_part_evening">Evening, 6 pm to midnight</string>
+    <string name="day_part_not_sure">I\'m not sure</string>
 </resources>

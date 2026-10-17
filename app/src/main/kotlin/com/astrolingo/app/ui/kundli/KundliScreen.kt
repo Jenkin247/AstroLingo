@@ -122,6 +122,7 @@ fun KundliScreen(
             } else {
                 stringResource(R.string.chart_description, shown.lagna.displayName(), shown.moonSign.displayName())
             },
+            markLagna = !fromMoon,
             modifier = Modifier.graphicsLayer {
                 alpha = progress
                 scaleX = REVEAL_START_SCALE + (1f - REVEAL_START_SCALE) * progress
@@ -131,8 +132,11 @@ fun KundliScreen(
         )
         if (reveal) {
             SitaraSays(
-                text = stringResource(R.string.kundli_reveal_sitara, kundli.moonSign.displayName()),
-                modifier = Modifier.graphicsLayer { alpha = progress },
+                text = stringResource(
+                    R.string.kundli_reveal_sitara,
+                    stringResource(R.string.rashi_with_english, kundli.moonSign.displayName(), kundli.moonSign.englishName),
+                ),
+            modifier = Modifier.graphicsLayer { alpha = progress },
             )
         }
         val neighbour = if (timeKnown && !fromMoon) shown.lagnaNeighbourIfNearEdge() else null
@@ -175,6 +179,9 @@ private fun WesternSignNote(kundli: Kundli) {
                 ),
                 style = MaterialTheme.typography.bodyMedium,
             )
+            kundli.westernSunCuspNeighbour()?.let { neighbour ->
+                Text(stringResource(R.string.western_sign_cusp, neighbour.englishName), style = MaterialTheme.typography.bodyMedium)
+            }
         }
     }
 }
