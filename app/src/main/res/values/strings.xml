@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- All user-facing text lives here so Hindi can be added as values-hi. -->
+<resources>
+    <string name="app_name">AstroLingo</string>
+    <string name="tab_today">Today</string>
+    <string name="tab_learn">Learn</string>
+    <string name="tab_kundli">Kundli</string>
+    <string name="tab_me">Me</string>
+    <string name="tagline">The language of the stars</string>
+    <string name="placeholder_today">Your daily card arrives in sprint 3.</string>
+    <string name="placeholder_learn">Your learning path arrives in sprint 4.</string>
+    <string name="placeholder_kundli">Your kundli arrives in sprint 2.</string>
+    <string name="placeholder_me">Profile and privacy controls arrive in sprint 5.</string>
+</resources>

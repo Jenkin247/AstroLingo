@@ -1,0 +1,17 @@
+# Gradle and build output
+.gradle/
+build/
+.kotlin/
+local.properties
+# Android Studio / IntelliJ
+.idea/
+*.iml
+captures/
+.externalNativeBuild/
+.cxx/
+# Signing material never goes in the repo
+*.jks
+*.keystore
+google-services.json
+# OS
+.DS_Store
