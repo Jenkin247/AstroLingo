@@ -125,8 +125,7 @@ fun AstroLingoApp(profiles: ProfileRepository) {
             selected = selected,
             onSelect = { selected = it },
             onRevealed = { profile = current.copy(reveal = false) },
-            onShowDeity = { show ->
-                val answers = current.answers.copy(showDeity = show)
+            onAnswersChange = { answers ->
                 profile = current.copy(answers = answers)
                 scope.launch(Dispatchers.IO) { runCatching { profiles.save(answers) } }
             },
@@ -147,7 +146,7 @@ private fun Tabs(
     selected: Tab,
     onSelect: (Tab) -> Unit,
     onRevealed: () -> Unit,
-    onShowDeity: (Boolean) -> Unit,
+    onAnswersChange: (OnboardingAnswers) -> Unit,
     onDelete: () -> Unit,
 ) {
     Scaffold(
@@ -181,13 +180,14 @@ private fun Tabs(
             )
             Tab.TODAY -> TodayScreen(
                 kundli = profile.kundli,
-                place = profile.answers.birth.city,
+                place = profile.answers.todayPlace,
                 showDeity = profile.answers.showDeity,
                 modifier = Modifier.padding(padding),
+                onPlaceChange = { place -> onAnswersChange(profile.answers.copy(currentPlace = place)) },
             )
             Tab.ME -> MeScreen(
                 showDeity = profile.answers.showDeity,
-                onShowDeity = onShowDeity,
+                onShowDeity = { show -> onAnswersChange(profile.answers.copy(showDeity = show)) },
                 onDelete = onDelete,
                 modifier = Modifier.padding(padding),
             )

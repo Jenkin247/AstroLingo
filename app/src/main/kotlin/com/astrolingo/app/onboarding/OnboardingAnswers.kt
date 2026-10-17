@@ -85,6 +85,7 @@ data class ResolvedBirth(
  * Everything onboarding collects, plus settings changed later in Me. Kept on the phone only (ADR 0002).
  *
  * @property showDeity false when the user turned the deity of the day off; the app then never shows one.
+ * @property currentPlace where the user is now, for sunrise and Rahu kaal; null means the birthplace.
  */
 data class OnboardingAnswers(
     val purpose: Purpose,
@@ -92,7 +93,11 @@ data class OnboardingAnswers(
     val level: Level,
     val birth: BirthDetails,
     val showDeity: Boolean = true,
-)
+    val currentPlace: City? = null,
+) {
+    /** Where Today's times are worked out. */
+    val todayPlace: City get() = currentPlace ?: birth.city
+}
 
 object BirthDetailsResolver {
     /** Unknown birth time: the Astro Guru's rule is to use local noon (docs/spec/daily-card-rules.md). */

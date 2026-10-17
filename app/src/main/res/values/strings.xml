@@ -120,4 +120,9 @@
     <string name="colour_pink">Pink</string>
     <string name="colour_dark_blue">Dark blue</string>
     <string name="me_show_deity">Show the deity of the day</string>
+    <string name="today_change_place">Change</string>
+    <string name="today_place_title">Where are you today?</string>
+    <string name="today_place_note">Sunrise and Rahu kaal follow where you are now, not where you were born. This stays on your phone.</string>
+    <string name="today_place_birthplace">Use my birthplace</string>
+    <string name="today_place_use">Use this place</string>
 </resources>

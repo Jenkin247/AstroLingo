@@ -28,13 +28,10 @@ object ProfileCodec {
     private const val K_CITY_CLOCK = "use_city_clock"
     private const val K_DAY_PART = "day_part"
     private const val K_SHOW_DEITY = "show_deity"
-    private const val K_CITY_ID = "city_id"
-    private const val K_CITY_NAME = "city_name"
-    private const val K_CITY_ADMIN = "city_admin"
-    private const val K_CITY_COUNTRY = "city_country"
-    private const val K_CITY_LAT = "city_lat"
-    private const val K_CITY_LON = "city_lon"
-    private const val K_CITY_ZONE = "city_zone"
+
+    /** Key prefixes for a stored place: the birthplace keeps the original "city_" keys. */
+    private const val CITY = "city"
+    private const val HERE = "here"
 
     /** Rows to write. A null value means "not set" (unknown time, no goal) and is stored as an absent key. */
     fun encode(answers: OnboardingAnswers): Map<String, String> {
@@ -50,13 +47,8 @@ object ProfileCodec {
             birth.time?.let { put(K_TIME, it.toString()) }
             put(K_CITY_CLOCK, birth.useCityClock.toString())
             birth.dayPart?.let { put(K_DAY_PART, it.name) }
-            put(K_CITY_ID, city.id.toString())
-            put(K_CITY_NAME, city.name)
-            put(K_CITY_ADMIN, city.admin)
-            put(K_CITY_COUNTRY, city.countryCode)
-            put(K_CITY_LAT, city.latitudeDegrees.toString())
-            put(K_CITY_LON, city.longitudeDegrees.toString())
-            put(K_CITY_ZONE, city.zone.id)
+            putCity(CITY, city)
+            answers.currentPlace?.let { putCity(HERE, it) }
         }
     }
 
@@ -66,17 +58,7 @@ object ProfileCodec {
      */
     fun decode(rows: Map<String, String>): OnboardingAnswers? = runCatching {
         if (rows[K_VERSION]?.toInt() != VERSION) return null
-        val city = City(
-            id = rows.getValue(K_CITY_ID).toLong(),
-            name = rows.getValue(K_CITY_NAME),
-            admin = rows.getValue(K_CITY_ADMIN),
-            countryCode = rows.getValue(K_CITY_COUNTRY),
-            latitudeDegrees = rows.getValue(K_CITY_LAT).toDouble(),
-            longitudeDegrees = rows.getValue(K_CITY_LON).toDouble(),
-            zone = ZoneId.of(rows.getValue(K_CITY_ZONE)),
-            population = 0,
-            aliases = emptyList(),
-        )
+        val city = checkNotNull(rows.city(CITY))
         OnboardingAnswers(
             purpose = Purpose.valueOf(rows.getValue(K_PURPOSE)),
             goal = rows[K_GOAL]?.let(DailyGoal::valueOf),
@@ -89,6 +71,33 @@ object ProfileCodec {
                 dayPart = rows[K_DAY_PART]?.let(DayPart::valueOf),
             ),
             showDeity = rows[K_SHOW_DEITY]?.toBooleanStrict() ?: true,
+            currentPlace = rows.city(HERE),
         )
     }.getOrNull()
+
+    private fun MutableMap<String, String>.putCity(prefix: String, city: City) {
+        put("${prefix}_id", city.id.toString())
+        put("${prefix}_name", city.name)
+        put("${prefix}_admin", city.admin)
+        put("${prefix}_country", city.countryCode)
+        put("${prefix}_lat", city.latitudeDegrees.toString())
+        put("${prefix}_lon", city.longitudeDegrees.toString())
+        put("${prefix}_zone", city.zone.id)
+    }
+
+    /** The place stored under [prefix], or null when there is none. Throws on a half-written place. */
+    private fun Map<String, String>.city(prefix: String): City? {
+        val id = this["${prefix}_id"] ?: return null
+        return City(
+            id = id.toLong(),
+            name = getValue("${prefix}_name"),
+            admin = getValue("${prefix}_admin"),
+            countryCode = getValue("${prefix}_country"),
+            latitudeDegrees = getValue("${prefix}_lat").toDouble(),
+            longitudeDegrees = getValue("${prefix}_lon").toDouble(),
+            zone = ZoneId.of(getValue("${prefix}_zone")),
+            population = 0,
+            aliases = emptyList(),
+        )
+    }
 }
