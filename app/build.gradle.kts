@@ -54,6 +54,11 @@ dependencies {
     implementation(libs.androidx.compose.material.icons.core)
     debugImplementation(libs.androidx.compose.ui.tooling)
 
+    // Encryption spike (debug builds only, see docs/spikes/encryption-restore.md). Moves to main in sprint 2-3.
+    debugImplementation(libs.sqlcipher.android)
+    debugImplementation(libs.tink.android)
+    debugImplementation(libs.play.services.blockstore)
+
     testImplementation(libs.junit)
     testImplementation(libs.truth)
 }
