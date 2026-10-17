@@ -111,8 +111,10 @@ internal fun Enum<*>.displayName(): String =
 
 /** 28.2 becomes "28°12′". */
 internal fun formatDegrees(degrees: Double): String {
-    val whole = floor(degrees).toInt()
-    val minutes = floor((degrees - whole) * 60).toInt()
+    // Work in whole arcminutes; the tiny epsilon stops 28.2 from becoming 28°11.99′ in binary floating point.
+    val totalMinutes = floor(degrees * 60 + 1e-9).toInt()
+    val whole = totalMinutes / 60
+    val minutes = totalMinutes % 60
     return "$whole°${minutes.toString().padStart(2, '0')}′"
 }
 
