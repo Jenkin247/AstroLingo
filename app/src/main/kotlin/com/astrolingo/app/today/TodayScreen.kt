@@ -10,16 +10,23 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,9 +34,12 @@ import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import com.astrolingo.app.R
 import com.astrolingo.app.ui.kundli.SampleChart
 import com.astrolingo.app.ui.kundli.displayName
+import com.astrolingo.app.ui.places.CitySearch
 import com.astrolingo.app.ui.theme.AstroLingoTheme
 import com.astrolingo.app.ui.theme.Spacing
 import com.astrolingo.engine.jyotish.DailyCardFacts
@@ -38,11 +48,14 @@ import com.astrolingo.engine.jyotish.DayStrength
 import com.astrolingo.engine.jyotish.Kundli
 import com.astrolingo.engine.jyotish.Tithi
 import com.astrolingo.engine.places.City
+import com.astrolingo.engine.places.CityIndex
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.format.FormatStyle
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 /**
  * The Today tab.
@@ -50,9 +63,17 @@ import java.time.format.FormatStyle
  * @param kundli the user's chart; only the birth Moon is used.
  * @param place where sunrise and Rahu kaal are worked out.
  * @param showDeity false when the user turned deities off; then no deity is ever shown.
+ * @param onPlaceChange called with the place the user picked, or null to go back to the birthplace.
  */
 @Composable
-fun TodayScreen(kundli: Kundli, place: City, showDeity: Boolean, modifier: Modifier = Modifier) {
+fun TodayScreen(
+    kundli: Kundli,
+    place: City,
+    showDeity: Boolean,
+    modifier: Modifier = Modifier,
+    onPlaceChange: (City?) -> Unit = {},
+) {
+    var choosingPlace by remember { mutableStateOf(false) }
     val today = LocalDate.now(place.zone)
     val card = remember(kundli, today, place) { TodayCard.build(kundli, today, place) }
     val tint = AstroLingoTheme.tabColors.today
@@ -109,11 +130,57 @@ fun TodayScreen(kundli: Kundli, place: City, showDeity: Boolean, modifier: Modif
         } else {
             Text(stringResource(R.string.today_no_sunrise), style = MaterialTheme.typography.bodyMedium)
         }
-        Text(
-            stringResource(R.string.today_times_for, place.label),
-            style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text(
+                stringResource(R.string.today_times_for, place.label),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.weight(1f),
+            )
+            TextButton(onClick = { choosingPlace = true }) { Text(stringResource(R.string.today_change_place)) }
+        }
+    }
+    if (choosingPlace) {
+        PlaceDialog(
+            current = place,
+            onDismiss = { choosingPlace = false },
+            onPick = {
+                choosingPlace = false
+                onPlaceChange(it)
+            },
         )
+    }
+}
+
+/** Full-screen place search, so sunrise and Rahu kaal follow where the user lives now. */
+@Composable
+private fun PlaceDialog(current: City, onDismiss: () -> Unit, onPick: (City?) -> Unit) {
+    val index by produceState<CityIndex?>(initialValue = null) {
+        value = withContext(Dispatchers.Default) { CityIndex.bundled() }
+    }
+    var picked by remember { mutableStateOf<City?>(null) }
+    Dialog(onDismissRequest = onDismiss, properties = DialogProperties(usePlatformDefaultWidth = false)) {
+        Surface(Modifier.fillMaxSize()) {
+            Column(
+                Modifier
+                    .fillMaxSize()
+                    .safeDrawingPadding()
+                    .padding(Spacing.md),
+                verticalArrangement = Arrangement.spacedBy(Spacing.sm),
+            ) {
+                Text(stringResource(R.string.today_place_title), style = MaterialTheme.typography.headlineSmall)
+                Text(stringResource(R.string.today_place_note), style = MaterialTheme.typography.bodyMedium)
+                CitySearch(index = index, selected = picked, onSelect = { picked = it }, modifier = Modifier.weight(1f))
+                Row(horizontalArrangement = Arrangement.spacedBy(Spacing.sm)) {
+                    TextButton(onClick = { onPick(null) }) { Text(stringResource(R.string.today_place_birthplace)) }
+                    Spacer(Modifier.weight(1f))
+                    TextButton(onClick = onDismiss) { Text(stringResource(R.string.me_delete_cancel)) }
+                    Button(onClick = { onPick(picked) }, enabled = picked != null && picked != current) {
+                        Text(stringResource(R.string.today_place_use))
+                    }
+                }
+            }
+        }
     }
 }
 

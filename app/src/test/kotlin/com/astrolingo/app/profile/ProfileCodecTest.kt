@@ -40,6 +40,14 @@ class ProfileCodecTest {
         assertThat(ProfileCodec.decode(rows)).isEqualTo(ravi)
     }
 
+    @Test fun currentPlaceRoundTripsAndDefaultsToBirthplace() {
+        val london = City(2643743, "London", "England", "GB", 51.50853, -0.12574, ZoneId.of("Europe/London"), 0, emptyList())
+        assertThat(asha.todayPlace).isEqualTo(pune)
+        val moved = asha.copy(currentPlace = london)
+        assertThat(ProfileCodec.decode(ProfileCodec.encode(moved))).isEqualTo(moved)
+        assertThat(moved.todayPlace).isEqualTo(london)
+    }
+
     @Test fun emptyTableMeansNoProfile() {
         assertThat(ProfileCodec.decode(emptyMap())).isNull()
     }

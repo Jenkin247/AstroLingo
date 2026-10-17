@@ -11,8 +11,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.verticalScroll
@@ -21,7 +19,6 @@ import androidx.compose.material3.Checkbox
 import androidx.compose.material3.DatePicker
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -46,6 +43,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.astrolingo.app.R
 import com.astrolingo.app.ui.kundli.displayName
+import com.astrolingo.app.ui.places.CitySearch
 import com.astrolingo.app.ui.sitara.SitaraSays
 import com.astrolingo.app.ui.theme.Spacing
 import com.astrolingo.engine.jyotish.BirthTimeNote
@@ -274,37 +272,10 @@ private fun PlaceStep(
     onNext: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
-    var query by rememberSaveable { mutableStateOf(selected?.label ?: "") }
-    val results = remember(query, index) { if (index == null || query == selected?.label) emptyList() else index.search(query) }
     Column(modifier, verticalArrangement = Arrangement.spacedBy(Spacing.sm)) {
         StepTitle(stringResource(R.string.onboarding_place_title))
-        OutlinedTextField(
-            value = query,
-            onValueChange = { query = it },
-            label = { Text(stringResource(R.string.onboarding_place_hint)) },
-            supportingText = { Text(stringResource(R.string.onboarding_place_village)) },
-            singleLine = true,
-            enabled = index != null,
-            modifier = Modifier.fillMaxWidth(),
-        )
-        if (index == null) Text(stringResource(R.string.onboarding_place_loading))
-        LazyColumn(Modifier.weight(1f)) {
-            items(results, key = { it.id }) { city ->
-                Text(
-                    city.label,
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable { onSelect(city); query = city.label }
-                        .heightIn(min = Spacing.touchTarget)
-                        .padding(vertical = Spacing.sm),
-                )
-            }
-        }
-        if (query.length >= 2 && results.isEmpty() && query != selected?.label) {
-            Text(stringResource(R.string.onboarding_place_none), style = MaterialTheme.typography.bodyMedium)
-        }
-        NextButton(enabled = selected != null && query == selected.label, onClick = onNext)
+        CitySearch(index = index, selected = selected, onSelect = onSelect, modifier = Modifier.weight(1f))
+        NextButton(enabled = selected != null, onClick = onNext)
     }
 }
 
