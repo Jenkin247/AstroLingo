@@ -33,6 +33,16 @@ android {
     buildFeatures {
         compose = true
     }
+
+    testOptions {
+        unitTests {
+            // Screenshot tests render real Compose screens on the JVM with Robolectric.
+            isIncludeAndroidResources = true
+            all {
+                it.systemProperty("roborazzi.test.record", "true")
+            }
+        }
+    }
 }
 
 kotlin {
@@ -60,4 +70,11 @@ dependencies {
 
     testImplementation(libs.junit)
     testImplementation(libs.truth)
+
+    // Screenshots of the main screens for the PO and test users, rendered in CI (app/build/outputs/roborazzi).
+    testImplementation(platform(libs.androidx.compose.bom))
+    testImplementation(libs.androidx.compose.ui.test.junit4)
+    testImplementation(libs.robolectric)
+    testImplementation(libs.roborazzi)
+    debugImplementation(libs.androidx.compose.ui.test.manifest)
 }
