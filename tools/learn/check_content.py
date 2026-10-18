@@ -13,7 +13,7 @@ FACTS_NO_TIME = {"SUN_RASHI", "MOON_RASHI", "MOON_NAKSHATRA", "MOON_NAKSHATRA_LO
 FACTS_TIME = {"LAGNA", "LAGNA_LORD", "SUN_HOUSE", "MOON_HOUSE", "GURU_HOUSE", "SHANI_HOUSE"}
 VISUAL_RANGE = {"zodiac": 12, "houses": 12, "nakshatras": 27}
 GRAHAS = {"SURYA", "CHANDRA", "MANGAL", "BUDHA", "GURU", "SHUKRA", "SHANI", "RAHU", "KETU"}
-LIMITS = {"title": 40, "body": 320, "question": 140, "explanation": 260}
+LIMITS = {"title": 40, "body": 320, "question": 140, "explanation": 260, "outcome": 70}
 
 
 def text(errors, where, value, limit=None):
@@ -47,6 +47,7 @@ def check_chapter(path, ids):
         errors.append(f"{path.name}: schemaVersion must be 1")
     text(errors, f"{chid} title", chapter.get("title"), LIMITS["title"])
     text(errors, f"{chid} summary", chapter.get("summary"), LIMITS["body"])
+    text(errors, f"{chid} outcome", chapter.get("outcome"), LIMITS["outcome"])
     check = chapter.get("check", [])
     if len(check) != 2:
         errors.append(f"{chid}: needs exactly 2 check questions")

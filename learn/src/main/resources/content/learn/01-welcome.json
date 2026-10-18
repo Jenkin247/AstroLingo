@@ -11,6 +11,10 @@
     "en": "What Jyotish is, where it came from, why the Vedic sky is sidereal, and how to use astrology wisely.",
     "hi": ""
   },
+  "outcome": {
+    "en": "say what Jyotish is, where it came from and how to use it wisely",
+    "hi": ""
+  },
   "check": [
     {
       "id": "welcome.check.1",

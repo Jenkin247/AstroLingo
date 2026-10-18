@@ -11,6 +11,10 @@
     "en": "Grahas don't only act where they sit: they also look at other houses. Learn the 7th aspect, the special aspects of Mangal, Guru and Shani, and how to use aspects in a reading.",
     "hi": ""
   },
+  "outcome": {
+    "en": "work out which houses and grahas each graha aspects",
+    "hi": ""
+  },
   "check": [
     {
       "id": "drishti.check.1",
