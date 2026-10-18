@@ -21,6 +21,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.LocationOn
@@ -41,6 +42,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -216,7 +218,10 @@ private fun PlaceRow(place: City, onChange: () -> Unit) {
     }
 }
 
-/** The day's message: strength, theme, the star lines and the weekday line, on the Today pastel. */
+/**
+ * The day's message on the Today pastel, laid out to scan at a glance: the strength pill, a short focus headline,
+ * two tips as a list, then one labelled row per star (two when the Moon changes star) and one for the weekday.
+ */
 @Composable
 private fun HeroCard(card: TodayCard, zone: ZoneId, onLearn: ((TodayTopic) -> Unit)?) {
     val ink = AstroLingoTheme.tabColors.onPastel
@@ -231,25 +236,46 @@ private fun HeroCard(card: TodayCard, zone: ZoneId, onLearn: ((TodayTopic) -> Un
                     modifier = Modifier.padding(horizontal = Spacing.sm, vertical = Spacing.xs),
                 )
             }
-            Text(
-                stringArrayResource(facts.strength.themes)[facts.gocharHouse - 1],
-                style = MaterialTheme.typography.titleLarge,
-                color = ink,
-            )
+            val slot = facts.gocharHouse - 1
+            Text(stringArrayResource(facts.strength.focus)[slot], style = MaterialTheme.typography.titleLarge, color = ink)
+            Column(verticalArrangement = Arrangement.spacedBy(Spacing.xs)) {
+                stringArrayResource(facts.strength.tips)[slot].split('\n').forEach { Tip(it, ink) }
+            }
             HorizontalDivider(color = ink.copy(alpha = PILL_ALPHA))
-            val taraLines = stringArrayResource(R.array.daily_tara)
+            val names = stringArrayResource(R.array.daily_tara_name)
+            val tips = stringArrayResource(R.array.daily_tara)
             val change = facts.panchang.nakshatraChange
             val after = facts.taraAfterChange
             if (change != null && after != null) {
                 val at = time(change.atUtcMillis, zone)
-                StarLine(stringResource(R.string.today_until_label, at), taraLines[facts.taraAtSunrise.ordinal], ink)
-                StarLine(stringResource(R.string.today_from_label, at), taraLines[after.ordinal], ink)
+                val before = facts.taraAtSunrise.ordinal
+                LabelledRow(Icons.Filled.Star, rowLabel(stringResource(R.string.today_until_label, at), names[before]), tips[before], ink)
+                LabelledRow(Icons.Filled.Star, rowLabel(stringResource(R.string.today_from_label, at), names[after.ordinal]), tips[after.ordinal], ink)
             } else {
-                Text(taraLines[facts.tara.ordinal], style = MaterialTheme.typography.bodyLarge, color = ink)
+                val tara = facts.tara.ordinal
+                LabelledRow(Icons.Filled.Star, rowLabel(stringResource(R.string.today_star_all_day), names[tara]), tips[tara], ink)
             }
         }
-        Text(stringArrayResource(R.array.daily_vara)[card.vara.ordinal], style = MaterialTheme.typography.bodyLarge, color = ink)
+        LabelledRow(
+            Icons.Filled.DateRange,
+            stringArrayResource(R.array.daily_vara_title)[card.vara.ordinal],
+            stringArrayResource(R.array.daily_vara)[card.vara.ordinal],
+            ink,
+        )
         if (facts != null) LearnLink(R.string.today_why_day, TodayTopic.STRENGTH, onLearn, color = ink)
+    }
+}
+
+/** "Until 3:38 PM · Star of plenty (Sampat)". */
+@Composable
+private fun rowLabel(whenLabel: String, name: String): String = stringResource(R.string.today_row_label, whenLabel, name)
+
+/** One tip in the list under the headline. */
+@Composable
+private fun Tip(text: String, ink: Color) {
+    Row(horizontalArrangement = Arrangement.spacedBy(Spacing.sm)) {
+        Icon(Icons.Filled.CheckCircle, contentDescription = null, tint = ink, modifier = Modifier.padding(top = 2.dp).size(18.dp))
+        Text(text, style = MaterialTheme.typography.bodyLarge, color = ink)
     }
 }
 
@@ -264,12 +290,15 @@ private fun LearnLink(@StringRes label: Int, topic: TodayTopic, onLearn: ((Today
     }
 }
 
-/** "Until 12:49 PM" on its own line in bold, the message under it, so the two halves of the day are easy to tell apart. */
+/** A bold label ("Monday · Chandra's day") with its short tip under it, behind a small icon. */
 @Composable
-private fun StarLine(whenLabel: String, message: String, ink: Color) {
-    Column {
-        Text(whenLabel, style = MaterialTheme.typography.labelLarge, color = ink)
-        Text(message, style = MaterialTheme.typography.bodyLarge, color = ink)
+private fun LabelledRow(icon: ImageVector, label: String, tip: String, ink: Color) {
+    Row(horizontalArrangement = Arrangement.spacedBy(Spacing.sm)) {
+        Icon(icon, contentDescription = null, tint = ink, modifier = Modifier.padding(top = 2.dp).size(18.dp))
+        Column {
+            Text(label, style = MaterialTheme.typography.titleSmall, color = ink)
+            Text(tip, style = MaterialTheme.typography.bodyMedium, color = ink)
+        }
     }
 }
 
@@ -347,11 +376,18 @@ private val DayStrength.label: Int
         DayStrength.GENTLE -> R.string.today_gentle
     }
 
-private val DayStrength.themes: Int
+private val DayStrength.focus: Int
     get() = when (this) {
-        DayStrength.STRONG -> R.array.daily_theme_strong
-        DayStrength.STEADY -> R.array.daily_theme_steady
-        DayStrength.GENTLE -> R.array.daily_theme_gentle
+        DayStrength.STRONG -> R.array.daily_focus_strong
+        DayStrength.STEADY -> R.array.daily_focus_steady
+        DayStrength.GENTLE -> R.array.daily_focus_gentle
+    }
+
+private val DayStrength.tips: Int
+    get() = when (this) {
+        DayStrength.STRONG -> R.array.daily_tips_strong
+        DayStrength.STEADY -> R.array.daily_tips_steady
+        DayStrength.GENTLE -> R.array.daily_tips_gentle
     }
 
 private val DayColour.label: Int
