@@ -20,4 +20,5 @@ dependencyResolutionManagement {
 rootProject.name = "AstroLingo"
 
 includeBuild("engine")
+includeBuild("learn")
 include(":app")

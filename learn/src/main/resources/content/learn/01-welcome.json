@@ -1,0 +1,961 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": 1,
+  "id": "welcome",
+  "glyph": "✦",
+  "title": {
+    "en": "Welcome to Jyotish",
+    "hi": ""
+  },
+  "summary": {
+    "en": "What Jyotish is, where it came from, why the Vedic sky is sidereal, and how to use astrology wisely.",
+    "hi": ""
+  },
+  "check": [
+    {
+      "id": "welcome.check.1",
+      "type": "quiz",
+      "question": {
+        "en": "Why might your Vedic Sun sign differ from the one you know from Western astrology?",
+        "hi": ""
+      },
+      "options": [
+        {
+          "en": "Jyotish uses 13 signs instead of 12",
+          "hi": ""
+        },
+        {
+          "en": "It measures from the fixed stars, offset by the ayanamsa",
+          "hi": ""
+        },
+        {
+          "en": "Jyotish counts the signs from your Moon",
+          "hi": ""
+        }
+      ],
+      "answer": 1,
+      "explanation": {
+        "en": "Jyotish uses the sidereal zodiac, tied to the stars. It sits about 24° behind the tropical zodiac, so many placements fall one sign earlier.",
+        "hi": ""
+      }
+    },
+    {
+      "id": "welcome.check.2",
+      "type": "quiz",
+      "question": {
+        "en": "Which part of a kundli depends most on an accurate birth time?",
+        "hi": ""
+      },
+      "options": [
+        {
+          "en": "The Sun's rashi",
+          "hi": ""
+        },
+        {
+          "en": "The Moon's rashi",
+          "hi": ""
+        },
+        {
+          "en": "The lagna and the houses",
+          "hi": ""
+        }
+      ],
+      "answer": 2,
+      "explanation": {
+        "en": "The rising sign changes about every two hours, so the lagna and the houses counted from it need the time. Sun and Moon signs usually come from the date.",
+        "hi": ""
+      }
+    }
+  ],
+  "lessons": [
+    {
+      "id": "welcome.what",
+      "title": {
+        "en": "What Jyotish is",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "welcome.what.1",
+          "type": "learn",
+          "title": {
+            "en": "Jyotish, the science of light",
+            "hi": ""
+          },
+          "body": {
+            "en": "Jyotish comes from jyoti, light. It is the traditional astrology of India: reading the Sun, Moon, planets and stars, as seen from Earth, as a mirror of life. A light shows the path. It doesn't walk the path for you.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "ज्योतिष",
+            "roman": "Jyotish"
+          },
+          "visual": {
+            "kind": "glyph",
+            "value": "✦"
+          }
+        },
+        {
+          "id": "welcome.what.2",
+          "type": "learn",
+          "title": {
+            "en": "The eye of the Veda",
+            "hi": ""
+          },
+          "body": {
+            "en": "Jyotish is one of the six Vedangas, the limbs that support the study of the Vedas. Tradition calls it the eye of the Veda, because it shows the right time for rituals, festivals and the important steps of life.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "वेदाङ्ग",
+            "roman": "Vedanga"
+          },
+          "visual": {
+            "kind": "glyph",
+            "value": "ॐ"
+          }
+        },
+        {
+          "id": "welcome.what.3",
+          "type": "learn",
+          "title": {
+            "en": "Three branches",
+            "hi": ""
+          },
+          "body": {
+            "en": "Traditionally Jyotish has three branches. Siddhanta is the mathematics of the sky. Samhita reads omens, weather and events for whole lands. Hora reads the birth chart of one person. This course is mostly about Hora.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "होरा",
+            "roman": "Hora"
+          }
+        },
+        {
+          "id": "welcome.what.4",
+          "type": "learn",
+          "title": {
+            "en": "Guidance, not fate",
+            "hi": ""
+          },
+          "body": {
+            "en": "A chart shows tendencies, strengths and seasons of life, not a fixed script. Think of a weather forecast: it can say rain is likely, and you decide to carry an umbrella. Your choices and effort always matter.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "welcome.what.5",
+          "type": "learn",
+          "title": {
+            "en": "The road ahead",
+            "hi": ""
+          },
+          "body": {
+            "en": "Step by step you'll meet the nine grahas (planets), the twelve rashis (signs), the twelve bhavas (houses) and the 27 nakshatras. Then you'll learn to read a kundli, its dashas and its transits. One small idea at a time.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 0
+          }
+        },
+        {
+          "id": "welcome.what.6",
+          "type": "quiz",
+          "question": {
+            "en": "The word Jyotish comes from a root meaning what?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Time",
+              "hi": ""
+            },
+            {
+              "en": "Destiny",
+              "hi": ""
+            },
+            {
+              "en": "Light",
+              "hi": ""
+            },
+            {
+              "en": "Number",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Jyoti means light. Jyotish is often called the science of light: it helps us see, and the walking is still ours.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "welcome.what.7",
+          "type": "quiz",
+          "question": {
+            "en": "Among the Vedangas, what does tradition call Jyotish?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "The eye of the Veda",
+              "hi": ""
+            },
+            {
+              "en": "The voice of the Veda",
+              "hi": ""
+            },
+            {
+              "en": "The hands of the Veda",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Jyotish is the eye of the Veda, because it sees time: when a ritual, festival or new step is best begun.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "welcome.what.8",
+          "type": "quiz",
+          "question": {
+            "en": "Which branch of Jyotish reads an individual's birth chart?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Samhita",
+              "hi": ""
+            },
+            {
+              "en": "Hora",
+              "hi": ""
+            },
+            {
+              "en": "Siddhanta",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Hora is birth-chart astrology. Siddhanta is the astronomy and maths, and Samhita deals with omens and events for nations and nature.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "welcome.origins",
+      "title": {
+        "en": "Where Jyotish came from",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "welcome.origins.1",
+          "type": "learn",
+          "title": {
+            "en": "Watching the Vedic sky",
+            "hi": ""
+          },
+          "body": {
+            "en": "The Vedic seers watched the sky with care. The Rig Veda pictures the year as a wheel with twelve spokes, and later Vedic texts list the nakshatras, the star groups the Moon passes night by night.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 0
+          }
+        },
+        {
+          "id": "welcome.origins.2",
+          "type": "learn",
+          "title": {
+            "en": "A calendar for ritual",
+            "hi": ""
+          },
+          "body": {
+            "en": "The oldest Jyotish text, the Vedanga Jyotisha, is credited to a sage named Lagadha. It tracks the Sun and Moon to set the dates of yajnas (fire rituals). It is a calendar guide, not a book of horoscopes.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "वेदाङ्ग ज्योतिष",
+            "roman": "Vedanga Jyotisha"
+          }
+        },
+        {
+          "id": "welcome.origins.3",
+          "type": "learn",
+          "title": {
+            "en": "Parashara and Hora",
+            "hi": ""
+          },
+          "body": {
+            "en": "Sage Parashara is honoured as the great teacher of birth-chart astrology. Brihat Parashara Hora Shastra (BPHS), the text carrying his name, covers grahas, signs, houses, yogas and dashas. Most Vedic astrologers today follow this Parashari way.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "पराशर",
+            "roman": "Parashara"
+          }
+        },
+        {
+          "id": "welcome.origins.4",
+          "type": "learn",
+          "title": {
+            "en": "Varahamihira and the classics",
+            "hi": ""
+          },
+          "body": {
+            "en": "Around the 6th century CE, Varahamihira of Ujjain wrote Brihat Jataka on birth charts and Brihat Samhita on omens and nature. Later classics such as Saravali and Mantreswara's Phaladeepika built on this work.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "वराहमिहिर",
+            "roman": "Varahamihira"
+          }
+        },
+        {
+          "id": "welcome.origins.5",
+          "type": "learn",
+          "title": {
+            "en": "A living tradition",
+            "hi": ""
+          },
+          "body": {
+            "en": "Jyotish never stopped. In India many families still check the panchang (almanac) for weddings and festivals, and a kundli is drawn when a child is born. Software now does the maths, but the ideas are the ones the classics taught.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "पञ्चाङ्ग",
+            "roman": "Panchang"
+          }
+        },
+        {
+          "id": "welcome.origins.6",
+          "type": "quiz",
+          "question": {
+            "en": "What was the Vedanga Jyotisha mainly written for?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Reading personal birth charts",
+              "hi": ""
+            },
+            {
+              "en": "Setting the calendar for rituals",
+              "hi": ""
+            },
+            {
+              "en": "Matching couples for marriage",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "The Vedanga Jyotisha is about time-keeping: following the Sun and Moon so that rituals happen on the right days.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "welcome.origins.7",
+          "type": "quiz",
+          "question": {
+            "en": "Which sage is honoured as the great teacher of birth-chart astrology?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Varahamihira",
+              "hi": ""
+            },
+            {
+              "en": "Lagadha",
+              "hi": ""
+            },
+            {
+              "en": "Parashara",
+              "hi": ""
+            },
+            {
+              "en": "Mantreswara",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Parashara. BPHS carries his name and is the root of the Parashari system most astrologers use today.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "welcome.origins.8",
+          "type": "quiz",
+          "question": {
+            "en": "Which book did Varahamihira write on birth charts?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Brihat Jataka",
+              "hi": ""
+            },
+            {
+              "en": "Phaladeepika",
+              "hi": ""
+            },
+            {
+              "en": "Vedanga Jyotisha",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Brihat Jataka. Phaladeepika came later, from Mantreswara, and the Vedanga Jyotisha is the older calendar text.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "welcome.vedic-sky",
+      "title": {
+        "en": "The Vedic sky",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "welcome.vedic-sky.1",
+          "type": "learn",
+          "title": {
+            "en": "The zodiac belt",
+            "hi": ""
+          },
+          "body": {
+            "en": "Seen from Earth, the Sun, Moon and planets all travel along one narrow band of sky. This band is split into twelve equal signs of 30°, the rashis (signs). Vedic and Western astrology share these same twelve signs.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "राशि",
+            "roman": "Rashi"
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 0
+          }
+        },
+        {
+          "id": "welcome.vedic-sky.2",
+          "type": "learn",
+          "title": {
+            "en": "Two ways to start the wheel",
+            "hi": ""
+          },
+          "body": {
+            "en": "Western astrology starts the zodiac at the spring equinox point: the tropical zodiac, tied to the seasons. Jyotish starts it against the fixed stars: the sidereal zodiac. Same names, different starting points.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "निरयण",
+            "roman": "Nirayana"
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 1
+          }
+        },
+        {
+          "id": "welcome.vedic-sky.3",
+          "type": "learn",
+          "title": {
+            "en": "The slow drift",
+            "hi": ""
+          },
+          "body": {
+            "en": "Earth wobbles slowly on its axis, so the equinox point slides back against the stars, about 1° in 72 years. Today the two zodiacs are about 24° apart. This gap is called the ayanamsa.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "अयनांश",
+            "roman": "Ayanamsa"
+          }
+        },
+        {
+          "id": "welcome.vedic-sky.4",
+          "type": "learn",
+          "title": {
+            "en": "Lahiri, the Indian standard",
+            "hi": ""
+          },
+          "body": {
+            "en": "There are a few ways to measure the ayanamsa. AstroLingo uses Lahiri, also called Chitrapaksha, chosen by India's calendar reform committee in the 1950s and used by most Indian astrologers today.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "welcome.vedic-sky.5",
+          "type": "learn",
+          "title": {
+            "en": "Why your sign may differ",
+            "hi": ""
+          },
+          "body": {
+            "en": "Take about 24° off a Western position to get the Vedic one. So a planet in the first 24° or so of a Western sign usually falls in the sign before. If you thought you were a Leo, your Vedic Sun may well be in Karka (Cancer).",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 4
+          }
+        },
+        {
+          "id": "welcome.vedic-sky.6",
+          "type": "yourChart",
+          "fact": "SUN_RASHI",
+          "title": {
+            "en": "Your Vedic Sun",
+            "hi": ""
+          },
+          "body": {
+            "en": "In the sidereal zodiac your Sun is in {value}. If that isn't the sign you knew, nothing is wrong: both systems watch the same sky. They simply start counting from different points.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "welcome.vedic-sky.7",
+          "type": "quiz",
+          "question": {
+            "en": "Which zodiac does Jyotish use?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Sidereal, tied to the fixed stars",
+              "hi": ""
+            },
+            {
+              "en": "Tropical, tied to the seasons",
+              "hi": ""
+            },
+            {
+              "en": "A different zodiac for each person",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Jyotish is sidereal: the signs are measured against the stars. Western astrology is tropical, measured from the spring equinox.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "welcome.vedic-sky.8",
+          "type": "quiz",
+          "question": {
+            "en": "What is the ayanamsa?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "The degree your lagna rises at",
+              "hi": ""
+            },
+            {
+              "en": "The gap between the tropical and sidereal zodiacs",
+              "hi": ""
+            },
+            {
+              "en": "The size of one rashi",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "The ayanamsa is the gap between the two zodiacs, about 24° today and growing slowly. AstroLingo uses the Lahiri value.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "welcome.vedic-sky.9",
+          "type": "quiz",
+          "question": {
+            "en": "A friend's Western Sun is at 10° Leo. Roughly where is it in Jyotish?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "About 10° Simha (Leo)",
+              "hi": ""
+            },
+            {
+              "en": "About 4° Kanya (Virgo)",
+              "hi": ""
+            },
+            {
+              "en": "About 16° Karka (Cancer)",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Take about 24° off: 10° Leo minus 24° lands around 16° of the sign before, Karka (Cancer).",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "welcome.kundli",
+      "title": {
+        "en": "Your kundli, a map of a moment",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "welcome.kundli.1",
+          "type": "learn",
+          "title": {
+            "en": "A snapshot of the sky",
+            "hi": ""
+          },
+          "body": {
+            "en": "A kundli (birth chart) is a map of the sky at the moment and place you were born. It shows where each graha stood among the twelve signs, as seen from your birthplace.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "कुण्डली",
+            "roman": "Kundli"
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 0
+          }
+        },
+        {
+          "id": "welcome.kundli.2",
+          "type": "learn",
+          "title": {
+            "en": "Three things it needs",
+            "hi": ""
+          },
+          "body": {
+            "en": "To draw a kundli we need the date, time and place of birth. The date places the grahas in their signs. The time and place show which sign was rising on the eastern horizon at that moment.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "welcome.kundli.3",
+          "type": "learn",
+          "title": {
+            "en": "The lagna, your rising sign",
+            "hi": ""
+          },
+          "body": {
+            "en": "The sign rising in the east at birth is the lagna (ascendant). It becomes the first house, and every other house is counted from it. The lagna changes about every two hours, so it needs a good birth time.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "लग्न",
+            "roman": "Lagna"
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 1
+          }
+        },
+        {
+          "id": "welcome.kundli.4",
+          "type": "learn",
+          "title": {
+            "en": "The Moon, your mind",
+            "hi": ""
+          },
+          "body": {
+            "en": "Jyotish gives the Moon special weight. Your Moon sign, the Chandra rashi, and the Moon's nakshatra shape your dashas, your transits and your daily guidance. Many people in India know their Moon sign before their Sun sign.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "चन्द्र राशि",
+            "roman": "Chandra rashi"
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "CHANDRA"
+          }
+        },
+        {
+          "id": "welcome.kundli.5",
+          "type": "yourChart",
+          "fact": "MOON_RASHI",
+          "title": {
+            "en": "Your Moon sign",
+            "hi": ""
+          },
+          "body": {
+            "en": "At your birth the Moon was in {value}. This is your Chandra rashi. AstroLingo reads your daily card from it, and you'll meet it again in many lessons ahead.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "welcome.kundli.6",
+          "type": "learn",
+          "title": {
+            "en": "No birth time? Still plenty",
+            "hi": ""
+          },
+          "body": {
+            "en": "Don't know your birth time? You can still learn a lot. The app then uses noon and leans on your Moon. Your Sun and Moon signs usually hold, and if the Moon changed star that day you pick your birth star. Only the lagna and houses truly need the time, and the app tells you gently.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "welcome.kundli.7",
+          "type": "quiz",
+          "question": {
+            "en": "Which details does a kundli need?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Name and date of birth",
+              "hi": ""
+            },
+            {
+              "en": "Date, time and place of birth",
+              "hi": ""
+            },
+            {
+              "en": "Date and place of birth only",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Date, time and place. The time and place fix the rising sign, and from it all twelve houses.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "welcome.kundli.8",
+          "type": "quiz",
+          "question": {
+            "en": "What is the lagna?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "The sign the Sun is in",
+              "hi": ""
+            },
+            {
+              "en": "The sign the Moon is in",
+              "hi": ""
+            },
+            {
+              "en": "The sign rising in the east at birth",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "The lagna is the rising sign, on the eastern horizon at birth. It becomes the first house of the chart.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "welcome.kundli.9",
+          "type": "quiz",
+          "question": {
+            "en": "Without a birth time, which can usually still be known?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "The lagna",
+              "hi": ""
+            },
+            {
+              "en": "Your Moon sign",
+              "hi": ""
+            },
+            {
+              "en": "The house Shani is in",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "The Moon sign usually comes from the date. Only if the Moon changed sign that day does the time decide it. The lagna and houses always need the time.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "welcome.wisely",
+      "title": {
+        "en": "Using astrology wisely",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "welcome.wisely.1",
+          "type": "learn",
+          "title": {
+            "en": "Effort meets tendency",
+            "hi": ""
+          },
+          "body": {
+            "en": "Classical thinkers weighed daiva, what is given, against purushakara, human effort. The chart shows the given: the soil and the season. Your effort is the farmer's work. Both together decide the harvest.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "पुरुषकार",
+            "roman": "Purushakara"
+          }
+        },
+        {
+          "id": "welcome.wisely.2",
+          "type": "learn",
+          "title": {
+            "en": "Light, not fear",
+            "hi": ""
+          },
+          "body": {
+            "en": "A good astrologer never frightens anyone. No chart is simply bad, and no single placement decides a life. When you hear of a dosha or a hard transit, remember that the classics also give cancellations, supports and seasons that pass.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "welcome.wisely.3",
+          "type": "learn",
+          "title": {
+            "en": "What astrology is not",
+            "hi": ""
+          },
+          "body": {
+            "en": "Jyotish is cultural and spiritual guidance. It is not a replacement for a doctor, lawyer or financial adviser. For health, money or legal matters, talk to a qualified professional, and use the chart for reflection.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "welcome.wisely.4",
+          "type": "learn",
+          "title": {
+            "en": "Nothing to buy",
+            "hi": ""
+          },
+          "body": {
+            "en": "You never need to buy anything to improve your life. The gentle remedies of tradition are free: kindness, charity, prayer or mantra if you wish, discipline and good habits. They are always your choice.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "welcome.wisely.5",
+          "type": "learn",
+          "title": {
+            "en": "For everyone",
+            "hi": ""
+          },
+          "body": {
+            "en": "Jyotish belongs to people of every background and belief. A chart says nothing about anyone's worth. AstroLingo keeps its lessons free of caste or gender bias, and your birth details stay private on your phone.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "glyph",
+            "value": "✦"
+          }
+        },
+        {
+          "id": "welcome.wisely.6",
+          "type": "quiz",
+          "question": {
+            "en": "How does Jyotish see what a chart shows?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "As a fixed script that can't change",
+              "hi": ""
+            },
+            {
+              "en": "As tendencies that effort can shape",
+              "hi": ""
+            },
+            {
+              "en": "As pure random chance",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "The chart shows tendencies and timing. Human effort, purushakara, works with them, like a farmer working with the season.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "welcome.wisely.7",
+          "type": "quiz",
+          "question": {
+            "en": "A friend hears they have a dosha and feels scared. What fits the Jyotish way?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Explain that balance and cancellations matter",
+              "hi": ""
+            },
+            {
+              "en": "Say they must buy an expensive remedy",
+              "hi": ""
+            },
+            {
+              "en": "Agree that the chart is ruined",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Doshas are read in balance. Many are cancelled or softened by other factors, and free, gentle habits are always enough.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "welcome.wisely.8",
+          "type": "quiz",
+          "question": {
+            "en": "Someone has a health worry. What is the wise step?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Wait for a better dasha",
+              "hi": ""
+            },
+            {
+              "en": "Rely on a transit reading",
+              "hi": ""
+            },
+            {
+              "en": "See a qualified doctor",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Astrology is never medical advice. For health, see a qualified professional; the chart is for reflection, not diagnosis.",
+            "hi": ""
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -8,11 +8,13 @@ Android first (Kotlin, Jetpack Compose); iOS later.
 | --- | --- |
 | `app/` | Android app |
 | `engine/` | Pure-Kotlin jyotish engine (kundli maths, later daily-card rules) |
+| `learn/` | Pure-Kotlin Learn module: the course content, learning path, knowledge check and bookmarks |
 | `docs/adr/` | Architecture decision records |
 | `.github/workflows/` | CI: tests, lint and a debug APK on every pull request |
 
 ## Build
 - Engine tests: `./gradlew -p engine test`
+- Learn tests (logic and every content file): `./gradlew -p learn test`
 - App: `./gradlew :app:assembleDebug` (needs the Android SDK, as installed by Android Studio)
 
 ## Install the latest build on your phone

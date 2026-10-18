@@ -1,0 +1,871 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": 1,
+  "id": "reading",
+  "glyph": "◈",
+  "title": {
+    "en": "Reading a kundli",
+    "hi": ""
+  },
+  "summary": {
+    "en": "Read North and South Indian charts, find the lagna and the grahas, follow house lords, and try a first gentle reading.",
+    "hi": ""
+  },
+  "check": [
+    {
+      "id": "reading.check.1",
+      "type": "quiz",
+      "question": {
+        "en": "A North Indian chart shows the number 10 in the top central diamond. What is the lagna?",
+        "hi": ""
+      },
+      "options": [
+        {
+          "en": "Mesha, since that diamond is always house 1",
+          "hi": ""
+        },
+        {
+          "en": "Makara",
+          "hi": ""
+        },
+        {
+          "en": "Karka",
+          "hi": ""
+        },
+        {
+          "en": "It can't be read without a South Indian chart",
+          "hi": ""
+        }
+      ],
+      "answer": 1,
+      "explanation": {
+        "en": "In the North Indian chart the top diamond is always house 1, and the number in it is the sign. Sign 10 is Makara, so the lagna is Makara.",
+        "hi": ""
+      }
+    },
+    {
+      "id": "reading.check.2",
+      "type": "quiz",
+      "question": {
+        "en": "For Mithuna lagna, which graha is the lord of the 7th house?",
+        "hi": ""
+      },
+      "options": [
+        {
+          "en": "Shukra",
+          "hi": ""
+        },
+        {
+          "en": "Budha",
+          "hi": ""
+        },
+        {
+          "en": "Mangal",
+          "hi": ""
+        },
+        {
+          "en": "Guru",
+          "hi": ""
+        }
+      ],
+      "answer": 3,
+      "explanation": {
+        "en": "Count seven signs from Mithuna and you reach Dhanu. Dhanu is ruled by Guru, so Guru is the 7th lord. Shukra is the 7th house's natural karaka, not its lord here.",
+        "hi": ""
+      }
+    }
+  ],
+  "lessons": [
+    {
+      "id": "reading.styles",
+      "title": {
+        "en": "North and South Indian charts",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "reading.styles.1",
+          "type": "learn",
+          "title": {
+            "en": "A map of one moment",
+            "hi": ""
+          },
+          "body": {
+            "en": "A kundli is a map of the sky at the moment of birth: twelve boxes, one per house or sign, with the grahas written inside. Two drawing styles are common across India. Both hold exactly the same information.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "कुण्डली",
+            "roman": "Kundli"
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 0
+          }
+        },
+        {
+          "id": "reading.styles.2",
+          "type": "learn",
+          "title": {
+            "en": "North Indian: houses stay put",
+            "hi": ""
+          },
+          "body": {
+            "en": "The North Indian chart is a square cut into diamonds and triangles. The houses never move: the top central diamond is always house 1, and the houses run anticlockwise from there.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 1
+          }
+        },
+        {
+          "id": "reading.styles.3",
+          "type": "learn",
+          "title": {
+            "en": "Numbers are signs",
+            "hi": ""
+          },
+          "body": {
+            "en": "In a North Indian chart, the numbers in the boxes are signs, not houses: 1 for Mesha, 2 for Vrishabha, up to 12 for Meena. A 4 in the top diamond means Karka lagna. Mixing these up is the classic beginner slip.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 4
+          }
+        },
+        {
+          "id": "reading.styles.4",
+          "type": "learn",
+          "title": {
+            "en": "South Indian: signs stay put",
+            "hi": ""
+          },
+          "body": {
+            "en": "The South Indian chart is a ring of twelve boxes around an empty centre. Here the signs never move: Meena is top left, then Mesha, Vrishabha and Mithuna along the top, continuing clockwise. The lagna's box is marked, often with a diagonal line.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 1
+          }
+        },
+        {
+          "id": "reading.styles.5",
+          "type": "learn",
+          "title": {
+            "en": "Same chart, two pictures",
+            "hi": ""
+          },
+          "body": {
+            "en": "North Indian charts make houses easy to see; South Indian charts make signs easy to see. Eastern India has its own style too. Learn to read both, and you can read a kundli from any astrologer.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 0
+          }
+        },
+        {
+          "id": "reading.styles.6",
+          "type": "quiz",
+          "question": {
+            "en": "In a North Indian chart, what never changes position?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "The signs",
+              "hi": ""
+            },
+            {
+              "en": "The houses",
+              "hi": ""
+            },
+            {
+              "en": "The grahas",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "In the North Indian chart the houses are fixed, with house 1 always the top central diamond. The signs move into them.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "reading.styles.7",
+          "type": "quiz",
+          "question": {
+            "en": "In a South Indian chart, which sign sits in the top left box?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Mesha",
+              "hi": ""
+            },
+            {
+              "en": "Makara",
+              "hi": ""
+            },
+            {
+              "en": "Meena",
+              "hi": ""
+            },
+            {
+              "en": "Karka",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "The South Indian chart fixes the signs: Meena top left, then Mesha, Vrishabha and Mithuna along the top, moving clockwise.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "reading.styles.8",
+          "type": "quiz",
+          "question": {
+            "en": "A North Indian chart shows 7 in the top diamond. What does it mean?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Tula lagna",
+              "hi": ""
+            },
+            {
+              "en": "The 7th house is on top",
+              "hi": ""
+            },
+            {
+              "en": "Seven grahas are in the lagna",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "The top diamond is always house 1, and the number is its sign. Sign 7 is Tula, so this is a Tula lagna chart.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "reading.placements",
+      "title": {
+        "en": "Finding the lagna and grahas",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "reading.placements.1",
+          "type": "learn",
+          "title": {
+            "en": "Step 1: find house 1",
+            "hi": ""
+          },
+          "body": {
+            "en": "Begin every reading at the lagna. In a North Indian chart it is the top central diamond. In a South Indian chart it is the box with the lagna mark, often a slanted line or the letters La or Asc.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 1
+          }
+        },
+        {
+          "id": "reading.placements.2",
+          "type": "learn",
+          "title": {
+            "en": "Step 2: name its sign",
+            "hi": ""
+          },
+          "body": {
+            "en": "In the North Indian chart, read the number in the top diamond and convert it to a sign. In the South Indian chart, the marked box already is a sign. Either way you now know the lagna.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 0
+          }
+        },
+        {
+          "id": "reading.placements.3",
+          "type": "learn",
+          "title": {
+            "en": "Step 3: count the houses",
+            "hi": ""
+          },
+          "body": {
+            "en": "North Indian: go anticlockwise around the diamond, house 1 to 12. South Indian: start at the lagna box and follow the signs clockwise. The box you reach after counting is the house you want.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 4
+          }
+        },
+        {
+          "id": "reading.placements.4",
+          "type": "learn",
+          "title": {
+            "en": "Step 4: spot the grahas",
+            "hi": ""
+          },
+          "body": {
+            "en": "Grahas are written as short labels, such as Su, Mo, Ma, Me, Ju, Ve, Sa, Ra, Ke, or Sanskrit ones like Sū, Ch, Gu, Śu, Śa. Many charts add the degree. An R or (R) means the graha was retrograde.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "SURYA"
+          }
+        },
+        {
+          "id": "reading.placements.5",
+          "type": "learn",
+          "title": {
+            "en": "House says where, sign says how",
+            "hi": ""
+          },
+          "body": {
+            "en": "A graha's house shows which part of life it acts on. Its sign shows the style it acts in. Chandra in the 4th house in Karka: feelings centred on home, expressed in a caring, nurturing way.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 4
+          }
+        },
+        {
+          "id": "reading.placements.6",
+          "type": "yourChart",
+          "fact": "LAGNA",
+          "title": {
+            "en": "Your lagna on the chart",
+            "hi": ""
+          },
+          "body": {
+            "en": "Your lagna is {value}. In your North Indian chart that sign's number sits in the top diamond, and in a South Indian chart its box carries the lagna mark.",
+            "hi": ""
+          },
+          "unknownTime": {
+            "en": "Without your birth time we can't place your lagna yet. You can still draw your chart from your Moon sign, as Chandra lagna, and read houses from there.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "reading.placements.7",
+          "type": "yourChart",
+          "fact": "MOON_HOUSE",
+          "title": {
+            "en": "Your Moon's house",
+            "hi": ""
+          },
+          "body": {
+            "en": "Your Chandra sits in house {value}. Look back at what that house governs: it is where your mind tends to turn for comfort and where you feel things most.",
+            "hi": ""
+          },
+          "unknownTime": {
+            "en": "The Moon's house needs your birth time. Your Moon sign is still known, and it is the anchor of your daily card.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "reading.placements.8",
+          "type": "quiz",
+          "question": {
+            "en": "Where do you start reading any kundli?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "With the Sun's sign",
+              "hi": ""
+            },
+            {
+              "en": "With the lagna, house 1",
+              "hi": ""
+            },
+            {
+              "en": "With the 10th house",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Every reading starts at the lagna, house 1, because every other house is counted from it.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "reading.placements.9",
+          "type": "quiz",
+          "question": {
+            "en": "In a South Indian chart, how do you count the houses?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Clockwise through the signs from the lagna box",
+              "hi": ""
+            },
+            {
+              "en": "Anticlockwise from the top left box",
+              "hi": ""
+            },
+            {
+              "en": "From Mesha, whatever the lagna",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "The South Indian chart has fixed signs running clockwise. Start at the lagna box as house 1 and follow the signs clockwise.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "reading.placements.10",
+          "type": "quiz",
+          "question": {
+            "en": "A graha's house tells you which part of life. What does its sign add?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "How long its effect lasts",
+              "hi": ""
+            },
+            {
+              "en": "Its dasha years",
+              "hi": ""
+            },
+            {
+              "en": "The style it acts in",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "House shows where a graha acts; sign shows how. Together they describe the placement.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "reading.lords",
+      "title": {
+        "en": "House lords",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "reading.lords.1",
+          "type": "learn",
+          "title": {
+            "en": "Every house has a lord",
+            "hi": ""
+          },
+          "body": {
+            "en": "The lord of a house is the graha that rules the sign on it. If Simha falls on your 3rd house, Surya is your 3rd lord. Wherever that lord sits, it carries the matters of its house along with it.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "भावेश",
+            "roman": "Bhavesha"
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 3
+          }
+        },
+        {
+          "id": "reading.lords.2",
+          "type": "learn",
+          "title": {
+            "en": "The sign lords, again",
+            "hi": ""
+          },
+          "body": {
+            "en": "Mangal rules Mesha and Vrishchika; Shukra, Vrishabha and Tula; Budha, Mithuna and Kanya; Chandra, Karka; Surya, Simha; Guru, Dhanu and Meena; Shani, Makara and Kumbha. Rahu and Ketu own no sign in this scheme.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 0
+          }
+        },
+        {
+          "id": "reading.lords.3",
+          "type": "learn",
+          "title": {
+            "en": "The lagna lord",
+            "hi": ""
+          },
+          "body": {
+            "en": "The lord of house 1 is the lagnesha, the ruler of the whole chart. Its house shows where your life's attention tends to flow, and its strength colours your vitality and confidence.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "लग्नेश",
+            "roman": "Lagnesha"
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 1
+          }
+        },
+        {
+          "id": "reading.lords.4",
+          "type": "learn",
+          "title": {
+            "en": "A quick example",
+            "hi": ""
+          },
+          "body": {
+            "en": "Ravi, a fictional learner, has Simha lagna. His lagna lord is Surya. Counting on, his 10th house is Vrishabha, so his 10th lord, the lord of career, is Shukra.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 5
+          }
+        },
+        {
+          "id": "reading.lords.5",
+          "type": "learn",
+          "title": {
+            "en": "One graha, two houses",
+            "hi": ""
+          },
+          "body": {
+            "en": "Most grahas rule two signs, so they rule two houses. For Mesha lagna, Mangal rules both the 1st (Mesha) and the 8th (Vrishchika). A placement then speaks for both houses at once.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "MANGAL"
+          }
+        },
+        {
+          "id": "reading.lords.6",
+          "type": "learn",
+          "title": {
+            "en": "Lords join houses",
+            "hi": ""
+          },
+          "body": {
+            "en": "When a lord sits in another house, it links the two. A 10th lord in the 5th joins work with creativity, study or teaching. Linking houses through their lords is the heart of chart reading.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 5
+          }
+        },
+        {
+          "id": "reading.lords.7",
+          "type": "yourChart",
+          "fact": "LAGNA_LORD",
+          "title": {
+            "en": "Your chart ruler",
+            "hi": ""
+          },
+          "body": {
+            "en": "Your lagna lord is {value}, the ruler of your whole chart. Find where it sits in your kundli: tradition says that house is where much of your energy and attention naturally flows.",
+            "hi": ""
+          },
+          "unknownTime": {
+            "en": "Your lagna lord needs your birth time. Many readers then use the lord of the Moon sign as a guide, read from Chandra lagna.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "reading.lords.8",
+          "type": "quiz",
+          "question": {
+            "en": "For Kanya lagna, who is the lagna lord?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Shukra",
+              "hi": ""
+            },
+            {
+              "en": "Budha",
+              "hi": ""
+            },
+            {
+              "en": "Chandra",
+              "hi": ""
+            },
+            {
+              "en": "Guru",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Kanya is ruled by Budha, so for Kanya lagna Budha is the lagna lord, the ruler of the whole chart.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "reading.lords.9",
+          "type": "quiz",
+          "question": {
+            "en": "For Mesha lagna, which two houses does Mangal rule?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "The 1st and 8th",
+              "hi": ""
+            },
+            {
+              "en": "The 1st and 7th",
+              "hi": ""
+            },
+            {
+              "en": "The 4th and 10th",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Mangal rules Mesha (house 1) and Vrishchika, which is the 8th sign counted from Mesha.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "reading.lords.10",
+          "type": "quiz",
+          "question": {
+            "en": "What is the lord of a house?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "The graha sitting in that house",
+              "hi": ""
+            },
+            {
+              "en": "The house's natural karaka",
+              "hi": ""
+            },
+            {
+              "en": "The ruler of the sign on that house",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "A house's lord rules the sign that falls on it. A graha sitting there is an occupant, and the karaka is a fixed signifier.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "reading.example",
+      "title": {
+        "en": "A first gentle reading",
+        "hi": ""
+      },
+      "minutes": 5,
+      "cards": [
+        {
+          "id": "reading.example.1",
+          "type": "learn",
+          "title": {
+            "en": "Meet Kavya's chart",
+            "hi": ""
+          },
+          "body": {
+            "en": "Kavya is fictional. Her lagna is Tula, so Tula is house 1, Vrishchika 2, and on to Kanya, house 12. Tula is ruled by Shukra and tends towards balance, fairness and grace. That is our starting note.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 7
+          }
+        },
+        {
+          "id": "reading.example.2",
+          "type": "learn",
+          "title": {
+            "en": "The lagna lord",
+            "hi": ""
+          },
+          "body": {
+            "en": "Shukra sits in Mithuna, her 9th house, a trikona. The chart's ruler in the house of dharma suggests a life drawn towards learning, teachers, travel and meaning. Trikonas are traditionally supportive places.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 9
+          }
+        },
+        {
+          "id": "reading.example.3",
+          "type": "learn",
+          "title": {
+            "en": "The Moon",
+            "hi": ""
+          },
+          "body": {
+            "en": "Chandra sits in Karka, its own sign, in her 10th house, a kendra. A comfortable Moon on the pillar of action suggests feelings tied to work and a caring public role, perhaps teaching, care or hospitality.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 10
+          }
+        },
+        {
+          "id": "reading.example.4",
+          "type": "learn",
+          "title": {
+            "en": "The Sun and Budha",
+            "hi": ""
+          },
+          "body": {
+            "en": "Surya and Budha sit together in Simha, her 11th house. Surya is in its own sign there. The 11th is an upachaya house of gains and friends, so tradition reads good support from networks that grows over time.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 11
+          }
+        },
+        {
+          "id": "reading.example.5",
+          "type": "learn",
+          "title": {
+            "en": "Guru and Shani",
+            "hi": ""
+          },
+          "body": {
+            "en": "Guru sits in Kumbha, her 5th house, a trikona of study and creativity. Shani sits in Makara, its own sign, in her 4th. For Tula lagna Shani rules a kendra (4th) and a trikona (5th), which makes it a yogakaraka, a helpful graha.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "योगकारक",
+            "roman": "Yogakaraka"
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 4
+          }
+        },
+        {
+          "id": "reading.example.6",
+          "type": "learn",
+          "title": {
+            "en": "Putting it together",
+            "hi": ""
+          },
+          "body": {
+            "en": "Themes repeat: kendras and trikonas are busy, several grahas sit in their own signs, and learning shows up more than once. A reading is a set of gentle tendencies like these, never a verdict on a life.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 0
+          }
+        },
+        {
+          "id": "reading.example.7",
+          "type": "quiz",
+          "question": {
+            "en": "Kavya has Tula lagna. Why is Shukra her lagna lord?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Shukra sits in her 1st house",
+              "hi": ""
+            },
+            {
+              "en": "Shukra rules the sign Tula",
+              "hi": ""
+            },
+            {
+              "en": "Shukra is the karaka of the 7th",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "The lagna lord is the ruler of the lagna's sign. Tula is ruled by Shukra, wherever Shukra happens to sit.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "reading.example.8",
+          "type": "quiz",
+          "question": {
+            "en": "For Tula lagna, why is Shani called a yogakaraka?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "It rules a kendra and a trikona",
+              "hi": ""
+            },
+            {
+              "en": "It is exalted in Tula",
+              "hi": ""
+            },
+            {
+              "en": "It sits in the 10th house",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Shani rules Makara (4th, a kendra) and Kumbha (5th, a trikona) for Tula lagna. Ruling both kinds of house makes a graha a yogakaraka.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "reading.example.9",
+          "type": "quiz",
+          "question": {
+            "en": "What is the best way to describe a chart reading?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "A fixed prediction of events",
+              "hi": ""
+            },
+            {
+              "en": "A score of good and bad houses",
+              "hi": ""
+            },
+            {
+              "en": "Gentle tendencies drawn from placements",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "In AstroLingo a reading describes tendencies from the lagna, lords and placements. It is guidance, never certainty.",
+            "hi": ""
+          }
+        }
+      ]
+    }
+  ]
+}

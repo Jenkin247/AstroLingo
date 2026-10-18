@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": 1,
+  "chapters": [
+    "01-welcome.json",
+    "02-grahas.json",
+    "03-rashis.json",
+    "04-bhavas.json",
+    "05-nakshatras.json",
+    "06-reading-kundli.json",
+    "07-drishti.json",
+    "08-dignity.json",
+    "09-vargas.json",
+    "10-dasha.json",
+    "11-gochar.json",
+    "12-yogas.json",
+    "13-panchang.json",
+    "14-matching.json"
+  ]
+}

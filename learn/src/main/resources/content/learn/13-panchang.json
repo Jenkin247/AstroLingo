@@ -1,0 +1,980 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": 1,
+  "id": "panchang",
+  "glyph": "◐",
+  "title": {
+    "en": "Panchang and muhurta",
+    "hi": ""
+  },
+  "summary": {
+    "en": "Read the five limbs of the Hindu almanac, find Rahu kaal, and see how your daily card is built.",
+    "hi": ""
+  },
+  "check": [
+    {
+      "id": "panchang.check.1",
+      "type": "quiz",
+      "question": {
+        "en": "The Moon is 100° ahead of the Sun. Which tithi is running?",
+        "hi": ""
+      },
+      "options": [
+        {
+          "en": "Shukla Ashtami (8th)",
+          "hi": ""
+        },
+        {
+          "en": "Shukla Navami (9th)",
+          "hi": ""
+        },
+        {
+          "en": "Krishna Navami (24th)",
+          "hi": ""
+        },
+        {
+          "en": "Purnima (15th)",
+          "hi": ""
+        }
+      ],
+      "answer": 1,
+      "explanation": {
+        "en": "100 ÷ 12 = 8.3, so eight tithis are complete and the 9th is running. Under 180° means the bright half: Shukla Navami.",
+        "hi": ""
+      }
+    },
+    {
+      "id": "panchang.check.2",
+      "type": "quiz",
+      "question": {
+        "en": "Sunrise is 6:00 and sunset 18:00 on a Monday. When is Rahu kaal?",
+        "hi": ""
+      },
+      "options": [
+        {
+          "en": "6:00 to 7:30",
+          "hi": ""
+        },
+        {
+          "en": "16:30 to 18:00",
+          "hi": ""
+        },
+        {
+          "en": "12:00 to 13:30",
+          "hi": ""
+        },
+        {
+          "en": "7:30 to 9:00",
+          "hi": ""
+        }
+      ],
+      "answer": 3,
+      "explanation": {
+        "en": "Twelve hours of daytime make eight parts of 90 minutes. Monday's Rahu kaal is the 2nd part: 7:30 to 9:00.",
+        "hi": ""
+      }
+    }
+  ],
+  "lessons": [
+    {
+      "id": "panchang.limbs",
+      "title": {
+        "en": "The five limbs",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "panchang.limbs.1",
+          "type": "learn",
+          "title": {
+            "en": "Panchang, the almanac",
+            "hi": ""
+          },
+          "body": {
+            "en": "Panchang means 'five limbs'. It is the Hindu almanac, describing each day through five measures of the Sun and Moon. Families have used it for centuries to plan festivals, fasts and ceremonies.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "पञ्चाङ्ग",
+            "roman": "Panchang"
+          },
+          "visual": {
+            "kind": "glyph",
+            "value": "◐"
+          }
+        },
+        {
+          "id": "panchang.limbs.2",
+          "type": "learn",
+          "title": {
+            "en": "Vara and tithi",
+            "hi": ""
+          },
+          "body": {
+            "en": "The first two limbs are vara, the weekday, each ruled by a graha, and tithi, the lunar day, set by how far the Moon has moved ahead of the Sun. These two are the most quoted lines in any printed panchang.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "वार",
+            "roman": "Vara"
+          }
+        },
+        {
+          "id": "panchang.limbs.3",
+          "type": "learn",
+          "title": {
+            "en": "Nakshatra",
+            "hi": ""
+          },
+          "body": {
+            "en": "The third limb is the day's nakshatra: the one of the 27 the Moon is passing through. The Moon spends about a day in each, which is why your daily card can count from your birth star to today's.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 19
+          }
+        },
+        {
+          "id": "panchang.limbs.4",
+          "type": "learn",
+          "title": {
+            "en": "Yoga of the day",
+            "hi": ""
+          },
+          "body": {
+            "en": "The fourth limb is also called yoga, but it is not a chart yoga. Add the Sun's and Moon's sidereal longitudes, then divide the circle into 27 parts of 13°20′. Each part has a name, from Vishkambha to Vaidhriti.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "panchang.limbs.5",
+          "type": "learn",
+          "title": {
+            "en": "Karana",
+            "hi": ""
+          },
+          "body": {
+            "en": "The fifth limb is karana, half a tithi. There are 11 karanas: 7 that repeat in turn and 4 fixed ones around the new moon. Vishti, also called Bhadra, is traditionally avoided for new starts.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "करण",
+            "roman": "Karana"
+          }
+        },
+        {
+          "id": "panchang.limbs.6",
+          "type": "learn",
+          "title": {
+            "en": "The day starts at sunrise",
+            "hi": ""
+          },
+          "body": {
+            "en": "A panchang day runs from sunrise to sunrise, not midnight to midnight. Your daily card takes the Moon's values at sunrise where you are, as a printed panchang does, and notes when the nakshatra changes during the day.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "panchang.limbs.7",
+          "type": "quiz",
+          "question": {
+            "en": "Which of these is NOT one of the five limbs?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Karana",
+              "hi": ""
+            },
+            {
+              "en": "Lagna",
+              "hi": ""
+            },
+            {
+              "en": "Tithi",
+              "hi": ""
+            },
+            {
+              "en": "Vara",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "The five limbs are vara, tithi, nakshatra, yoga and karana. Lagna belongs to a chart, not to the almanac's day.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "panchang.limbs.8",
+          "type": "quiz",
+          "question": {
+            "en": "What is a karana?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "A quarter of a nakshatra",
+              "hi": ""
+            },
+            {
+              "en": "One eighth of the daytime",
+              "hi": ""
+            },
+            {
+              "en": "Half of a tithi",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "A karana is half a tithi, so there are 60 in a lunar month, drawn from 11 karana names.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "panchang.limbs.9",
+          "type": "quiz",
+          "question": {
+            "en": "When does a panchang day begin?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "At sunrise",
+              "hi": ""
+            },
+            {
+              "en": "At midnight",
+              "hi": ""
+            },
+            {
+              "en": "At sunset",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "The Vedic day runs sunrise to sunrise, so the panchang gives the values in force at sunrise.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "panchang.vara",
+      "title": {
+        "en": "Vara and the colour of the day",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "panchang.vara.1",
+          "type": "learn",
+          "title": {
+            "en": "Seven days, seven lords",
+            "hi": ""
+          },
+          "body": {
+            "en": "Each weekday is ruled by a graha: Sunday Surya, Monday Chandra, Tuesday Mangal, Wednesday Budha, Thursday Guru, Friday Shukra, Saturday Shani. The names say it: Ravivara, Somavara, Mangalavara, Budhavara and so on.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "SURYA"
+          }
+        },
+        {
+          "id": "panchang.vara.2",
+          "type": "learn",
+          "title": {
+            "en": "Why this order",
+            "hi": ""
+          },
+          "body": {
+            "en": "The order comes from the horas, the planetary hours. Hours are ruled in turn by Shani, Guru, Mangal, Surya, Shukra, Budha, Chandra. After 24 hours, the next day's first hora falls to a new lord, who names that day.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "होरा",
+            "roman": "Hora"
+          }
+        },
+        {
+          "id": "panchang.vara.3",
+          "type": "learn",
+          "title": {
+            "en": "The day's mood",
+            "hi": ""
+          },
+          "body": {
+            "en": "Each vara takes on its lord's nature. Thursday, Guru's day, is traditionally good for learning and teaching. Tuesday, Mangal's day, suits effort and courage. Saturday, Shani's day, favours steady, patient work.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "panchang.vara.4",
+          "type": "learn",
+          "title": {
+            "en": "Colour of the day",
+            "hi": ""
+          },
+          "body": {
+            "en": "Each lord has a traditional colour. Your daily card shows Surya orange, Chandra white, Mangal red, Budha green, Guru yellow, Shukra pink and Shani dark blue. Wearing it is a gentle, optional way to remember the day's lord.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "panchang.vara.5",
+          "type": "learn",
+          "title": {
+            "en": "Deity of the day",
+            "hi": ""
+          },
+          "body": {
+            "en": "Many families also link each day with a deity, such as Hanuman on Tuesday or Vishnu on Thursday. The daily card can show one, and you can turn deities off at any time. It is a cultural custom, offered, never required.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "panchang.vara.6",
+          "type": "learn",
+          "title": {
+            "en": "A fictional example",
+            "hi": ""
+          },
+          "body": {
+            "en": "Anu opens her card on a Wednesday. The vara is Budhavara, ruled by Budha, so the colour is green. Budha's day suits writing, study and trade, so she finally finishes the letter she has been putting off.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "BUDHA"
+          }
+        },
+        {
+          "id": "panchang.vara.7",
+          "type": "quiz",
+          "question": {
+            "en": "Which graha rules Friday?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Budha",
+              "hi": ""
+            },
+            {
+              "en": "Guru",
+              "hi": ""
+            },
+            {
+              "en": "Shani",
+              "hi": ""
+            },
+            {
+              "en": "Shukra",
+              "hi": ""
+            }
+          ],
+          "answer": 3,
+          "explanation": {
+            "en": "Friday is Shukravara, the day of Shukra (Venus).",
+            "hi": ""
+          }
+        },
+        {
+          "id": "panchang.vara.8",
+          "type": "quiz",
+          "question": {
+            "en": "What colour does the daily card show on Saturday?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Yellow",
+              "hi": ""
+            },
+            {
+              "en": "Dark blue",
+              "hi": ""
+            },
+            {
+              "en": "Green",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Saturday is Shani's day, and Shani's colour on the card is dark blue.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "panchang.vara.9",
+          "type": "quiz",
+          "question": {
+            "en": "Where does the order of the weekdays come from?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "The order of the twelve signs",
+              "hi": ""
+            },
+            {
+              "en": "The order of exaltation degrees",
+              "hi": ""
+            },
+            {
+              "en": "The planetary hours (horas)",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Each day is named after the lord of its first hora. Twenty-four horas later, a new lord takes the first hour.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "panchang.tithi",
+      "title": {
+        "en": "Tithi, the lunar day",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "panchang.tithi.1",
+          "type": "learn",
+          "title": {
+            "en": "What a tithi is",
+            "hi": ""
+          },
+          "body": {
+            "en": "A tithi is a lunar day: the time the Moon takes to gain 12° on the Sun. Since 360° ÷ 12° = 30, there are 30 tithis in a lunar month, from one new moon to the next.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "तिथि",
+            "roman": "Tithi"
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "CHANDRA"
+          }
+        },
+        {
+          "id": "panchang.tithi.2",
+          "type": "learn",
+          "title": {
+            "en": "Not all the same length",
+            "hi": ""
+          },
+          "body": {
+            "en": "The Moon's speed varies, so a tithi lasts roughly 20 to 27 hours. A tithi can begin at any hour, and the panchang names the one in force at sunrise as the day's tithi.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "panchang.tithi.3",
+          "type": "learn",
+          "title": {
+            "en": "Shukla and Krishna paksha",
+            "hi": ""
+          },
+          "body": {
+            "en": "The lunar month has two halves, each called a paksha. In Shukla paksha, the bright half, the Moon waxes from new to full. In Krishna paksha, the dark half, it wanes back to new. Each half has 15 tithis.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "पक्ष",
+            "roman": "Paksha"
+          }
+        },
+        {
+          "id": "panchang.tithi.4",
+          "type": "learn",
+          "title": {
+            "en": "Purnima and Amavasya",
+            "hi": ""
+          },
+          "body": {
+            "en": "The 15th tithi of the bright half is Purnima, the full moon, when the Moon is 180° from the Sun. The last tithi of the dark half is Amavasya, the new moon, when they meet. Many festivals and fasts fall on these days.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "पूर्णिमा",
+            "roman": "Purnima"
+          }
+        },
+        {
+          "id": "panchang.tithi.5",
+          "type": "learn",
+          "title": {
+            "en": "Names and families",
+            "hi": ""
+          },
+          "body": {
+            "en": "Tithis are named by number: Pratipada (1), Dwitiya (2), Tritiya (3) and on to Chaturdashi (14). Ekadashi, the 11th, is a popular fasting day. Muhurta texts sort tithis into five families; Rikta (4, 9, 14) is often avoided for new starts.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "panchang.tithi.6",
+          "type": "learn",
+          "title": {
+            "en": "Working it out",
+            "hi": ""
+          },
+          "body": {
+            "en": "Subtract the Sun's longitude from the Moon's and divide by 12. At 50°, you get 4.2: four tithis are done, so it is the 5th, Shukla Panchami. At 200°, you get 16.7: the 17th, which is Krishna Dwitiya.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "panchang.tithi.7",
+          "type": "quiz",
+          "question": {
+            "en": "How much Moon-Sun distance makes one tithi?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "13°20′",
+              "hi": ""
+            },
+            {
+              "en": "12°",
+              "hi": ""
+            },
+            {
+              "en": "30°",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Each tithi is 12° of the Moon's lead over the Sun; 30 of them complete the 360° cycle.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "panchang.tithi.8",
+          "type": "quiz",
+          "question": {
+            "en": "What is Amavasya?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "The full moon of Shukla paksha",
+              "hi": ""
+            },
+            {
+              "en": "The 11th tithi, a fasting day",
+              "hi": ""
+            },
+            {
+              "en": "The new moon that ends Krishna paksha",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Amavasya is the 30th tithi, when the Moon catches up with the Sun. Purnima is the full moon; Ekadashi is the 11th.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "panchang.tithi.9",
+          "type": "quiz",
+          "question": {
+            "en": "The Moon is 186° ahead of the Sun. Which paksha is it?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Krishna paksha",
+              "hi": ""
+            },
+            {
+              "en": "Shukla paksha",
+              "hi": ""
+            },
+            {
+              "en": "Neither, it is Purnima",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "186 ÷ 12 = 15.5, so 15 tithis are done and the 16th, Krishna Pratipada, is running. Past 180° the Moon is waning.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "panchang.rahu-kaal",
+      "title": {
+        "en": "Rahu kaal",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "panchang.rahu-kaal.1",
+          "type": "learn",
+          "title": {
+            "en": "One eighth of the day",
+            "hi": ""
+          },
+          "body": {
+            "en": "Rahu kaal (Rahu's time) is one eighth of the daytime. Take the span from sunrise to sunset, split it into eight equal parts, and one part belongs to Rahu. When day and night are equal, it lasts about 90 minutes.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "राहु काल",
+            "roman": "Rahu kaal"
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "RAHU"
+          }
+        },
+        {
+          "id": "panchang.rahu-kaal.2",
+          "type": "learn",
+          "title": {
+            "en": "A different slot each day",
+            "hi": ""
+          },
+          "body": {
+            "en": "Each weekday has a fixed part: the 2nd on Monday, 3rd on Saturday, 4th on Friday, 5th on Wednesday, 6th on Thursday, 7th on Tuesday and 8th on Sunday. Rahu kaal never falls in the first part of the day.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "panchang.rahu-kaal.3",
+          "type": "learn",
+          "title": {
+            "en": "A memory trick",
+            "hi": ""
+          },
+          "body": {
+            "en": "Many learners remember the order with a phrase: 'Mother Saw Father Wearing The Turban Suddenly'. Monday, Saturday, Friday, Wednesday, Thursday, Tuesday, Sunday take parts 2 to 8 in turn.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "panchang.rahu-kaal.4",
+          "type": "learn",
+          "title": {
+            "en": "An example clock",
+            "hi": ""
+          },
+          "body": {
+            "en": "With sunrise at 6:00 and sunset at 18:00, each part is 90 minutes. Rahu kaal is then 7:30 to 9:00 on Monday, 12:00 to 13:30 on Wednesday, 15:00 to 16:30 on Tuesday and 16:30 to 18:00 on Sunday.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "panchang.rahu-kaal.5",
+          "type": "learn",
+          "title": {
+            "en": "What tradition says",
+            "hi": ""
+          },
+          "body": {
+            "en": "Rahu kaal is traditionally avoided for starting something new: a journey, a purchase, a venture. Ongoing work and daily tasks carry on as usual. It is a widely kept custom, especially in South India, not a danger zone.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "panchang.rahu-kaal.6",
+          "type": "learn",
+          "title": {
+            "en": "On your daily card",
+            "hi": ""
+          },
+          "body": {
+            "en": "AstroLingo works out Rahu kaal each day from sunrise and sunset where you are now, not where you were born. A few kilometres shift the times a little, so keep your current city up to date.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "panchang.rahu-kaal.7",
+          "type": "quiz",
+          "question": {
+            "en": "How is Rahu kaal found?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "The hour when Rahu rises",
+              "hi": ""
+            },
+            {
+              "en": "Daytime split into eight parts, one is Rahu's",
+              "hi": ""
+            },
+            {
+              "en": "The first 90 minutes after sunrise",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Sunrise to sunset is divided into eight equal parts, and the weekday decides which part is Rahu kaal.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "panchang.rahu-kaal.8",
+          "type": "quiz",
+          "question": {
+            "en": "On which weekday is Rahu kaal the last part of the daytime?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Saturday",
+              "hi": ""
+            },
+            {
+              "en": "Tuesday",
+              "hi": ""
+            },
+            {
+              "en": "Sunday",
+              "hi": ""
+            },
+            {
+              "en": "Monday",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Sunday's Rahu kaal is the 8th part, ending at sunset. Monday's is the 2nd, Saturday's the 3rd, Tuesday's the 7th.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "panchang.rahu-kaal.9",
+          "type": "quiz",
+          "question": {
+            "en": "What is traditionally avoided during Rahu kaal?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Starting something new",
+              "hi": ""
+            },
+            {
+              "en": "All work and travel",
+              "hi": ""
+            },
+            {
+              "en": "Eating and resting",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Only fresh starts are traditionally avoided. Ongoing work and everyday life carry on.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "panchang.muhurta",
+      "title": {
+        "en": "Muhurta basics",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "panchang.muhurta.1",
+          "type": "learn",
+          "title": {
+            "en": "What a muhurta is",
+            "hi": ""
+          },
+          "body": {
+            "en": "A muhurta is a chosen moment: a good time picked to begin something important, such as a wedding, a house-warming or a new venture. It is also a unit of time, one thirtieth of a day, about 48 minutes.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "मुहूर्त",
+            "roman": "Muhurta"
+          }
+        },
+        {
+          "id": "panchang.muhurta.2",
+          "type": "learn",
+          "title": {
+            "en": "Muhurta Chintamani",
+            "hi": ""
+          },
+          "body": {
+            "en": "The best-known muhurta text is Muhurta Chintamani, written by Daivajna Rama around 1600. It weighs the five limbs, the rising sign of the moment and the people involved, and many later almanacs follow its rules.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "panchang.muhurta.3",
+          "type": "learn",
+          "title": {
+            "en": "Weighing the limbs",
+            "hi": ""
+          },
+          "body": {
+            "en": "A muhurta looks for good limbs together: a helpful tithi (avoiding Rikta), a supportive nakshatra, a fitting vara and no Vishti karana. No moment is perfect in every way, so astrologers look for the best balance.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "panchang.muhurta.4",
+          "type": "learn",
+          "title": {
+            "en": "Tara bala",
+            "hi": ""
+          },
+          "body": {
+            "en": "Personal strength comes from your birth nakshatra. Count from it (as 1) to the day's nakshatra and fold into nine taras: Janma, Sampat, Vipat, Kshema, Pratyak, Sadhana, Naidhana, Mitra, Parama Mitra. Vipat, Pratyak and Naidhana ask for care.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "तारा बल",
+            "roman": "Tara bala"
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 1
+          }
+        },
+        {
+          "id": "panchang.muhurta.5",
+          "type": "yourChart",
+          "fact": "MOON_NAKSHATRA",
+          "title": {
+            "en": "Your tara each day",
+            "hi": ""
+          },
+          "body": {
+            "en": "Your birth nakshatra is {value}. Each day your card counts from it to today's nakshatra to find your tara, then adds the Moon's gochar from your Moon sign to show a strong, steady or gentle day.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "panchang.muhurta.6",
+          "type": "learn",
+          "title": {
+            "en": "A guide, not a rule",
+            "hi": ""
+          },
+          "body": {
+            "en": "Muhurta is a guide for when you have a choice. Life doesn't always wait for a perfect hour, and a sincere start at an ordinary time is still a good start. Never delay medical care, a deadline or an urgent need for a muhurta.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "panchang.muhurta.7",
+          "type": "quiz",
+          "question": {
+            "en": "About how long is one muhurta as a unit of time?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "24 minutes",
+              "hi": ""
+            },
+            {
+              "en": "48 minutes",
+              "hi": ""
+            },
+            {
+              "en": "90 minutes",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "A day and night of 24 hours holds 30 muhurtas, so each is about 48 minutes.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "panchang.muhurta.8",
+          "type": "quiz",
+          "question": {
+            "en": "Which classic is best known for muhurta?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Muhurta Chintamani",
+              "hi": ""
+            },
+            {
+              "en": "Brihat Jataka",
+              "hi": ""
+            },
+            {
+              "en": "Phaladeepika",
+              "hi": ""
+            },
+            {
+              "en": "Saravali",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Daivajna Rama's Muhurta Chintamani (around 1600) is the standard text on choosing times.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "panchang.muhurta.9",
+          "type": "quiz",
+          "question": {
+            "en": "Your birth star is Ashwini and today's is Krittika. Which tara is today?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Kshema",
+              "hi": ""
+            },
+            {
+              "en": "Sampat",
+              "hi": ""
+            },
+            {
+              "en": "Vipat",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Ashwini is 1, Bharani 2, Krittika 3. The third tara is Vipat, a day to go gently with new starts.",
+            "hi": ""
+          }
+        }
+      ]
+    }
+  ]
+}

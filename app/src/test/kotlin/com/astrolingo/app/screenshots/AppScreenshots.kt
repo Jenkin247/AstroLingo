@@ -1,11 +1,15 @@
 package com.astrolingo.app.screenshots
 
+import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onRoot
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
 import com.astrolingo.app.onboarding.BirthDetails
 import com.astrolingo.app.onboarding.Level
 import com.astrolingo.app.onboarding.OnboardingAnswers
@@ -106,7 +110,7 @@ class AppScreenshots {
     fun languagePicker() {
         compose.setContent { AstroLingoTheme { LanguagePicker(onPick = {}) } }
         waitForText("Choose your language")
-        shot("10_language_picker")
+        shot("19_language_picker")
     }
 
     @Test
@@ -124,16 +128,73 @@ class AppScreenshots {
                 AstroLingoTheme { InLanguage(AppLanguage.HINDI) { AstroLingoApp(InMemoryProfileRepository(answers)) } }
             }
             waitForText("कुंडली")
-            shot("11_today_hindi")
+            shot("20_today_hindi")
             compose.onNodeWithText("कुंडली").performClick()
             compose.waitForIdle()
-            shot("12_kundli_hindi")
+            shot("21_kundli_hindi")
         } finally {
             Locale.setDefault(before)
         }
     }
 
+    @Test
+    fun learn() {
+        // Animations off, as with the phone's "Remove animations" setting: pictures are still and motion snaps.
+        Settings.Global.putFloat(compose.activity.contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 0f)
+        val answers = OnboardingAnswers(
+            purpose = Purpose.LEARN,
+            goal = null,
+            level = Level.NEW,
+            birth = BirthDetails(LocalDate.of(1990, 8, 15), LocalTime.of(6, 30), index.search("Pune").first()),
+        )
+        compose.setContent { AstroLingoTheme { AstroLingoApp(InMemoryProfileRepository(answers)) } }
+        waitForText("Today")
+        compose.onNodeWithText("Learn").performClick()
+        waitForText("Start lesson")
+        shot("10_learn_home")
+        compose.onNodeWithText("Start lesson").performClick()
+        waitForText("Next card")
+        shot("11_learn_card")
+        // On to the first quiz of the lesson.
+        repeat(MAX_CARDS) {
+            if (compose.onAllNodesWithText("Quick question").fetchSemanticsNodes().isEmpty()) {
+                compose.onAllNodesWithText("Next card")[0].performClick()
+                compose.waitForIdle()
+            }
+        }
+        shot("12_learn_quiz")
+        compose.onNodeWithContentDescription("Close lesson").performClick()
+        waitForText("The nine grahas")
+        compose.onNodeWithText("The nine grahas").performClick()
+        waitForText("Sun and Moon")
+        shot("13_learn_chapter")
+        compose.onNodeWithText("Sun and Moon").performClick()
+        waitForText("Next card")
+        compose.onAllNodesWithText("Next card")[0].performClick()
+        waitForText("Tap to turn over")
+        shot("14_learn_graha_front")
+        compose.onNodeWithText("Tap to turn over").performClick()
+        compose.waitForIdle()
+        shot("15_learn_graha_back")
+        compose.onAllNodesWithContentDescription("Save this card")[0].performClick()
+        compose.onNodeWithContentDescription("Close lesson").performClick()
+        waitForText("Saved")
+        compose.onNodeWithText("Saved").performClick()
+        waitForText("Saved cards")
+        shot("16_learn_saved")
+        compose.onNodeWithContentDescription("Back").performClick()
+        waitForText("Take the check")
+        compose.onNodeWithText("Take the check").performClick()
+        waitForText("What do you know already?")
+        compose.onNodeWithText("The nine grahas", substring = true).performClick()
+        shot("17_learn_check_pick")
+        compose.onNodeWithText("Check me", substring = true).performScrollTo().performClick()
+        waitForText("Question 1 of 2")
+        shot("18_learn_check_question")
+    }
+
     private companion object {
+        const val MAX_CARDS = 8
         const val WAIT_MILLIS = 15_000L
     }
 }
