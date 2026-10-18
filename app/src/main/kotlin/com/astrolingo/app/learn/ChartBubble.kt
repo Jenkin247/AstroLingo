@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.ExperimentalLayoutApi
 import androidx.compose.foundation.layout.FlowRow
 import androidx.compose.foundation.layout.Row
@@ -108,7 +109,7 @@ internal fun BoxScope.ChartLensOverlay(
 ) {
     val graha = card?.let(ChartLens::grahaOf) ?: return
     if (people.isEmpty() || !ChartLens.chapterFinished(course, progress, ChartLens.GRAHAS_CHAPTER)) return
-    var open by remember(card.id) { mutableStateOf(false) }
+    var open by remember(card) { mutableStateOf(false) }
     ChartBubble(count = people.size, onOpen = { open = true })
     if (open) {
         ChartLensSheet(
@@ -377,7 +378,7 @@ private fun CheckYourself(subject: GrahaReading, grahaLabel: String, revealed: B
 
 /** One person's chart with the graha marked, and what each unlocked detail means. */
 @Composable
-private fun PersonReading(reading: GrahaReading, index: Int, layers: Set<LensLayer>, onBack: () -> Unit) {
+private fun ColumnScope.PersonReading(reading: GrahaReading, index: Int, layers: Set<LensLayer>, onBack: () -> Unit) {
     val person = reading.person
     val grahaLabel = grahaLabel(reading.graha)
     TextButton(onClick = onBack) {
