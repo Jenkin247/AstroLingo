@@ -6,6 +6,7 @@ import androidx.compose.ui.test.ComposeTimeoutException
 import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.SemanticsNodeInteractionCollection
 import androidx.compose.ui.test.hasClickAction
+import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.isDisplayed
 import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.hasText
@@ -125,7 +126,10 @@ class EndToEndJourneys {
     }
 
     /** A day in the date picker, which opens on January 1990. Each day is named in full, such as "Monday, January 15, 1990". */
-    private fun day(number: Int) = hasText(number.toString(), substring = true) and hasText("1990", substring = true) and hasClickAction()
+    private fun day(number: Int) = hasClickAction() and (
+        (hasText(number.toString(), substring = true) and hasText("1990", substring = true)) or
+            (hasContentDescription(number.toString(), substring = true) and hasContentDescription("1990", substring = true))
+        )
 
     private fun learnerAnswers(level: Level = Level.NEW) = OnboardingAnswers(
         purpose = Purpose.LEARN,
