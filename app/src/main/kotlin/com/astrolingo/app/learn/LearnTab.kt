@@ -127,8 +127,8 @@ fun LearnTab(
             path = CoursePath.of(loadedCourse, loadedProgress),
             language = language,
             onOpenLesson = { lesson, start -> open(LearnRoute.Lesson(lesson.id, start)) },
-            modifier = modifier,
             completedLessons = loadedProgress.completedLessons,
+            modifier = modifier,
             actions = { SavedButton(onClick = { open(LearnRoute.Saved) }) },
             banner = {
                 if (!loadedProgress.checkAnswered && !knowsSome) {
