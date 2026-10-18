@@ -35,4 +35,10 @@
     <string name="learn_house_number">House %1$d</string>
     <string name="learn_nakshatra_pada">%1$s, pada %2$d</string>
     <string name="learn_loading">Opening your lessons…</string>
+    <string name="learn_saved">Saved</string>
+    <string name="learn_saved_title">Saved cards</string>
+    <string name="learn_save_card">Save this card</string>
+    <string name="learn_unsave_card">Remove from saved</string>
+    <string name="learn_saved_empty">Tap the bookmark on any card to keep it here.</string>
+    <string name="learn_back">Back</string>
 </resources>
