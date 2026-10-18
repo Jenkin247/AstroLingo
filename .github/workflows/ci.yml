@@ -1,4 +1,4 @@
-# Runs on every pull request and every push to main: engine tests, app unit tests,
+# Runs on every pull request and every push to main: engine tests, Learn tests, app unit tests,
 # Android lint, screenshots of the main screens and a debug APK the Product Owner can install on a phone.
 name: CI
 
@@ -29,6 +29,9 @@ jobs:
 
       - name: Jyotish engine tests
         run: ./gradlew -p engine test 2>&1 | tee -a build.log; exit ${PIPESTATUS[0]}
+
+      - name: Learn module and course content tests
+        run: ./gradlew -p learn test 2>&1 | tee -a build.log; exit ${PIPESTATUS[0]}
 
       - name: App unit tests, lint and debug APK
         run: ./gradlew :app:testDebugUnitTest :app:lintDebug :app:assembleDebug 2>&1 | tee -a build.log; exit ${PIPESTATUS[0]}
@@ -77,5 +80,6 @@ jobs:
           name: reports
           path: |
             engine/build/reports/
+            learn/build/reports/
             app/build/reports/
           retention-days: 14
