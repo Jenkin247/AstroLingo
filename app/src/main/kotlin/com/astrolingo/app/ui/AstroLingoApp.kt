@@ -67,8 +67,11 @@ import com.astrolingo.app.onboarding.OnboardingAnswers
 import com.astrolingo.app.onboarding.OnboardingFlow
 import com.astrolingo.app.onboarding.Purpose
 import com.astrolingo.app.onboarding.ResolvedBirth
+import com.astrolingo.app.people.PersonForm
+import com.astrolingo.app.people.SavedPeopleCard
 import com.astrolingo.app.profile.InMemoryProfileRepository
 import com.astrolingo.app.profile.ProfileRepository
+import com.astrolingo.app.profile.SavedPerson
 import com.astrolingo.app.settings.AppLanguage
 import com.astrolingo.app.today.TodayScreen
 import com.astrolingo.app.ui.components.InfoCard
@@ -140,6 +143,8 @@ fun AstroLingoApp(
 ) {
     val scope = rememberCoroutineScope()
     var profile by remember { mutableStateOf<ProfileState>(ProfileState.Loading) }
+    // People saved to learn from (LS-8), oldest first.
+    var people by remember { mutableStateOf<List<SavedPerson>>(emptyList()) }
     var selected by rememberSaveable { mutableStateOf(Tab.TODAY) }
     // True once the start tab was picked, so turning the phone keeps the tab the user is on.
     var startPicked by rememberSaveable { mutableStateOf(false) }
@@ -147,6 +152,7 @@ fun AstroLingoApp(
         val loaded = withContext(Dispatchers.IO) {
             runCatching { profiles.load()?.let(::ready) }.getOrNull() ?: ProfileState.Missing
         }
+        people = withContext(Dispatchers.IO) { runCatching { profiles.loadPeople() }.getOrDefault(emptyList()) }
         if (!startPicked && loaded is ProfileState.Ready) selected = startTab(loaded.answers.purpose)
         startPicked = true
         profile = loaded
@@ -180,6 +186,15 @@ fun AstroLingoApp(
                 profile = current.copy(answers = answers)
                 scope.launch(Dispatchers.IO) { runCatching { profiles.save(answers) } }
             },
+            people = people,
+            onSavePerson = { person ->
+                people = (people.filterNot { it.id == person.id } + person).sortedBy { it.createdAt }
+                scope.launch(Dispatchers.IO) { runCatching { profiles.savePerson(person) } }
+            },
+            onDeletePerson = { person ->
+                people = people.filterNot { it.id == person.id }
+                scope.launch(Dispatchers.IO) { runCatching { profiles.deletePerson(person.id) } }
+            },
             onDelete = {
                 scope.launch {
                     withContext(Dispatchers.IO) {
@@ -187,6 +202,7 @@ fun AstroLingoApp(
                         runCatching { learnStore.deleteAll() }
                     }
                     selected = Tab.TODAY
+                    people = emptyList()
                     profile = ProfileState.Missing
                 }
             },
@@ -207,7 +223,12 @@ private fun Tabs(
     onLanguage: (AppLanguage) -> Unit,
     onAnswersChange: (OnboardingAnswers) -> Unit,
     onDelete: () -> Unit,
+    people: List<SavedPerson> = emptyList(),
+    onSavePerson: (SavedPerson) -> Unit = {},
+    onDeletePerson: (SavedPerson) -> Unit = {},
 ) {
+    // The person being added ("new") or edited (their id) in Me, or null.
+    var personForm by rememberSaveable { mutableStateOf<String?>(null) }
     // True while Learn shows a lesson, the check or saved cards: the tabs then step aside so nothing distracts.
     var immersive by remember { mutableStateOf(false) }
     // A Review asked for from Today, handed to Learn once it opens.
@@ -280,7 +301,17 @@ private fun Tabs(
                 onReturn = { onSelect(Tab.TODAY) },
                 onImmersive = { immersive = it },
             )
-            Tab.ME -> MeScreen(
+            Tab.ME -> if (personForm != null) {
+                PersonForm(
+                    editing = people.firstOrNull { it.id == personForm },
+                    onSave = { person ->
+                        onSavePerson(person)
+                        personForm = null
+                    },
+                    onCancel = { personForm = null },
+                    modifier = Modifier.padding(padding),
+                )
+            } else MeScreen(
                 showDeity = profile.answers.showDeity,
                 onShowDeity = { show -> onAnswersChange(profile.answers.copy(showDeity = show)) },
                 themeMode = themeMode,
@@ -289,6 +320,16 @@ private fun Tabs(
                 onLanguage = onLanguage,
                 onDelete = onDelete,
                 modifier = Modifier.padding(padding),
+                savedPeople = {
+                    SavedPeopleCard(
+                        you = profile.answers.birth,
+                        people = people,
+                        onAdd = { personForm = NEW_PERSON },
+                        onEdit = { personForm = it.id },
+                        onDelete = onDeletePerson,
+                    )
+                },
+                hasPeople = people.isNotEmpty(),
             )
             else -> PlaceholderScreen(tab = selected, modifier = Modifier.padding(padding))
         }
@@ -307,6 +348,8 @@ private fun MeScreen(
     onLanguage: (AppLanguage) -> Unit,
     onDelete: () -> Unit,
     modifier: Modifier = Modifier,
+    savedPeople: @Composable () -> Unit = {},
+    hasPeople: Boolean = false,
 ) {
     var confirming by remember { mutableStateOf(false) }
     Column(
@@ -317,6 +360,7 @@ private fun MeScreen(
         verticalArrangement = Arrangement.spacedBy(Spacing.md),
     ) {
         Text(stringResource(R.string.tab_me), style = MaterialTheme.typography.headlineMedium)
+        savedPeople()
         InfoCard(title = stringResource(R.string.me_block_privacy), icon = Icons.Filled.Lock) {
             Text(stringResource(R.string.me_privacy), style = MaterialTheme.typography.bodyMedium)
         }
@@ -365,7 +409,10 @@ private fun MeScreen(
         AlertDialog(
             onDismissRequest = { confirming = false },
             title = { Text(stringResource(R.string.me_delete_title)) },
-            text = { Text(stringResource(R.string.me_delete_body)) },
+            text = {
+                val body = stringResource(R.string.me_delete_body)
+                Text(if (hasPeople) body + " " + stringResource(R.string.people_delete_too) else body)
+            },
             confirmButton = {
                 TextButton(onClick = {
                     confirming = false
@@ -378,6 +425,9 @@ private fun MeScreen(
         )
     }
 }
+
+/** [Tabs]' person form value for a new person rather than an edit. */
+private const val NEW_PERSON = "new"
 
 private val ThemeMode.label: Int
     get() = when (this) {

@@ -67,4 +67,29 @@ class ProfileCodecTest {
         assertThat(asha.birth.toString()).doesNotContain("Pune")
         assertThat(asha.toString()).doesNotContain("Pune")
     }
+
+    @Test fun savedPersonRoundTripsWithAndWithoutATime() {
+        val meera = SavedPerson("p1", "Meera", BirthDetails(LocalDate.of(1996, 1, 23), null, pune), createdAt = 42L)
+        val ravi = meera.copy(id = "p2", name = "Ravi", birth = meera.birth.copy(time = LocalTime.of(7, 5)))
+        assertThat(ProfileCodec.decodePerson("p1", ProfileCodec.encodePerson(meera))).isEqualTo(meera)
+        assertThat(ProfileCodec.decodePerson("p2", ProfileCodec.encodePerson(ravi))).isEqualTo(ravi)
+        assertThat(ProfileCodec.encodePerson(meera)).doesNotContainKey("birth_time")
+    }
+
+    @Test fun unreadablePersonIsLeftOut() {
+        val meera = SavedPerson("p1", "Meera", BirthDetails(LocalDate.of(1996, 1, 23), null, pune), createdAt = 42L)
+        assertThat(ProfileCodec.decodePerson("p1", ProfileCodec.encodePerson(meera) - "name")).isNull()
+        assertThat(ProfileCodec.decodePerson("p1", emptyMap())).isNull()
+    }
+
+    @Test fun personNamesAreTidiedAndKeptShort() {
+        assertThat(SavedPerson.cleanName("  Asha   Rani ")).isEqualTo("Asha Rani")
+        assertThat(SavedPerson.cleanName("x".repeat(40))).hasLength(SavedPerson.MAX_NAME_LENGTH)
+    }
+
+    @Test fun personDetailsAreNeverPrinted() {
+        val meera = SavedPerson("p1", "Meera", BirthDetails(LocalDate.of(1996, 1, 23), null, pune), createdAt = 42L)
+        assertThat(meera.toString()).doesNotContain("1996")
+        assertThat(meera.toString()).doesNotContain("Meera")
+    }
 }
