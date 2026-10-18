@@ -45,6 +45,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.astrolingo.app.R
+import com.astrolingo.app.learn.ReviewOffer
 import com.astrolingo.app.ui.components.FactRow
 import com.astrolingo.app.ui.components.InfoCard
 import com.astrolingo.app.ui.kundli.SampleChart
@@ -78,6 +79,7 @@ import kotlinx.coroutines.withContext
  * @param placeGiven true when the user told us where they live; the greeting then follows the local time there,
  *   otherwise it stays generic.
  * @param onPlaceChange called with the place the user picked, or null to go back to the birthplace.
+ * @param reviewDue Review cards due today; when there are any, a small card offers [onReview] (LS-5).
  */
 @Composable
 fun TodayScreen(
@@ -87,6 +89,8 @@ fun TodayScreen(
     modifier: Modifier = Modifier,
     placeGiven: Boolean = false,
     onPlaceChange: (City?) -> Unit = {},
+    reviewDue: Int = 0,
+    onReview: () -> Unit = {},
 ) {
     var choosingPlace by remember { mutableStateOf(false) }
     val today = LocalDate.now(place.zone)
@@ -120,6 +124,7 @@ fun TodayScreen(
             }
         }
         HeroCard(card, place.zone)
+        if (reviewDue > 0) ReviewOffer(due = reviewDue, onStart = onReview)
         Row(horizontalArrangement = Arrangement.spacedBy(Spacing.md), modifier = Modifier.height(IntrinsicSize.Min)) {
             InfoCard(modifier = Modifier.weight(1f).fillMaxHeight(), title = stringResource(R.string.today_label_colour)) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(Spacing.sm)) {

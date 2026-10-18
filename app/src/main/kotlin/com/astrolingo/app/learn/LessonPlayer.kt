@@ -166,7 +166,11 @@ internal fun LessonPlayer(
                         language = language,
                         chosen = answers[page],
                         position = position,
-                        onChoose = { choice -> answers[page] = choice },
+                        onChoose = { choice ->
+                            answers[page] = choice
+                            // Every quiz answered joins the daily Review: missed ones come back tomorrow (LS-5).
+                            onProgress { recordQuiz(card.id, card.isCorrect(choice), LocalDate.now().toEpochDay()) }
+                        },
                         onNext = toNext,
                     )
                     null -> LessonDonePage(
