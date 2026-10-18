@@ -173,5 +173,5 @@
     <string name="language_more_en" translatable="false">More languages are coming soon.</string>
     <string name="language_more_hi" translatable="false">और भाषाएँ जल्द आ रही हैं।</string>
     <string name="language_note_en" translatable="false">You can change this any time in Me.</string>
-    <string name="language_note_hi" translatable="false">आप इसे कभी भी "मैं" में बदल सकते हैं।</string>
+    <string name="language_note_hi" translatable="false">आप इसे कभी भी “मैं” टैब में बदल सकते हैं।</string>
 </resources>
