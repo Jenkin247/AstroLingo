@@ -229,6 +229,10 @@ private fun ChapterTile(
             )
             Text(item.chapter.title.get(language), style = MaterialTheme.typography.titleMedium)
             Text(
+                stringResource(R.string.learn_chapter_outcome, item.chapter.outcome.get(language)),
+                style = MaterialTheme.typography.bodyMedium,
+            )
+            Text(
                 when (item.state) {
                     ChapterState.KNOWN -> stringResource(R.string.learn_state_known)
                     ChapterState.DONE -> stringResource(R.string.learn_state_done)

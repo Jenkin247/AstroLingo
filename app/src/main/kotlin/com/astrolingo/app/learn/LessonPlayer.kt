@@ -176,6 +176,7 @@ internal fun LessonPlayer(
                         next = nextLesson(progress.completeLesson(lesson.id)),
                         onNext = onOpenLesson,
                         onClose = onClose,
+                        chapterDone = progress.completeLesson(lesson.id).let { done -> chapter.lessons.all { it.id in done.completedLessons } },
                     )
                 }
             }

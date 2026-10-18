@@ -10,6 +10,8 @@ import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
+import com.astrolingo.app.learn.BundledCourse
+import com.astrolingo.app.learn.LessonDonePage
 import com.astrolingo.app.onboarding.BirthDetails
 import com.astrolingo.app.onboarding.Level
 import com.astrolingo.app.onboarding.OnboardingAnswers
@@ -21,6 +23,7 @@ import com.astrolingo.app.ui.AstroLingoApp
 import com.astrolingo.app.ui.LanguagePicker
 import com.astrolingo.app.ui.theme.AstroLingoTheme
 import com.astrolingo.engine.places.CityIndex
+import com.astrolingo.learn.content.Language
 import com.github.takahirom.roborazzi.captureRoboImage
 import java.time.LocalDate
 import java.time.LocalTime
@@ -190,6 +193,30 @@ class AppScreenshots {
         compose.onNodeWithText("Check me", substring = true).performScrollTo().performClick()
         waitForText("Question 1 of 2")
         shot("18_learn_check_question")
+    }
+
+    @Test
+    fun chapterDone() {
+        Settings.Global.putFloat(compose.activity.contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 0f)
+        val chapter = BundledCourse.course.chapter("reading")!!
+        compose.setContent {
+            AstroLingoTheme {
+                LessonDonePage(
+                    chapter = chapter,
+                    lesson = chapter.lessons.last(),
+                    language = Language.ENGLISH,
+                    right = 3,
+                    total = 3,
+                    active = true,
+                    next = BundledCourse.course.chapter("drishti")!!.lessons.first(),
+                    onNext = {},
+                    onClose = {},
+                    chapterDone = true,
+                )
+            }
+        }
+        waitForText("Chapter complete!")
+        shot("22_learn_chapter_done")
     }
 
     private companion object {

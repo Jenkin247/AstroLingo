@@ -22,6 +22,7 @@ object Fixtures {
         glyph = "★",
         title = text(id),
         summary = text(id),
+        outcome = text("do $id"),
         check = listOf(quiz("$id.check.1", 0), quiz("$id.check.2", 2)),
         lessons = (1..lessons).map { lesson("$id.l$it") },
     )

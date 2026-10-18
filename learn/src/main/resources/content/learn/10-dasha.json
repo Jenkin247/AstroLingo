@@ -11,6 +11,10 @@
     "en": "Vimshottari dasha divides life into chapters, each led by one graha. Learn the 120-year cycle, how your first dasha is found, the sub-periods inside each one, and how to read a dasha calmly.",
     "hi": ""
   },
+  "outcome": {
+    "en": "explain Vimshottari dasha and find your own first dasha",
+    "hi": ""
+  },
   "check": [
     {
       "id": "dasha.check.1",

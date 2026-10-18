@@ -17,6 +17,7 @@ Files: `learn/src/main/resources/content/learn/`. `course.json` lists the chapte
   "glyph": "☉",
   "title": { "en": "The nine grahas", "hi": "" },
   "summary": { "en": "Meet the nine grahas, the actors of every kundli.", "hi": "" },
+  "outcome": { "en": "name the nine grahas, what each signifies and its nature", "hi": "" },
   "check": [ QUIZ, QUIZ ],
   "lessons": [
     {
@@ -28,6 +29,10 @@ Files: `learn/src/main/resources/content/learn/`. `course.json` lists the chapte
   ]
 }
 ```
+
+`outcome` (required, up to 70 characters) is what the learner can do after the chapter. It is written to follow
+"You'll be able to" on the chapter tile and "You can now" when the chapter is finished, so it starts in lowercase
+with a verb. The Guru writes it from the chapter's learning goal (LS-2).
 
 ### Cards
 Every card has a unique `id`: the lesson id, a dot and a number (`grahas.sun-moon.1`). Check questions use the chapter id, `.check.` and a number (`grahas.check.1`). Ids never change once released, because bookmarks and progress refer to them.

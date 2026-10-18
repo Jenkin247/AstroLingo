@@ -392,6 +392,7 @@ internal fun LessonDonePage(
     next: Lesson?,
     onNext: (Lesson) -> Unit,
     onClose: () -> Unit,
+    chapterDone: Boolean = false,
 ) {
     val reduceMotion = rememberReduceMotion()
     CardFrame(
@@ -405,7 +406,7 @@ internal fun LessonDonePage(
             SitaraAvatar(size = 120.dp)
         }
         Text(
-            stringResource(R.string.learn_lesson_complete),
+            stringResource(if (chapterDone) R.string.learn_chapter_complete else R.string.learn_lesson_complete),
             style = MaterialTheme.typography.displaySmall,
             color = AstroLingoTheme.tabColors.onPastel,
             textAlign = TextAlign.Center,
@@ -425,6 +426,25 @@ internal fun LessonDonePage(
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth(),
         )
+        if (chapterDone) {
+            // Names what the learner can now do, so finishing a chapter feels like a skill gained (LS-2).
+            Text(
+                stringResource(R.string.learn_chapter_can_now, chapter.outcome.get(language)),
+                style = MaterialTheme.typography.bodyLarge,
+                color = AstroLingoTheme.tabColors.onPastel,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth(),
+            )
+            if (chapter.id == READ_CHART_CHAPTER) {
+                Text(
+                    stringResource(R.string.learn_milestone_read_chart),
+                    style = MaterialTheme.typography.titleMedium,
+                    color = AstroLingoTheme.tabColors.onPastel,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            }
+        }
         if (next != null) {
             Button(onClick = { onNext(next) }, modifier = Modifier.fillMaxWidth().heightIn(min = Spacing.touchTarget)) {
                 Text(stringResource(R.string.learn_next_lesson, next.title.get(language)))
@@ -468,5 +488,8 @@ private fun androidx.compose.ui.graphics.drawscope.DrawScope.drawStar(color: Col
 }
 
 private const val FLIP_MILLIS = 450
+
+/** Chapter 6, Reading a kundli: finishing it is the milestone "You can read your own chart". */
+private const val READ_CHART_CHAPTER = "reading"
 private const val STARS_MILLIS = 3200
 private const val STAR_COUNT = 9

@@ -27,6 +27,10 @@
     <string name="learn_quiz_wrong">Not quite.</string>
     <string name="learn_quiz_answer_first">Answer to go on</string>
     <string name="learn_lesson_complete">Lesson complete!</string>
+    <string name="learn_chapter_outcome">You\'ll be able to %1$s</string>
+    <string name="learn_chapter_complete">Chapter complete!</string>
+    <string name="learn_chapter_can_now">You can now %1$s.</string>
+    <string name="learn_milestone_read_chart">Milestone: you can read your own chart</string>
     <string name="learn_lesson_score">You got %1$d of %2$d right.</string>
     <string name="learn_lesson_sitara_great">Wonderful! Every answer right. The stars are speaking to you.</string>
     <string name="learn_lesson_sitara_good">Well done. One more step on the path.</string>

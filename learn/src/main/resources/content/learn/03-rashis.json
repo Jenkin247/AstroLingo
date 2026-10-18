@@ -11,6 +11,10 @@
     "en": "Meet the twelve rashis, the stage of every kundli: each sign's element, quality and lord.",
     "hi": ""
   },
+  "outcome": {
+    "en": "name the twelve signs with their element, quality and lord",
+    "hi": ""
+  },
   "check": [
     {
       "id": "rashis.check.1",

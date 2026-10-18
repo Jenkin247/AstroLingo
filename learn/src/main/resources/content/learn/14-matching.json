@@ -11,6 +11,10 @@
     "en": "Learn how ashtakoota compares two Moons, what the 36 gunas mean, and why a score is never the whole story.",
     "hi": ""
   },
+  "outcome": {
+    "en": "explain the 36-guna score and why it is never the whole story",
+    "hi": ""
+  },
   "check": [
     {
       "id": "matching.check.1",
