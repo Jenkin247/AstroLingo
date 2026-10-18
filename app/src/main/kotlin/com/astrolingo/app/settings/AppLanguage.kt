@@ -2,7 +2,10 @@
 package com.astrolingo.app.settings
 
 import android.content.Context
+import android.content.ContextWrapper
+import android.content.res.AssetManager
 import android.content.res.Configuration
+import android.content.res.Resources
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.remember
@@ -43,6 +46,19 @@ fun InLanguage(language: AppLanguage, content: @Composable () -> Unit) {
     // Dates and times are formatted with java.time, which reads the default locale, so that follows the choice too.
     val locale = remember(language) { Locale.forLanguageTag(language.tag).also(Locale::setDefault) }
     val config = remember(phoneConfig, locale) { Configuration(phoneConfig).apply { setLocale(locale) } }
-    val context = remember(base, config) { base.createConfigurationContext(config) }
+    val context = remember(base, config) { LanguageContext(base, config) }
     CompositionLocalProvider(LocalContext provides context, LocalConfiguration provides config, content = content)
+}
+
+/**
+ * The activity's context with resources in the chosen language. It wraps the activity rather than replacing it,
+ * because Compose finds the activity through LocalContext to ask for permissions: a bare createConfigurationContext()
+ * hid it, and "Use my location" closed the app.
+ */
+private class LanguageContext(base: Context, config: Configuration) : ContextWrapper(base) {
+    private val localized = base.createConfigurationContext(config)
+
+    override fun getResources(): Resources = localized.resources
+
+    override fun getAssets(): AssetManager = localized.assets
 }
