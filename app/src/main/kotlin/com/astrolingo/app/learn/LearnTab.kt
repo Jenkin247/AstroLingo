@@ -35,6 +35,7 @@ import com.astrolingo.learn.content.Language
 import com.astrolingo.learn.path.CoursePath
 import com.astrolingo.learn.progress.GoalProgress
 import com.astrolingo.learn.progress.LearnProgress
+import com.astrolingo.learn.review.ReviewQueue
 import java.time.LocalDate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -42,6 +43,15 @@ import kotlinx.coroutines.withContext
 /** The bundled course, parsed once per process. */
 internal object BundledCourse {
     val course: Course by lazy { CourseLoader.bundled() }
+}
+
+/** Something another tab asks Learn to open. */
+sealed interface LearnRequest {
+    /** Today's Review, from the card on Today. */
+    data object Review : LearnRequest
+
+    /** The lesson behind a part of the daily card, from a "Learn why" link on Today (LS-6). */
+    data class Lesson(val id: String) : LearnRequest
 }
 
 /** Where the Learn tab is. Saved as a short string so it survives rotation. */
@@ -57,11 +67,15 @@ internal sealed interface LearnRoute {
     /** The knowledge check, for [chapters] or, when null, for chapters the learner picks. */
     data class Check(val chapters: List<String>?) : LearnRoute
 
+    /** Today's Review, with its [cards] fixed when it opened so answering doesn't reshuffle them. */
+    data class Review(val cards: List<String>) : LearnRoute
+
     fun encode(): String = when (this) {
         Home -> HOME
         is Lesson -> "$LESSON|$id|$start"
         Saved -> SAVED
         is Check -> listOfNotNull(CHECK, chapters?.joinToString(",")).joinToString("|")
+        is Review -> "$REVIEW|${cards.joinToString(",")}"
     }
 
     companion object {
@@ -69,6 +83,7 @@ internal sealed interface LearnRoute {
         private const val LESSON = "lesson"
         private const val SAVED = "saved"
         private const val CHECK = "check"
+        private const val REVIEW = "review"
 
         fun decode(value: String): LearnRoute {
             val parts = value.split('|')
@@ -76,6 +91,7 @@ internal sealed interface LearnRoute {
                 LESSON -> Lesson(parts[1], parts[2].toInt())
                 SAVED -> Saved
                 CHECK -> Check(parts.getOrNull(1)?.split(','))
+                REVIEW -> Review(parts.getOrNull(1)?.split(',')?.filter { it.isNotEmpty() }.orEmpty())
                 else -> Home
             }
         }
@@ -91,6 +107,8 @@ internal sealed interface LearnRoute {
  * @param knowsSome true when the learner said in onboarding they know some astrology; the knowledge check then
  *   opens the first time they visit Learn. Others are offered it on Learn home.
  * @param goalMinutes the daily goal chosen in onboarding, shown as a ring on Learn home; null shows no ring.
+ * @param request something another tab asked Learn to open; [onRequestHandled] is called once it is open.
+ * @param onReturn called when a lesson opened from Today is closed, so the app can go back there.
  * @param onImmersive called with true while a lesson, the check or the saved cards fill the screen, so the app can
  *   hide its bottom tabs (LS-3), and with false back on Learn home.
  */
@@ -102,6 +120,9 @@ fun LearnTab(
     modifier: Modifier = Modifier,
     knowsSome: Boolean = false,
     goalMinutes: Int? = null,
+    request: LearnRequest? = null,
+    onRequestHandled: () -> Unit = {},
+    onReturn: () -> Unit = {},
     onImmersive: (Boolean) -> Unit = {},
 ) {
     val course by produceState<Course?>(null) { value = withContext(Dispatchers.IO) { BundledCourse.course } }
@@ -134,6 +155,29 @@ fun LearnTab(
         }
     }
 
+    val today = LocalDate.now().toEpochDay()
+    val openReview = { open(LearnRoute.Review(ReviewQueue.dueToday(loadedProgress, loadedCourse, today).map { it.card.id })) }
+    // True while a lesson opened from Today is on screen: closing it goes back to Today, not Learn home.
+    var fromToday by rememberSaveable { mutableStateOf(false) }
+    LaunchedEffect(request) {
+        when (request) {
+            LearnRequest.Review -> openReview()
+            is LearnRequest.Lesson -> {
+                fromToday = true
+                open(LearnRoute.Lesson(request.id, 0))
+            }
+            null -> return@LaunchedEffect
+        }
+        onRequestHandled()
+    }
+    val closeLesson = {
+        open(LearnRoute.Home)
+        if (fromToday) {
+            fromToday = false
+            onReturn()
+        }
+    }
+
     val immersive = LearnRoute.decode(routeValue) != LearnRoute.Home
     LaunchedEffect(immersive) { onImmersive(immersive) }
     // Leaving the Learn tab, or deleting the profile, always brings the tabs back.
@@ -150,9 +194,9 @@ fun LearnTab(
             actions = { SavedButton(onClick = { open(LearnRoute.Saved) }) },
             banner = {
                 Column(verticalArrangement = Arrangement.spacedBy(Spacing.sm)) {
-                    goalMinutes?.let { minutes ->
-                        GoalCard(GoalProgress(minutes, loadedProgress.secondsOn(LocalDate.now().toEpochDay())))
-                    }
+                    goalMinutes?.let { minutes -> GoalCard(GoalProgress(minutes, loadedProgress.secondsOn(today))) }
+                    val due = ReviewQueue.dueToday(loadedProgress, loadedCourse, today).size
+                    if (due > 0) ReviewOffer(due = due, onStart = openReview)
                     if (!loadedProgress.checkAnswered && !knowsSome) {
                         CheckOffer(onTake = { open(LearnRoute.Check(null)) }, onLater = { update(loadedProgress.skipCheck()) })
                     }
@@ -167,6 +211,18 @@ fun LearnTab(
                 }
             },
         )
+        is LearnRoute.Review -> {
+            BackHandler { open(LearnRoute.Home) }
+            ReviewScreen(
+                cards = route.cards.mapNotNull(loadedCourse::locate),
+                language = language,
+                facts = facts,
+                onProgress = change,
+                daysToNext = { progress?.let { ReviewQueue.daysToNext(it, LocalDate.now().toEpochDay()) } },
+                onClose = { open(LearnRoute.Home) },
+                modifier = modifier,
+            )
+        }
         is LearnRoute.Check -> {
             BackHandler { open(LearnRoute.Home) }
             KnowledgeCheckScreen(
@@ -192,7 +248,7 @@ fun LearnTab(
                 language = language,
                 facts = facts,
                 onOpen = { location -> open(LearnRoute.Lesson(location.lesson.id, location.index)) },
-                onToggle = { cardId -> update(loadedProgress.toggleBookmark(cardId, System.currentTimeMillis())) },
+                onToggle = { cardId -> change { toggleBookmark(cardId, System.currentTimeMillis(), LocalDate.now().toEpochDay()) } },
                 onBack = { open(LearnRoute.Home) },
                 modifier = modifier,
             )
@@ -205,9 +261,11 @@ fun LearnTab(
                 LaunchedEffect(route) { open(LearnRoute.Home) }
                 return
             }
-            BackHandler { open(LearnRoute.Home) }
+            BackHandler(onBack = closeLesson)
             // A new lesson gets a fresh pager and quiz answers.
             key(route.id) {
+                // Fixed when the lesson opens: a lesson peeked at from Today doesn't become "Continue".
+                val keepResume = remember { !fromToday }
                 LessonPlayer(
                     chapter = chapter,
                     lesson = lesson,
@@ -216,13 +274,18 @@ fun LearnTab(
                     facts = facts,
                     progress = loadedProgress,
                     onProgress = change,
-                    onClose = { open(LearnRoute.Home) },
-                    onOpenLesson = { next -> open(LearnRoute.Lesson(next.id, 0)) },
+                    onClose = closeLesson,
+                    onOpenLesson = { next ->
+                        // Going on to the next lesson means the learner stays in Learn.
+                        fromToday = false
+                        open(LearnRoute.Lesson(next.id, 0))
+                    },
                     nextLesson = { done -> CoursePath.of(loadedCourse, done).next },
+                    keepResume = keepResume,
                     modifier = modifier,
                     cardActions = { card ->
                         BookmarkButton(saved = loadedProgress.isBookmarked(card.id)) {
-                            update(loadedProgress.toggleBookmark(card.id, System.currentTimeMillis()))
+                            change { toggleBookmark(card.id, System.currentTimeMillis(), LocalDate.now().toEpochDay()) }
                         }
                     },
                 )

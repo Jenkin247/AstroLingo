@@ -1,6 +1,7 @@
 // Today tab: the daily card from fixed Vedic rules, worked out on the phone (docs/spec/daily-card-rules.md).
 package com.astrolingo.app.today
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,6 +22,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
@@ -45,6 +48,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.astrolingo.app.R
+import com.astrolingo.app.learn.ReviewOffer
 import com.astrolingo.app.ui.components.FactRow
 import com.astrolingo.app.ui.components.InfoCard
 import com.astrolingo.app.ui.kundli.SampleChart
@@ -78,6 +82,8 @@ import kotlinx.coroutines.withContext
  * @param placeGiven true when the user told us where they live; the greeting then follows the local time there,
  *   otherwise it stays generic.
  * @param onPlaceChange called with the place the user picked, or null to go back to the birthplace.
+ * @param reviewDue Review cards due today; when there are any, a small card offers [onReview] (LS-5).
+ * @param onLearn opens the lesson behind a part of the card (LS-6); null hides the "Learn why" links.
  */
 @Composable
 fun TodayScreen(
@@ -87,6 +93,9 @@ fun TodayScreen(
     modifier: Modifier = Modifier,
     placeGiven: Boolean = false,
     onPlaceChange: (City?) -> Unit = {},
+    reviewDue: Int = 0,
+    onReview: () -> Unit = {},
+    onLearn: ((TodayTopic) -> Unit)? = null,
 ) {
     var choosingPlace by remember { mutableStateOf(false) }
     val today = LocalDate.now(place.zone)
@@ -119,7 +128,8 @@ fun TodayScreen(
                 Button(onClick = { choosingPlace = true }) { Text(stringResource(R.string.today_ask_place_button)) }
             }
         }
-        HeroCard(card, place.zone)
+        HeroCard(card, place.zone, onLearn)
+        if (reviewDue > 0) ReviewOffer(due = reviewDue, onStart = onReview)
         Row(horizontalArrangement = Arrangement.spacedBy(Spacing.md), modifier = Modifier.height(IntrinsicSize.Min)) {
             InfoCard(modifier = Modifier.weight(1f).fillMaxHeight(), title = stringResource(R.string.today_label_colour)) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(Spacing.sm)) {
@@ -138,9 +148,10 @@ fun TodayScreen(
                 }
             }
         }
+        LearnLink(R.string.today_why_colour, TodayTopic.VARA, onLearn)
         if (facts != null) {
-            TimingsCard(facts, place.zone)
-            MoonCard(facts, place.zone)
+            TimingsCard(facts, place.zone, onLearn)
+            MoonCard(facts, place.zone, onLearn)
         } else {
             InfoCard { Text(stringResource(R.string.today_no_sunrise), style = MaterialTheme.typography.bodyMedium) }
         }
@@ -207,7 +218,7 @@ private fun PlaceRow(place: City, onChange: () -> Unit) {
 
 /** The day's message: strength, theme, the star lines and the weekday line, on the Today pastel. */
 @Composable
-private fun HeroCard(card: TodayCard, zone: ZoneId) {
+private fun HeroCard(card: TodayCard, zone: ZoneId, onLearn: ((TodayTopic) -> Unit)?) {
     val ink = AstroLingoTheme.tabColors.onPastel
     val facts = card.facts
     InfoCard(container = AstroLingoTheme.tabColors.today) {
@@ -238,6 +249,18 @@ private fun HeroCard(card: TodayCard, zone: ZoneId) {
             }
         }
         Text(stringArrayResource(R.array.daily_vara)[card.vara.ordinal], style = MaterialTheme.typography.bodyLarge, color = ink)
+        if (facts != null) LearnLink(R.string.today_why_day, TodayTopic.STRENGTH, onLearn, color = ink)
+    }
+}
+
+/** "Why this colour?" and the like: opens the lesson that explains that part of the card. */
+@Composable
+private fun LearnLink(@StringRes label: Int, topic: TodayTopic, onLearn: ((TodayTopic) -> Unit)?, color: Color = MaterialTheme.colorScheme.primary) {
+    if (onLearn == null) return
+    TextButton(onClick = { onLearn(topic) }, modifier = Modifier.heightIn(min = Spacing.touchTarget)) {
+        Icon(Icons.Filled.Info, contentDescription = null, tint = color, modifier = Modifier.size(18.dp))
+        Spacer(Modifier.size(Spacing.xs))
+        Text(stringResource(label), color = color)
     }
 }
 
@@ -251,7 +274,7 @@ private fun StarLine(whenLabel: String, message: String, ink: Color) {
 }
 
 @Composable
-private fun TimingsCard(facts: DailyCardFacts, zone: ZoneId) {
+private fun TimingsCard(facts: DailyCardFacts, zone: ZoneId, onLearn: ((TodayTopic) -> Unit)?) {
     val p = facts.panchang
     InfoCard(title = stringResource(R.string.today_block_timings), icon = Icons.Filled.DateRange) {
         FactRow(
@@ -261,11 +284,12 @@ private fun TimingsCard(facts: DailyCardFacts, zone: ZoneId) {
         )
         FactRow(stringResource(R.string.today_label_sunrise), time(p.sunriseUtcMillis, zone))
         FactRow(stringResource(R.string.today_label_sunset), time(p.sunsetUtcMillis, zone))
+        LearnLink(R.string.today_why_rahu, TodayTopic.RAHU_KAAL, onLearn)
     }
 }
 
 @Composable
-private fun MoonCard(facts: DailyCardFacts, zone: ZoneId) {
+private fun MoonCard(facts: DailyCardFacts, zone: ZoneId, onLearn: ((TodayTopic) -> Unit)?) {
     val p = facts.panchang
     InfoCard(title = stringResource(R.string.today_block_moon), icon = Icons.Filled.Star) {
         FactRow(stringResource(R.string.today_label_tithi), tithiName(p.tithi))
@@ -280,6 +304,8 @@ private fun MoonCard(facts: DailyCardFacts, zone: ZoneId) {
             value = p.nakshatra.nakshatra.displayName(),
             note = p.nakshatraChange?.let { stringResource(R.string.today_change_at, time(it.atUtcMillis, zone), it.next.displayName()) },
         )
+        LearnLink(R.string.today_why_tithi, TodayTopic.TITHI, onLearn)
+        LearnLink(R.string.today_why_star, TodayTopic.NAKSHATRA, onLearn)
     }
 }
 

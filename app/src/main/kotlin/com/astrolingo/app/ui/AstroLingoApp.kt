@@ -42,6 +42,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -55,8 +56,10 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.astrolingo.app.R
+import com.astrolingo.app.learn.BundledCourse
 import com.astrolingo.app.learn.InMemoryLearnStore
 import com.astrolingo.app.learn.LearnProgressStore
+import com.astrolingo.app.learn.LearnRequest
 import com.astrolingo.app.learn.LearnTab
 import com.astrolingo.app.onboarding.BirthDetailsResolver
 import com.astrolingo.app.onboarding.Level
@@ -77,7 +80,9 @@ import com.astrolingo.app.ui.theme.ThemeMode
 import com.astrolingo.engine.jyotish.Kundli
 import com.astrolingo.engine.jyotish.KundliCalculator
 import com.astrolingo.engine.places.CityIndex
+import com.astrolingo.learn.review.ReviewQueue
 import java.io.ByteArrayInputStream
+import java.time.LocalDate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -205,6 +210,17 @@ private fun Tabs(
 ) {
     // True while Learn shows a lesson, the check or saved cards: the tabs then step aside so nothing distracts.
     var immersive by remember { mutableStateOf(false) }
+    // A Review asked for from Today, handed to Learn once it opens.
+    var learnRequest by remember { mutableStateOf<LearnRequest?>(null) }
+    // Due Review cards, for the small Review card on Today. Read again each time the tab changes.
+    val reviewDue by produceState(0, selected) {
+        value = withContext(Dispatchers.IO) {
+            runCatching {
+                val progress = learnStore.load()
+                if (progress.review.isEmpty()) 0 else ReviewQueue.dueToday(progress, BundledCourse.course, LocalDate.now().toEpochDay()).size
+            }.getOrDefault(0)
+        }
+    }
     Scaffold(
         bottomBar = {
             if (!(immersive && selected == Tab.LEARN)) NavigationBar {
@@ -242,6 +258,15 @@ private fun Tabs(
                 modifier = Modifier.padding(padding),
                 // "Use my birthplace" is an answer too, so it is stored as the birthplace rather than cleared.
                 onPlaceChange = { place -> onAnswersChange(profile.answers.copy(currentPlace = place ?: profile.answers.birth.city)) },
+                reviewDue = reviewDue,
+                onReview = {
+                    learnRequest = LearnRequest.Review
+                    onSelect(Tab.LEARN)
+                },
+                onLearn = { topic ->
+                    learnRequest = LearnRequest.Lesson(topic.lessonId)
+                    onSelect(Tab.LEARN)
+                },
             )
             Tab.LEARN -> LearnTab(
                 kundli = profile.kundli,
@@ -250,6 +275,9 @@ private fun Tabs(
                 modifier = Modifier.padding(padding),
                 knowsSome = profile.answers.level != Level.NEW,
                 goalMinutes = profile.answers.goal?.minutes,
+                request = learnRequest,
+                onRequestHandled = { learnRequest = null },
+                onReturn = { onSelect(Tab.TODAY) },
                 onImmersive = { immersive = it },
             )
             Tab.ME -> MeScreen(

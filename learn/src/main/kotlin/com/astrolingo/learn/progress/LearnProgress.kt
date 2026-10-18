@@ -2,6 +2,9 @@
 // and where to resume. Not birth data, but kept on the phone only and wiped with "Delete my details".
 package com.astrolingo.learn.progress
 
+import com.astrolingo.learn.review.Leitner
+import com.astrolingo.learn.review.ReviewItem
+
 /**
  * A saved card.
  *
@@ -27,6 +30,8 @@ data class ResumePoint(val lessonId: String, val cardIndex: Int)
  * @property resume the lesson left part-way, if any.
  * @property studySeconds learning time per day, keyed by epoch day on the phone's clock; only the last
  *   [StudyTime.DAYS_KEPT] days are kept.
+ * @property review cards waiting in the daily Review, by card id.
+ * @property reviewDay with [reviewCount]: how many Review cards were answered on that epoch day, for the daily cap.
  */
 data class LearnProgress(
     val completedLessons: Set<String> = emptySet(),
@@ -35,17 +40,48 @@ data class LearnProgress(
     val bookmarks: List<Bookmark> = emptyList(),
     val resume: ResumePoint? = null,
     val studySeconds: Map<Long, Int> = emptyMap(),
+    val review: Map<String, ReviewItem> = emptyMap(),
+    val reviewDay: Long? = null,
+    val reviewCount: Int = 0,
 ) {
     fun isBookmarked(cardId: String): Boolean = bookmarks.any { it.cardId == cardId }
 
-    /** Saves the card, or removes it when it is already saved. */
-    fun toggleBookmark(cardId: String, nowMillis: Long): LearnProgress = copy(
-        bookmarks = if (isBookmarked(cardId)) {
-            bookmarks.filterNot { it.cardId == cardId }
-        } else {
-            listOf(Bookmark(cardId, nowMillis)) + bookmarks
-        },
-    )
+    /**
+     * Saves the card, or removes it when it is already saved. With [epochDay], a saved card also joins Review in
+     * box 1 and an unsaved one leaves it (only teaching cards can be saved, so this never drops a missed quiz).
+     */
+    fun toggleBookmark(cardId: String, nowMillis: Long, epochDay: Long? = null): LearnProgress {
+        val saving = !isBookmarked(cardId)
+        val toggled = copy(
+            bookmarks = if (saving) listOf(Bookmark(cardId, nowMillis)) + bookmarks else bookmarks.filterNot { it.cardId == cardId },
+        )
+        return when {
+            epochDay == null -> toggled
+            saving -> toggled.copy(review = review + (cardId to (review[cardId] ?: Leitner.item(cardId, 1, epochDay))))
+            else -> toggled.copy(review = review - cardId)
+        }
+    }
+
+    /**
+     * A quiz answered in a lesson joins Review: box 1 when missed, box 2 when right. A card already in Review keeps
+     * its place, so going through a lesson again doesn't reset it.
+     */
+    fun recordQuiz(cardId: String, correct: Boolean, epochDay: Long): LearnProgress =
+        if (cardId in review) this else copy(review = review + (cardId to Leitner.item(cardId, if (correct) 2 else 1, epochDay)))
+
+    /** Review cards answered on [epochDay]. */
+    fun reviewsOn(epochDay: Long): Int = if (reviewDay == epochDay) reviewCount else 0
+
+    /** Moves a card after a review answer and counts it toward today's cap. */
+    fun answerReview(cardId: String, remembered: Boolean, epochDay: Long): LearnProgress {
+        val item = review[cardId] ?: return this
+        val moved = Leitner.after(item, remembered, epochDay)
+        return copy(
+            review = if (moved == null) review - cardId else review + (cardId to moved),
+            reviewDay = epochDay,
+            reviewCount = reviewsOn(epochDay) + 1,
+        )
+    }
 
     /** Marks a lesson finished and clears its resume point. */
     fun completeLesson(lessonId: String): LearnProgress =
