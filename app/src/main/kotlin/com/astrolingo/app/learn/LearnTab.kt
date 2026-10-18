@@ -45,19 +45,25 @@ internal sealed interface LearnRoute {
     /** A lesson opened at [start], the card index. */
     data class Lesson(val id: String, val start: Int) : LearnRoute
 
+    /** The saved cards. */
+    data object Saved : LearnRoute
+
     fun encode(): String = when (this) {
         Home -> HOME
         is Lesson -> "$LESSON|$id|$start"
+        Saved -> SAVED
     }
 
     companion object {
         private const val HOME = "home"
         private const val LESSON = "lesson"
+        private const val SAVED = "saved"
 
         fun decode(value: String): LearnRoute {
             val parts = value.split('|')
             return when (parts.first()) {
                 LESSON -> Lesson(parts[1], parts[2].toInt())
+                SAVED -> Saved
                 else -> Home
             }
         }
@@ -106,7 +112,22 @@ fun LearnTab(
             language = language,
             onOpenLesson = { lesson, start -> open(LearnRoute.Lesson(lesson.id, start)) },
             modifier = modifier,
+            completedLessons = loadedProgress.completedLessons,
+            actions = { SavedButton(onClick = { open(LearnRoute.Saved) }) },
         )
+        LearnRoute.Saved -> {
+            BackHandler { open(LearnRoute.Home) }
+            SavedCards(
+                course = loadedCourse,
+                progress = loadedProgress,
+                language = language,
+                facts = facts,
+                onOpen = { location -> open(LearnRoute.Lesson(location.lesson.id, location.index)) },
+                onToggle = { cardId -> update(loadedProgress.toggleBookmark(cardId, System.currentTimeMillis())) },
+                onBack = { open(LearnRoute.Home) },
+                modifier = modifier,
+            )
+        }
         is LearnRoute.Lesson -> {
             val lesson = loadedCourse.lesson(route.id)
             val chapter = loadedCourse.chapterOf(route.id)
@@ -130,6 +151,11 @@ fun LearnTab(
                     onOpenLesson = { next -> open(LearnRoute.Lesson(next.id, 0)) },
                     nextLesson = { done -> CoursePath.of(loadedCourse, done).next },
                     modifier = modifier,
+                    cardActions = { card ->
+                        BookmarkButton(saved = loadedProgress.isBookmarked(card.id)) {
+                            update(loadedProgress.toggleBookmark(card.id, System.currentTimeMillis()))
+                        }
+                    },
                 )
             }
         }

@@ -3,6 +3,7 @@ package com.astrolingo.app.screenshots
 import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.onNodeWithContentDescription
@@ -122,6 +123,12 @@ class AppScreenshots {
         compose.onNodeWithText("Tap to turn over").performClick()
         compose.waitForIdle()
         shot("15_learn_graha_back")
+        compose.onAllNodesWithContentDescription("Save this card")[0].performClick()
+        compose.onNodeWithContentDescription("Close lesson").performClick()
+        waitForText("Saved")
+        compose.onNodeWithText("Saved").performClick()
+        waitForText("Saved cards")
+        shot("16_learn_saved")
     }
 
     private companion object {
