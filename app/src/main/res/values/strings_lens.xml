@@ -2,7 +2,10 @@
 <!-- The chart bubble and compare sheet on Learn cards (LS-9). Meaning lines are the Astro Guru's, rule-based.
      Hindi in values-hi/strings_lens.xml. -->
 <resources>
-    <string name="lens_bubble">Compare with saved charts, %1$d charts</string>
+    <plurals name="lens_bubble">
+        <item quantity="one">Compare with saved charts, %1$d chart</item>
+        <item quantity="other">Compare with saved charts, %1$d charts</item>
+    </plurals>
     <string name="lens_bubble_move">Move to the other side</string>
     <string name="lens_title">%1$s in your saved charts</string>
     <string name="lens_back">Back to all charts</string>
@@ -13,8 +16,11 @@
     <string name="lens_layer_strength">Strength</string>
     <string name="lens_house">House %1$d</string>
     <string name="lens_time_unknown">Birth time unknown</string>
-    <string name="lens_pattern">Spot the pattern: %1$d of %2$d have %3$s in a %4$s sign.</string>
-    <string name="lens_add_more">Compare with up to %1$d more people</string>
+    <string name="lens_pattern">Spot the pattern: %1$d of %2$d have %3$s in %4$s signs.</string>
+    <plurals name="lens_add_more">
+        <item quantity="one">Compare with %1$d more person</item>
+        <item quantity="other">Compare with up to %1$d more people</item>
+    </plurals>
     <string name="lens_add_more_body">Family or friends, with their permission. Their details stay on this phone.</string>
     <string name="lens_add">Add a person</string>
     <string name="lens_check_title">Check yourself</string>
@@ -25,7 +31,7 @@
     <string name="lens_check_note">Not scored. It\'s a quick way to practise reading a chart.</string>
     <string name="lens_chart_description">Chart of %1$s with %2$s marked</string>
     <string name="lens_line_graha">%1$s stands for %2$s.</string>
-    <string name="lens_line_sign">In %1$s, a %2$s sign.</string>
+    <string name="lens_line_sign">In %1$s, one of the %2$s signs.</string>
     <string name="lens_line_house">House %1$d: %2$s.</string>
     <string name="lens_line_house_unknown">Without a birth time the house isn\'t known.</string>
     <string name="lens_line_nakshatra">In the nakshatra %1$s, ruled by %2$s.</string>

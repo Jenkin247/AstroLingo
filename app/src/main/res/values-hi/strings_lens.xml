@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- सीखें कार्ड पर कुंडली बबल (LS-9)। हिन्दी समीक्षक से जाँच बाकी है। -->
 <resources>
-    <string name="lens_bubble">सहेजी कुंडलियों से तुलना करें, %1$d कुंडलियाँ</string>
+    <plurals name="lens_bubble">
+        <item quantity="one">सहेजी कुंडलियों से तुलना करें, %1$d कुंडली</item>
+        <item quantity="other">सहेजी कुंडलियों से तुलना करें, %1$d कुंडलियाँ</item>
+    </plurals>
     <string name="lens_bubble_move">दूसरी ओर ले जाएँ</string>
     <string name="lens_title">आपकी सहेजी कुंडलियों में %1$s</string>
     <string name="lens_back">सभी कुंडलियों पर वापस</string>
@@ -13,7 +16,10 @@
     <string name="lens_house">भाव %1$d</string>
     <string name="lens_time_unknown">जन्म समय अज्ञात</string>
     <string name="lens_pattern">पैटर्न देखिए: %2$d में से %1$d का %3$s %4$s राशि में है।</string>
-    <string name="lens_add_more">%1$d और लोगों से तुलना करें</string>
+    <plurals name="lens_add_more">
+        <item quantity="one">%1$d और व्यक्ति से तुलना करें</item>
+        <item quantity="other">%1$d और लोगों से तुलना करें</item>
+    </plurals>
     <string name="lens_add_more_body">परिवार या मित्र, उनकी अनुमति से। उनका विवरण इसी फ़ोन पर रहता है।</string>
     <string name="lens_add">व्यक्ति जोड़ें</string>
     <string name="lens_check_title">खुद को परखें</string>
