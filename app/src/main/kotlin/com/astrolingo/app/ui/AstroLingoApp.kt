@@ -203,9 +203,11 @@ private fun Tabs(
     onAnswersChange: (OnboardingAnswers) -> Unit,
     onDelete: () -> Unit,
 ) {
+    // True while Learn shows a lesson, the check or saved cards: the tabs then step aside so nothing distracts.
+    var immersive by remember { mutableStateOf(false) }
     Scaffold(
         bottomBar = {
-            NavigationBar {
+            if (!(immersive && selected == Tab.LEARN)) NavigationBar {
                 Tab.entries.forEach { tab ->
                     NavigationBarItem(
                         selected = tab == selected,
@@ -247,6 +249,7 @@ private fun Tabs(
                 store = learnStore,
                 modifier = Modifier.padding(padding),
                 knowsSome = profile.answers.level != Level.NEW,
+                onImmersive = { immersive = it },
             )
             Tab.ME -> MeScreen(
                 showDeity = profile.answers.showDeity,

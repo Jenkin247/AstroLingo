@@ -17,7 +17,7 @@
     <string name="learn_close">पाठ बंद करें</string>
     <string name="learn_card_position">कार्ड %1$d / %2$d</string>
     <string name="learn_next_card">अगला कार्ड</string>
-    <string name="learn_swipe_hint">अगले कार्ड के लिए ऊपर स्वाइप करें</string>
+    <string name="learn_or_swipe">या ऊपर स्वाइप करें</string>
     <string name="learn_flip_card">कार्ड पलटें</string>
     <string name="learn_tap_to_flip">पलटने के लिए टैप करें</string>
     <string name="learn_your_chart">आपका चार्ट</string>

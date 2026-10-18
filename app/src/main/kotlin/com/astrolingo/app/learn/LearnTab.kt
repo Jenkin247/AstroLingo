@@ -7,6 +7,7 @@ import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
@@ -84,6 +85,8 @@ internal sealed interface LearnRoute {
  * @param store where progress and bookmarks are kept.
  * @param knowsSome true when the learner said in onboarding they know some astrology; the knowledge check then
  *   opens the first time they visit Learn. Others are offered it on Learn home.
+ * @param onImmersive called with true while a lesson, the check or the saved cards fill the screen, so the app can
+ *   hide its bottom tabs (LS-3), and with false back on Learn home.
  */
 @Composable
 fun LearnTab(
@@ -92,6 +95,7 @@ fun LearnTab(
     store: LearnProgressStore,
     modifier: Modifier = Modifier,
     knowsSome: Boolean = false,
+    onImmersive: (Boolean) -> Unit = {},
 ) {
     val course by produceState<Course?>(null) { value = withContext(Dispatchers.IO) { BundledCourse.course } }
     var progress by remember(store) { mutableStateOf<LearnProgress?>(null) }
@@ -120,6 +124,11 @@ fun LearnTab(
             open(LearnRoute.Check(null))
         }
     }
+
+    val immersive = LearnRoute.decode(routeValue) != LearnRoute.Home
+    LaunchedEffect(immersive) { onImmersive(immersive) }
+    // Leaving the Learn tab, or deleting the profile, always brings the tabs back.
+    DisposableEffect(Unit) { onDispose { onImmersive(false) } }
 
     when (val route = LearnRoute.decode(routeValue)) {
         LearnRoute.Home -> LearnHome(

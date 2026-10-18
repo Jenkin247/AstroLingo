@@ -156,6 +156,8 @@ class AppScreenshots {
         shot("10_learn_home")
         compose.onNodeWithText("Start lesson").performClick()
         waitForText("Next card")
+        // Inside a lesson the bottom tabs are hidden (LS-3).
+        check(compose.onAllNodesWithText("Today").fetchSemanticsNodes().isEmpty()) { "tabs shown inside a lesson" }
         shot("11_learn_card")
         // On to the first quiz of the lesson.
         repeat(MAX_CARDS) {

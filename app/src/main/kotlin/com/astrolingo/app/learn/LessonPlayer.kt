@@ -146,7 +146,6 @@ internal fun LessonPlayer(
                         language = language,
                         active = active,
                         position = position,
-                        showSwipeHint = page == 0 && startIndex == 0,
                         onNext = toNext,
                         actions = { cardActions(card) },
                     )

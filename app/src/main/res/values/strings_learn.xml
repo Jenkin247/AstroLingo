@@ -18,7 +18,7 @@
     <string name="learn_close">Close lesson</string>
     <string name="learn_card_position">Card %1$d of %2$d</string>
     <string name="learn_next_card">Next card</string>
-    <string name="learn_swipe_hint">Swipe up for the next card</string>
+    <string name="learn_or_swipe">or swipe up</string>
     <string name="learn_flip_card">Turn the card over</string>
     <string name="learn_tap_to_flip">Tap to turn over</string>
     <string name="learn_your_chart">Your chart</string>
