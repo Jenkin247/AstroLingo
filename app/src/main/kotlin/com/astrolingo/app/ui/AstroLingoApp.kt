@@ -66,6 +66,7 @@ import com.astrolingo.app.onboarding.Purpose
 import com.astrolingo.app.onboarding.ResolvedBirth
 import com.astrolingo.app.profile.InMemoryProfileRepository
 import com.astrolingo.app.profile.ProfileRepository
+import com.astrolingo.app.settings.AppLanguage
 import com.astrolingo.app.today.TodayScreen
 import com.astrolingo.app.ui.components.InfoCard
 import com.astrolingo.app.ui.kundli.KundliScreen
@@ -115,6 +116,7 @@ private fun ready(answers: OnboardingAnswers): ProfileState.Ready {
  *
  * @param learnStore Learn progress and bookmarks; wiped with the profile by "Delete my details".
  * @param themeMode the light or dark choice shown in Me; [onThemeMode] is called when the user changes it.
+ * @param language the app's language, also changeable in Me through [onLanguage].
  */
 @Composable
 fun AstroLingoApp(
@@ -122,6 +124,8 @@ fun AstroLingoApp(
     learnStore: LearnProgressStore = remember { InMemoryLearnStore() },
     themeMode: ThemeMode = ThemeMode.SYSTEM,
     onThemeMode: (ThemeMode) -> Unit = {},
+    language: AppLanguage = AppLanguage.ENGLISH,
+    onLanguage: (AppLanguage) -> Unit = {},
 ) {
     val scope = rememberCoroutineScope()
     var profile by remember { mutableStateOf<ProfileState>(ProfileState.Loading) }
@@ -154,6 +158,8 @@ fun AstroLingoApp(
             onRevealed = { profile = current.copy(reveal = false) },
             themeMode = themeMode,
             onThemeMode = onThemeMode,
+            language = language,
+            onLanguage = onLanguage,
             onAnswersChange = { answers ->
                 profile = current.copy(answers = answers)
                 scope.launch(Dispatchers.IO) { runCatching { profiles.save(answers) } }
@@ -181,6 +187,8 @@ private fun Tabs(
     onRevealed: () -> Unit,
     themeMode: ThemeMode,
     onThemeMode: (ThemeMode) -> Unit,
+    language: AppLanguage,
+    onLanguage: (AppLanguage) -> Unit,
     onAnswersChange: (OnboardingAnswers) -> Unit,
     onDelete: () -> Unit,
 ) {
@@ -234,6 +242,8 @@ private fun Tabs(
                 onShowDeity = { show -> onAnswersChange(profile.answers.copy(showDeity = show)) },
                 themeMode = themeMode,
                 onThemeMode = onThemeMode,
+                language = language,
+                onLanguage = onLanguage,
                 onDelete = onDelete,
                 modifier = Modifier.padding(padding),
             )
@@ -250,6 +260,8 @@ private fun MeScreen(
     onShowDeity: (Boolean) -> Unit,
     themeMode: ThemeMode,
     onThemeMode: (ThemeMode) -> Unit,
+    language: AppLanguage,
+    onLanguage: (AppLanguage) -> Unit,
     onDelete: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
@@ -266,6 +278,20 @@ private fun MeScreen(
             Text(stringResource(R.string.me_privacy), style = MaterialTheme.typography.bodyMedium)
         }
         InfoCard(title = stringResource(R.string.me_block_settings), icon = Icons.Filled.Settings) {
+            Text(stringResource(R.string.me_language), style = MaterialTheme.typography.titleSmall)
+            SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
+                AppLanguage.entries.forEachIndexed { index, option ->
+                    SegmentedButton(
+                        selected = language == option,
+                        onClick = { onLanguage(option) },
+                        shape = SegmentedButtonDefaults.itemShape(index, AppLanguage.entries.size),
+                    ) {
+                        // Each language is named in itself, so it can be found whatever the app is showing.
+                        Text(stringResource(if (option == AppLanguage.HINDI) R.string.language_hindi else R.string.language_english))
+                    }
+                }
+            }
+            HorizontalDivider()
             Text(stringResource(R.string.me_appearance), style = MaterialTheme.typography.titleSmall)
             SingleChoiceSegmentedButtonRow(Modifier.fillMaxWidth()) {
                 ThemeMode.entries.forEachIndexed { index, mode ->

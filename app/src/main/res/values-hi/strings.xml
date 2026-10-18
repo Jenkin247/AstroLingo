@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">AstroLingo</string>
+    <string name="tab_today">आज</string>
+    <string name="tab_learn">सीखें</string>
+    <string name="tab_kundli">कुंडली</string>
+    <string name="tab_me">मैं</string>
+    <string name="tagline">सितारों की भाषा</string>
+    <string name="placeholder_today">आपका रोज़ का कार्ड जल्द आ रहा है: हर दिन के लिए एक छोटी-सी रीडिंग, आपकी चंद्र राशि के हिसाब से।</string>
+    <string name="placeholder_learn">पाठ जल्द आ रहे हैं। सितारा आपको अपनी कुंडली खुद पढ़ना सिखाएगी, रोज़ बस कुछ मिनट।</string>
+    <string name="placeholder_kundli">आपकी कुंडली जल्द आ रही है।</string>
+    <string name="placeholder_me">आपकी प्रोफ़ाइल और प्राइवेसी सेटिंग्स जल्द आ रही हैं।</string>
+    <string name="sitara_description">सितारा, आपकी AstroLingo गाइड</string>
+    <string name="chart_north">उत्तर भारतीय</string>
+    <string name="chart_south">दक्षिण भारतीय</string>
+    <string name="chart_description">कुंडली चार्ट। लग्न %1$s में, चंद्र %2$s में। ग्रहों की जानकारी नीचे दी गई है।</string>
+    <string name="grahas_heading">ग्रह</string>
+    <string name="graha_detail">%1$s पद %2$d, भाव %3$d</string>
+    <string name="rashi_with_english">%1$s (%2$s)</string>
+    <string name="grahas_glossary">पद: नक्षत्र के चार हिस्सों में से एक। भाव: जीवन का वह क्षेत्र जिसमें ग्रह बैठा है, आपके लग्न से गिना गया।</string>
+    <string name="western_sign_question">मेरी सूर्य राशि पश्चिमी राशि से अलग क्यों है?</string>
+    <string name="western_sign_cusp">आपका जन्म दो राशियों की सीमा पर हुआ: आपका पश्चिमी सूर्य %1$s से एक डिग्री के अंदर है, इसलिए कुछ राशिफल आपको यही राशि बता सकते हैं।</string>
+    <string name="western_sign_answer">पश्चिमी ज्योतिष राशियों को मौसमों से नापता है, जबकि वैदिक ज्योतिष तारों से। सदियों में दोनों के बीच लगभग 24 डिग्री का फ़र्क आ गया है, इसलिए आपका वैदिक सूर्य अक्सर पश्चिमी से एक राशि पहले होता है। यहाँ आपका सूर्य %1$s में है; पश्चिमी ज्योतिष में यह %2$s होता।</string>
+    <string name="lagna_near_edge">आपका लग्न %1$s की सीमा के पास है। अगर जन्म समय कुछ मिनट आगे-पीछे हो, तो यह %2$s हो सकता है। जन्म प्रमाणपत्र का समय मदद करता है।</string>
+    <string name="sample_chart_title">नमूना चार्ट</string>
+    <string name="sample_chart_note">आशा टेस्टवाल, एक काल्पनिक व्यक्ति, जन्म 15 अगस्त 1990, सुबह 6:30, पुणे। जन्म की जानकारी डालने के बाद आपकी अपनी कुंडली यहाँ दिखेगी।</string>
+    <string name="onboarding_back">पीछे</string>
+    <string name="onboarding_next">आगे</string>
+    <string name="onboarding_purpose_sitara">नमस्ते! मैं सितारा हूँ। मैं सितारों की भाषा सीखने में आपकी मदद करूँगी।</string>
+    <string name="onboarding_purpose_title">आप यहाँ किसलिए आए हैं?</string>
+    <string name="purpose_learn">मैं वैदिक ज्योतिष सीखना चाहता/चाहती हूँ</string>
+    <string name="purpose_guidance">मुझे रोज़ का मार्गदर्शन चाहिए</string>
+    <string name="onboarding_goal_title">आप रोज़ कितनी देर सीखना चाहते हैं?</string>
+    <string name="goal_minutes">रोज़ %1$d मिनट</string>
+    <string name="onboarding_level_title">आप पहले से कितना जानते हैं?</string>
+    <string name="level_new">ज्योतिष मेरे लिए नया है</string>
+    <string name="level_some">मुझे अपनी राशि और कुछ शब्द पता हैं</string>
+    <string name="level_experienced">मैं कुंडली पढ़ सकता/सकती हूँ</string>
+    <string name="onboarding_date_title">आपका जन्म कब हुआ?</string>
+    <string name="onboarding_time_title">आपका जन्म किस समय हुआ?</string>
+    <string name="onboarding_time_unknown">मुझे अपना जन्म समय नहीं पता</string>
+    <string name="onboarding_time_unknown_sitara">कोई बात नहीं। आपकी चंद्र राशि और रोज़ का कार्ड फिर भी काम करेंगे। समय आप बाद में \"मैं\" में डाल सकते हैं।</string>
+    <string name="onboarding_place_title">आपका जन्म कहाँ हुआ?</string>
+    <string name="onboarding_place_hint">कस्बा या शहर</string>
+    <string name="onboarding_place_loading">जगहें लोड हो रही हैं…</string>
+    <string name="onboarding_place_none">हमें यह जगह नहीं मिली। सबसे पास का कस्बा या अपने ज़िले का मुख्य शहर आज़माएँ।</string>
+    <string name="onboarding_check_title">क्या यह सही है?</string>
+    <string name="onboarding_check_lives_in">अभी %1$s में रहते हैं</string>
+    <string name="onboarding_check_time_unknown">जन्म समय पता नहीं</string>
+    <string name="onboarding_show_kundli">मेरी कुंडली दिखाएँ</string>
+    <string name="onboarding_private_note">आपकी जन्म की जानकारी इसी फ़ोन पर एन्क्रिप्ट होकर रहती है। हम इसे कभी किसी से शेयर नहीं करते।</string>
+    <string name="city_clock_bombay">1955 से पहले बंबई की अपनी घड़ी थी, IST से 39 मिनट पीछे। आपके रिकॉर्ड में कौन-सा समय है?</string>
+    <string name="city_clock_calcutta">1948 से पहले कलकत्ता की अपनी घड़ी थी, IST से 23 मिनट आगे। आपके रिकॉर्ड में कौन-सा समय है?</string>
+    <string name="city_clock_ist">भारतीय मानक समय (ज़्यादातर रिकॉर्ड)</string>
+    <string name="city_clock_local">शहर का पुराना समय</string>
+    <string name="note_clocks_ahead">उस दिन घड़ियाँ मानक समय से एक घंटा आगे थीं (डेलाइट सेविंग या युद्ध के समय का नियम)। हमने इसका ध्यान रखा है।</string>
+    <string name="note_skipped">घड़ियाँ बदलते समय यह समय छूट गया था, इसलिए हमने इसे एक घंटा आगे कर दिया। अपना रिकॉर्ड देख लें।</string>
+    <string name="note_repeated">घड़ियाँ पीछे होने पर यह समय दो बार आया था। हमने पहला वाला लिया है।</string>
+    <string name="note_local_mean_time">1906 से पहले घड़ियाँ स्थानीय समय से चलती थीं, इसलिए पुराने रिकॉर्ड कुछ मिनट आगे-पीछे हो सकते हैं।</string>
+    <string name="your_kundli_title">आपकी कुंडली</string>
+    <string name="your_kundli_time_unknown">आपका जन्म समय पता नहीं है, इसलिए भाव आपकी चंद्र राशि (चंद्र लग्न) से गिने गए हैं और लग्न नहीं दिखाया गया है।</string>
+    <string name="your_kundli_moon_uncertain">आपके जन्म के आसपास चंद्र नई राशि या नक्षत्र में गया था, इसलिए यह एक कदम आगे-पीछे हो सकता है। जन्म समय डालने से यह सटीक हो जाएगा।</string>
+    <string name="chart_from_lagna">लग्न से</string>
+    <string name="chart_from_moon">चंद्र से</string>
+    <string name="chart_description_moon">चंद्र चार्ट। भाव %1$s में बैठे चंद्र से गिने गए हैं। ग्रहों की जानकारी नीचे दी गई है।</string>
+    <string name="kundli_reveal_sitara">यह रही आपकी कुंडली! आपका चंद्र %1$s में है। इसका क्या मतलब है, यह हम साथ मिलकर समझेंगे।</string>
+    <string name="me_privacy">आपकी जन्म की जानकारी और कुंडली सिर्फ़ इसी फ़ोन पर, एन्क्रिप्ट होकर रखी जाती है। इन्हें कभी सितारा, विज्ञापनों या एनालिटिक्स को नहीं भेजा जाता।</string>
+    <string name="me_delete">मेरी जन्म की जानकारी मिटाएँ</string>
+    <string name="me_delete_title">अपनी जन्म की जानकारी मिटाएँ?</string>
+    <string name="me_delete_body">आपकी जन्म की जानकारी और कुंडली इस फ़ोन से हटा दी जाएगी। आप इन्हें बाद में फिर से डाल सकते हैं।</string>
+    <string name="me_delete_confirm">मिटाएँ</string>
+    <string name="me_delete_cancel">रहने दें</string>
+    <string name="onboarding_place_village">छोटा गाँव है? सबसे पास का कस्बा चुनें। कुछ किलोमीटर से लगभग कोई फ़र्क नहीं पड़ता।</string>
+    <string name="onboarding_time_after_midnight">आधी रात के बाद जन्म हुआ? ध्यान रखें कि तारीख कैलेंडर वाली हो। 8 तारीख की रात 12:20 बजे के जन्म को अक्सर \"7 की रात\" कहते हैं, पर तारीख 8 ही है।</string>
+    <string name="onboarding_time_is_initial">मेरा जन्म समय %1$s है</string>
+    <string name="day_part_question">आपके जन्म वाले दिन चंद्र ने राशि या नक्षत्र बदला था। लगभग किस समय आपका जन्म हुआ?</string>
+    <string name="day_part_option">%1$s: चंद्र %2$s में</string>
+    <string name="day_part_or">" या "</string>
+    <string name="day_part_night">रात, आधी रात से सुबह 6 बजे तक</string>
+    <string name="day_part_morning">सुबह, 6 बजे से दोपहर 12 बजे तक</string>
+    <string name="day_part_afternoon">दोपहर, 12 बजे से शाम 6 बजे तक</string>
+    <string name="day_part_evening">शाम, 6 बजे से आधी रात तक</string>
+    <string name="day_part_not_sure">मुझे पक्का नहीं पता</string>
+    <string name="today_greeting">नमस्ते!</string>
+    <string name="today_greeting_morning">सुप्रभात!</string>
+    <string name="today_greeting_afternoon">नमस्ते!</string>
+    <string name="today_greeting_evening">शुभ संध्या!</string>
+    <string name="today_strong">एक दमदार दिन</string>
+    <string name="today_steady">एक संतुलित दिन</string>
+    <string name="today_gentle">एक हल्का-फुल्का दिन</string>
+    <string name="today_times_for">%1$s का समय</string>
+    <string name="today_no_sunrise">आज यहाँ सूर्य न उगता है, न डूबता है, इसलिए राहु काल या पंचांग नहीं है।</string>
+    <string name="tithi_shukla">शुक्ल %1$s</string>
+    <string name="tithi_krishna">कृष्ण %1$s</string>
+    <string name="tithi_purnima">पूर्णिमा, पूरा चाँद</string>
+    <string name="tithi_amavasya">अमावस्या, नया चाँद</string>
+    <string-array name="tithi_names">
+        <item>प्रतिपदा</item>
+        <item>द्वितीया</item>
+        <item>तृतीया</item>
+        <item>चतुर्थी</item>
+        <item>पंचमी</item>
+        <item>षष्ठी</item>
+        <item>सप्तमी</item>
+        <item>अष्टमी</item>
+        <item>नवमी</item>
+        <item>दशमी</item>
+        <item>एकादशी</item>
+        <item>द्वादशी</item>
+        <item>त्रयोदशी</item>
+        <item>चतुर्दशी</item>
+        <item>पूर्णिमा</item>
+    </string-array>
+    <string name="colour_orange">नारंगी</string>
+    <string name="colour_white">सफ़ेद</string>
+    <string name="colour_red">लाल</string>
+    <string name="colour_green">हरा</string>
+    <string name="colour_yellow">पीला</string>
+    <string name="colour_pink">गुलाबी</string>
+    <string name="colour_dark_blue">गहरा नीला</string>
+    <string name="me_show_deity">आज के देवता दिखाएँ</string>
+    <string name="location_use">मेरी लोकेशन इस्तेमाल करें</string>
+    <string name="location_finding">आपकी जगह ढूँढ रहे हैं…</string>
+    <string name="location_note">हमें सिर्फ़ आपका शहर चाहिए, इसलिए हम एक बार अंदाज़न लोकेशन माँगते हैं। यह आपके फ़ोन पर ही रहती है।</string>
+    <string name="location_denied">कोई बात नहीं। नीचे अपना कस्बा या शहर टाइप करें।</string>
+    <string name="location_unavailable">हमें आपकी लोकेशन नहीं मिल पाई। नीचे अपना कस्बा या शहर टाइप करें।</string>
+    <string name="onboarding_home_title">आप अभी कहाँ रहते हैं?</string>
+    <string name="onboarding_home_sitara">सूर्योदय और राहु काल वहाँ के हिसाब से होते हैं जहाँ आप अभी रहते हैं, न कि जहाँ आपका जन्म हुआ।</string>
+    <string name="onboarding_home_birthplace">जहाँ मेरा जन्म हुआ (%1$s)</string>
+    <string name="onboarding_home_elsewhere">कहीं और</string>
+    <string name="onboarding_deity_title">अपने कार्ड पर आज के देवता दिखाएँ?</string>
+    <string name="onboarding_deity_sitara">कुछ लोगों को आज के देवता देखना अच्छा लगता है, कुछ को नहीं। आपकी पसंद इसी फ़ोन पर रहती है, और आप इसे \"मैं\" में बदल सकते हैं।</string>
+    <string name="onboarding_deity_yes">हाँ, देवता दिखाएँ</string>
+    <string name="onboarding_deity_no">नहीं, देवता न दिखाएँ</string>
+    <string name="today_ask_place">ये समय आपके जन्मस्थान के हैं। हमें बताएँ कि आप अभी कहाँ रहते हैं, ताकि सूर्योदय और राहु काल आपके दिन से मेल खाएँ।</string>
+    <string name="today_ask_place_button">मैं कहाँ रहता/रहती हूँ, यह चुनें</string>
+    <string name="today_change_place">बदलें</string>
+    <string name="today_place_title">आज आप कहाँ हैं?</string>
+    <string name="today_place_note">सूर्योदय और राहु काल वहाँ के हिसाब से होते हैं जहाँ आप अभी हैं, न कि जहाँ आपका जन्म हुआ। यह आपके फ़ोन पर ही रहता है।</string>
+    <string name="today_place_birthplace">मेरा जन्मस्थान इस्तेमाल करें</string>
+    <string name="today_place_use">यह जगह इस्तेमाल करें</string>
+    <string name="today_until_label">%1$s तक</string>
+    <string name="today_from_label">%1$s से</string>
+    <string name="today_change_at">%1$s तक, फिर %2$s</string>
+    <string name="today_time_range">%1$s से %2$s</string>
+    <string name="today_block_timings">समय</string>
+    <string name="today_block_moon">चंद्र और नक्षत्र</string>
+    <string name="today_label_colour">रंग</string>
+    <string name="today_label_deity">देवता</string>
+    <string name="today_label_rahu">राहु काल</string>
+    <string name="today_label_sunrise">सूर्योदय</string>
+    <string name="today_label_sunset">सूर्यास्त</string>
+    <string name="today_label_tithi">तिथि</string>
+    <string name="today_label_moon">चंद्र राशि</string>
+    <string name="today_label_star">नक्षत्र</string>
+    <string name="today_ask_place_title">आप अभी कहाँ रहते हैं?</string>
+    <string name="chart_same_sign_title">दोनों चार्ट एक जैसे क्यों हैं</string>
+    <string name="chart_same_sign">आपका चंद्र आपकी लग्न राशि %1$s में ही है, इसलिए चंद्र से बना चार्ट लग्न से बने चार्ट जैसा ही दिखता है। यह सही है, कोई गलती नहीं।</string>
+    <string name="grahas_glossary_moon">पद: नक्षत्र के चार हिस्सों में से एक। भाव: जीवन का वह क्षेत्र जिसमें ग्रह बैठा है, यहाँ आपके चंद्र से गिना गया।</string>
+    <string name="me_block_privacy">आपकी प्राइवेसी</string>
+    <string name="me_block_settings">सेटिंग्स</string>
+    <string name="me_appearance">दिखावट</string>
+    <string name="me_appearance_system">ऑटो</string>
+    <string name="me_appearance_light">लाइट</string>
+    <string name="me_appearance_dark">डार्क</string>
+    <string name="me_language">भाषा</string>
+</resources>

@@ -15,7 +15,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import com.astrolingo.app.learn.SharedPreferencesLearnStore
 import com.astrolingo.app.profile.EncryptedProfileStore
+import com.astrolingo.app.settings.AppLanguage
+import com.astrolingo.app.settings.InLanguage
+import com.astrolingo.app.settings.LanguagePreference
 import com.astrolingo.app.ui.AstroLingoApp
+import com.astrolingo.app.ui.LanguagePicker
 import com.astrolingo.app.ui.theme.AstroLingoTheme
 import com.astrolingo.app.ui.theme.ThemePreference
 
@@ -26,8 +30,10 @@ class MainActivity : ComponentActivity() {
         val profiles = EncryptedProfileStore(this)
         val learnStore = SharedPreferencesLearnStore(this)
         val themePreference = ThemePreference(this)
+        val languagePreference = LanguagePreference(this)
         setContent {
             var themeMode by remember { mutableStateOf(themePreference.load()) }
+            var language by remember { mutableStateOf(languagePreference.load()) }
             val dark = themeMode.isDark(isSystemInDarkTheme())
             // Status and navigation bar icons follow the app's choice, not only the phone's, so they stay readable.
             DisposableEffect(dark) {
@@ -38,15 +44,28 @@ class MainActivity : ComponentActivity() {
                 onDispose {}
             }
             AstroLingoTheme(darkTheme = dark) {
-                AstroLingoApp(
-                    profiles = profiles,
-                    learnStore = learnStore,
-                    themeMode = themeMode,
-                    onThemeMode = { mode ->
-                        themeMode = mode
-                        themePreference.save(mode)
-                    },
-                )
+                val chosen = language
+                val pickLanguage = { picked: AppLanguage ->
+                    language = picked
+                    languagePreference.save(picked)
+                }
+                if (chosen == null) {
+                    LanguagePicker(onPick = pickLanguage)
+                } else {
+                    InLanguage(chosen) {
+                        AstroLingoApp(
+                            profiles = profiles,
+                            learnStore = learnStore,
+                            themeMode = themeMode,
+                            onThemeMode = { mode ->
+                                themeMode = mode
+                                themePreference.save(mode)
+                            },
+                            language = chosen,
+                            onLanguage = pickLanguage,
+                        )
+                    }
+                }
             }
         }
     }

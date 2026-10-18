@@ -164,4 +164,14 @@
     <string name="me_appearance_system">Auto</string>
     <string name="me_appearance_light">Light</string>
     <string name="me_appearance_dark">Dark</string>
+    <string name="me_language">Language</string>
+    <!-- The first-launch language screen shows both languages at once, so these are not translated. -->
+    <string name="language_title_en" translatable="false">Choose your language</string>
+    <string name="language_title_hi" translatable="false">अपनी भाषा चुनें</string>
+    <string name="language_english" translatable="false">English</string>
+    <string name="language_hindi" translatable="false">हिन्दी</string>
+    <string name="language_more_en" translatable="false">More languages are coming soon.</string>
+    <string name="language_more_hi" translatable="false">और भाषाएँ जल्द आ रही हैं।</string>
+    <string name="language_note_en" translatable="false">You can change this any time in Me.</string>
+    <string name="language_note_hi" translatable="false">आप इसे कभी भी “मैं” टैब में बदल सकते हैं।</string>
 </resources>
