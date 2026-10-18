@@ -147,7 +147,7 @@ class EndToEndJourneys {
         tap("Next")
         waitForText("When were you born?")
         // The calendar opens on January 1990.
-        click(compose.onAllNodesWithText("15"), "the 15th")
+        click(compose.onAllNodesWithContentDescription("January 15, 1990", substring = true), "15 January 1990")
         tap("Next")
         waitForText("What time were you born?")
         tap("My birth time is", partial = true)
@@ -211,7 +211,7 @@ class EndToEndJourneys {
         waitForText("Nickname")
         compose.onAllNodes(hasSetTextAction()).onFirst().performTextInput("Meera")
         tap("Choose the date")
-        click(compose.onAllNodesWithText("20"), "the 20th")
+        click(compose.onAllNodesWithContentDescription("January 20, 1990", substring = true), "20 January 1990")
         tap("OK")
         tap("Choose the time")
         tap("OK")
