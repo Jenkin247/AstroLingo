@@ -62,7 +62,8 @@ jobs:
 
       # Also on a branch per PR, so the screenshots can be viewed on GitHub without downloading a zip.
       - name: Publish screenshots to a branch
-        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        # Also when tests fail, so a failing screen can be seen.
+        if: always() && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository && hashFiles('app/build/outputs/roborazzi/*.png') != ''
         working-directory: app/build/outputs/roborazzi
         run: |
           git init -q -b screenshots

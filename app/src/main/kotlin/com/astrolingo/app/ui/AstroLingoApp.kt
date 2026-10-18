@@ -57,6 +57,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.astrolingo.app.R
 import com.astrolingo.app.learn.BundledCourse
+import com.astrolingo.app.learn.ChartPerson
 import com.astrolingo.app.learn.InMemoryLearnStore
 import com.astrolingo.app.learn.LearnProgressStore
 import com.astrolingo.app.learn.LearnRequest
@@ -123,6 +124,15 @@ private fun ready(answers: OnboardingAnswers): ProfileState.Ready {
     val birth = BirthDetailsResolver.resolve(answers.birth, index)
     return ProfileState.Ready(answers, birth, KundliCalculator.calculate(birth.moment))
 }
+
+/** A saved person's chart, or null if it can't be worked out. Calculated on the phone, like the user's own. */
+private fun chartOf(person: SavedPerson): ChartPerson? = runCatching {
+    val index = if (person.birth.useCityClock) CityIndex.bundled() else CityIndex.load(ByteArrayInputStream(ByteArray(0)))
+    val birth = BirthDetailsResolver.resolve(person.birth, index)
+    ChartPerson(person.id, person.name, KundliCalculator.calculate(birth.moment), birth.timeKnown, isYou = false)
+}.getOrNull()
+
+private const val YOU_ID = "you"
 
 /**
  * Root composable: onboarding until a profile exists, then bottom navigation plus the selected tab.
@@ -229,6 +239,13 @@ private fun Tabs(
 ) {
     // The person being added ("new") or edited (their id) in Me, or null.
     var personForm by rememberSaveable { mutableStateOf<String?>(null) }
+    // Charts for the bubble on Learn cards (LS-9): the user's at once, saved people's once calculated.
+    val youName = stringResource(R.string.people_you)
+    val chartPeople by produceState(emptyList<ChartPerson>(), profile.kundli, profile.birth.timeKnown, people, youName) {
+        val you = ChartPerson(YOU_ID, youName, profile.kundli, profile.birth.timeKnown, isYou = true)
+        value = listOf(you)
+        value = listOf(you) + withContext(Dispatchers.Default) { people.mapNotNull(::chartOf) }
+    }
     // True while Learn shows a lesson, the check or saved cards: the tabs then step aside so nothing distracts.
     var immersive by remember { mutableStateOf(false) }
     // A Review asked for from Today, handed to Learn once it opens.
@@ -300,6 +317,11 @@ private fun Tabs(
                 onRequestHandled = { learnRequest = null },
                 onReturn = { onSelect(Tab.TODAY) },
                 onImmersive = { immersive = it },
+                people = chartPeople,
+                onAddPerson = {
+                    personForm = NEW_PERSON
+                    onSelect(Tab.ME)
+                },
             )
             Tab.ME -> if (personForm != null) {
                 PersonForm(

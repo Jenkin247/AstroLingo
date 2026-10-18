@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- सीखें कार्ड पर कुंडली बबल (LS-9)। हिन्दी समीक्षक से जाँच बाकी है। -->
+<resources>
+    <plurals name="lens_bubble">
+        <item quantity="one">सहेजी कुंडलियों से तुलना करें, %1$d कुंडली</item>
+        <item quantity="other">सहेजी कुंडलियों से तुलना करें, %1$d कुंडलियाँ</item>
+    </plurals>
+    <string name="lens_bubble_move">दूसरी ओर ले जाएँ</string>
+    <string name="lens_title">आपकी सहेजी कुंडलियों में %1$s</string>
+    <string name="lens_back">सभी कुंडलियों पर वापस</string>
+    <string name="lens_locked">%1$s: %2$s पूरा करें</string>
+    <string name="lens_layer_sign">राशि</string>
+    <string name="lens_layer_house">भाव</string>
+    <string name="lens_layer_nakshatra">नक्षत्र</string>
+    <string name="lens_layer_strength">बल</string>
+    <string name="lens_house">भाव %1$d</string>
+    <string name="lens_time_unknown">जन्म समय अज्ञात</string>
+    <string name="lens_pattern">पैटर्न देखिए: %2$d में से %1$d का %3$s %4$s राशि में है।</string>
+    <plurals name="lens_add_more">
+        <item quantity="one">%1$d और व्यक्ति से तुलना करें</item>
+        <item quantity="other">%1$d और लोगों से तुलना करें</item>
+    </plurals>
+    <string name="lens_add_more_body">परिवार या मित्र, उनकी अनुमति से। उनका विवरण इसी फ़ोन पर रहता है।</string>
+    <string name="lens_add">व्यक्ति जोड़ें</string>
+    <string name="lens_check_title">खुद को परखें</string>
+    <string name="lens_check_question">%2$s की कुंडली में %1$s कहाँ है?</string>
+    <string name="lens_check_question_you">आपकी कुंडली में %1$s कहाँ है?</string>
+    <string name="lens_check_hidden">नीचे \"खुद को परखें\" का उत्तर देने तक छिपा है।</string>
+    <string name="lens_check_show">उत्तर दिखाएँ</string>
+    <string name="lens_check_note">इसके अंक नहीं हैं। यह कुंडली पढ़ने का छोटा अभ्यास है।</string>
+    <string name="lens_chart_description">%1$s की कुंडली, %2$s चिह्नित</string>
+    <string name="lens_line_graha">%1$s %2$s का कारक है।</string>
+    <string name="lens_line_sign">%1$s में, जो %2$s राशि है।</string>
+    <string name="lens_line_house">भाव %1$d: %2$s।</string>
+    <string name="lens_line_house_unknown">जन्म समय के बिना भाव पता नहीं चलता।</string>
+    <string name="lens_line_nakshatra">%1$s नक्षत्र में, जिसके स्वामी %2$s हैं।</string>
+    <string name="lens_not_prediction">आपने जो सीखा, उसका प्रयोग। यह भविष्यवाणी नहीं है।</string>
+    <string name="lens_element_fire">अग्नि</string>
+    <string name="lens_element_earth">पृथ्वी</string>
+    <string name="lens_element_air">वायु</string>
+    <string name="lens_element_water">जल</string>
+    <string name="lens_dignity_exalted">उच्च</string>
+    <string name="lens_dignity_own">स्वराशि</string>
+    <string name="lens_dignity_friend">मित्र राशि</string>
+    <string name="lens_dignity_neutral">सम राशि</string>
+    <string name="lens_dignity_enemy">शत्रु राशि</string>
+    <string name="lens_dignity_debilitated">नीच</string>
+    <string name="lens_dignity_exalted_line">उच्च: यहाँ ग्रह सबसे बलवान है।</string>
+    <string name="lens_dignity_own_line">स्वराशि: अपने घर में, सहज।</string>
+    <string name="lens_dignity_friend_line">मित्र राशि: यहाँ स्वागत और सहयोग मिलता है।</string>
+    <string name="lens_dignity_neutral_line">सम राशि: न सहायता, न रुकावट।</string>
+    <string name="lens_dignity_enemy_line">शत्रु राशि: यहाँ उसे अधिक परिश्रम करना पड़ता है।</string>
+    <string name="lens_dignity_debilitated_line">नीच: यहाँ सबसे दुर्बल, इसलिए इसकी सीख परिश्रम से आती है।</string>
+    <string-array name="lens_graha_keywords">
+        <item>आत्मा, आत्मविश्वास और अधिकार</item>
+        <item>मन, भावनाओं और देखभाल</item>
+        <item>ऊर्जा, साहस और उत्साह</item>
+        <item>बुद्धि, वाणी और सीखने</item>
+        <item>ज्ञान, शिक्षा और विकास</item>
+        <item>प्रेम, सौंदर्य और सुख</item>
+        <item>अनुशासन, धैर्य और कर्तव्य</item>
+        <item>इच्छा, नएपन और विदेशी बातों</item>
+        <item>वैराग्य, अंतर्दृष्टि और अतीत</item>
+    </string-array>
+    <string-array name="lens_house_themes">
+        <item>स्वयं, शरीर और दुनिया से मिलने का ढंग</item>
+        <item>परिवार, वाणी और धन-संचय</item>
+        <item>साहस, भाई-बहन, छोटी यात्राएँ और कौशल</item>
+        <item>घर, माता और मन की शांति</item>
+        <item>रचनात्मकता, संतान, शिक्षा और आनंद</item>
+        <item>सेवा, स्वास्थ्य, रोज़ का परिश्रम और बाधाएँ</item>
+        <item>साझेदारी, विवाह और दूसरों से व्यवहार</item>
+        <item>परिवर्तन, गुप्त बातें और आयु</item>
+        <item>धर्म, गुरु, भाग्य और लंबी यात्राएँ</item>
+        <item>कर्म, कार्यक्षेत्र और प्रतिष्ठा</item>
+        <item>लाभ, मित्र और इच्छाएँ</item>
+        <item>त्याग, विश्राम, दूर देश और आध्यात्म</item>
+    </string-array>
+</resources>

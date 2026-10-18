@@ -27,6 +27,7 @@ import com.astrolingo.app.ui.theme.AstroLingoTheme
 import com.astrolingo.engine.chart.ChartCell
 import com.astrolingo.engine.chart.ChartLayout
 import com.astrolingo.engine.chart.ChartStyle
+import com.astrolingo.engine.jyotish.Graha
 import com.astrolingo.engine.jyotish.Kundli
 import kotlin.math.min
 
@@ -37,6 +38,7 @@ import kotlin.math.min
  * @param style North Indian (houses fixed) or South Indian (signs fixed).
  * @param description spoken by TalkBack in place of the drawing; the planet list below the chart carries the detail.
  * @param markLagna false for a Moon chart, whose first house is the Moon's sign, not the lagna: no "La" mark.
+ * @param highlight a graha whose house is filled, for the chart bubble on Learn cards (LS-9).
  */
 @Composable
 fun KundliChart(
@@ -45,6 +47,7 @@ fun KundliChart(
     description: String,
     modifier: Modifier = Modifier,
     markLagna: Boolean = true,
+    highlight: Graha? = null,
 ) {
     val cells = remember(kundli, style) { ChartLayout.layout(kundli, style) }
     val textMeasurer = rememberTextMeasurer()
@@ -52,6 +55,7 @@ fun KundliChart(
     val ink = MaterialTheme.colorScheme.onSurface
     val muted = MaterialTheme.colorScheme.onSurfaceVariant
     val lagnaFill = AstroLingoTheme.tabColors.kundli.copy(alpha = 0.45f)
+    val highlightFill = AstroLingoTheme.tabColors.today.copy(alpha = 0.55f)
     // Chart labels grow with the phone's font size only up to 1.3x, so they stay inside their houses.
     // The planet list below the chart (and TalkBack) carries the same detail at any size.
     val labelScale = min(1f, MAX_LABEL_FONT_SCALE / LocalDensity.current.fontScale)
@@ -69,7 +73,11 @@ fun KundliChart(
         val stroke = Stroke(width = 1.5.dp.toPx())
         cells.forEach { cell ->
             val path = cellPath(cell)
-            if (cell.isLagna) drawPath(path, lagnaFill)
+            if (highlight != null && highlight in cell.grahas) {
+                drawPath(path, highlightFill)
+            } else if (cell.isLagna) {
+                drawPath(path, lagnaFill)
+            }
             drawPath(path, line, style = stroke)
             drawLabels(cell, style, markLagna, textMeasurer, grahaStyle, signStyle)
         }
