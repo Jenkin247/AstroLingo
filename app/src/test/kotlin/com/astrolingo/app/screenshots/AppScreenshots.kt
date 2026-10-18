@@ -86,6 +86,23 @@ class AppScreenshots {
     }
 
     @Test
+    fun darkTheme() {
+        val answers = OnboardingAnswers(
+            purpose = Purpose.GUIDANCE,
+            goal = null,
+            level = Level.SOME,
+            birth = BirthDetails(LocalDate.of(1990, 8, 15), LocalTime.of(6, 30), index.search("Pune").first()),
+            currentPlace = index.search("London").first(),
+        )
+        compose.setContent { AstroLingoTheme(darkTheme = true) { AstroLingoApp(InMemoryProfileRepository(answers)) } }
+        waitForText("Rahu kaal")
+        shot("08_today_dark")
+        compose.onNodeWithText("Kundli").performClick()
+        compose.waitForIdle()
+        shot("09_kundli_dark")
+    }
+
+    @Test
     fun learn() {
         // Animations off, as with the phone's "Remove animations" setting: pictures are still and motion snaps.
         Settings.Global.putFloat(compose.activity.contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 0f)

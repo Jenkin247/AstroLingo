@@ -5,6 +5,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -15,8 +18,13 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DateRange
+import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -37,6 +45,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.astrolingo.app.R
+import com.astrolingo.app.ui.components.FactRow
+import com.astrolingo.app.ui.components.InfoCard
 import com.astrolingo.app.ui.kundli.SampleChart
 import com.astrolingo.app.ui.kundli.displayName
 import com.astrolingo.app.ui.places.CitySearch
@@ -81,7 +91,7 @@ fun TodayScreen(
     var choosingPlace by remember { mutableStateOf(false) }
     val today = LocalDate.now(place.zone)
     val card = remember(kundli, today, place) { TodayCard.build(kundli, today, place) }
-    val tint = AstroLingoTheme.tabColors.today
+    val facts = card.facts
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -89,79 +99,50 @@ fun TodayScreen(
             .padding(Spacing.md),
         verticalArrangement = Arrangement.spacedBy(Spacing.md),
     ) {
-        Text(
-            stringResource(if (placeGiven) greeting(LocalTime.now(place.zone)) else R.string.today_greeting),
-            style = MaterialTheme.typography.headlineSmall,
-        )
-        Text(card.date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)), style = MaterialTheme.typography.titleMedium)
-        val facts = card.facts
-        Column(
-            Modifier
-                .fillMaxWidth()
-                .background(tint, MaterialTheme.shapes.large)
-                .padding(Spacing.lg),
-            verticalArrangement = Arrangement.spacedBy(Spacing.sm),
-        ) {
-            if (facts != null) {
-                Text(stringResource(facts.strength.label), style = MaterialTheme.typography.labelLarge, color = AstroLingoTheme.tabColors.onPastel)
-                Text(
-                    stringArrayResource(facts.strength.themes)[facts.gocharHouse - 1],
-                    style = MaterialTheme.typography.headlineSmall,
-                    color = AstroLingoTheme.tabColors.onPastel,
-                )
-                val taraLines = stringArrayResource(R.array.daily_tara)
-                val change = facts.panchang.nakshatraChange
-                val after = facts.taraAfterChange
-                val starLines = if (change != null && after != null) {
-                    val at = time(change.atUtcMillis, place.zone)
-                    listOf(
-                        stringResource(R.string.today_until, at, taraLines[facts.taraAtSunrise.ordinal]),
-                        stringResource(R.string.today_from, at, taraLines[after.ordinal]),
-                    )
-                } else {
-                    listOf(taraLines[facts.tara.ordinal])
-                }
-                starLines.forEach {
-                    Text(it, style = MaterialTheme.typography.bodyLarge, color = AstroLingoTheme.tabColors.onPastel)
-                }
-            }
+        Column {
+            // The greeting follows the phone's own clock: that is the time where the user actually is.
             Text(
-                stringArrayResource(R.array.daily_vara)[card.vara.ordinal],
+                stringResource(if (placeGiven) greeting(LocalTime.now()) else R.string.today_greeting),
+                style = MaterialTheme.typography.headlineMedium,
+            )
+            Text(
+                card.date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)),
                 style = MaterialTheme.typography.bodyLarge,
-                color = AstroLingoTheme.tabColors.onPastel,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
-        Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(Spacing.sm)) {
-            Spacer(
-                Modifier
-                    .size(28.dp)
-                    .background(card.colour.swatch, CircleShape)
-                    .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape),
-            )
-            Text(stringResource(R.string.today_colour, stringResource(card.colour.label)), style = MaterialTheme.typography.bodyLarge)
-        }
-        if (showDeity) {
-            Text(stringResource(R.string.today_deity, card.deity.displayName()), style = MaterialTheme.typography.bodyLarge)
-        }
-        HorizontalDivider()
-        if (facts != null) {
-            PanchangDetails(facts, place.zone)
-        } else {
-            Text(stringResource(R.string.today_no_sunrise), style = MaterialTheme.typography.bodyMedium)
-        }
+        PlaceRow(place, onChange = { choosingPlace = true })
         if (!placeGiven) {
             // Profiles saved before onboarding asked where the user lives: ask once here instead.
-            Text(stringResource(R.string.today_ask_place), style = MaterialTheme.typography.bodyMedium)
-            Button(onClick = { choosingPlace = true }) { Text(stringResource(R.string.today_ask_place_button)) }
+            InfoCard(title = stringResource(R.string.today_ask_place_title), icon = Icons.Filled.LocationOn) {
+                Text(stringResource(R.string.today_ask_place), style = MaterialTheme.typography.bodyMedium)
+                Button(onClick = { choosingPlace = true }) { Text(stringResource(R.string.today_ask_place_button)) }
+            }
         }
-        Row(verticalAlignment = Alignment.CenterVertically) {
-            Text(
-                stringResource(R.string.today_times_for, place.label),
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.weight(1f),
-            )
-            TextButton(onClick = { choosingPlace = true }) { Text(stringResource(R.string.today_change_place)) }
+        HeroCard(card, place.zone)
+        Row(horizontalArrangement = Arrangement.spacedBy(Spacing.md), modifier = Modifier.height(IntrinsicSize.Min)) {
+            InfoCard(modifier = Modifier.weight(1f).fillMaxHeight(), title = stringResource(R.string.today_label_colour)) {
+                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(Spacing.sm)) {
+                    Spacer(
+                        Modifier
+                            .size(28.dp)
+                            .background(card.colour.swatch, CircleShape)
+                            .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape),
+                    )
+                    Text(stringResource(card.colour.label), style = MaterialTheme.typography.titleMedium)
+                }
+            }
+            if (showDeity) {
+                InfoCard(modifier = Modifier.weight(1f).fillMaxHeight(), title = stringResource(R.string.today_label_deity)) {
+                    Text(card.deity.displayName(), style = MaterialTheme.typography.titleMedium)
+                }
+            }
+        }
+        if (facts != null) {
+            TimingsCard(facts, place.zone)
+            MoonCard(facts, place.zone)
+        } else {
+            InfoCard { Text(stringResource(R.string.today_no_sunrise), style = MaterialTheme.typography.bodyMedium) }
         }
     }
     if (choosingPlace) {
@@ -209,44 +190,110 @@ private fun PlaceDialog(current: City, onDismiss: () -> Unit, onPick: (City?) ->
     }
 }
 
+/** Where the day's times are worked out, with a way to change it. */
 @Composable
-private fun PanchangDetails(facts: DailyCardFacts, zone: ZoneId) {
-    val p = facts.panchang
-    Column(verticalArrangement = Arrangement.spacedBy(Spacing.sm)) {
+private fun PlaceRow(place: City, onChange: () -> Unit) {
+    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(Spacing.xs)) {
+        Icon(Icons.Filled.LocationOn, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(18.dp))
         Text(
-            stringResource(R.string.today_rahu_kaal, time(p.rahuKaal.startUtcMillis, zone), time(p.rahuKaal.endUtcMillis, zone)),
-            style = MaterialTheme.typography.titleMedium,
-        )
-        Text(stringArrayResource(R.array.daily_rahu_tip)[facts.strength.ordinal], style = MaterialTheme.typography.bodyMedium)
-        Text(tithiName(p.tithi), style = MaterialTheme.typography.bodyLarge)
-        val rashi = stringResource(R.string.rashi_with_english, p.moonRashi.displayName(), p.moonRashi.englishName)
-        val star = p.nakshatra.nakshatra.displayName()
-        Text(
-            stringResource(
-                R.string.today_moon,
-                p.moonRashiChange?.let { stringResource(R.string.today_moon_change, rashi, time(it.atUtcMillis, zone), it.next.displayName()) }
-                    ?: rashi,
-                p.nakshatraChange?.let { stringResource(R.string.today_moon_change, star, time(it.atUtcMillis, zone), it.next.displayName()) }
-                    ?: star,
-            ),
-            style = MaterialTheme.typography.bodyLarge,
-        )
-        Text(
-            stringResource(R.string.today_sun, time(p.sunriseUtcMillis, zone), time(p.sunsetUtcMillis, zone)),
+            stringResource(R.string.today_times_for, place.label),
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.weight(1f),
+        )
+        TextButton(onClick = onChange) { Text(stringResource(R.string.today_change_place)) }
+    }
+}
+
+/** The day's message: strength, theme, the star lines and the weekday line, on the Today pastel. */
+@Composable
+private fun HeroCard(card: TodayCard, zone: ZoneId) {
+    val ink = AstroLingoTheme.tabColors.onPastel
+    val facts = card.facts
+    InfoCard(container = AstroLingoTheme.tabColors.today) {
+        if (facts != null) {
+            Surface(shape = MaterialTheme.shapes.small, color = ink.copy(alpha = PILL_ALPHA)) {
+                Text(
+                    stringResource(facts.strength.label),
+                    style = MaterialTheme.typography.labelLarge,
+                    color = ink,
+                    modifier = Modifier.padding(horizontal = Spacing.sm, vertical = Spacing.xs),
+                )
+            }
+            Text(
+                stringArrayResource(facts.strength.themes)[facts.gocharHouse - 1],
+                style = MaterialTheme.typography.titleLarge,
+                color = ink,
+            )
+            HorizontalDivider(color = ink.copy(alpha = PILL_ALPHA))
+            val taraLines = stringArrayResource(R.array.daily_tara)
+            val change = facts.panchang.nakshatraChange
+            val after = facts.taraAfterChange
+            if (change != null && after != null) {
+                val at = time(change.atUtcMillis, zone)
+                StarLine(stringResource(R.string.today_until_label, at), taraLines[facts.taraAtSunrise.ordinal], ink)
+                StarLine(stringResource(R.string.today_from_label, at), taraLines[after.ordinal], ink)
+            } else {
+                Text(taraLines[facts.tara.ordinal], style = MaterialTheme.typography.bodyLarge, color = ink)
+            }
+        }
+        Text(stringArrayResource(R.array.daily_vara)[card.vara.ordinal], style = MaterialTheme.typography.bodyLarge, color = ink)
+    }
+}
+
+/** "Until 12:49 PM" on its own line in bold, the message under it, so the two halves of the day are easy to tell apart. */
+@Composable
+private fun StarLine(whenLabel: String, message: String, ink: Color) {
+    Column {
+        Text(whenLabel, style = MaterialTheme.typography.labelLarge, color = ink)
+        Text(message, style = MaterialTheme.typography.bodyLarge, color = ink)
+    }
+}
+
+@Composable
+private fun TimingsCard(facts: DailyCardFacts, zone: ZoneId) {
+    val p = facts.panchang
+    InfoCard(title = stringResource(R.string.today_block_timings), icon = Icons.Filled.DateRange) {
+        FactRow(
+            label = stringResource(R.string.today_label_rahu),
+            value = stringResource(R.string.today_time_range, time(p.rahuKaal.startUtcMillis, zone), time(p.rahuKaal.endUtcMillis, zone)),
+            note = stringArrayResource(R.array.daily_rahu_tip)[facts.strength.ordinal],
+        )
+        FactRow(stringResource(R.string.today_label_sunrise), time(p.sunriseUtcMillis, zone))
+        FactRow(stringResource(R.string.today_label_sunset), time(p.sunsetUtcMillis, zone))
+    }
+}
+
+@Composable
+private fun MoonCard(facts: DailyCardFacts, zone: ZoneId) {
+    val p = facts.panchang
+    InfoCard(title = stringResource(R.string.today_block_moon), icon = Icons.Filled.Star) {
+        FactRow(stringResource(R.string.today_label_tithi), tithiName(p.tithi))
+        val rashi = stringResource(R.string.rashi_with_english, p.moonRashi.displayName(), p.moonRashi.englishName)
+        FactRow(
+            label = stringResource(R.string.today_label_moon),
+            value = rashi,
+            note = p.moonRashiChange?.let { stringResource(R.string.today_change_at, time(it.atUtcMillis, zone), it.next.displayName()) },
+        )
+        FactRow(
+            label = stringResource(R.string.today_label_star),
+            value = p.nakshatra.nakshatra.displayName(),
+            note = p.nakshatraChange?.let { stringResource(R.string.today_change_at, time(it.atUtcMillis, zone), it.next.displayName()) },
         )
     }
 }
 
-/** Good morning until noon, afternoon until 5 pm, evening after that and through the night. */
+/** Good morning from 5 am, afternoon from noon, evening from 5 pm; in the small hours just "Namaste!". */
 private fun greeting(now: LocalTime): Int = when (now.hour) {
     in MORNING_FROM until NOON -> R.string.today_greeting_morning
     in NOON until EVENING_FROM -> R.string.today_greeting_afternoon
-    else -> R.string.today_greeting_evening
+    in EVENING_FROM..LAST_HOUR -> R.string.today_greeting_evening
+    else -> R.string.today_greeting
 }
 
-private const val MORNING_FROM = 4
+private const val MORNING_FROM = 5
+private const val LAST_HOUR = 23
+private const val PILL_ALPHA = 0.12f
 private const val NOON = 12
 private const val EVENING_FROM = 17
 
