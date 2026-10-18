@@ -1,0 +1,1049 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": 1,
+  "id": "yogas",
+  "glyph": "✧",
+  "title": {
+    "en": "Yogas: special combinations",
+    "hi": ""
+  },
+  "summary": {
+    "en": "Meet the famous yogas, the combinations that give a chart its themes, and see doshas in calm balance.",
+    "hi": ""
+  },
+  "check": [
+    {
+      "id": "yogas.check.1",
+      "type": "quiz",
+      "question": {
+        "en": "Mangal sits in Makara in the 10th house from the lagna. Which yoga does this form?",
+        "hi": ""
+      },
+      "options": [
+        {
+          "en": "Hamsa",
+          "hi": ""
+        },
+        {
+          "en": "Shasha",
+          "hi": ""
+        },
+        {
+          "en": "Ruchaka",
+          "hi": ""
+        },
+        {
+          "en": "Gaja Kesari",
+          "hi": ""
+        }
+      ],
+      "answer": 2,
+      "explanation": {
+        "en": "Mangal is exalted in Makara, and the 10th is a kendra. A Mahapurusha graha in its own or exalted sign in a kendra from the lagna gives Ruchaka.",
+        "hi": ""
+      }
+    },
+    {
+      "id": "yogas.check.2",
+      "type": "quiz",
+      "question": {
+        "en": "For a Vrishabha lagna, why is Shani called the yogakaraka?",
+        "hi": ""
+      },
+      "options": [
+        {
+          "en": "It is exalted in Vrishabha",
+          "hi": ""
+        },
+        {
+          "en": "It rules the 9th and 10th, a trikona and a kendra",
+          "hi": ""
+        },
+        {
+          "en": "It rules the 2nd and 11th houses",
+          "hi": ""
+        },
+        {
+          "en": "It always aspects the lagna",
+          "hi": ""
+        }
+      ],
+      "answer": 1,
+      "explanation": {
+        "en": "From Vrishabha, Makara is the 9th (a trikona) and Kumbha the 10th (a kendra). One graha ruling both is a yogakaraka, a raja yoga in itself.",
+        "hi": ""
+      }
+    }
+  ],
+  "lessons": [
+    {
+      "id": "yogas.what",
+      "title": {
+        "en": "What a yoga is",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "yogas.what.1",
+          "type": "learn",
+          "title": {
+            "en": "Yoga means joining",
+            "hi": ""
+          },
+          "body": {
+            "en": "In Jyotish, a yoga (combination) is a pattern of placements that joins grahas, signs and houses into one theme. The word comes from yuj, to join. A yoga describes a theme in the chart, not a fixed event.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "योग",
+            "roman": "Yoga"
+          },
+          "visual": {
+            "kind": "glyph",
+            "value": "✧"
+          }
+        },
+        {
+          "id": "yogas.what.2",
+          "type": "learn",
+          "title": {
+            "en": "Hundreds of combinations",
+            "hi": ""
+          },
+          "body": {
+            "en": "The classics describe hundreds of yogas. Parashara, Varahamihira and Mantreswara each give their own sets, and the names and rules sometimes differ. You don't need them all: a few famous ones teach the logic behind the rest.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "yogas.what.3",
+          "type": "learn",
+          "title": {
+            "en": "Many yogas are common",
+            "hi": ""
+          },
+          "body": {
+            "en": "Some yogas turn up in a large share of charts. Gaja Kesari needs only Guru in a kendra from the Moon, which happens in roughly one chart in three. Having a famous yoga is pleasant, but it is rarely rare.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "yogas.what.4",
+          "type": "learn",
+          "title": {
+            "en": "Strength decides",
+            "hi": ""
+          },
+          "body": {
+            "en": "A yoga gives results in proportion to the strength of the grahas that form it. Dignity, house, aspects and combustion all count. A yoga made by weak or troubled grahas tends to give a mild or partial result.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "yogas.what.5",
+          "type": "learn",
+          "title": {
+            "en": "Timing through dasha",
+            "hi": ""
+          },
+          "body": {
+            "en": "Yogas tend to show their themes most in the dasha or antardasha of the grahas that form them. A yoga can rest quietly for years and come forward when its graha's period begins.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "yogas.what.6",
+          "type": "learn",
+          "title": {
+            "en": "Read the whole chart",
+            "hi": ""
+          },
+          "body": {
+            "en": "No single yoga decides a life. Good teachers weigh each yoga against the rest of the kundli, and against effort and free will. Treat a yoga as a theme to explore, never as a promise or a threat.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "yogas.what.7",
+          "type": "quiz",
+          "question": {
+            "en": "What does the word yoga mean in a kundli?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "A breathing practice for each graha",
+              "hi": ""
+            },
+            {
+              "en": "A combination that joins placements into a theme",
+              "hi": ""
+            },
+            {
+              "en": "One of the 27 lunar mansions",
+              "hi": ""
+            },
+            {
+              "en": "A graha sitting alone in a house",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "From yuj, to join: a yoga joins grahas, signs and houses into one theme in the chart.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "yogas.what.8",
+          "type": "quiz",
+          "question": {
+            "en": "What mostly decides how strongly a yoga works?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "The strength of the grahas that form it",
+              "hi": ""
+            },
+            {
+              "en": "How rare the yoga's name sounds",
+              "hi": ""
+            },
+            {
+              "en": "The weekday of birth",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "A yoga is only as strong as its grahas: their dignity, house, aspects and freedom from combustion.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "yogas.what.9",
+          "type": "quiz",
+          "question": {
+            "en": "When does a yoga tend to show its themes most?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Only in childhood",
+              "hi": ""
+            },
+            {
+              "en": "Whenever the Moon is full",
+              "hi": ""
+            },
+            {
+              "en": "In the dasha of the grahas that form it",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Dashas time a chart's promises. A yoga usually comes forward in the periods of the grahas that make it.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "yogas.mahapurusha",
+      "title": {
+        "en": "The five great persons",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "yogas.mahapurusha.1",
+          "type": "learn",
+          "title": {
+            "en": "Five great persons",
+            "hi": ""
+          },
+          "body": {
+            "en": "The Pancha Mahapurusha yogas are the five 'great person' yogas. Each belongs to one of the five true planets: Mangal, Budha, Guru, Shukra and Shani. The Sun, Moon, Rahu and Ketu don't form them.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "पञ्च महापुरुष",
+            "roman": "Pancha Mahapurusha"
+          },
+          "visual": {
+            "kind": "glyph",
+            "value": "✧"
+          }
+        },
+        {
+          "id": "yogas.mahapurusha.2",
+          "type": "learn",
+          "title": {
+            "en": "The rule",
+            "hi": ""
+          },
+          "body": {
+            "en": "The yoga forms when one of these grahas sits in its own sign or its exaltation sign, and that sign is a kendra: house 1, 4, 7 or 10 from the lagna. A strong graha in a strong house gives a clear, lasting theme.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 1
+          }
+        },
+        {
+          "id": "yogas.mahapurusha.3",
+          "type": "learn",
+          "title": {
+            "en": "Ruchaka: Mangal",
+            "hi": ""
+          },
+          "body": {
+            "en": "Ruchaka forms with Mangal in Mesha or Vrishchika (own signs) or Makara (exalted) in a kendra. It tends to bring courage, drive, energy and a leader's push. Channelled well, it is the athlete or the protector.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "रुचक",
+            "roman": "Ruchaka"
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "MANGAL"
+          }
+        },
+        {
+          "id": "yogas.mahapurusha.4",
+          "type": "learn",
+          "title": {
+            "en": "Bhadra: Budha",
+            "hi": ""
+          },
+          "body": {
+            "en": "Bhadra forms with Budha in Mithuna or Kanya in a kendra. Kanya is both Budha's own sign and its exaltation. It tends to give a quick mind, skill with words and numbers, wit, and a gift for trade or teaching.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "भद्र",
+            "roman": "Bhadra"
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "BUDHA"
+          }
+        },
+        {
+          "id": "yogas.mahapurusha.5",
+          "type": "learn",
+          "title": {
+            "en": "Hamsa: Guru",
+            "hi": ""
+          },
+          "body": {
+            "en": "Hamsa forms with Guru in Dhanu or Meena (own signs) or Karka (exalted) in a kendra. The hamsa is the swan, a symbol of discernment. It tends to give wisdom, goodness, a teaching spirit and the respect of others.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "हंस",
+            "roman": "Hamsa"
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "GURU"
+          }
+        },
+        {
+          "id": "yogas.mahapurusha.6",
+          "type": "learn",
+          "title": {
+            "en": "Malavya and Shasha",
+            "hi": ""
+          },
+          "body": {
+            "en": "Malavya: Shukra in Vrishabha, Tula or Meena (exalted) in a kendra; it tends to give grace, art and comfort. Shasha: Shani in Makara, Kumbha or Tula (exalted) in a kendra; it tends to give discipline, endurance and slowly earned authority.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "SHUKRA"
+          }
+        },
+        {
+          "id": "yogas.mahapurusha.7",
+          "type": "yourChart",
+          "fact": "LAGNA",
+          "title": {
+            "en": "Your kendras",
+            "hi": ""
+          },
+          "body": {
+            "en": "Your lagna is {value}. Count it as 1, then find the 4th, 7th and 10th signs: those are your kendras. A Mahapurusha yoga needs Mangal, Budha, Guru, Shukra or Shani in its own or exalted sign in one of them.",
+            "hi": ""
+          },
+          "unknownTime": {
+            "en": "Mahapurusha yogas are counted from the lagna, which needs a birth time. Some teachers also look from the Moon sign, so you can still explore these yogas from your Chandra rashi.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "yogas.mahapurusha.8",
+          "type": "quiz",
+          "question": {
+            "en": "Which graha forms Hamsa yoga?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Guru",
+              "hi": ""
+            },
+            {
+              "en": "Shukra",
+              "hi": ""
+            },
+            {
+              "en": "Budha",
+              "hi": ""
+            },
+            {
+              "en": "Surya",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Hamsa belongs to Guru: Jupiter in Dhanu, Meena or Karka in a kendra from the lagna.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "yogas.mahapurusha.9",
+          "type": "quiz",
+          "question": {
+            "en": "Shani is in Tula in the 7th house from the lagna. Which yoga is this?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Malavya",
+              "hi": ""
+            },
+            {
+              "en": "Ruchaka",
+              "hi": ""
+            },
+            {
+              "en": "Shasha",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Shani is exalted in Tula and the 7th is a kendra, so this is Shasha. Tula is Shukra's sign, but Malavya needs Shukra itself there.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "yogas.mahapurusha.10",
+          "type": "quiz",
+          "question": {
+            "en": "Why can't Surya form a Mahapurusha yoga?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Surya has no exaltation sign",
+              "hi": ""
+            },
+            {
+              "en": "Only the five true planets, Mangal to Shani, form them",
+              "hi": ""
+            },
+            {
+              "en": "Surya never sits in a kendra",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "The five yogas belong to Mangal, Budha, Guru, Shukra and Shani. The Sun and Moon (the luminaries) and Rahu and Ketu are left out.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "yogas.raja-dhana",
+      "title": {
+        "en": "Raja and dhana yogas",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "yogas.raja-dhana.1",
+          "type": "learn",
+          "title": {
+            "en": "Kendras and trikonas",
+            "hi": ""
+          },
+          "body": {
+            "en": "Recall the two strongest house groups. Kendras (1, 4, 7, 10) are the pillars of action. Trikonas (1, 5, 9) are the houses of fortune and dharma. The lagna is both, which is why its lord matters so much.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 1
+          }
+        },
+        {
+          "id": "yogas.raja-dhana.2",
+          "type": "learn",
+          "title": {
+            "en": "Raja yoga",
+            "hi": ""
+          },
+          "body": {
+            "en": "A raja yoga (royal combination) forms when a kendra lord and a trikona lord come together: in the same sign, by mutual aspect, or by exchanging signs. It tends to bring status, responsibility and recognition in one's own field.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "राज योग",
+            "roman": "Raja yoga"
+          },
+          "visual": {
+            "kind": "glyph",
+            "value": "★"
+          }
+        },
+        {
+          "id": "yogas.raja-dhana.3",
+          "type": "learn",
+          "title": {
+            "en": "Yogakaraka",
+            "hi": ""
+          },
+          "body": {
+            "en": "When one graha rules both a kendra and a trikona, it is a yogakaraka. Classic examples: Shani for Vrishabha and Tula lagnas, Mangal for Karka and Simha, and Shukra for Makara and Kumbha.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "योगकारक",
+            "roman": "Yogakaraka"
+          }
+        },
+        {
+          "id": "yogas.raja-dhana.4",
+          "type": "learn",
+          "title": {
+            "en": "A fictional example",
+            "hi": ""
+          },
+          "body": {
+            "en": "Meera has Karka lagna. Mangal rules her 5th and 10th, so it is her yogakaraka. Mangal sits exalted in Makara, her 7th, which also makes Ruchaka. Purposeful work and standing tend to be strong themes, most of all in Mangal's dasha.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 7
+          }
+        },
+        {
+          "id": "yogas.raja-dhana.5",
+          "type": "learn",
+          "title": {
+            "en": "Dhana yoga",
+            "hi": ""
+          },
+          "body": {
+            "en": "A dhana yoga (wealth combination) links the lords of the 2nd and 11th, the houses of savings and gains, with the lords of the trikonas 1, 5 and 9. It points to a theme of earning and resources, often through one's own skill.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "धन योग",
+            "roman": "Dhana yoga"
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 11
+          }
+        },
+        {
+          "id": "yogas.raja-dhana.6",
+          "type": "learn",
+          "title": {
+            "en": "Themes, not money promises",
+            "hi": ""
+          },
+          "body": {
+            "en": "A dhana yoga is never a promise of riches, and its absence is no sign of hardship. Effort, choices and circumstances shape money far more. For real money decisions, talk to a qualified financial adviser, not a chart.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "yogas.raja-dhana.7",
+          "type": "quiz",
+          "question": {
+            "en": "Which pairing forms a raja yoga?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "The lords of the 6th and 8th joining",
+              "hi": ""
+            },
+            {
+              "en": "The lords of the 3rd and 11th joining",
+              "hi": ""
+            },
+            {
+              "en": "The lords of the 4th and 9th joining",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "The 4th is a kendra and the 9th a trikona. Their lords joining, aspecting each other or exchanging signs is a raja yoga.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "yogas.raja-dhana.8",
+          "type": "quiz",
+          "question": {
+            "en": "For a Tula lagna, which graha is the yogakaraka?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Shukra",
+              "hi": ""
+            },
+            {
+              "en": "Shani",
+              "hi": ""
+            },
+            {
+              "en": "Guru",
+              "hi": ""
+            },
+            {
+              "en": "Mangal",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "From Tula, Makara is the 4th (kendra) and Kumbha the 5th (trikona). Shani rules both. Shukra rules the 1st and 8th instead.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "yogas.raja-dhana.9",
+          "type": "quiz",
+          "question": {
+            "en": "What does a dhana yoga in a chart mean?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "A theme of earning and resources, not a promise",
+              "hi": ""
+            },
+            {
+              "en": "Wealth guaranteed by a certain age",
+              "hi": ""
+            },
+            {
+              "en": "That gold should be bought in its dasha",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Yogas describe themes. A dhana yoga points to resources and gains, while effort and choices shape what actually happens.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "yogas.gaja-kesari",
+      "title": {
+        "en": "Gaja Kesari and Budha-Aditya",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "yogas.gaja-kesari.1",
+          "type": "learn",
+          "title": {
+            "en": "Gaja Kesari",
+            "hi": ""
+          },
+          "body": {
+            "en": "Gaja Kesari means 'elephant and lion'. It forms when Guru sits in a kendra from Chandra: in the Moon's own sign, or the 4th, 7th or 10th sign from it. It tends to give good sense, dignity and a respected name.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "गजकेसरी",
+            "roman": "Gaja Kesari"
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "GURU"
+          }
+        },
+        {
+          "id": "yogas.gaja-kesari.2",
+          "type": "learn",
+          "title": {
+            "en": "Common, so check the strength",
+            "hi": ""
+          },
+          "body": {
+            "en": "Guru is in a kendra from the Moon in about one chart in three, so Gaja Kesari is common. Classical texts add conditions, such as Guru not being debilitated, combust or in an enemy's sign. A strong Guru gives a fuller result.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "yogas.gaja-kesari.3",
+          "type": "yourChart",
+          "fact": "MOON_RASHI",
+          "title": {
+            "en": "Look from your Moon",
+            "hi": ""
+          },
+          "body": {
+            "en": "Your Moon is in {value}. Count that sign as 1, then find Guru in your kundli. If Guru sits in the 1st, 4th, 7th or 10th sign from your Moon, you have Gaja Kesari; next, see how strong Guru is.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "yogas.gaja-kesari.4",
+          "type": "learn",
+          "title": {
+            "en": "Budha-Aditya",
+            "hi": ""
+          },
+          "body": {
+            "en": "Budha-Aditya forms when Budha joins Surya (Aditya, the Sun) in one sign. It tends to give intelligence, clear speech and a love of learning. Many texts name it, and students of Jyotish are fond of it.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "बुधादित्य",
+            "roman": "Budha-Aditya"
+          },
+          "visual": {
+            "kind": "glyph",
+            "value": "☉☿"
+          }
+        },
+        {
+          "id": "yogas.gaja-kesari.5",
+          "type": "learn",
+          "title": {
+            "en": "Why it is so common",
+            "hi": ""
+          },
+          "body": {
+            "en": "Budha never strays more than about 28° from the Sun, so the two share a sign in a large share of charts. Many teachers add that Budha should not be too close to the Sun, or it is combust (asta) and the yoga gives less.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "अस्त",
+            "roman": "Asta"
+          }
+        },
+        {
+          "id": "yogas.gaja-kesari.6",
+          "type": "learn",
+          "title": {
+            "en": "A gentle reminder",
+            "hi": ""
+          },
+          "body": {
+            "en": "Common yogas are still real themes; they just don't make anyone special or lacking. A chart without Gaja Kesari can have a strong Guru elsewhere, and many wise people have neither yoga.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "yogas.gaja-kesari.7",
+          "type": "quiz",
+          "question": {
+            "en": "Gaja Kesari forms when Guru is…",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "In a kendra from the Moon",
+              "hi": ""
+            },
+            {
+              "en": "In the 12th from the Sun",
+              "hi": ""
+            },
+            {
+              "en": "With Rahu in the lagna",
+              "hi": ""
+            },
+            {
+              "en": "In the 2nd from the Moon",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Guru in the 1st, 4th, 7th or 10th sign from Chandra gives Gaja Kesari.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "yogas.gaja-kesari.8",
+          "type": "quiz",
+          "question": {
+            "en": "Why is Budha-Aditya yoga so common?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Budha is exalted in every sign",
+              "hi": ""
+            },
+            {
+              "en": "The Sun changes sign every week",
+              "hi": ""
+            },
+            {
+              "en": "Budha always stays close to the Sun",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Budha is never more than about 28° from the Sun, so it often shares the Sun's sign.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "yogas.gaja-kesari.9",
+          "type": "quiz",
+          "question": {
+            "en": "Ravi's Moon is in Simha and his Guru is in Vrishchika. Does he have Gaja Kesari?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "No, Guru must sit with the Moon",
+              "hi": ""
+            },
+            {
+              "en": "Yes, Guru is 4th from his Moon",
+              "hi": ""
+            },
+            {
+              "en": "No, Guru is 8th from his Moon",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Count Simha as 1: Kanya 2, Tula 3, Vrishchika 4. The 4th is a kendra from the Moon, so the yoga forms.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "yogas.doshas",
+      "title": {
+        "en": "Doshas without fear",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "yogas.doshas.1",
+          "type": "learn",
+          "title": {
+            "en": "What a dosha is",
+            "hi": ""
+          },
+          "body": {
+            "en": "A dosha (blemish) is a combination the tradition flags for care. Like yogas, doshas are themes, not sentences. Each has conditions that soften or cancel it, called bhanga (cancellation), and most charts have one or another.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "दोष",
+            "roman": "Dosha"
+          }
+        },
+        {
+          "id": "yogas.doshas.2",
+          "type": "learn",
+          "title": {
+            "en": "Mangal dosha",
+            "hi": ""
+          },
+          "body": {
+            "en": "Mangal dosha, or being 'manglik', is traditionally Mangal in the 1st, 2nd, 4th, 7th, 8th or 12th house. Definitions vary: some leave out the 1st or 2nd, and some also count from the Moon and Shukra. It concerns the energy brought into partnership.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "मंगल दोष",
+            "roman": "Mangal dosha"
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 7
+          }
+        },
+        {
+          "id": "yogas.doshas.3",
+          "type": "learn",
+          "title": {
+            "en": "Very common",
+            "hi": ""
+          },
+          "body": {
+            "en": "Six houses out of twelve means roughly half of all charts are manglik by the common rule, and more if you count from the Moon and Shukra too. Something so common can't be a mark against anyone. It simply describes a lively, direct Mangal.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "yogas.doshas.4",
+          "type": "learn",
+          "title": {
+            "en": "Many cancellations",
+            "hi": ""
+          },
+          "body": {
+            "en": "Texts and teachers list many cancellations: Mangal in its own sign or exalted, Guru's aspect on Mangal, both partners having it, and more. Teachers accept different rules, so a careful reading looks at the whole chart.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "MANGAL"
+          }
+        },
+        {
+          "id": "yogas.doshas.5",
+          "type": "learn",
+          "title": {
+            "en": "Never a reason to judge",
+            "hi": ""
+          },
+          "body": {
+            "en": "Mangal dosha is never a reason to blame, reject or shame anyone, and never a reason to fear marriage. Respect and good communication matter far more. No paid ritual is needed to 'fix' a chart.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "yogas.doshas.6",
+          "type": "learn",
+          "title": {
+            "en": "Kemadruma, briefly",
+            "hi": ""
+          },
+          "body": {
+            "en": "Kemadruma is when no graha (leaving out the Sun, Rahu and Ketu) sits in the 2nd or 12th from the Moon. It is linked with feeling alone at times. It is often cancelled, for example by a graha in a kendra from the Moon or the lagna.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "केमद्रुम",
+            "roman": "Kemadruma"
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "CHANDRA"
+          }
+        },
+        {
+          "id": "yogas.doshas.7",
+          "type": "quiz",
+          "question": {
+            "en": "Roughly how many charts are manglik by the common rule?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "About one in a hundred",
+              "hi": ""
+            },
+            {
+              "en": "Only people born on a Tuesday",
+              "hi": ""
+            },
+            {
+              "en": "About half",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Mangal in 6 of the 12 houses makes about half of all charts manglik, which is why it should never alarm anyone.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "yogas.doshas.8",
+          "type": "quiz",
+          "question": {
+            "en": "Which of these is a traditional cancellation of Mangal dosha?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Both partners having Mangal dosha",
+              "hi": ""
+            },
+            {
+              "en": "The Sun in the 10th house",
+              "hi": ""
+            },
+            {
+              "en": "Being born after midnight",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "When both partners are manglik, tradition treats the dosha as cancelled. Mangal in its own or exalted sign is another common cancellation.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "yogas.doshas.9",
+          "type": "quiz",
+          "question": {
+            "en": "Kemadruma is counted from which graha?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Shani",
+              "hi": ""
+            },
+            {
+              "en": "Chandra",
+              "hi": ""
+            },
+            {
+              "en": "Mangal",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Kemadruma looks at the 2nd and 12th signs from Chandra, the Moon, and has many cancellations.",
+            "hi": ""
+          }
+        }
+      ]
+    }
+  ]
+}

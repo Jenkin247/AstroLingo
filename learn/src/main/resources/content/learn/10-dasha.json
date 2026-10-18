@@ -1,0 +1,1048 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": 1,
+  "id": "dasha",
+  "glyph": "◔",
+  "title": {
+    "en": "Vimshottari dasha",
+    "hi": ""
+  },
+  "summary": {
+    "en": "Vimshottari dasha divides life into chapters, each led by one graha. Learn the 120-year cycle, how your first dasha is found, the sub-periods inside each one, and how to read a dasha calmly.",
+    "hi": ""
+  },
+  "check": [
+    {
+      "id": "dasha.check.1",
+      "type": "quiz",
+      "question": {
+        "en": "Asha's Moon was in Pushya nakshatra at birth. Which mahadasha was she born into?",
+        "hi": ""
+      },
+      "options": [
+        {
+          "en": "Guru",
+          "hi": ""
+        },
+        {
+          "en": "Budha",
+          "hi": ""
+        },
+        {
+          "en": "Shani",
+          "hi": ""
+        },
+        {
+          "en": "Chandra",
+          "hi": ""
+        }
+      ],
+      "answer": 2,
+      "explanation": {
+        "en": "Vimshottari starts from the lord of the Moon's nakshatra. Pushya is ruled by Shani, so Asha's life began in Shani mahadasha.",
+        "hi": ""
+      }
+    },
+    {
+      "id": "dasha.check.2",
+      "type": "quiz",
+      "question": {
+        "en": "In Shukra mahadasha, how long is Shukra's own antardasha?",
+        "hi": ""
+      },
+      "options": [
+        {
+          "en": "2 years",
+          "hi": ""
+        },
+        {
+          "en": "3 years 4 months",
+          "hi": ""
+        },
+        {
+          "en": "1 year 8 months",
+          "hi": ""
+        },
+        {
+          "en": "6 years 8 months",
+          "hi": ""
+        }
+      ],
+      "answer": 1,
+      "explanation": {
+        "en": "Antardasha = mahadasha years × antardasha years ÷ 120. Here 20 × 20 ÷ 120 = 3⅓ years, which is 3 years 4 months.",
+        "hi": ""
+      }
+    }
+  ],
+  "lessons": [
+    {
+      "id": "dasha.what",
+      "title": {
+        "en": "What a dasha is",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "dasha.what.1",
+          "type": "learn",
+          "title": {
+            "en": "Life in chapters",
+            "hi": ""
+          },
+          "body": {
+            "en": "A dasha is a period of life led by one graha. Think of life as a book: the kundli is the cast and the setting, and the dashas tell you which character takes the lead in each chapter.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "दशा",
+            "roman": "Dasha"
+          },
+          "visual": {
+            "kind": "glyph",
+            "value": "◔"
+          }
+        },
+        {
+          "id": "dasha.what.2",
+          "type": "learn",
+          "title": {
+            "en": "Promise and timing",
+            "hi": ""
+          },
+          "body": {
+            "en": "The birth chart shows what a life tends to hold. The dashas show when those themes tend to come forward. What a graha promises in the chart often ripens most clearly during its own dasha.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dasha.what.3",
+          "type": "learn",
+          "title": {
+            "en": "Parashara's main system",
+            "hi": ""
+          },
+          "body": {
+            "en": "Parashara describes many dasha systems, but he names Vimshottari as the main one for people of this age, the Kali Yuga. Most Jyotishis use it today, and it is the one AstroLingo uses.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "विंशोत्तरी",
+            "roman": "Vimshottari"
+          }
+        },
+        {
+          "id": "dasha.what.4",
+          "type": "learn",
+          "title": {
+            "en": "Why 'one hundred and twenty'",
+            "hi": ""
+          },
+          "body": {
+            "en": "Vimshottari means 'one hundred and twenty'. Its nine dashas add up to 120 years, the full human span in the old texts. Each of the nine grahas leads one dasha.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dasha.what.5",
+          "type": "learn",
+          "title": {
+            "en": "Built on the Moon",
+            "hi": ""
+          },
+          "body": {
+            "en": "Vimshottari is a nakshatra dasha: it starts from the nakshatra the Moon was in at birth. So it needs only the Moon. A rough birth time gives a usable start; an exact time makes the dates sharper.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "CHANDRA"
+          }
+        },
+        {
+          "id": "dasha.what.6",
+          "type": "learn",
+          "title": {
+            "en": "Levels within levels",
+            "hi": ""
+          },
+          "body": {
+            "en": "The big periods are mahadashas, lasting years. Each is split into antardashas (sub-periods), and those again into smaller pieces. Like chapters, sections and pages, each level sharpens the timing.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "महादशा",
+            "roman": "Mahadasha"
+          }
+        },
+        {
+          "id": "dasha.what.7",
+          "type": "learn",
+          "title": {
+            "en": "Seasons, not sentences",
+            "hi": ""
+          },
+          "body": {
+            "en": "A dasha is like a season. It sets a tone, but it doesn't make your choices. Jyotishis read dashas as weather to prepare for, never as a fixed verdict on a life.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dasha.what.8",
+          "type": "quiz",
+          "question": {
+            "en": "What does a dasha describe?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "A period of life led by one graha",
+              "hi": ""
+            },
+            {
+              "en": "A house of the birth chart",
+              "hi": ""
+            },
+            {
+              "en": "The sign the Moon is in",
+              "hi": ""
+            },
+            {
+              "en": "Where the grahas are today",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "A dasha is a stretch of time when one graha takes the lead and its themes in your chart come forward.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dasha.what.9",
+          "type": "quiz",
+          "question": {
+            "en": "Why is the system called Vimshottari?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "It uses 20 nakshatras",
+              "hi": ""
+            },
+            {
+              "en": "It was named after a sage",
+              "hi": ""
+            },
+            {
+              "en": "Its nine dashas add up to 120 years",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Vimshottari means 120: Ketu, Shukra, Surya, Chandra, Mangal, Rahu, Guru, Shani and Budha together make a 120-year cycle.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dasha.what.10",
+          "type": "quiz",
+          "question": {
+            "en": "Vimshottari dasha starts from which part of the birth chart?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "The lagna",
+              "hi": ""
+            },
+            {
+              "en": "The Moon's nakshatra",
+              "hi": ""
+            },
+            {
+              "en": "The Sun's sign",
+              "hi": ""
+            },
+            {
+              "en": "The 10th house",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "It is a nakshatra dasha. The nakshatra holding the Moon at birth decides the first dasha, so even a rough birth time is enough to begin.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "dasha.cycle",
+      "title": {
+        "en": "The 120-year cycle",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "dasha.cycle.1",
+          "type": "learn",
+          "title": {
+            "en": "Nine grahas, one order",
+            "hi": ""
+          },
+          "body": {
+            "en": "Every Vimshottari cycle runs in the same order: Ketu, Shukra, Surya, Chandra, Mangal, Rahu, Guru, Shani, Budha. Then it starts again from Ketu. Only the starting point changes from person to person.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dasha.cycle.2",
+          "type": "learn",
+          "title": {
+            "en": "Ketu, Shukra, Surya",
+            "hi": ""
+          },
+          "body": {
+            "en": "Ketu leads for 7 years. Then Shukra (Venus) for 20 years, the longest dasha of all. Then Surya (Sun) for 6 years, the shortest.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "KETU"
+          }
+        },
+        {
+          "id": "dasha.cycle.3",
+          "type": "learn",
+          "title": {
+            "en": "Chandra, Mangal, Rahu",
+            "hi": ""
+          },
+          "body": {
+            "en": "Next come Chandra (Moon) for 10 years, Mangal (Mars) for 7 years and Rahu for 18 years. Notice that Ketu and Mangal both have 7 years: a handy pair to remember.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "CHANDRA"
+          }
+        },
+        {
+          "id": "dasha.cycle.4",
+          "type": "learn",
+          "title": {
+            "en": "Guru, Shani, Budha",
+            "hi": ""
+          },
+          "body": {
+            "en": "The cycle ends with Guru (Jupiter) for 16 years, Shani (Saturn) for 19 years and Budha (Mercury) for 17 years. Add all nine: 7 + 20 + 6 + 10 + 7 + 18 + 16 + 19 + 17 = 120.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "GURU"
+          }
+        },
+        {
+          "id": "dasha.cycle.5",
+          "type": "learn",
+          "title": {
+            "en": "The order follows the stars",
+            "hi": ""
+          },
+          "body": {
+            "en": "The order isn't random. It is the order of the nakshatra lords: Ashwini is ruled by Ketu, Bharani by Shukra, Krittika by Surya, and so on. The nine lords repeat three times around the 27 nakshatras.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 1
+          }
+        },
+        {
+          "id": "dasha.cycle.6",
+          "type": "learn",
+          "title": {
+            "en": "A memory trick",
+            "hi": ""
+          },
+          "body": {
+            "en": "Learn them in threes: Ketu 7, Shukra 20, Surya 6. Chandra 10, Mangal 7, Rahu 18. Guru 16, Shani 19, Budha 17. Say the three lines aloud a few times and they stick.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dasha.cycle.7",
+          "type": "quiz",
+          "question": {
+            "en": "Which mahadasha comes right after Rahu?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Shani",
+              "hi": ""
+            },
+            {
+              "en": "Guru",
+              "hi": ""
+            },
+            {
+              "en": "Budha",
+              "hi": ""
+            },
+            {
+              "en": "Ketu",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "The order is Ketu, Shukra, Surya, Chandra, Mangal, Rahu, Guru, Shani, Budha. After Rahu's 18 years comes Guru's 16.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dasha.cycle.8",
+          "type": "quiz",
+          "question": {
+            "en": "Which graha has the longest Vimshottari dasha?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Rahu",
+              "hi": ""
+            },
+            {
+              "en": "Shani",
+              "hi": ""
+            },
+            {
+              "en": "Shukra",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Shukra leads for 20 years. Shani is close with 19 and Rahu has 18.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dasha.cycle.9",
+          "type": "quiz",
+          "question": {
+            "en": "How long is Surya's mahadasha?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "6 years",
+              "hi": ""
+            },
+            {
+              "en": "10 years",
+              "hi": ""
+            },
+            {
+              "en": "7 years",
+              "hi": ""
+            },
+            {
+              "en": "16 years",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Surya has the shortest mahadasha, 6 years. Chandra has 10, Ketu and Mangal 7 each, and Guru 16.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "dasha.first",
+      "title": {
+        "en": "Your first dasha",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "dasha.first.1",
+          "type": "learn",
+          "title": {
+            "en": "Start from the Moon's star",
+            "hi": ""
+          },
+          "body": {
+            "en": "To find the dasha you were born into, take your janma nakshatra, the nakshatra the Moon was in at birth. Its lord leads your first mahadasha. Moon in Rohini? Rohini's lord is Chandra, so life begins in Chandra dasha.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 4
+          }
+        },
+        {
+          "id": "dasha.first.2",
+          "type": "learn",
+          "title": {
+            "en": "The star lords, part 1",
+            "hi": ""
+          },
+          "body": {
+            "en": "Ketu rules Ashwini, Magha and Mula. Shukra: Bharani, Purva Phalguni, Purva Ashadha. Surya: Krittika, Uttara Phalguni, Uttara Ashadha. Chandra: Rohini, Hasta, Shravana. Mangal: Mrigashira, Chitra, Dhanishta.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dasha.first.3",
+          "type": "learn",
+          "title": {
+            "en": "The star lords, part 2",
+            "hi": ""
+          },
+          "body": {
+            "en": "Rahu rules Ardra, Swati and Shatabhisha. Guru: Punarvasu, Vishakha, Purva Bhadrapada. Shani: Pushya, Anuradha, Uttara Bhadrapada. Budha: Ashlesha, Jyeshtha, Revati.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dasha.first.4",
+          "type": "learn",
+          "title": {
+            "en": "The balance at birth",
+            "hi": ""
+          },
+          "body": {
+            "en": "You are rarely born at the very start of a dasha. The Moon has already travelled part of the way through its nakshatra, and that share of the dasha counts as used. What remains is the balance you are born with.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "दशा शेष",
+            "roman": "Dasha shesha"
+          }
+        },
+        {
+          "id": "dasha.first.5",
+          "type": "learn",
+          "title": {
+            "en": "Working it out",
+            "hi": ""
+          },
+          "body": {
+            "en": "A nakshatra is 13°20′ wide. Say the Moon is 5° into Rohini: 3/8 of the star is travelled, so 5/8 is left. Chandra's dasha is 10 years, and 5/8 of 10 is 6¼. Life starts with about 6 years 3 months of Chandra dasha.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dasha.first.6",
+          "type": "learn",
+          "title": {
+            "en": "Then the order rolls on",
+            "hi": ""
+          },
+          "body": {
+            "en": "When the balance ends, the next dashas follow in full, in the fixed order. For the Rohini example: the rest of Chandra, then Mangal 7, Rahu 18, Guru 16, Shani 19, and on, wrapping from Budha back to Ketu.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dasha.first.7",
+          "type": "yourChart",
+          "fact": "MOON_NAKSHATRA_LORD",
+          "title": {
+            "en": "Your first dasha",
+            "hi": ""
+          },
+          "body": {
+            "en": "Your Moon's nakshatra is ruled by {value}. That graha's mahadasha is the one you were born into. How much of it was left at birth depends on how far your Moon had already travelled through its star.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dasha.first.8",
+          "type": "quiz",
+          "question": {
+            "en": "Ravi's Moon is in Hasta at birth. Which mahadasha was he born into?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Budha",
+              "hi": ""
+            },
+            {
+              "en": "Chandra",
+              "hi": ""
+            },
+            {
+              "en": "Surya",
+              "hi": ""
+            },
+            {
+              "en": "Mangal",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Hasta, like Rohini and Shravana, is ruled by Chandra. So Ravi's life began in Chandra mahadasha.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dasha.first.9",
+          "type": "quiz",
+          "question": {
+            "en": "Why do most people start life with only part of a dasha?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "The lagna shortens it",
+              "hi": ""
+            },
+            {
+              "en": "Every dasha starts at age one",
+              "hi": ""
+            },
+            {
+              "en": "The Moon was already partway through its nakshatra",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "The share of the nakshatra the Moon has already crossed counts as used. Only the remaining share of the dasha, the balance, is left at birth.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dasha.first.10",
+          "type": "quiz",
+          "question": {
+            "en": "The Moon is exactly halfway through Bharani. How much Shukra dasha is left at birth?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "10 years",
+              "hi": ""
+            },
+            {
+              "en": "20 years",
+              "hi": ""
+            },
+            {
+              "en": "5 years",
+              "hi": ""
+            },
+            {
+              "en": "6 years 8 months",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Bharani is ruled by Shukra, whose dasha is 20 years. Half the star is left, so half the dasha is left: 10 years.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "dasha.antardasha",
+      "title": {
+        "en": "Antardasha: periods within",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "dasha.antardasha.1",
+          "type": "learn",
+          "title": {
+            "en": "Chapters within chapters",
+            "hi": ""
+          },
+          "body": {
+            "en": "Each mahadasha is split into nine antardashas (sub-periods), one for each graha. The mahadasha lord sets the overall tone; the antardasha lord adds its own colour for a shorter stretch.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "अन्तर्दशा",
+            "roman": "Antardasha"
+          }
+        },
+        {
+          "id": "dasha.antardasha.2",
+          "type": "learn",
+          "title": {
+            "en": "Same order, new start",
+            "hi": ""
+          },
+          "body": {
+            "en": "The antardashas follow the usual order, but begin with the mahadasha lord itself. In Guru mahadasha: Guru, Shani, Budha, Ketu, Shukra, Surya, Chandra, Mangal, and Rahu last.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "GURU"
+          }
+        },
+        {
+          "id": "dasha.antardasha.3",
+          "type": "learn",
+          "title": {
+            "en": "The formula",
+            "hi": ""
+          },
+          "body": {
+            "en": "An antardasha's length is in proportion to its lord's years: mahadasha years × antardasha years ÷ 120. The nine pieces always add up to exactly the full mahadasha.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dasha.antardasha.4",
+          "type": "learn",
+          "title": {
+            "en": "Example: Shukra mahadasha",
+            "hi": ""
+          },
+          "body": {
+            "en": "Shukra mahadasha lasts 20 years. Its Surya antardasha is 20 × 6 ÷ 120 = 1 year. Shukra's own antardasha is 20 × 20 ÷ 120 = 3⅓ years, which is 3 years 4 months.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "SHUKRA"
+          }
+        },
+        {
+          "id": "dasha.antardasha.5",
+          "type": "learn",
+          "title": {
+            "en": "Example: Shani mahadasha",
+            "hi": ""
+          },
+          "body": {
+            "en": "Shani mahadasha lasts 19 years. Its first piece, Shani–Shani, is 19 × 19 ÷ 120, just over 3 years. Its Ketu antardasha is 19 × 7 ÷ 120, about 1 year 1 month.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "SHANI"
+          }
+        },
+        {
+          "id": "dasha.antardasha.6",
+          "type": "learn",
+          "title": {
+            "en": "How periods are written",
+            "hi": ""
+          },
+          "body": {
+            "en": "Jyotishis write periods as two lords, such as Guru–Shani: Guru mahadasha, Shani antardasha. One level deeper is the pratyantardasha, which can last from a few days to a few months.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "प्रत्यन्तर्दशा",
+            "roman": "Pratyantardasha"
+          }
+        },
+        {
+          "id": "dasha.antardasha.7",
+          "type": "quiz",
+          "question": {
+            "en": "In Rahu mahadasha, which antardasha comes first?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Ketu",
+              "hi": ""
+            },
+            {
+              "en": "Rahu",
+              "hi": ""
+            },
+            {
+              "en": "Guru",
+              "hi": ""
+            },
+            {
+              "en": "Shukra",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Antardashas always begin with the mahadasha lord itself, so Rahu–Rahu comes first, then Guru, Shani and onward.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dasha.antardasha.8",
+          "type": "quiz",
+          "question": {
+            "en": "In Chandra mahadasha (10 years), how long is the Shukra antardasha?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "2 years",
+              "hi": ""
+            },
+            {
+              "en": "3 years 4 months",
+              "hi": ""
+            },
+            {
+              "en": "10 months",
+              "hi": ""
+            },
+            {
+              "en": "1 year 8 months",
+              "hi": ""
+            }
+          ],
+          "answer": 3,
+          "explanation": {
+            "en": "10 × 20 ÷ 120 = 1⅔ years, which is 1 year 8 months.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dasha.antardasha.9",
+          "type": "quiz",
+          "question": {
+            "en": "In Guru mahadasha, which antardasha comes last?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Mangal",
+              "hi": ""
+            },
+            {
+              "en": "Shani",
+              "hi": ""
+            },
+            {
+              "en": "Rahu",
+              "hi": ""
+            },
+            {
+              "en": "Ketu",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Starting from Guru: Guru, Shani, Budha, Ketu, Shukra, Surya, Chandra, Mangal, Rahu. The graha just before the mahadasha lord in the order always comes last.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "dasha.reading",
+      "title": {
+        "en": "Reading a dasha",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "dasha.reading.1",
+          "type": "learn",
+          "title": {
+            "en": "Look at the lord",
+            "hi": ""
+          },
+          "body": {
+            "en": "To read a dasha, study its lord in the birth chart. Ask four things: which house it sits in, which sign, how dignified it is, and which houses it rules. Together they show the themes that tend to come forward.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dasha.reading.2",
+          "type": "learn",
+          "title": {
+            "en": "The house it sits in",
+            "hi": ""
+          },
+          "body": {
+            "en": "The house holding the dasha lord is its main stage. A lord in the 10th tends to bring work and public life into focus; in the 4th, home and family; in the 9th, study, teachers and long journeys.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 10
+          }
+        },
+        {
+          "id": "dasha.reading.3",
+          "type": "learn",
+          "title": {
+            "en": "Sign and dignity",
+            "hi": ""
+          },
+          "body": {
+            "en": "An exalted or own-sign lord tends to deliver its results smoothly. A debilitated lord may ask for more effort, and neecha bhanga can soften that. Dignity shows how comfortably the graha can give.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dasha.reading.4",
+          "type": "learn",
+          "title": {
+            "en": "The houses it rules",
+            "hi": ""
+          },
+          "body": {
+            "en": "A graha also brings the houses it rules. For Mesha lagna, Guru rules the 9th and the 12th, so a Guru dasha might mix learning and faith with travel, retreat or giving to others.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 1
+          }
+        },
+        {
+          "id": "dasha.reading.5",
+          "type": "learn",
+          "title": {
+            "en": "The graha's own nature",
+            "hi": ""
+          },
+          "body": {
+            "en": "The lord's nature colours everything. Guru periods tend to favour growth and learning; Shani periods patience and steady work; Shukra periods comfort, art and relationships; Budha periods study and trade.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dasha.reading.6",
+          "type": "learn",
+          "title": {
+            "en": "The sub-period lord",
+            "hi": ""
+          },
+          "body": {
+            "en": "Within a mahadasha, see how the antardasha lord relates to the mahadasha lord. Natural friends placed in kendras or trikonas from each other tend to work smoothly; otherwise the stretch may ask for patience.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dasha.reading.7",
+          "type": "learn",
+          "title": {
+            "en": "Hold it lightly",
+            "hi": ""
+          },
+          "body": {
+            "en": "No dasha is all good or all bad; every graha has gifts. A demanding period often builds the strength that is needed later. Read dashas to plan and prepare, never to fear.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dasha.reading.8",
+          "type": "quiz",
+          "question": {
+            "en": "A dasha lord sits in the 4th house. Which themes tend to come forward?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Career and status",
+              "hi": ""
+            },
+            {
+              "en": "Courage and siblings",
+              "hi": ""
+            },
+            {
+              "en": "Home, family and inner peace",
+              "hi": ""
+            },
+            {
+              "en": "Long journeys abroad",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "The 4th house is home, mother, comfort and peace of mind, so a dasha lord placed there tends to bring those themes into focus.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dasha.reading.9",
+          "type": "quiz",
+          "question": {
+            "en": "For Mesha lagna, which houses does Guru rule?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "1st and 8th",
+              "hi": ""
+            },
+            {
+              "en": "9th and 12th",
+              "hi": ""
+            },
+            {
+              "en": "2nd and 7th",
+              "hi": ""
+            },
+            {
+              "en": "3rd and 6th",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "From Mesha, Dhanu is the 9th sign and Meena the 12th. Both are Guru's signs, so Guru rules the 9th and 12th houses.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dasha.reading.10",
+          "type": "quiz",
+          "question": {
+            "en": "How does the tradition suggest reading a demanding dasha?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "As a time to prepare, when effort builds strength",
+              "hi": ""
+            },
+            {
+              "en": "As a fixed misfortune nothing can change",
+              "hi": ""
+            },
+            {
+              "en": "As the opposite of the dasha before it",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Dashas set a tone; they don't fix outcomes. A demanding period is read as a time for effort and growth, weighed with the whole chart.",
+            "hi": ""
+          }
+        }
+      ]
+    }
+  ]
+}

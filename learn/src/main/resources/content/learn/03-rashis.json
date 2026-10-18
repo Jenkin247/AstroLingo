@@ -1,0 +1,1010 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": 1,
+  "id": "rashis",
+  "glyph": "♈",
+  "title": {
+    "en": "The twelve rashis",
+    "hi": ""
+  },
+  "summary": {
+    "en": "Meet the twelve rashis, the stage of every kundli: each sign's element, quality and lord.",
+    "hi": ""
+  },
+  "check": [
+    {
+      "id": "rashis.check.1",
+      "type": "quiz",
+      "question": {
+        "en": "Which rashi is a water sign, fixed in quality and ruled by Mangal?",
+        "hi": ""
+      },
+      "options": [
+        {
+          "en": "Karka",
+          "hi": ""
+        },
+        {
+          "en": "Vrishchika",
+          "hi": ""
+        },
+        {
+          "en": "Meena",
+          "hi": ""
+        },
+        {
+          "en": "Mesha",
+          "hi": ""
+        }
+      ],
+      "answer": 1,
+      "explanation": {
+        "en": "Vrishchika (Scorpio) is water and fixed, owned by Mangal. Karka is water but movable (Chandra); Meena is water but dual (Guru).",
+        "hi": ""
+      }
+    },
+    {
+      "id": "rashis.check.2",
+      "type": "quiz",
+      "question": {
+        "en": "Which pair of rashis share the same lord?",
+        "hi": ""
+      },
+      "options": [
+        {
+          "en": "Mesha and Simha",
+          "hi": ""
+        },
+        {
+          "en": "Karka and Kumbha",
+          "hi": ""
+        },
+        {
+          "en": "Vrishabha and Tula",
+          "hi": ""
+        }
+      ],
+      "answer": 2,
+      "explanation": {
+        "en": "Shukra owns both Vrishabha and Tula. Mesha is Mangal's and Simha is Surya's; Karka is Chandra's and Kumbha is Shani's.",
+        "hi": ""
+      }
+    }
+  ],
+  "lessons": [
+    {
+      "id": "rashis.what",
+      "title": {
+        "en": "What a rashi is",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "rashis.what.1",
+          "type": "learn",
+          "title": {
+            "en": "The twelve rashis",
+            "hi": ""
+          },
+          "body": {
+            "en": "A rashi (sign) is one twelfth of the zodiac: 30° of sky. Starting from Mesha at 0°, the twelve rashis run in order around the 360° wheel. In Jyotish they are measured against the fixed stars.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "राशि",
+            "roman": "Rashi"
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 0
+          }
+        },
+        {
+          "id": "rashis.what.2",
+          "type": "learn",
+          "title": {
+            "en": "The stage for the actors",
+            "hi": ""
+          },
+          "body": {
+            "en": "If the grahas are the actors, the rashis are the stage and the costumes. The same Mangal behaves differently in fiery Mesha than in watery Karka. A rashi colours how a graha expresses itself.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "rashis.what.3",
+          "type": "learn",
+          "title": {
+            "en": "Four elements",
+            "hi": ""
+          },
+          "body": {
+            "en": "Each rashi has a tattva (element). Fire: Mesha, Simha, Dhanu. Earth: Vrishabha, Kanya, Makara. Air: Mithuna, Tula, Kumbha. Water: Karka, Vrishchika, Meena. The pattern repeats every four signs.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "तत्त्व",
+            "roman": "Tattva"
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 0
+          }
+        },
+        {
+          "id": "rashis.what.4",
+          "type": "learn",
+          "title": {
+            "en": "What the elements mean",
+            "hi": ""
+          },
+          "body": {
+            "en": "Fire is drive, spirit and courage. Earth is practical, steady and patient. Air is thought, talk and connection. Water is feeling, care and intuition. Every chart mixes all four in its own way.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "rashis.what.5",
+          "type": "learn",
+          "title": {
+            "en": "Three qualities",
+            "hi": ""
+          },
+          "body": {
+            "en": "Each rashi also has a quality. Chara (movable): Mesha, Karka, Tula, Makara, quick to start. Sthira (fixed): Vrishabha, Simha, Vrishchika, Kumbha, steady. Dvisvabhava (dual): Mithuna, Kanya, Dhanu, Meena, flexible.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "चर",
+            "roman": "Chara"
+          }
+        },
+        {
+          "id": "rashis.what.6",
+          "type": "learn",
+          "title": {
+            "en": "Odd and even signs",
+            "hi": ""
+          },
+          "body": {
+            "en": "The rashis alternate. Odd signs, like Mesha, Mithuna and Simha, are traditionally called masculine: active and outgoing. Even signs, like Vrishabha, Karka and Kanya, are feminine: receptive and steady. Both are equal halves of one whole.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "rashis.what.7",
+          "type": "quiz",
+          "question": {
+            "en": "How many degrees does each rashi span?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "30°",
+              "hi": ""
+            },
+            {
+              "en": "12°",
+              "hi": ""
+            },
+            {
+              "en": "27°",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Twelve rashis share the 360° circle, so each one is 30°.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "rashis.what.8",
+          "type": "quiz",
+          "question": {
+            "en": "What is the element of Vrishabha (Taurus)?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Water",
+              "hi": ""
+            },
+            {
+              "en": "Fire",
+              "hi": ""
+            },
+            {
+              "en": "Earth",
+              "hi": ""
+            },
+            {
+              "en": "Air",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Vrishabha is an earth sign, along with Kanya and Makara.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "rashis.what.9",
+          "type": "quiz",
+          "question": {
+            "en": "Which quality do Mesha, Karka, Tula and Makara share?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Sthira (fixed)",
+              "hi": ""
+            },
+            {
+              "en": "Chara (movable)",
+              "hi": ""
+            },
+            {
+              "en": "Dvisvabhava (dual)",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "They are the four chara (movable) signs, the starters. Each begins a new group of three in the zodiac.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "rashis.mesha-karka",
+      "title": {
+        "en": "Mesha to Karka",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "rashis.mesha-karka.1",
+          "type": "learn",
+          "title": {
+            "en": "Mesha, the ram",
+            "hi": ""
+          },
+          "body": {
+            "en": "Mesha opens the zodiac, from 0° to 30°. Fire and movable, ruled by Mangal: bold, pioneering and quick to act, eager to be first. Surya is exalted here, at its strongest.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "मेष",
+            "roman": "Mesha"
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 1
+          }
+        },
+        {
+          "id": "rashis.mesha-karka.2",
+          "type": "learn",
+          "title": {
+            "en": "Vrishabha, the bull",
+            "hi": ""
+          },
+          "body": {
+            "en": "Vrishabha is earth and fixed, ruled by Shukra. Patient, loyal and fond of comfort, beauty and good food. Chandra is exalted here, which makes it a sign of calm and contentment.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "वृषभ",
+            "roman": "Vrishabha"
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 2
+          }
+        },
+        {
+          "id": "rashis.mesha-karka.3",
+          "type": "learn",
+          "title": {
+            "en": "Mithuna, the pair",
+            "hi": ""
+          },
+          "body": {
+            "en": "Mithuna is air and dual, ruled by Budha. Curious, talkative and quick, it loves ideas, learning and bringing people together. Its traditional image is a couple, one holding a mace and one a vina.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "मिथुन",
+            "roman": "Mithuna"
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 3
+          }
+        },
+        {
+          "id": "rashis.mesha-karka.4",
+          "type": "learn",
+          "title": {
+            "en": "Karka, the crab",
+            "hi": ""
+          },
+          "body": {
+            "en": "Karka is water and movable, ruled by Chandra. Caring, protective and sensitive, it carries its home within, like the crab its shell. Guru is exalted here, and Mangal is debilitated, at its weakest.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "कर्क",
+            "roman": "Karka"
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 4
+          }
+        },
+        {
+          "id": "rashis.mesha-karka.5",
+          "type": "yourChart",
+          "fact": "MOON_RASHI",
+          "title": {
+            "en": "Your Moon's rashi",
+            "hi": ""
+          },
+          "body": {
+            "en": "Your Moon is in {value}. As you meet each rashi, note its element, quality and lord. Together they describe the flavour of your mind and feelings, the part of you Chandra shows.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 0
+          }
+        },
+        {
+          "id": "rashis.mesha-karka.6",
+          "type": "quiz",
+          "question": {
+            "en": "Which graha rules Mesha?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Surya",
+              "hi": ""
+            },
+            {
+              "en": "Mangal",
+              "hi": ""
+            },
+            {
+              "en": "Guru",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Mangal rules Mesha. Surya is exalted in Mesha, which is a different thing from owning it.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "rashis.mesha-karka.7",
+          "type": "quiz",
+          "question": {
+            "en": "What are Mithuna's element and quality?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Earth and fixed",
+              "hi": ""
+            },
+            {
+              "en": "Water and movable",
+              "hi": ""
+            },
+            {
+              "en": "Air and dual",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Mithuna (Gemini) is an air sign and a dual sign, ruled by Budha.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "rashis.mesha-karka.8",
+          "type": "quiz",
+          "question": {
+            "en": "Which rashi does Chandra rule?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Karka",
+              "hi": ""
+            },
+            {
+              "en": "Vrishabha",
+              "hi": ""
+            },
+            {
+              "en": "Simha",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Chandra owns Karka. It is exalted in Vrishabha, and Simha belongs to Surya.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "rashis.simha-vrishchika",
+      "title": {
+        "en": "Simha to Vrishchika",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "rashis.simha-vrishchika.1",
+          "type": "learn",
+          "title": {
+            "en": "Simha, the lion",
+            "hi": ""
+          },
+          "body": {
+            "en": "Simha is fire and fixed, ruled by Surya. Proud, generous and warm-hearted, it likes to lead and to be seen. It is the only rashi Surya owns.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "सिंह",
+            "roman": "Simha"
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 5
+          }
+        },
+        {
+          "id": "rashis.simha-vrishchika.2",
+          "type": "learn",
+          "title": {
+            "en": "Kanya, the maiden",
+            "hi": ""
+          },
+          "body": {
+            "en": "Kanya is earth and dual, ruled by Budha. Careful, helpful and analytical, it notices details and loves to improve things. Budha both owns Kanya and is exalted in it, a rare double strength.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "कन्या",
+            "roman": "Kanya"
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 6
+          }
+        },
+        {
+          "id": "rashis.simha-vrishchika.3",
+          "type": "learn",
+          "title": {
+            "en": "Tula, the scales",
+            "hi": ""
+          },
+          "body": {
+            "en": "Tula is air and movable, ruled by Shukra. Fair, social and graceful, it seeks balance, partnership and trade. Shani is exalted here, and Surya is debilitated.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "तुला",
+            "roman": "Tula"
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 7
+          }
+        },
+        {
+          "id": "rashis.simha-vrishchika.4",
+          "type": "learn",
+          "title": {
+            "en": "Vrishchika, the scorpion",
+            "hi": ""
+          },
+          "body": {
+            "en": "Vrishchika is water and fixed, ruled by Mangal. Intense, private and determined, it goes deep and does not give up easily. Chandra is debilitated here, so feelings tend to run strong and deep.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "वृश्चिक",
+            "roman": "Vrishchika"
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 8
+          }
+        },
+        {
+          "id": "rashis.simha-vrishchika.5",
+          "type": "yourChart",
+          "fact": "LAGNA",
+          "title": {
+            "en": "Your rising sign",
+            "hi": ""
+          },
+          "body": {
+            "en": "Your lagna is {value}. The rashi rising at your birth sets the tone of the whole chart. Look up its element, quality and lord in these lessons to meet the costume your chart wears.",
+            "hi": ""
+          },
+          "unknownTime": {
+            "en": "Your lagna needs a birth time. Without it, use your Moon sign the same way: its element, quality and lord still say a lot about you.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "rashis.simha-vrishchika.6",
+          "type": "quiz",
+          "question": {
+            "en": "Which graha owns Simha?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Mangal",
+              "hi": ""
+            },
+            {
+              "en": "Chandra",
+              "hi": ""
+            },
+            {
+              "en": "Surya",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Surya owns Simha (Leo), the only rashi it rules.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "rashis.simha-vrishchika.7",
+          "type": "quiz",
+          "question": {
+            "en": "Which graha is exalted in Tula?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Shani",
+              "hi": ""
+            },
+            {
+              "en": "Shukra",
+              "hi": ""
+            },
+            {
+              "en": "Surya",
+              "hi": ""
+            },
+            {
+              "en": "Guru",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Shani is exalted in Tula. Shukra owns Tula, and Surya is debilitated there.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "rashis.simha-vrishchika.8",
+          "type": "quiz",
+          "question": {
+            "en": "Which graha rules Vrishchika?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Shukra",
+              "hi": ""
+            },
+            {
+              "en": "Mangal",
+              "hi": ""
+            },
+            {
+              "en": "Shani",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Mangal rules Vrishchika as well as Mesha: one fiery sign and one watery sign.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "rashis.dhanu-meena",
+      "title": {
+        "en": "Dhanu to Meena",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "rashis.dhanu-meena.1",
+          "type": "learn",
+          "title": {
+            "en": "Dhanu, the archer",
+            "hi": ""
+          },
+          "body": {
+            "en": "Dhanu is fire and dual, ruled by Guru. Its image is half human, half horse, with a drawn bow. Optimistic and principled, it loves learning, travel, teaching and big ideas.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "धनु",
+            "roman": "Dhanu"
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 9
+          }
+        },
+        {
+          "id": "rashis.dhanu-meena.2",
+          "type": "learn",
+          "title": {
+            "en": "Makara, the sea creature",
+            "hi": ""
+          },
+          "body": {
+            "en": "Makara is earth and movable, ruled by Shani. Its image is the makara, a crocodile-like creature of land and water. Practical, patient and ambitious, it climbs step by step. Mangal is exalted here, and Guru is debilitated.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "मकर",
+            "roman": "Makara"
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 10
+          }
+        },
+        {
+          "id": "rashis.dhanu-meena.3",
+          "type": "learn",
+          "title": {
+            "en": "Kumbha, the water pot",
+            "hi": ""
+          },
+          "body": {
+            "en": "Kumbha is air and fixed, ruled by Shani. Its image is a person holding a pot. Thoughtful, independent and humane, it thinks about the group, the community and the future.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "कुम्भ",
+            "roman": "Kumbha"
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 11
+          }
+        },
+        {
+          "id": "rashis.dhanu-meena.4",
+          "type": "learn",
+          "title": {
+            "en": "Meena, the two fish",
+            "hi": ""
+          },
+          "body": {
+            "en": "Meena is water and dual, ruled by Guru. Gentle, imaginative and compassionate, it closes the zodiac and looks toward the spiritual. Shukra is exalted here, and Budha is debilitated.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "मीन",
+            "roman": "Meena"
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 12
+          }
+        },
+        {
+          "id": "rashis.dhanu-meena.5",
+          "type": "learn",
+          "title": {
+            "en": "The full circle",
+            "hi": ""
+          },
+          "body": {
+            "en": "From bold Mesha to dreamy Meena, the rashis tell a story: starting, building, talking, feeling, leading, refining, balancing, transforming, seeking, achieving, sharing and letting go. Then the wheel begins again.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 0
+          }
+        },
+        {
+          "id": "rashis.dhanu-meena.6",
+          "type": "quiz",
+          "question": {
+            "en": "Which two rashis does Shani own?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Makara and Kumbha",
+              "hi": ""
+            },
+            {
+              "en": "Dhanu and Meena",
+              "hi": ""
+            },
+            {
+              "en": "Tula and Vrishabha",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Shani owns Makara (Capricorn) and Kumbha (Aquarius). Dhanu and Meena are Guru's; Tula and Vrishabha are Shukra's.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "rashis.dhanu-meena.7",
+          "type": "quiz",
+          "question": {
+            "en": "Which rashi is fire and dual?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Mesha",
+              "hi": ""
+            },
+            {
+              "en": "Simha",
+              "hi": ""
+            },
+            {
+              "en": "Dhanu",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Dhanu is the dual fire sign. Mesha is movable fire and Simha is fixed fire.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "rashis.dhanu-meena.8",
+          "type": "quiz",
+          "question": {
+            "en": "Which graha is exalted in Meena?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Guru",
+              "hi": ""
+            },
+            {
+              "en": "Shukra",
+              "hi": ""
+            },
+            {
+              "en": "Chandra",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Shukra is exalted in Meena. Guru owns Meena, and Budha is debilitated there.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "rashis.lords",
+      "title": {
+        "en": "Sign lords",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "rashis.lords.1",
+          "type": "learn",
+          "title": {
+            "en": "Every rashi has a lord",
+            "hi": ""
+          },
+          "body": {
+            "en": "Each rashi is owned by one graha, its lord. The lord is like a landlord: whatever happens in that sign, its owner has a say. Lords are the threads that tie the whole chart together.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "राशि स्वामी",
+            "roman": "Rashi swami"
+          }
+        },
+        {
+          "id": "rashis.lords.2",
+          "type": "learn",
+          "title": {
+            "en": "The pattern of lords",
+            "hi": ""
+          },
+          "body": {
+            "en": "Surya owns Simha and Chandra owns Karka, side by side. Moving outward both ways: Budha owns Mithuna and Kanya, Shukra Vrishabha and Tula, Mangal Mesha and Vrishchika, Guru Meena and Dhanu, and Shani Makara and Kumbha.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 0
+          }
+        },
+        {
+          "id": "rashis.lords.3",
+          "type": "learn",
+          "title": {
+            "en": "A neat sky logic",
+            "hi": ""
+          },
+          "body": {
+            "en": "The lords follow the grahas' speed. Quick Budha sits next to the two lights, then Shukra, Mangal and Guru, and finally slow Shani, who owns the two signs opposite Simha and Karka.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "SHANI"
+          }
+        },
+        {
+          "id": "rashis.lords.4",
+          "type": "learn",
+          "title": {
+            "en": "Rahu and Ketu",
+            "hi": ""
+          },
+          "body": {
+            "en": "In the classical scheme only the seven visible grahas own signs. Rahu and Ketu act through the lord of the sign they sit in. Some texts do give the nodes signs, but most astrologers use the seven lords.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "rashis.lords.5",
+          "type": "learn",
+          "title": {
+            "en": "One lord, two homes",
+            "hi": ""
+          },
+          "body": {
+            "en": "Five grahas own two signs each, and each home has its own flavour. Mangal is fiery in Mesha and watery in Vrishchika. Guru teaches in Dhanu and prays in Meena. Budha talks in Mithuna and works in Kanya.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "rashis.lords.6",
+          "type": "yourChart",
+          "fact": "LAGNA_LORD",
+          "title": {
+            "en": "Your lagna lord",
+            "hi": ""
+          },
+          "body": {
+            "en": "Your lagna lord is {value}. As owner of your rising sign, it is one of the most important grahas in your chart. Where it sits tends to show where your life energy flows.",
+            "hi": ""
+          },
+          "unknownTime": {
+            "en": "Your lagna lord needs your birth time. Meanwhile, look at the lord of your Moon sign: it plays a similar guiding role for your mind and feelings.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "rashis.lords.7",
+          "type": "quiz",
+          "question": {
+            "en": "Which graha rules both Dhanu and Meena?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Shukra",
+              "hi": ""
+            },
+            {
+              "en": "Shani",
+              "hi": ""
+            },
+            {
+              "en": "Guru",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Guru owns Dhanu (Sagittarius) and Meena (Pisces).",
+            "hi": ""
+          }
+        },
+        {
+          "id": "rashis.lords.8",
+          "type": "quiz",
+          "question": {
+            "en": "Which graha owns only one rashi?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Surya",
+              "hi": ""
+            },
+            {
+              "en": "Budha",
+              "hi": ""
+            },
+            {
+              "en": "Mangal",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Surya owns only Simha, and Chandra only Karka. Each of the other five visible grahas owns two signs.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "rashis.lords.9",
+          "type": "quiz",
+          "question": {
+            "en": "Who owns Tula?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Mangal",
+              "hi": ""
+            },
+            {
+              "en": "Shukra",
+              "hi": ""
+            },
+            {
+              "en": "Budha",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Shukra owns Tula (Libra) and Vrishabha (Taurus).",
+            "hi": ""
+          }
+        }
+      ]
+    }
+  ]
+}

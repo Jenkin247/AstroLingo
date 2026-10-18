@@ -1,0 +1,1106 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": 1,
+  "id": "nakshatras",
+  "glyph": "★",
+  "title": {
+    "en": "The 27 nakshatras",
+    "hi": ""
+  },
+  "summary": {
+    "en": "Discover the 27 lunar mansions, their padas and lords, and the birth star that times your dashas and daily card.",
+    "hi": ""
+  },
+  "check": [
+    {
+      "id": "nakshatras.check.1",
+      "type": "quiz",
+      "question": {
+        "en": "The Moon is at 15° Vrishabha. Which nakshatra is it in?",
+        "hi": ""
+      },
+      "options": [
+        {
+          "en": "Krittika",
+          "hi": ""
+        },
+        {
+          "en": "Mrigashira",
+          "hi": ""
+        },
+        {
+          "en": "Bharani",
+          "hi": ""
+        },
+        {
+          "en": "Rohini",
+          "hi": ""
+        }
+      ],
+      "answer": 3,
+      "explanation": {
+        "en": "15° Vrishabha is 45° from the start of Mesha. Each nakshatra spans 13°20′, so the fourth runs from 40° to 53°20′. That is Rohini.",
+        "hi": ""
+      }
+    },
+    {
+      "id": "nakshatras.check.2",
+      "type": "quiz",
+      "question": {
+        "en": "One person's Moon is in Rohini, another's in Shravana. What do their birth stars share?",
+        "hi": ""
+      },
+      "options": [
+        {
+          "en": "The same rashi",
+          "hi": ""
+        },
+        {
+          "en": "The same lord, so both begin life in Chandra dasha",
+          "hi": ""
+        },
+        {
+          "en": "The same pada",
+          "hi": ""
+        },
+        {
+          "en": "Nothing, they are unrelated",
+          "hi": ""
+        }
+      ],
+      "answer": 1,
+      "explanation": {
+        "en": "Rohini (4) and Shravana (22) are 18 places apart, so they share a lord: Chandra. The lord of the birth star opens the Vimshottari dasha.",
+        "hi": ""
+      }
+    }
+  ],
+  "lessons": [
+    {
+      "id": "nakshatras.mansions",
+      "title": {
+        "en": "The Moon's 27 mansions",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "nakshatras.mansions.1",
+          "type": "learn",
+          "title": {
+            "en": "Stars of the Moon",
+            "hi": ""
+          },
+          "body": {
+            "en": "Long before the twelve rashis, Vedic seers tracked the Moon against 27 star groups. The Moon spends about a day in each, completing the circle in about 27⅓ days. These are the nakshatras, the lunar mansions.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "नक्षत्र",
+            "roman": "Nakshatra"
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 0
+          }
+        },
+        {
+          "id": "nakshatras.mansions.2",
+          "type": "learn",
+          "title": {
+            "en": "13°20′ each",
+            "hi": ""
+          },
+          "body": {
+            "en": "The zodiac's 360° divided by 27 gives 13°20′ per nakshatra. The count begins at 0° Mesha with Ashwini and ends at 30° Meena with Revati, so the stars and the signs share the same starting point.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 1
+          }
+        },
+        {
+          "id": "nakshatras.mansions.3",
+          "type": "learn",
+          "title": {
+            "en": "Signs and stars together",
+            "hi": ""
+          },
+          "body": {
+            "en": "Each rashi holds 2¼ nakshatras, so nine nakshatras fill exactly four signs. The pattern repeats three times: Ashwini starts Mesha, Magha starts Simha and Mula starts Dhanu, the three fire signs.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 5
+          }
+        },
+        {
+          "id": "nakshatras.mansions.4",
+          "type": "learn",
+          "title": {
+            "en": "Four padas",
+            "hi": ""
+          },
+          "body": {
+            "en": "Each nakshatra splits into four padas (quarters) of 3°20′. That gives 27 × 4 = 108 padas around the zodiac, a number sacred in many traditions. Each pada also maps to a navamsa sign, which you'll meet later.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "पाद",
+            "roman": "Pada"
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 4
+          }
+        },
+        {
+          "id": "nakshatras.mansions.5",
+          "type": "learn",
+          "title": {
+            "en": "What about Abhijit?",
+            "hi": ""
+          },
+          "body": {
+            "en": "Some ancient lists have 28 nakshatras, adding Abhijit between Uttara Ashadha and Shravana. It survives in muhurta (timing), but birth charts and the Vimshottari dasha use the standard 27.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "अभिजित्",
+            "roman": "Abhijit"
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 21
+          }
+        },
+        {
+          "id": "nakshatras.mansions.6",
+          "type": "yourChart",
+          "fact": "MOON_NAKSHATRA",
+          "title": {
+            "en": "Your star",
+            "hi": ""
+          },
+          "body": {
+            "en": "At your birth the Moon stood in {value}. This is your janma nakshatra, your birth star. You'll meet it again and again: it shapes your dasha periods and your daily card.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 0
+          }
+        },
+        {
+          "id": "nakshatras.mansions.7",
+          "type": "quiz",
+          "question": {
+            "en": "How wide is one nakshatra?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "30°",
+              "hi": ""
+            },
+            {
+              "en": "13°20′",
+              "hi": ""
+            },
+            {
+              "en": "3°20′",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "360° ÷ 27 = 13°20′. A pada, one quarter of a nakshatra, is 3°20′, and a rashi is 30°.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "nakshatras.mansions.8",
+          "type": "quiz",
+          "question": {
+            "en": "Which nakshatra begins at 0° Simha?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Magha",
+              "hi": ""
+            },
+            {
+              "en": "Ashlesha",
+              "hi": ""
+            },
+            {
+              "en": "Mula",
+              "hi": ""
+            },
+            {
+              "en": "Purva Phalguni",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Nine nakshatras fill four signs, so the 10th nakshatra, Magha, starts at 0° Simha, just as Ashwini starts Mesha and Mula starts Dhanu.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "nakshatras.mansions.9",
+          "type": "quiz",
+          "question": {
+            "en": "How many padas are there in all 27 nakshatras?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "27",
+              "hi": ""
+            },
+            {
+              "en": "54",
+              "hi": ""
+            },
+            {
+              "en": "108",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Each nakshatra has four padas, so 27 × 4 = 108 padas of 3°20′ each.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "nakshatras.lords",
+      "title": {
+        "en": "Nakshatra lords",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "nakshatras.lords.1",
+          "type": "learn",
+          "title": {
+            "en": "Every star has a lord",
+            "hi": ""
+          },
+          "body": {
+            "en": "Each nakshatra is ruled by one of the nine grahas. The lord colours the nakshatra and, most importantly, decides which graha's period, or dasha, is running at birth.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 0
+          }
+        },
+        {
+          "id": "nakshatras.lords.2",
+          "type": "learn",
+          "title": {
+            "en": "The order of nine",
+            "hi": ""
+          },
+          "body": {
+            "en": "The lords follow a fixed order: Ketu, Shukra, Surya, Chandra, Mangal, Rahu, Guru, Shani, Budha. Ashwini is ruled by Ketu, Bharani by Shukra, Krittika by Surya, and so on to Ashlesha, ruled by Budha.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 1
+          }
+        },
+        {
+          "id": "nakshatras.lords.3",
+          "type": "learn",
+          "title": {
+            "en": "It repeats three times",
+            "hi": ""
+          },
+          "body": {
+            "en": "After nine stars the order starts again. Magha (10) and Mula (19) are ruled by Ketu, just like Ashwini (1). So any two nakshatras nine or eighteen places apart share a lord: Rohini, Hasta and Shravana all belong to Chandra.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 10
+          }
+        },
+        {
+          "id": "nakshatras.lords.4",
+          "type": "learn",
+          "title": {
+            "en": "The Vimshottari order",
+            "hi": ""
+          },
+          "body": {
+            "en": "This is the same order as the Vimshottari dasha, the 120-year cycle of periods. Each lord rules a set span: Ketu 7, Shukra 20, Surya 6, Chandra 10, Mangal 7, Rahu 18, Guru 16, Shani 19, Budha 17 years.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "विंशोत्तरी",
+            "roman": "Vimshottari"
+          },
+          "visual": {
+            "kind": "glyph",
+            "value": "★"
+          }
+        },
+        {
+          "id": "nakshatras.lords.5",
+          "type": "learn",
+          "title": {
+            "en": "A memory trick",
+            "hi": ""
+          },
+          "body": {
+            "en": "Try the first letters of the English names: Ke-Ve-Su-Mo-Ma-Ra-Ju-Sa-Me. Or simply remember the first round, Ashwini to Ashlesha, and count on in nines.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 9
+          }
+        },
+        {
+          "id": "nakshatras.lords.6",
+          "type": "yourChart",
+          "fact": "MOON_NAKSHATRA_LORD",
+          "title": {
+            "en": "Your star's lord",
+            "hi": ""
+          },
+          "body": {
+            "en": "Your birth star is ruled by {value}. That graha opened your Vimshottari dasha: the first period of your life belonged to it, and the others follow in the order you just learned.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 0
+          }
+        },
+        {
+          "id": "nakshatras.lords.7",
+          "type": "quiz",
+          "question": {
+            "en": "Which graha rules Ashwini, Magha and Mula?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Surya",
+              "hi": ""
+            },
+            {
+              "en": "Ketu",
+              "hi": ""
+            },
+            {
+              "en": "Mangal",
+              "hi": ""
+            },
+            {
+              "en": "Rahu",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Ketu heads the order of nine and so rules the 1st, 10th and 19th nakshatras: Ashwini, Magha and Mula.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "nakshatras.lords.8",
+          "type": "quiz",
+          "question": {
+            "en": "In the lords' order, which graha comes right after Rahu?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Shani",
+              "hi": ""
+            },
+            {
+              "en": "Mangal",
+              "hi": ""
+            },
+            {
+              "en": "Guru",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "The order is Ketu, Shukra, Surya, Chandra, Mangal, Rahu, Guru, Shani, Budha. Guru follows Rahu.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "nakshatras.lords.9",
+          "type": "quiz",
+          "question": {
+            "en": "How many years does Shukra's Vimshottari dasha last?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "20",
+              "hi": ""
+            },
+            {
+              "en": "16",
+              "hi": ""
+            },
+            {
+              "en": "19",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Shukra rules the longest dasha, 20 years. Guru has 16 and Shani 19.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "nakshatras.tour-1",
+      "title": {
+        "en": "From Ashwini to Hasta",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "nakshatras.tour-1.1",
+          "type": "learn",
+          "title": {
+            "en": "1. Ashwini",
+            "hi": ""
+          },
+          "body": {
+            "en": "Symbol: a horse's head. Deity: the Ashwini Kumaras, twin healers of the gods. Ashwini is traditionally quick, fresh and eager to begin, a star of first steps and swift help.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 1
+          }
+        },
+        {
+          "id": "nakshatras.tour-1.2",
+          "type": "learn",
+          "title": {
+            "en": "3. Krittika",
+            "hi": ""
+          },
+          "body": {
+            "en": "Symbol: a blade or a flame. Deity: Agni, the sacred fire. Krittika spans Mesha and Vrishabha and is linked to sharpness, purification and honest, cutting clarity.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 3
+          }
+        },
+        {
+          "id": "nakshatras.tour-1.3",
+          "type": "learn",
+          "title": {
+            "en": "4. Rohini",
+            "hi": ""
+          },
+          "body": {
+            "en": "Symbol: an ox cart. Deity: Prajapati, the creator. In the old story the 27 nakshatras are the Moon's wives and Rohini his favourite. It is linked to growth, beauty, comfort and the arts.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 4
+          }
+        },
+        {
+          "id": "nakshatras.tour-1.4",
+          "type": "learn",
+          "title": {
+            "en": "6. Ardra",
+            "hi": ""
+          },
+          "body": {
+            "en": "Symbol: a teardrop. Deity: Rudra, the storm. Ardra means moist. Like rain after a storm, it is linked to strong feeling, searching questions and the fresh start that follows a clearing.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 6
+          }
+        },
+        {
+          "id": "nakshatras.tour-1.5",
+          "type": "learn",
+          "title": {
+            "en": "8. Pushya",
+            "hi": ""
+          },
+          "body": {
+            "en": "Symbol: a cow's udder or a flower. Deity: Brihaspati, teacher of the gods. Pushya means nourishing, and it is traditionally one of the most favoured nakshatras for good beginnings.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 8
+          }
+        },
+        {
+          "id": "nakshatras.tour-1.6",
+          "type": "learn",
+          "title": {
+            "en": "10. Magha",
+            "hi": ""
+          },
+          "body": {
+            "en": "Symbol: a royal throne. Deity: the Pitris, the ancestors. Magha opens Simha and the second round of lords. It is linked to dignity, heritage, tradition and honouring those who came before.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 10
+          }
+        },
+        {
+          "id": "nakshatras.tour-1.7",
+          "type": "learn",
+          "title": {
+            "en": "13. Hasta",
+            "hi": ""
+          },
+          "body": {
+            "en": "Symbol: an open hand. Deity: Savitar, the sun's bright energy. Hasta is linked to skill, craft, a deft touch and practical cleverness. Its lord is Chandra, like Rohini's.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 13
+          }
+        },
+        {
+          "id": "nakshatras.tour-1.8",
+          "type": "quiz",
+          "question": {
+            "en": "Which nakshatra means nourishing and is favoured for beginnings?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Ardra",
+              "hi": ""
+            },
+            {
+              "en": "Krittika",
+              "hi": ""
+            },
+            {
+              "en": "Pushya",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Pushya, ruled by Shani with Brihaspati as its deity, means nourishing and is traditionally one of the most auspicious stars to begin things.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "nakshatras.tour-1.9",
+          "type": "quiz",
+          "question": {
+            "en": "Magha's symbol is a throne. Who is its deity?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "The Pitris, the ancestors",
+              "hi": ""
+            },
+            {
+              "en": "Agni, the fire",
+              "hi": ""
+            },
+            {
+              "en": "Rudra, the storm",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Magha belongs to the Pitris, the ancestors, which links it to heritage, dignity and tradition.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "nakshatras.tour-1.10",
+          "type": "quiz",
+          "question": {
+            "en": "Which nakshatra has an open hand as its symbol?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Ashwini",
+              "hi": ""
+            },
+            {
+              "en": "Rohini",
+              "hi": ""
+            },
+            {
+              "en": "Hasta",
+              "hi": ""
+            },
+            {
+              "en": "Magha",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Hasta means hand. It is linked to craft, skill and a deft touch, and is ruled by Chandra.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "nakshatras.tour-2",
+      "title": {
+        "en": "From Chitra to Revati",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "nakshatras.tour-2.1",
+          "type": "learn",
+          "title": {
+            "en": "14. Chitra",
+            "hi": ""
+          },
+          "body": {
+            "en": "Symbol: a bright jewel. Deity: Tvashtar, the divine craftsman. Chitra is linked to design and beauty. Its star, Spica, anchors the Lahiri ayanamsa: it is placed at 0° Tula.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 14
+          }
+        },
+        {
+          "id": "nakshatras.tour-2.2",
+          "type": "learn",
+          "title": {
+            "en": "15. Swati",
+            "hi": ""
+          },
+          "body": {
+            "en": "Symbol: a young shoot swaying in the wind. Deity: Vayu, the wind. Swati is linked to independence, flexibility and trade: bending without breaking and finding its own way.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 15
+          }
+        },
+        {
+          "id": "nakshatras.tour-2.3",
+          "type": "learn",
+          "title": {
+            "en": "17. Anuradha",
+            "hi": ""
+          },
+          "body": {
+            "en": "Symbol: a lotus. Deity: Mitra, god of friendship. Anuradha is linked to loyalty, devotion and cooperation: the lotus that blooms even in muddy water.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 17
+          }
+        },
+        {
+          "id": "nakshatras.tour-2.4",
+          "type": "learn",
+          "title": {
+            "en": "19. Mula",
+            "hi": ""
+          },
+          "body": {
+            "en": "Symbol: a bunch of roots. Deity: Nirriti. Mula means root. It opens Dhanu and the third round of lords, and it is linked to getting to the root of things: research, inquiry and first principles.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 19
+          }
+        },
+        {
+          "id": "nakshatras.tour-2.5",
+          "type": "learn",
+          "title": {
+            "en": "22. Shravana",
+            "hi": ""
+          },
+          "body": {
+            "en": "Symbol: an ear, or three footprints. Deity: Vishnu. Shravana means hearing. It is linked to listening, learning and passing on knowledge, as the Vedas themselves were passed on by ear.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 22
+          }
+        },
+        {
+          "id": "nakshatras.tour-2.6",
+          "type": "learn",
+          "title": {
+            "en": "24. Shatabhisha",
+            "hi": ""
+          },
+          "body": {
+            "en": "Symbol: an empty circle. Deity: Varuna, lord of the waters. Its name means a hundred healers, and it is linked to healing, mystery, science and a love of solitude.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 24
+          }
+        },
+        {
+          "id": "nakshatras.tour-2.7",
+          "type": "learn",
+          "title": {
+            "en": "27. Revati",
+            "hi": ""
+          },
+          "body": {
+            "en": "Symbol: a fish or a drum. Deity: Pushan, protector of travellers. Revati ends at 30° Meena and completes the circle. It is linked to safe journeys, kindness and gentle endings that lead to new beginnings.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 27
+          }
+        },
+        {
+          "id": "nakshatras.tour-2.8",
+          "type": "quiz",
+          "question": {
+            "en": "Which nakshatra's star anchors the Lahiri ayanamsa?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Swati",
+              "hi": ""
+            },
+            {
+              "en": "Chitra",
+              "hi": ""
+            },
+            {
+              "en": "Revati",
+              "hi": ""
+            },
+            {
+              "en": "Anuradha",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Lahiri is also called the Chitrapaksha ayanamsa: it places Chitra's star, Spica, at 0° Tula.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "nakshatras.tour-2.9",
+          "type": "quiz",
+          "question": {
+            "en": "Which nakshatra means hearing and is linked to learning?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Shatabhisha",
+              "hi": ""
+            },
+            {
+              "en": "Mula",
+              "hi": ""
+            },
+            {
+              "en": "Shravana",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Shravana means hearing. Its deity is Vishnu, and it is linked to listening, learning and passing on knowledge.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "nakshatras.tour-2.10",
+          "type": "quiz",
+          "question": {
+            "en": "Which nakshatra completes the circle at 30° Meena?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Revati",
+              "hi": ""
+            },
+            {
+              "en": "Ashwini",
+              "hi": ""
+            },
+            {
+              "en": "Uttara Bhadrapada",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Revati is the 27th nakshatra and ends at 30° Meena, where Ashwini begins the circle again at 0° Mesha.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "nakshatras.janma",
+      "title": {
+        "en": "Your janma nakshatra",
+        "hi": ""
+      },
+      "minutes": 5,
+      "cards": [
+        {
+          "id": "nakshatras.janma.1",
+          "type": "learn",
+          "title": {
+            "en": "Your birth star",
+            "hi": ""
+          },
+          "body": {
+            "en": "Your janma nakshatra is the nakshatra the Moon occupied when you were born. In Jyotish it is as personal as your lagna. The Moon stays about a day in each star, so a rough birth time is enough; with none, the app uses noon and lets you choose if the star changed that day.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "जन्म नक्षत्र",
+            "roman": "Janma nakshatra"
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 0
+          }
+        },
+        {
+          "id": "nakshatras.janma.2",
+          "type": "learn",
+          "title": {
+            "en": "Why the Moon?",
+            "hi": ""
+          },
+          "body": {
+            "en": "Chandra is the mind: how you feel, react and settle. It moves faster than any other graha, so it marks time finely. That is why Jyotish times life through the Moon's star rather than the Sun's sign.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "CHANDRA"
+          }
+        },
+        {
+          "id": "nakshatras.janma.3",
+          "type": "learn",
+          "title": {
+            "en": "It starts your dashas",
+            "hi": ""
+          },
+          "body": {
+            "en": "The lord of your birth star rules the first Vimshottari dasha. How far the Moon had travelled through the star sets how much of it was left. Moon halfway through Rohini? About 5 of Chandra's 10 years remained at birth.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 4
+          }
+        },
+        {
+          "id": "nakshatras.janma.4",
+          "type": "learn",
+          "title": {
+            "en": "Tara bala: the daily count",
+            "hi": ""
+          },
+          "body": {
+            "en": "Each day, count from your birth star to the Moon's star that day, then take the count in nines. The nine taras run Janma, Sampat, Vipat, Kshema, Pratyak, Sadhana, Naidhana, Mitra, Parama Mitra. Your daily card uses this.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "तारा बल",
+            "roman": "Tara bala"
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 0
+          }
+        },
+        {
+          "id": "nakshatras.janma.5",
+          "type": "learn",
+          "title": {
+            "en": "Reading the taras gently",
+            "hi": ""
+          },
+          "body": {
+            "en": "Counts 2, 4, 6, 8 and 9 (wealth, well-being, achievement, friend, great friend) are favourable. Counts 3, 5 and 7 simply ask for a little more care and patience. Count 1, your own star, is mixed: a day to stay centred.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "glyph",
+            "value": "★"
+          }
+        },
+        {
+          "id": "nakshatras.janma.6",
+          "type": "learn",
+          "title": {
+            "en": "An example",
+            "hi": ""
+          },
+          "body": {
+            "en": "Arjun, a fictional learner, was born with the Moon in Rohini. Today the Moon is in Punarvasu. Counting from Rohini: Rohini 1, Mrigashira 2, Ardra 3, Punarvasu 4. Count 4 is Kshema, a day of well-being.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 7
+          }
+        },
+        {
+          "id": "nakshatras.janma.7",
+          "type": "yourChart",
+          "fact": "MOON_NAKSHATRA",
+          "title": {
+            "en": "Your daily count",
+            "hi": ""
+          },
+          "body": {
+            "en": "Your birth star is {value}. Every morning your daily card counts from it to the Moon's star of the day, so your tara bala is personal: a friend's card can read differently on the same day.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 0
+          }
+        },
+        {
+          "id": "nakshatras.janma.8",
+          "type": "quiz",
+          "question": {
+            "en": "What does the lord of your janma nakshatra decide?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Your lagna",
+              "hi": ""
+            },
+            {
+              "en": "Your first Vimshottari dasha",
+              "hi": ""
+            },
+            {
+              "en": "Your Sun sign",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "The birth star's lord rules the first dasha of life. How far the Moon had moved through the star sets how much of it was left.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "nakshatras.janma.9",
+          "type": "quiz",
+          "question": {
+            "en": "Birth star Ashwini, today's Moon in Krittika. What is the count?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "3, Vipat: take a little extra care",
+              "hi": ""
+            },
+            {
+              "en": "2, Sampat: favourable",
+              "hi": ""
+            },
+            {
+              "en": "4, Kshema: well-being",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Count inclusively: Ashwini 1, Bharani 2, Krittika 3. Count 3 is Vipat, a day that simply asks for a little more care.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "nakshatras.janma.10",
+          "type": "quiz",
+          "question": {
+            "en": "Without a birth time, how does AstroLingo find your janma nakshatra?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "From your Sun sign",
+              "hi": ""
+            },
+            {
+              "en": "It is fixed for each birth year",
+              "hi": ""
+            },
+            {
+              "en": "From the Moon at noon; you pick if the star changed",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "The Moon moves about one nakshatra a day, so it often changes star on a birth day. With no time the app uses noon and, if the star changed that day, asks you to choose.",
+            "hi": ""
+          }
+        }
+      ]
+    }
+  ]
+}
