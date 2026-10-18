@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Read-aloud and Listen mode in Learn (LS-7, ADR 0008). Hindi in values-hi/strings_audio.xml. -->
+<resources>
+    <string name="audio_read_aloud">Read this card aloud</string>
+    <string name="audio_stop">Stop</string>
+    <string name="audio_listening">Listening</string>
+    <string name="audio_listening_open">Listening settings</string>
+    <string name="audio_listen_mode">Listen mode</string>
+    <string name="audio_listen_mode_body">Read each card aloud when it opens</string>
+    <string name="audio_voice_english">English voice</string>
+    <string name="audio_voice_hindi">Hindi voice</string>
+    <string name="audio_voice_installed">Installed</string>
+    <string name="audio_voice_missing">Not installed. Tap to add it in your phone\'s speech settings.</string>
+    <string name="audio_voice_checking">Checking…</string>
+    <string name="audio_note">Uses your phone\'s own voice. It\'s free, works offline and nothing leaves the phone. Sanskrit words may not always sound right.</string>
+    <string name="audio_no_hindi_title">Hindi voice not installed</string>
+    <string name="audio_no_hindi_body">Your phone doesn\'t have a Hindi voice yet, so this card can\'t be read aloud in Hindi. You can add one free in your phone\'s speech settings, or listen in English for now.</string>
+    <string name="audio_use_english">Use English</string>
+    <string name="audio_open_settings">Open settings</string>
+    <string name="audio_no_engine_title">Read aloud isn\'t available</string>
+    <string name="audio_no_engine_body">This phone has no speech voice turned on. You can add one in your phone\'s speech settings.</string>
+    <string name="audio_close">Close</string>
+</resources>

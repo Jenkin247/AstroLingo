@@ -168,6 +168,7 @@ internal fun LearnCardPage(
     position: String,
     onNext: () -> Unit,
     actions: @Composable () -> Unit,
+    highlight: IntRange? = null,
 ) {
     if (!card.flip || card.visual == null) {
         CardFrame(
@@ -180,7 +181,7 @@ internal fun LearnCardPage(
             card.visual?.let { CardVisual(it, active) }
             Text(card.title.get(language), style = MaterialTheme.typography.headlineSmall, modifier = Modifier.semantics { heading() })
             card.term?.let { TermChip(it) }
-            Text(card.body.get(language), style = MaterialTheme.typography.bodyLarge)
+            Text(highlighted(card.body.get(language), highlight), style = MaterialTheme.typography.bodyLarge)
         }
         return
     }
@@ -239,7 +240,7 @@ internal fun LearnCardPage(
                 }
                 Text(card.title.get(language), style = MaterialTheme.typography.headlineSmall, modifier = Modifier.semantics { heading() })
                 card.term?.let { TermChip(it) }
-                Text(card.body.get(language), style = MaterialTheme.typography.bodyLarge)
+                Text(highlighted(card.body.get(language), highlight), style = MaterialTheme.typography.bodyLarge)
             }
         }
     }
@@ -254,6 +255,7 @@ internal fun YourChartCardPage(
     position: String,
     onNext: () -> Unit,
     actions: @Composable () -> Unit,
+    highlight: IntRange? = null,
 ) {
     CardFrame(
         label = stringResource(R.string.learn_your_chart),
@@ -264,7 +266,7 @@ internal fun YourChartCardPage(
     ) {
         Text("✦", style = MaterialTheme.typography.displaySmall, color = MaterialTheme.colorScheme.primary)
         Text(card.title.get(language), style = MaterialTheme.typography.headlineSmall, modifier = Modifier.semantics { heading() })
-        Text(text, style = MaterialTheme.typography.bodyLarge)
+        Text(highlighted(text, highlight), style = MaterialTheme.typography.bodyLarge)
     }
 }
 
@@ -281,6 +283,7 @@ internal fun QuizCardPage(
     position: String,
     onChoose: (Int) -> Unit,
     onNext: () -> Unit,
+    actions: @Composable () -> Unit = {},
 ) {
     val reduceMotion = rememberReduceMotion()
     val shake = remember { Animatable(0f) }
@@ -298,6 +301,7 @@ internal fun QuizCardPage(
         position = position,
         color = MaterialTheme.colorScheme.surface,
         onNext = if (chosen != null) onNext else null,
+        actions = actions,
     ) {
         Text(quiz.question.get(language), style = MaterialTheme.typography.headlineSmall, modifier = Modifier.semantics { heading() })
         quiz.options.forEachIndexed { index, option ->
