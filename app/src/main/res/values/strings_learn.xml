@@ -45,7 +45,7 @@
     <string name="check_offer_body">Take a quick check and skip the chapters you know.</string>
     <string name="check_offer_take">Take the check</string>
     <string name="check_offer_later">Not now</string>
-    <string name="check_pick_sitara">Let's not waste your time! Which of these do you already know? I'll ask two quick questions for each one and skip what you know.</string>
+    <string name="check_pick_sitara">Let\'s not waste your time! Which of these do you already know? I\'ll ask two quick questions for each one and skip what you know.</string>
     <string name="check_pick_title">What do you know already?</string>
     <string name="check_start">Check me (%1$d questions)</string>
     <string name="check_from_start">Start from the beginning</string>
@@ -54,9 +54,9 @@
     <string name="check_finish">See my path</string>
     <string name="check_stop">Stop here and build my path</string>
     <string name="check_result_title">Your path is ready</string>
-    <string name="check_result_known">You know these, so we'll skip them. You can still open them any time:</string>
+    <string name="check_result_known">You know these, so we\'ll skip them. You can still open them any time:</string>
     <string name="check_result_refresh">These stay on your path as a quick refresher:</string>
-    <string name="check_result_none">No chapters skipped this time. That's fine: you'll move fast through what you know.</string>
+    <string name="check_result_none">No chapters skipped this time. That\'s fine: you\'ll move fast through what you know.</string>
     <string name="check_result_start">Start learning</string>
     <string name="check_know_this">I know this: skip it with 2 questions</string>
     <string name="check_close">Close the check</string>
