@@ -2,6 +2,8 @@ package com.astrolingo.app.e2e
 
 import android.provider.Settings
 import androidx.activity.ComponentActivity
+import androidx.compose.ui.test.ComposeTimeoutException
+import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.hasText
@@ -28,12 +30,14 @@ import com.astrolingo.app.ui.theme.AstroLingoTheme
 import com.astrolingo.engine.places.CityIndex
 import com.astrolingo.learn.content.QuizCard
 import com.astrolingo.learn.progress.LearnProgress
+import com.github.takahirom.roborazzi.captureRoboImage
 import com.google.common.truth.Truth.assertThat
 import java.time.LocalDate
 import java.time.LocalTime
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.TestName
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.annotation.Config
@@ -58,11 +62,25 @@ class EndToEndJourneys {
         Settings.Global.putFloat(compose.activity.contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 0f)
     }
 
-    private fun waitForText(text: String) = compose.waitUntil(WAIT_MILLIS) {
+    @get:Rule
+    val testName = TestName()
+
+    /** Waits for [condition]; on a timeout saves the screen and names what was missing, so CI says which step failed. */
+    private fun waitFor(what: String, condition: () -> Boolean) {
+        try {
+            compose.waitUntil(WAIT_MILLIS, condition)
+        } catch (e: ComposeTimeoutException) {
+            val name = "e2e_failure_" + testName.methodName.replace(Regex("[^A-Za-z0-9]+"), "_").take(40)
+            runCatching { compose.onRoot().captureRoboImage("build/outputs/roborazzi/$name.png") }
+            throw AssertionError("Timed out waiting for: $what", e)
+        }
+    }
+
+    private fun waitForText(text: String) = waitFor(text) {
         compose.onAllNodesWithText(text, substring = true).fetchSemanticsNodes().isNotEmpty()
     }
 
-    private fun waitForDescription(text: String) = compose.waitUntil(WAIT_MILLIS) {
+    private fun waitForDescription(text: String) = waitFor(text) {
         compose.onAllNodesWithContentDescription(text, substring = true).fetchSemanticsNodes().isNotEmpty()
     }
 
@@ -70,7 +88,7 @@ class EndToEndJourneys {
 
     /** Taps the first node with exactly [text] (or containing it, with [partial]), scrolling to it when it is in a list. */
     private fun tap(text: String, partial: Boolean = false) {
-        compose.waitUntil(WAIT_MILLIS) { compose.onAllNodesWithText(text, substring = partial).fetchSemanticsNodes().isNotEmpty() }
+        waitFor("something to tap: $text") { compose.onAllNodesWithText(text, substring = partial).fetchSemanticsNodes().isNotEmpty() }
         val node = compose.onAllNodesWithText(text, substring = partial).onFirst()
         // Tabs and dialog buttons have no scrolling parent.
         runCatching { node.performScrollTo() }
@@ -80,11 +98,11 @@ class EndToEndJourneys {
 
     /** Types a place and picks the first match, as in onboarding and Add a person. */
     private fun pickPlace(name: String) {
-        compose.waitUntil(WAIT_MILLIS) { !shows("Loading places") }
+        waitFor("the place list to load") { !shows("Loading places") }
         // The place field is the last text field on the screen.
         compose.onAllNodes(hasSetTextAction()).onLast().performTextInput(name)
         val result = hasText(name, substring = true) and hasClickAction() and !hasSetTextAction()
-        compose.waitUntil(WAIT_MILLIS) { compose.onAllNodes(result).fetchSemanticsNodes().isNotEmpty() }
+        waitFor("a place matching $name") { compose.onAllNodes(result).fetchSemanticsNodes().isNotEmpty() }
         compose.onAllNodes(result).onFirst().performScrollTo().performClick()
     }
 
@@ -129,7 +147,7 @@ class EndToEndJourneys {
 
         // Learners meet their kundli first, and the answers are saved.
         waitForText("Your kundli")
-        compose.waitUntil(WAIT_MILLIS) { profiles.load() != null }
+        waitFor("the answers to be saved") { profiles.load() != null }
         val saved = profiles.load()!!
         assertThat(saved.purpose).isEqualTo(Purpose.LEARN)
         assertThat(saved.birth.date).isEqualTo(LocalDate.of(1990, 1, 15))
@@ -183,7 +201,7 @@ class EndToEndJourneys {
         tap("Meera knows I'm saving their birth details", partial = true)
         tap("Save")
         waitForText("2 of 4 charts saved")
-        compose.waitUntil(WAIT_MILLIS) { profiles.loadPeople().size == 1 }
+        waitFor("Meera to be saved") { profiles.loadPeople().size == 1 }
         assertThat(profiles.loadPeople().single().name).isEqualTo("Meera")
 
         tap("Learn")
