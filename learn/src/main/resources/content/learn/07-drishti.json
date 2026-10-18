@@ -1,0 +1,829 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": 1,
+  "id": "drishti",
+  "glyph": "☍",
+  "title": {
+    "en": "Drishti: how grahas look",
+    "hi": ""
+  },
+  "summary": {
+    "en": "Grahas don't only act where they sit: they also look at other houses. Learn the 7th aspect, the special aspects of Mangal, Guru and Shani, and how to use aspects in a reading.",
+    "hi": ""
+  },
+  "check": [
+    {
+      "id": "drishti.check.1",
+      "type": "quiz",
+      "question": {
+        "en": "Shani sits in Karka. Which signs receive its full aspect?",
+        "hi": ""
+      },
+      "options": [
+        {
+          "en": "Simha, Makara and Tula",
+          "hi": ""
+        },
+        {
+          "en": "Kanya, Makara and Mesha",
+          "hi": ""
+        },
+        {
+          "en": "Kanya, Kumbha and Mesha",
+          "hi": ""
+        },
+        {
+          "en": "Makara only",
+          "hi": ""
+        }
+      ],
+      "answer": 1,
+      "explanation": {
+        "en": "Count Karka as 1. Shani's 3rd is Kanya, its 7th is Makara and its 10th is Mesha. Every graha has the 7th; Shani adds the 3rd and 10th.",
+        "hi": ""
+      }
+    },
+    {
+      "id": "drishti.check.2",
+      "type": "quiz",
+      "question": {
+        "en": "Guru is in the 2nd house. Which houses does it aspect fully?",
+        "hi": ""
+      },
+      "options": [
+        {
+          "en": "6th, 8th and 10th",
+          "hi": ""
+        },
+        {
+          "en": "5th, 7th and 9th",
+          "hi": ""
+        },
+        {
+          "en": "8th only",
+          "hi": ""
+        },
+        {
+          "en": "4th, 8th and 9th",
+          "hi": ""
+        }
+      ],
+      "answer": 0,
+      "explanation": {
+        "en": "Count the 2nd house as 1: the 5th from it is the 6th house, the 7th is the 8th house and the 9th is the 10th house.",
+        "hi": ""
+      }
+    }
+  ],
+  "lessons": [
+    {
+      "id": "drishti.seventh",
+      "title": {
+        "en": "Every graha looks at the 7th",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "drishti.seventh.1",
+          "type": "learn",
+          "title": {
+            "en": "A graha's gaze",
+            "hi": ""
+          },
+          "body": {
+            "en": "A graha doesn't act only in the house where it sits. It also casts a gaze on other houses and on the grahas in them. This gaze is called drishti, the aspect.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "दृष्टि",
+            "roman": "Drishti"
+          },
+          "visual": {
+            "kind": "glyph",
+            "value": "☍"
+          }
+        },
+        {
+          "id": "drishti.seventh.2",
+          "type": "learn",
+          "title": {
+            "en": "Counting in whole signs",
+            "hi": ""
+          },
+          "body": {
+            "en": "To find an aspect, count signs from the graha's own sign, and count that sign as 1. The next sign is 2, and so on. In whole-sign houses, the whole sign that is reached receives the aspect.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "drishti.seventh.3",
+          "type": "learn",
+          "title": {
+            "en": "The full 7th aspect",
+            "hi": ""
+          },
+          "body": {
+            "en": "Every graha fully aspects the 7th sign from itself: the sign straight across the wheel. A graha in Mesha looks at Tula. A graha in Simha looks at Kumbha.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 7
+          }
+        },
+        {
+          "id": "drishti.seventh.4",
+          "type": "learn",
+          "title": {
+            "en": "In the house chart",
+            "hi": ""
+          },
+          "body": {
+            "en": "In houses it works the same way. A graha in the 1st house looks at the 7th. Our fictional Meera has Shukra in her 4th house, so Shukra also looks at her 10th house of work.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 7
+          }
+        },
+        {
+          "id": "drishti.seventh.5",
+          "type": "learn",
+          "title": {
+            "en": "Face to face",
+            "hi": ""
+          },
+          "body": {
+            "en": "When two grahas sit opposite each other, each one is in the other's 7th. They look at each other: a mutual aspect. Tradition counts this as a real link between them.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "drishti.seventh.6",
+          "type": "learn",
+          "title": {
+            "en": "Partial aspects",
+            "hi": ""
+          },
+          "body": {
+            "en": "Parashara also describes weaker, partial aspects on the 3rd, 4th, 5th, 8th, 9th and 10th signs. Most readers today use only the full aspects, and so will we.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "drishti.seventh.7",
+          "type": "quiz",
+          "question": {
+            "en": "A graha sits in Vrishabha. Which sign receives its 7th aspect?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Tula",
+              "hi": ""
+            },
+            {
+              "en": "Simha",
+              "hi": ""
+            },
+            {
+              "en": "Vrishchika",
+              "hi": ""
+            },
+            {
+              "en": "Kumbha",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Count Vrishabha as 1: Mithuna 2, Karka 3, Simha 4, Kanya 5, Tula 6, Vrishchika 7. The 7th is always the opposite sign.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "drishti.seventh.8",
+          "type": "quiz",
+          "question": {
+            "en": "Why do we count the graha's own sign as 1?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "It is the convention of drishti counting",
+              "hi": ""
+            },
+            {
+              "en": "Because the graha aspects its own sign",
+              "hi": ""
+            },
+            {
+              "en": "Only for Rahu and Ketu",
+              "hi": ""
+            },
+            {
+              "en": "It makes the 7th aspect weaker",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Jyotish counts inclusively: the starting sign is 1. Counting from 0 would push every aspect one sign too far.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "drishti.seventh.9",
+          "type": "quiz",
+          "question": {
+            "en": "Chandra is in Mesha and Shani is in Tula. What is true?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Only Shani looks at Chandra",
+              "hi": ""
+            },
+            {
+              "en": "Neither aspects the other",
+              "hi": ""
+            },
+            {
+              "en": "Only Chandra looks at Shani",
+              "hi": ""
+            },
+            {
+              "en": "They aspect each other",
+              "hi": ""
+            }
+          ],
+          "answer": 3,
+          "explanation": {
+            "en": "Mesha and Tula are opposite signs, so each graha is in the other's 7th. That is a mutual aspect.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "drishti.special",
+      "title": {
+        "en": "Mangal, Guru and Shani",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "drishti.special.1",
+          "type": "learn",
+          "title": {
+            "en": "Special aspects",
+            "hi": ""
+          },
+          "body": {
+            "en": "Three grahas have extra full aspects besides the 7th: Mangal, Guru and Shani. These are called special aspects. They are some of the most used rules in a reading.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "विशेष दृष्टि",
+            "roman": "Vishesha drishti"
+          }
+        },
+        {
+          "id": "drishti.special.2",
+          "type": "learn",
+          "title": {
+            "en": "Mangal: 4th and 8th",
+            "hi": ""
+          },
+          "body": {
+            "en": "Mangal fully aspects the 4th, 7th and 8th signs from itself. Mangal in Mesha looks at Karka (4th), Tula (7th) and Vrishchika (8th). Its gaze tends to bring energy, heat and push.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "MANGAL"
+          }
+        },
+        {
+          "id": "drishti.special.3",
+          "type": "learn",
+          "title": {
+            "en": "Guru: 5th and 9th",
+            "hi": ""
+          },
+          "body": {
+            "en": "Guru fully aspects the 5th, 7th and 9th signs from itself. Guru in Dhanu looks at Mesha (5th), Mithuna (7th) and Simha (9th). Its 5th and 9th fall on fellow fire signs, the trines.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "GURU"
+          }
+        },
+        {
+          "id": "drishti.special.4",
+          "type": "learn",
+          "title": {
+            "en": "Shani: 3rd and 10th",
+            "hi": ""
+          },
+          "body": {
+            "en": "Shani fully aspects the 3rd, 7th and 10th signs from itself. Shani in Makara looks at Meena (3rd), Karka (7th) and Tula (10th). Its gaze tends to bring patience, structure and lessons.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "SHANI"
+          }
+        },
+        {
+          "id": "drishti.special.5",
+          "type": "learn",
+          "title": {
+            "en": "One-way looks",
+            "hi": ""
+          },
+          "body": {
+            "en": "Special aspects are often one-way. If Shani is in Mesha, it looks at Mithuna, its 3rd. A graha in Mithuna looks at its own 7th, Dhanu, not back at Shani. Check each graha separately.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "drishti.special.6",
+          "type": "learn",
+          "title": {
+            "en": "A memory trick",
+            "hi": ""
+          },
+          "body": {
+            "en": "Mangal 4 and 8, Guru 5 and 9, Shani 3 and 10, and everyone 7. Say it a few times. Tip: in houses, add the number and subtract 1. Guru in house 3 aspects houses 7, 9 and 11.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "drishti.special.7",
+          "type": "quiz",
+          "question": {
+            "en": "Mangal is in Simha. Which signs does it aspect fully?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Vrishchika, Kumbha and Meena",
+              "hi": ""
+            },
+            {
+              "en": "Dhanu, Kumbha and Mesha",
+              "hi": ""
+            },
+            {
+              "en": "Kanya, Kumbha and Makara",
+              "hi": ""
+            },
+            {
+              "en": "Kumbha only",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Count Simha as 1. Mangal's 4th is Vrishchika, its 7th is Kumbha and its 8th is Meena.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "drishti.special.8",
+          "type": "quiz",
+          "question": {
+            "en": "Which graha fully aspects the 3rd and 10th signs from itself?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Guru",
+              "hi": ""
+            },
+            {
+              "en": "Mangal",
+              "hi": ""
+            },
+            {
+              "en": "Shani",
+              "hi": ""
+            },
+            {
+              "en": "Shukra",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Shani has the special 3rd and 10th aspects, along with the 7th that every graha has.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "drishti.special.9",
+          "type": "quiz",
+          "question": {
+            "en": "Guru sits in the 6th house. Which houses does it aspect?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "9th, 12th and 3rd",
+              "hi": ""
+            },
+            {
+              "en": "10th, 12th and 2nd",
+              "hi": ""
+            },
+            {
+              "en": "11th, 1st and 3rd",
+              "hi": ""
+            },
+            {
+              "en": "12th only",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Count the 6th as 1. The 5th from it is the 10th house, the 7th is the 12th and the 9th is the 2nd.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "drishti.nodes",
+      "title": {
+        "en": "Rahu and Ketu's gaze",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "drishti.nodes.1",
+          "type": "learn",
+          "title": {
+            "en": "Shadow grahas",
+            "hi": ""
+          },
+          "body": {
+            "en": "Rahu and Ketu are chhaya grahas, shadow points where the Moon's path crosses the Sun's. They always sit exactly opposite each other, so they already share the 7th-sign axis.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "छाया ग्रह",
+            "roman": "Chhaya graha"
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "RAHU"
+          }
+        },
+        {
+          "id": "drishti.nodes.2",
+          "type": "learn",
+          "title": {
+            "en": "Traditions differ",
+            "hi": ""
+          },
+          "body": {
+            "en": "The classics don't agree on whether the nodes aspect. Some versions of Parashara's text give Rahu aspects; other authors are silent. So astrologers today follow different views.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "drishti.nodes.3",
+          "type": "learn",
+          "title": {
+            "en": "A common view",
+            "hi": ""
+          },
+          "body": {
+            "en": "Many Parashari astrologers give Rahu and Ketu the 5th, 7th and 9th aspects, like Guru. Rahu in Mithuna would then look at Tula, Dhanu and Kumbha.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "KETU"
+          }
+        },
+        {
+          "id": "drishti.nodes.4",
+          "type": "learn",
+          "title": {
+            "en": "Other views",
+            "hi": ""
+          },
+          "body": {
+            "en": "Some readers give the nodes only the 7th aspect. Others give them none at all and judge them by the sign they sit in, its lord, and the grahas they sit with.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "drishti.nodes.5",
+          "type": "learn",
+          "title": {
+            "en": "Where all agree",
+            "hi": ""
+          },
+          "body": {
+            "en": "Whatever view you take, a graha sitting in the same sign as Rahu or Ketu is strongly coloured by it. That conjunction is the first thing to look at. Pick one view of node aspects and use it steadily.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "drishti.nodes.6",
+          "type": "quiz",
+          "question": {
+            "en": "Why do Rahu and Ketu always share the 7th-sign axis?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "They always sit exactly opposite each other",
+              "hi": ""
+            },
+            {
+              "en": "They both aspect the 7th by Parashara's rule",
+              "hi": ""
+            },
+            {
+              "en": "They are in the same sign",
+              "hi": ""
+            },
+            {
+              "en": "They move with the Sun",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Rahu and Ketu are the two crossing points of the Moon's path, so they are always 180° apart.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "drishti.nodes.7",
+          "type": "quiz",
+          "question": {
+            "en": "Which aspects do many Parashari astrologers give Rahu and Ketu?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "3rd, 7th and 10th",
+              "hi": ""
+            },
+            {
+              "en": "4th, 7th and 8th",
+              "hi": ""
+            },
+            {
+              "en": "5th, 7th and 9th",
+              "hi": ""
+            },
+            {
+              "en": "Only the 1st",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "A common view gives the nodes Guru-like 5th, 7th and 9th aspects. Traditions differ, so some use only the 7th or none.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "drishti.nodes.8",
+          "type": "quiz",
+          "question": {
+            "en": "Which statement about node aspects is fair?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "All classics give them the 3rd and 10th",
+              "hi": ""
+            },
+            {
+              "en": "Views differ, so pick one and stay consistent",
+              "hi": ""
+            },
+            {
+              "en": "Nodes are always ignored in Jyotish",
+              "hi": ""
+            },
+            {
+              "en": "Only Ketu has an aspect",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "The texts disagree on node aspects. What all agree on is that conjunction with Rahu or Ketu matters strongly.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "drishti.reading",
+      "title": {
+        "en": "Using aspects in a reading",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "drishti.reading.1",
+          "type": "learn",
+          "title": {
+            "en": "Colouring a house",
+            "hi": ""
+          },
+          "body": {
+            "en": "An aspect adds a graha's nature to the house it looks at. A house with no grahas in it can still be busy, because other grahas are looking at it.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "drishti.reading.2",
+          "type": "learn",
+          "title": {
+            "en": "Benefic aspects support",
+            "hi": ""
+          },
+          "body": {
+            "en": "The aspects of natural benefics, Guru, Shukra, a bright Chandra and Budha when free of malefics, tend to support. They ease, protect and help that area of life grow.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "शुभ ग्रह",
+            "roman": "Shubha graha"
+          }
+        },
+        {
+          "id": "drishti.reading.3",
+          "type": "learn",
+          "title": {
+            "en": "Malefic aspects test",
+            "hi": ""
+          },
+          "body": {
+            "en": "The aspects of natural malefics, Shani, Mangal, Surya, Rahu and Ketu, tend to test. A test is not doom: it asks for effort and patience, and often builds strength over time.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "पाप ग्रह",
+            "roman": "Papa graha"
+          }
+        },
+        {
+          "id": "drishti.reading.4",
+          "type": "learn",
+          "title": {
+            "en": "Guru's gaze",
+            "hi": ""
+          },
+          "body": {
+            "en": "Of all aspects, Guru's is the most valued. Tradition says Guru's gaze softens difficulties and brings wisdom and good counsel to the houses it falls on. Look for it first.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "GURU"
+          }
+        },
+        {
+          "id": "drishti.reading.5",
+          "type": "learn",
+          "title": {
+            "en": "Three layers",
+            "hi": ""
+          },
+          "body": {
+            "en": "To judge a house, look at three layers: the grahas sitting in it, the lord of the house, and the aspects falling on it. Aspects are one layer, never the whole story.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "drishti.reading.6",
+          "type": "yourChart",
+          "fact": "GURU_HOUSE",
+          "title": {
+            "en": "Your Guru's gaze",
+            "hi": ""
+          },
+          "body": {
+            "en": "Your Guru sits in house {value}. Count that house as 1: Guru looks at the 5th, 7th and 9th houses from there. Those areas of life tend to receive Guru's supportive gaze.",
+            "hi": ""
+          },
+          "unknownTime": {
+            "en": "Guru's houses need your birth time. Guru still looks at the 5th, 7th and 9th signs from its own sign, and you'll see the houses when you add a time.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "drishti.reading.7",
+          "type": "quiz",
+          "question": {
+            "en": "Which graha's aspect is traditionally valued most?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Shani",
+              "hi": ""
+            },
+            {
+              "en": "Mangal",
+              "hi": ""
+            },
+            {
+              "en": "Rahu",
+              "hi": ""
+            },
+            {
+              "en": "Guru",
+              "hi": ""
+            }
+          ],
+          "answer": 3,
+          "explanation": {
+            "en": "Guru is the great benefic. Its aspect is said to soften difficulties and bring wisdom to the houses it falls on.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "drishti.reading.8",
+          "type": "quiz",
+          "question": {
+            "en": "Shani aspects a house. How is this best read?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "As a sign of certain loss",
+              "hi": ""
+            },
+            {
+              "en": "As a test that asks for patience and effort",
+              "hi": ""
+            },
+            {
+              "en": "As having no effect",
+              "hi": ""
+            },
+            {
+              "en": "As the best aspect possible",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Malefic aspects test rather than doom. Shani's gaze tends to bring structure, delay and lessons that build strength.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "drishti.reading.9",
+          "type": "quiz",
+          "question": {
+            "en": "Which is NOT one of the three layers for judging a house?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "The grahas sitting in it",
+              "hi": ""
+            },
+            {
+              "en": "The lord of the house",
+              "hi": ""
+            },
+            {
+              "en": "The aspects on it",
+              "hi": ""
+            },
+            {
+              "en": "The weekday of birth",
+              "hi": ""
+            }
+          ],
+          "answer": 3,
+          "explanation": {
+            "en": "Grahas in the house, its lord, and the aspects on it are the three layers. The weekday plays no part here.",
+            "hi": ""
+          }
+        }
+      ]
+    }
+  ]
+}

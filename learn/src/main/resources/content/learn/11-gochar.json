@@ -1,0 +1,1058 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": 1,
+  "id": "gochar",
+  "glyph": "↻",
+  "title": {
+    "en": "Gochar: transits",
+    "hi": ""
+  },
+  "summary": {
+    "en": "Gochar is how today's grahas move over your birth chart. Learn how transits are counted from the Moon, how fast each graha moves, what Guru and Shani bring, sade sati without fear, and how your daily card is built.",
+    "hi": ""
+  },
+  "check": [
+    {
+      "id": "gochar.check.1",
+      "type": "quiz",
+      "question": {
+        "en": "Shani moves into the sign just before your Moon sign. What has begun?",
+        "hi": ""
+      },
+      "options": [
+        {
+          "en": "Ashtama Shani",
+          "hi": ""
+        },
+        {
+          "en": "The peak of sade sati",
+          "hi": ""
+        },
+        {
+          "en": "The first phase of sade sati",
+          "hi": ""
+        },
+        {
+          "en": "Nothing: transits count from the lagna",
+          "hi": ""
+        }
+      ],
+      "answer": 2,
+      "explanation": {
+        "en": "Sade sati is Shani in the 12th, 1st and 2nd from the Moon sign. The sign just before the Moon is the 12th, so the first phase has begun.",
+        "hi": ""
+      }
+    },
+    {
+      "id": "gochar.check.2",
+      "type": "quiz",
+      "question": {
+        "en": "Your birth star is Rohini and today the Moon is in Punarvasu. Which tara is today?",
+        "hi": ""
+      },
+      "options": [
+        {
+          "en": "Vipat",
+          "hi": ""
+        },
+        {
+          "en": "Kshema",
+          "hi": ""
+        },
+        {
+          "en": "Pratyak",
+          "hi": ""
+        },
+        {
+          "en": "Sampat",
+          "hi": ""
+        }
+      ],
+      "answer": 1,
+      "explanation": {
+        "en": "Count the birth star as 1: Rohini 1, Mrigashira 2, Ardra 3, Punarvasu 4. The 4th tara is Kshema, a favourable one.",
+        "hi": ""
+      }
+    }
+  ],
+  "lessons": [
+    {
+      "id": "gochar.what",
+      "title": {
+        "en": "What gochar is",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "gochar.what.1",
+          "type": "learn",
+          "title": {
+            "en": "Today's sky on your chart",
+            "hi": ""
+          },
+          "body": {
+            "en": "Gochar means transits: where the grahas are today, laid over your birth chart. The birth chart is fixed for life; the transits keep moving and bring its themes in and out of focus.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "गोचर",
+            "roman": "Gochar"
+          },
+          "visual": {
+            "kind": "glyph",
+            "value": "↻"
+          }
+        },
+        {
+          "id": "gochar.what.2",
+          "type": "learn",
+          "title": {
+            "en": "Counted from the Moon",
+            "hi": ""
+          },
+          "body": {
+            "en": "Traditionally, transits are counted from your Moon sign, the Chandra lagna. The Moon's sign is house 1, the next sign house 2, and so on. The Moon is the mind, and transits are felt through the mind.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "चन्द्र लग्न",
+            "roman": "Chandra lagna"
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 1
+          }
+        },
+        {
+          "id": "gochar.what.3",
+          "type": "learn",
+          "title": {
+            "en": "Why the Moon works well",
+            "hi": ""
+          },
+          "body": {
+            "en": "Counting from the Moon needs no birth time, and the classic transit rules, such as those in Phaladeepika, are given from the Moon. Many Jyotishis also check transits from the lagna for a second view.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "gochar.what.4",
+          "type": "learn",
+          "title": {
+            "en": "An example",
+            "hi": ""
+          },
+          "body": {
+            "en": "Meera's Moon is in Simha. Guru moves into Dhanu. Count: Simha 1, Kanya 2, Tula 3, Vrishchika 4, Dhanu 5. So Guru is transiting the 5th house from Meera's Moon.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 9
+          }
+        },
+        {
+          "id": "gochar.what.5",
+          "type": "learn",
+          "title": {
+            "en": "Dasha and gochar together",
+            "hi": ""
+          },
+          "body": {
+            "en": "Dashas show which graha's chapter is open; gochar shows the weather of the moment. Traditionally, events are expected when both agree: a dasha that promises something and a transit that sets it off.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "gochar.what.6",
+          "type": "yourChart",
+          "fact": "MOON_RASHI",
+          "title": {
+            "en": "Your Chandra lagna",
+            "hi": ""
+          },
+          "body": {
+            "en": "Your Moon is in {value}, so that sign is house 1 for all your transits. Count forward sign by sign from it to find which house any transiting graha is in.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "gochar.what.7",
+          "type": "quiz",
+          "question": {
+            "en": "Gochar is traditionally counted from which point?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "The lagna",
+              "hi": ""
+            },
+            {
+              "en": "The Sun's sign",
+              "hi": ""
+            },
+            {
+              "en": "The Moon's sign",
+              "hi": ""
+            },
+            {
+              "en": "The 10th house",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Classic transit rules count from the Chandra lagna, the Moon's sign at birth. It needs no birth time, and the Moon is the mind that feels the transit.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "gochar.what.8",
+          "type": "quiz",
+          "question": {
+            "en": "Arjun's Moon is in Mesha. Shani transits Kumbha. Which house is that from his Moon?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "10th",
+              "hi": ""
+            },
+            {
+              "en": "11th",
+              "hi": ""
+            },
+            {
+              "en": "12th",
+              "hi": ""
+            },
+            {
+              "en": "2nd",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Mesha is 1, then Vrishabha 2 and onward. Makara is the 10th and Kumbha the 11th.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "gochar.what.9",
+          "type": "quiz",
+          "question": {
+            "en": "What does gochar add to a dasha reading?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "The present weather that can set off what the dasha promises",
+              "hi": ""
+            },
+            {
+              "en": "A replacement for the dasha",
+              "hi": ""
+            },
+            {
+              "en": "A way to find the birth time",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "The dasha shows the chapter; the transit shows the moment. Readings look for the two pointing the same way.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "gochar.speeds",
+      "title": {
+        "en": "Fast and slow grahas",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "gochar.speeds.1",
+          "type": "learn",
+          "title": {
+            "en": "Each graha has its pace",
+            "hi": ""
+          },
+          "body": {
+            "en": "The grahas move through the zodiac at very different speeds. The fast ones colour days and weeks; the slow ones shape years. Knowing their speeds tells you how long a transit lasts.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "gochar.speeds.2",
+          "type": "learn",
+          "title": {
+            "en": "Chandra: about 2¼ days",
+            "hi": ""
+          },
+          "body": {
+            "en": "The Moon is the fastest. It spends about two and a quarter days in each sign and circles the zodiac in about 27 days, roughly one nakshatra a day. That is why it drives the daily card.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "CHANDRA"
+          }
+        },
+        {
+          "id": "gochar.speeds.3",
+          "type": "learn",
+          "title": {
+            "en": "Surya: a month a sign",
+            "hi": ""
+          },
+          "body": {
+            "en": "The Sun spends about a month in each sign. Its entry into a new sign is a sankranti; Makara Sankranti in mid-January is the best known. Budha and Shukra stay near the Sun, so on average they keep a similar pace.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "संक्रान्ति",
+            "roman": "Sankranti"
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "SURYA"
+          }
+        },
+        {
+          "id": "gochar.speeds.4",
+          "type": "learn",
+          "title": {
+            "en": "Mangal: about 1½ months",
+            "hi": ""
+          },
+          "body": {
+            "en": "Mangal usually spends about a month and a half in a sign, but stays much longer when it turns retrograde (vakri). Retrograde means a graha seems to move backward, as seen from Earth, for a while.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "वक्री",
+            "roman": "Vakri"
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "MANGAL"
+          }
+        },
+        {
+          "id": "gochar.speeds.5",
+          "type": "learn",
+          "title": {
+            "en": "Guru: about a year",
+            "hi": ""
+          },
+          "body": {
+            "en": "Guru spends about a year in each sign and comes back to the same sign about every 12 years. Its transits are the big markers of growth in a life.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "GURU"
+          }
+        },
+        {
+          "id": "gochar.speeds.6",
+          "type": "learn",
+          "title": {
+            "en": "Shani: about 2½ years",
+            "hi": ""
+          },
+          "body": {
+            "en": "Shani is the slowest of the visible grahas. It stays about two and a half years in a sign and takes about 29½ years to go all the way round the zodiac.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "SHANI"
+          }
+        },
+        {
+          "id": "gochar.speeds.7",
+          "type": "learn",
+          "title": {
+            "en": "Rahu and Ketu: backward",
+            "hi": ""
+          },
+          "body": {
+            "en": "Rahu and Ketu move backward through the signs, always exactly opposite each other. Each stays about 1½ years in a sign, and the pair goes round the zodiac in about 18½ years.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "RAHU"
+          }
+        },
+        {
+          "id": "gochar.speeds.8",
+          "type": "quiz",
+          "question": {
+            "en": "Roughly how long does Shani stay in one sign?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "About a year",
+              "hi": ""
+            },
+            {
+              "en": "About 1½ years",
+              "hi": ""
+            },
+            {
+              "en": "About 7½ years",
+              "hi": ""
+            },
+            {
+              "en": "About 2½ years",
+              "hi": ""
+            }
+          ],
+          "answer": 3,
+          "explanation": {
+            "en": "Shani takes about 29½ years for the 12 signs, so about 2½ years in each. Seven and a half years is the length of sade sati, three signs.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "gochar.speeds.9",
+          "type": "quiz",
+          "question": {
+            "en": "Which pair's overall motion is backward through the signs?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Guru and Shani",
+              "hi": ""
+            },
+            {
+              "en": "Rahu and Ketu",
+              "hi": ""
+            },
+            {
+              "en": "Budha and Shukra",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Rahu and Ketu, the lunar nodes, move backward through the zodiac. Other grahas only look backward for a while when retrograde.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "gochar.speeds.10",
+          "type": "quiz",
+          "question": {
+            "en": "Why does the daily card follow the Moon?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "It moves about one nakshatra a day",
+              "hi": ""
+            },
+            {
+              "en": "It is the slowest graha",
+              "hi": ""
+            },
+            {
+              "en": "It never changes sign",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "The Moon circles the zodiac in about 27 days, so it changes nakshatra about daily and sign every 2¼ days.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "gochar.guru-shani",
+      "title": {
+        "en": "Guru and Shani transits",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "gochar.guru-shani.1",
+          "type": "learn",
+          "title": {
+            "en": "The two big movers",
+            "hi": ""
+          },
+          "body": {
+            "en": "Guru and Shani move slowly enough to shape whole years, so Jyotishis watch them most closely, alongside the dasha. Guru tends to expand what it touches; Shani tends to test, slow and strengthen it.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "gochar.guru-shani.2",
+          "type": "learn",
+          "title": {
+            "en": "Guru's welcome houses",
+            "hi": ""
+          },
+          "body": {
+            "en": "Traditionally, Guru's transit is welcome in the 2nd, 5th, 7th, 9th and 11th houses from the Moon. There it tends to bring growth: savings, learning and children's joys, partnerships, blessings and gains.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 5
+          }
+        },
+        {
+          "id": "gochar.guru-shani.3",
+          "type": "learn",
+          "title": {
+            "en": "Guru in other houses",
+            "hi": ""
+          },
+          "body": {
+            "en": "Elsewhere Guru's transit is quieter, and its themes ask for more care. Even then Guru stays a benefic, and its aspects to the 5th, 7th and 9th houses from where it stands can bless what it looks at.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "GURU"
+          }
+        },
+        {
+          "id": "gochar.guru-shani.4",
+          "type": "learn",
+          "title": {
+            "en": "Shani's welcome houses",
+            "hi": ""
+          },
+          "body": {
+            "en": "Shani's transit is traditionally favourable in the 3rd, 6th and 11th houses from the Moon. There it tends to reward effort: courage, getting past obstacles and steady gains.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 11
+          }
+        },
+        {
+          "id": "gochar.guru-shani.5",
+          "type": "learn",
+          "title": {
+            "en": "Shani's lessons",
+            "hi": ""
+          },
+          "body": {
+            "en": "In other houses Shani asks for patience, discipline and honest work. Its results come slowly but tend to last. Many people look back on a Shani transit as the years they grew the most.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "SHANI"
+          }
+        },
+        {
+          "id": "gochar.guru-shani.6",
+          "type": "learn",
+          "title": {
+            "en": "Fine-tuning",
+            "hi": ""
+          },
+          "body": {
+            "en": "These are the general rules. The tradition refines them with vedha, where a graha in another house blocks a transit's result, with ashtakavarga points, and always with the running dasha. One transit never decides a year.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "वेध",
+            "roman": "Vedha"
+          }
+        },
+        {
+          "id": "gochar.guru-shani.7",
+          "type": "quiz",
+          "question": {
+            "en": "From the Moon, in which houses is Guru's transit traditionally favourable?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "2, 5, 7, 9 and 11",
+              "hi": ""
+            },
+            {
+              "en": "3, 6 and 11",
+              "hi": ""
+            },
+            {
+              "en": "1, 4, 7 and 10",
+              "hi": ""
+            },
+            {
+              "en": "4, 8 and 12",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Phaladeepika and other classics give Guru's good transit houses from the Moon as the 2nd, 5th, 7th, 9th and 11th.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "gochar.guru-shani.8",
+          "type": "quiz",
+          "question": {
+            "en": "Shani transits the 6th house from Priya's Moon. How is that traditionally read?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "As the start of sade sati",
+              "hi": ""
+            },
+            {
+              "en": "As a time with no effects",
+              "hi": ""
+            },
+            {
+              "en": "As favourable: effort tends to win over obstacles",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "The 3rd, 6th and 11th from the Moon are Shani's favourable transit houses. In the 6th it tends to help overcome rivals and problems through steady work.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "gochar.guru-shani.9",
+          "type": "quiz",
+          "question": {
+            "en": "Why is a single transit never read on its own?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Transits only matter for Guru",
+              "hi": ""
+            },
+            {
+              "en": "Dasha, vedha and ashtakavarga also shape the result",
+              "hi": ""
+            },
+            {
+              "en": "The Moon cancels other transits",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "A transit's result depends on the running dasha, any vedha blocking it and the ashtakavarga strength of that sign, as well as the birth chart.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "gochar.sade-sati",
+      "title": {
+        "en": "Sade sati in balance",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "gochar.sade-sati.1",
+          "type": "learn",
+          "title": {
+            "en": "Seven and a half years",
+            "hi": ""
+          },
+          "body": {
+            "en": "Sade sati means 'seven and a half'. It is the time Shani transits the 12th, 1st and 2nd houses from your Moon sign. At about 2½ years per sign, three signs make about 7½ years.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "साढ़े साती",
+            "roman": "Sade sati"
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "SHANI"
+          }
+        },
+        {
+          "id": "gochar.sade-sati.2",
+          "type": "learn",
+          "title": {
+            "en": "Three phases",
+            "hi": ""
+          },
+          "body": {
+            "en": "First Shani moves through the 12th from the Moon, then over the Moon sign itself, then through the 2nd. Each phase tends to touch different themes: letting go and spending, then the self and mind, then family and resources.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 12
+          }
+        },
+        {
+          "id": "gochar.sade-sati.3",
+          "type": "learn",
+          "title": {
+            "en": "Everyone has it",
+            "hi": ""
+          },
+          "body": {
+            "en": "Shani comes back about every 29½ years, so almost everyone meets sade sati two or three times in a life. It is a normal rhythm, not a rare curse, and many people do some of their best work during it.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "gochar.sade-sati.4",
+          "type": "learn",
+          "title": {
+            "en": "A season of maturing",
+            "hi": ""
+          },
+          "body": {
+            "en": "Sade sati tends to bring responsibility, hard work and a slower pace. Shortcuts stop working and honest effort is rewarded. It is a time to build patience, clear what no longer serves you and grow deep roots.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "gochar.sade-sati.5",
+          "type": "learn",
+          "title": {
+            "en": "Different for everyone",
+            "hi": ""
+          },
+          "body": {
+            "en": "How it feels depends on the whole chart: Shani's strength and dignity, the houses it rules, the running dasha and ashtakavarga. For Vrishabha and Tula lagnas Shani is the yogakaraka, a helpful graha for the chart, and its transit is often gentler.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "gochar.sade-sati.6",
+          "type": "learn",
+          "title": {
+            "en": "Gentle, free practices",
+            "hi": ""
+          },
+          "body": {
+            "en": "Traditional ways to work with Shani are simple, free and optional: keep routines, finish what you start, be honest, serve elders and people who work hard for little, and if you like, chant a Shani mantra on Saturdays. Nothing needs buying.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "gochar.sade-sati.7",
+          "type": "yourChart",
+          "fact": "MOON_RASHI",
+          "title": {
+            "en": "Your sade sati signs",
+            "hi": ""
+          },
+          "body": {
+            "en": "Your Moon is in {value}. Your sade sati is the time Shani spends in the sign just before it, in it, and in the sign just after: about 7½ years, coming round every 29½ years or so.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "gochar.sade-sati.8",
+          "type": "quiz",
+          "question": {
+            "en": "Sade sati is Shani's transit over which houses from the Moon?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "1st, 2nd and 3rd",
+              "hi": ""
+            },
+            {
+              "en": "11th, 12th and 1st",
+              "hi": ""
+            },
+            {
+              "en": "4th, 8th and 12th",
+              "hi": ""
+            },
+            {
+              "en": "12th, 1st and 2nd",
+              "hi": ""
+            }
+          ],
+          "answer": 3,
+          "explanation": {
+            "en": "Sade sati begins as Shani enters the 12th from the Moon sign, peaks over the Moon sign, and ends as it leaves the 2nd.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "gochar.sade-sati.9",
+          "type": "quiz",
+          "question": {
+            "en": "About how often does sade sati come round?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Every 12 years",
+              "hi": ""
+            },
+            {
+              "en": "About every 29½ years",
+              "hi": ""
+            },
+            {
+              "en": "Only once in a life",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Sade sati follows Shani's cycle of about 29½ years, so most people meet it two or three times.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "gochar.sade-sati.10",
+          "type": "quiz",
+          "question": {
+            "en": "Which view of sade sati fits the tradition best?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "A season of effort and maturing, shaped by the whole chart",
+              "hi": ""
+            },
+            {
+              "en": "A time of certain misfortune for everyone",
+              "hi": ""
+            },
+            {
+              "en": "Something only a costly ritual can fix",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Sade sati is read in balance: it asks for patience and effort, and its tone depends on Shani's role in the chart and the running dasha.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "gochar.tara",
+      "title": {
+        "en": "Tara bala and your daily card",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "gochar.tara.1",
+          "type": "learn",
+          "title": {
+            "en": "Strength of the star",
+            "hi": ""
+          },
+          "body": {
+            "en": "Tara bala is a daily check on the Moon's nakshatra. Count from your birth nakshatra to the one the Moon is in today. The count tells you which of nine taras (stars) the day falls in.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "तारा बल",
+            "roman": "Tara bala"
+          },
+          "visual": {
+            "kind": "glyph",
+            "value": "★"
+          }
+        },
+        {
+          "id": "gochar.tara.2",
+          "type": "learn",
+          "title": {
+            "en": "How to count",
+            "hi": ""
+          },
+          "body": {
+            "en": "Count your birth star as 1 and go forward, wrapping past Revati back to Ashwini. Divide by 9 and keep the remainder; a remainder of 0 means 9. Born in Rohini, Moon today in Punarvasu: Rohini 1, Mrigashira 2, Ardra 3, Punarvasu 4.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 7
+          }
+        },
+        {
+          "id": "gochar.tara.3",
+          "type": "learn",
+          "title": {
+            "en": "The nine taras",
+            "hi": ""
+          },
+          "body": {
+            "en": "1 Janma (birth), 2 Sampat (wealth), 3 Vipat (obstacle), 4 Kshema (well-being), 5 Pratyak (opposition), 6 Sadhana (achievement), 7 Naidhana (hardship), 8 Mitra (friend), 9 Parama Mitra (best friend).",
+            "hi": ""
+          }
+        },
+        {
+          "id": "gochar.tara.4",
+          "type": "learn",
+          "title": {
+            "en": "Kind days and careful days",
+            "hi": ""
+          },
+          "body": {
+            "en": "Sampat, Kshema, Sadhana, Mitra and Parama Mitra are favourable. Vipat, Pratyak and Naidhana call for care. Janma, the return of your birth star, is mixed: a day to go gently and check in with yourself.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "gochar.tara.5",
+          "type": "learn",
+          "title": {
+            "en": "Plus Chandra gochar",
+            "hi": ""
+          },
+          "body": {
+            "en": "Your Today card also counts the house of today's Moon sign from your birth Moon sign. Houses 1, 3, 6, 7, 10 and 11 are favourable; 2, 5 and 9 are mixed; 4, 8 and 12 need care.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 1
+          }
+        },
+        {
+          "id": "gochar.tara.6",
+          "type": "learn",
+          "title": {
+            "en": "Strong, Steady or Gentle",
+            "hi": ""
+          },
+          "body": {
+            "en": "Each check scores +1 if favourable, 0 if mixed, −1 if it needs care. A total of 2 is a Strong day; 0 or 1 is Steady; below 0 is Gentle, a day to go easy and finish things rather than start them. There is no 'bad day'.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "gochar.tara.7",
+          "type": "yourChart",
+          "fact": "MOON_NAKSHATRA",
+          "title": {
+            "en": "Your birth star",
+            "hi": ""
+          },
+          "body": {
+            "en": "Your janma nakshatra is {value}. Every morning the app counts from it to today's Moon nakshatra to find your tara. That is where your Today card's star reading comes from.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "gochar.tara.8",
+          "type": "quiz",
+          "question": {
+            "en": "Born in Ashwini, today the Moon is in Pushya. Which tara is it?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Sadhana",
+              "hi": ""
+            },
+            {
+              "en": "Naidhana",
+              "hi": ""
+            },
+            {
+              "en": "Parama Mitra",
+              "hi": ""
+            },
+            {
+              "en": "Mitra",
+              "hi": ""
+            }
+          ],
+          "answer": 3,
+          "explanation": {
+            "en": "Ashwini 1, Bharani 2, Krittika 3, Rohini 4, Mrigashira 5, Ardra 6, Punarvasu 7, Pushya 8. The 8th tara is Mitra, a friendly one.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "gochar.tara.9",
+          "type": "quiz",
+          "question": {
+            "en": "Which taras call for care?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Sampat, Kshema and Sadhana",
+              "hi": ""
+            },
+            {
+              "en": "Janma, Mitra and Parama Mitra",
+              "hi": ""
+            },
+            {
+              "en": "Vipat, Pratyak and Naidhana",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "The 3rd, 5th and 7th taras, Vipat, Pratyak and Naidhana, are the ones the tradition treats with care.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "gochar.tara.10",
+          "type": "quiz",
+          "question": {
+            "en": "The tara is favourable but the Moon transits the 8th house. What does the Today card show?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Strong",
+              "hi": ""
+            },
+            {
+              "en": "Steady",
+              "hi": ""
+            },
+            {
+              "en": "Gentle",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "The tara scores +1 and the 8th house −1, a total of 0. A total of 0 or 1 is a Steady day.",
+            "hi": ""
+          }
+        }
+      ]
+    }
+  ]
+}
