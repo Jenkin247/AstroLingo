@@ -20,12 +20,16 @@ import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performTextInput
 import com.astrolingo.app.learn.BundledCourse
 import com.astrolingo.app.learn.InMemoryLearnStore
+import com.astrolingo.app.learn.LearnProgressStore
 import com.astrolingo.app.onboarding.BirthDetails
 import com.astrolingo.app.onboarding.DailyGoal
 import com.astrolingo.app.onboarding.Level
 import com.astrolingo.app.onboarding.OnboardingAnswers
 import com.astrolingo.app.onboarding.Purpose
 import com.astrolingo.app.profile.InMemoryProfileRepository
+import com.astrolingo.app.profile.ProfileRepository
+import com.astrolingo.app.settings.AppLanguage
+import com.astrolingo.app.settings.InLanguage
 import com.astrolingo.app.ui.AstroLingoApp
 import com.astrolingo.app.ui.theme.AstroLingoTheme
 import com.astrolingo.engine.places.CityIndex
@@ -86,6 +90,20 @@ class EndToEndJourneys {
         compose.onAllNodesWithContentDescription(text, substring = true).fetchSemanticsNodes().isNotEmpty()
     }
 
+    /**
+     * The app as MainActivity shows it, inside the language wrapper. Leaving the wrapper out once hid a crash:
+     * "Use my location" could not find the activity through the wrapped context and closed the app.
+     */
+    private fun showApp(profiles: ProfileRepository, learnStore: LearnProgressStore? = null) {
+        compose.setContent {
+            AstroLingoTheme {
+                InLanguage(AppLanguage.ENGLISH) {
+                    if (learnStore == null) AstroLingoApp(profiles) else AstroLingoApp(profiles, learnStore = learnStore)
+                }
+            }
+        }
+    }
+
     private fun shows(text: String) = compose.onAllNodesWithText(text, substring = true).fetchSemanticsNodes().isNotEmpty()
 
     /** Taps the first node with exactly [text] (or containing it, with [partial]), scrolling to it when it is in a list. */
@@ -141,7 +159,7 @@ class EndToEndJourneys {
     @Test
     fun `a new learner onboards, meets their kundli and finishes the first lesson`() {
         val profiles = InMemoryProfileRepository()
-        compose.setContent { AstroLingoTheme { AstroLingoApp(profiles) } }
+        showApp(profiles)
 
         waitForText("What brings you here?")
         tap("I want to learn Vedic astrology")
@@ -163,6 +181,10 @@ class EndToEndJourneys {
         pickPlace("Pune")
         tap("Next")
         waitForText("Where do you live now?")
+        // Living somewhere else shows "Use my location", which once closed the app on a real phone.
+        tap("Somewhere else")
+        waitForText("Use my location")
+        pickPlace("Mumbai")
         tap("Next")
         waitForText("Show a deity of the day on your card?")
         tap("No, leave deities out")
@@ -178,6 +200,8 @@ class EndToEndJourneys {
         assertThat(saved.birth.date).isEqualTo(LocalDate.of(1990, 1, 15))
         assertThat(saved.birth.time).isEqualTo(LocalTime.of(6, 0))
         assertThat(saved.showDeity).isFalse()
+        assertThat(saved.birth.city.name).isEqualTo("Pune")
+        assertThat(saved.currentPlace?.name).isEqualTo("Mumbai")
 
         tap("Learn")
         waitForText("0 of 10 min today")
@@ -209,7 +233,7 @@ class EndToEndJourneys {
         val profiles = InMemoryProfileRepository(learnerAnswers())
         // Grahas, signs and houses studied, so the bubble shows with sign and house.
         val progress = LearnProgress(knownChapters = setOf("welcome", "grahas", "rashis", "bhavas"), checkAnswered = true)
-        compose.setContent { AstroLingoTheme { AstroLingoApp(profiles, learnStore = InMemoryLearnStore(progress)) } }
+        showApp(profiles, InMemoryLearnStore(progress))
 
         waitForText("Learn")
         tap("Me")
@@ -255,7 +279,7 @@ class EndToEndJourneys {
     @Test
     fun `no bubble before the grahas chapter, and none on quizzes`() {
         val profiles = InMemoryProfileRepository(learnerAnswers())
-        compose.setContent { AstroLingoTheme { AstroLingoApp(profiles, learnStore = InMemoryLearnStore(LearnProgress(checkAnswered = true))) } }
+        showApp(profiles, InMemoryLearnStore(LearnProgress(checkAnswered = true)))
         waitForText("Start lesson")
         tap("Start lesson")
         waitForText("Next card")
@@ -269,9 +293,25 @@ class EndToEndJourneys {
     }
 
     @Test
+    fun `changing where I am today moves the day's times there`() {
+        val answers = learnerAnswers()
+        val profiles = InMemoryProfileRepository(answers.copy(currentPlace = answers.birth.city))
+        showApp(profiles)
+        tap("Today")
+        waitForText("Times for Pune")
+        tap("Change")
+        waitForText("Where are you today?")
+        waitForText("Use my location")
+        pickPlace("Nagpur")
+        tap("Use this place")
+        waitForText("Times for Nagpur")
+        waitFor("the new place to be saved") { profiles.load()?.currentPlace?.name == "Nagpur" }
+    }
+
+    @Test
     fun `deleting my details removes saved people and starts again`() {
         val profiles = InMemoryProfileRepository(learnerAnswers())
-        compose.setContent { AstroLingoTheme { AstroLingoApp(profiles) } }
+        showApp(profiles)
         waitForText("Learn")
         tap("Me")
         waitForText("Delete my birth details")
