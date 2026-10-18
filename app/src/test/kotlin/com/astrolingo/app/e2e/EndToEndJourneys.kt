@@ -3,7 +3,7 @@ package com.astrolingo.app.e2e
 import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.ComposeTimeoutException
-import androidx.compose.ui.test.onRoot
+import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.hasText
@@ -71,7 +71,8 @@ class EndToEndJourneys {
             compose.waitUntil(WAIT_MILLIS, condition)
         } catch (e: ComposeTimeoutException) {
             val name = "e2e_failure_" + testName.methodName.replace(Regex("[^A-Za-z0-9]+"), "_").take(40)
-            runCatching { compose.onRoot().captureRoboImage("build/outputs/roborazzi/$name.png") }
+            // The last root is the top window, such as an open sheet or dialog.
+            runCatching { compose.onAllNodes(isRoot()).onLast().captureRoboImage("build/outputs/roborazzi/$name.png") }
             throw AssertionError("Timed out waiting for: $what", e)
         }
     }
@@ -221,7 +222,7 @@ class EndToEndJourneys {
         tap("Show the answer")
         tap("You")
         waitForText("Back to all charts")
-        waitForText("Surya stands for")
+        waitForText("Surya (Sun) stands for")
 
         // The card can still be read aloud while the bubble is there.
         check(compose.onAllNodesWithContentDescription("Read this card aloud").fetchSemanticsNodes().isNotEmpty()) { "no speaker" }
