@@ -111,6 +111,8 @@ internal sealed interface LearnRoute {
  * @param onReturn called when a lesson opened from Today is closed, so the app can go back there.
  * @param onImmersive called with true while a lesson, the check or the saved cards fill the screen, so the app can
  *   hide its bottom tabs (LS-3), and with false back on Learn home.
+ * @param people the learner's chart and saved people's, for the chart bubble on cards (LS-9).
+ * @param onAddPerson opens Me's "Add a person" form, from the chart bubble's sheet.
  */
 @Composable
 fun LearnTab(
@@ -124,6 +126,8 @@ fun LearnTab(
     onRequestHandled: () -> Unit = {},
     onReturn: () -> Unit = {},
     onImmersive: (Boolean) -> Unit = {},
+    people: List<ChartPerson> = emptyList(),
+    onAddPerson: () -> Unit = {},
 ) {
     val course by produceState<Course?>(null) { value = withContext(Dispatchers.IO) { BundledCourse.course } }
     var progress by remember(store) { mutableStateOf<LearnProgress?>(null) }
@@ -284,6 +288,7 @@ fun LearnTab(
                     nextLesson = { done -> CoursePath.of(loadedCourse, done).next },
                     keepResume = keepResume,
                     readAloud = readAloud,
+                    overlay = { card -> ChartLensOverlay(card, people, loadedCourse, loadedProgress, language, onAddPerson) },
                     modifier = modifier,
                     cardActions = { card ->
                         BookmarkButton(saved = loadedProgress.isBookmarked(card.id)) {

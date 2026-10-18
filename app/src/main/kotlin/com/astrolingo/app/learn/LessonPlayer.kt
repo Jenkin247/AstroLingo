@@ -6,6 +6,7 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
@@ -63,6 +64,8 @@ import kotlinx.coroutines.launch
  * @param cardActions extra controls on each teaching card, such as the bookmark.
  * @param keepResume false for a lesson peeked at from Today, so leaving it part-way doesn't replace "Continue".
  * @param readAloud reads cards aloud (LS-7); null hides the speaker and Listening buttons.
+ * @param overlay drawn over the cards, given the card that has settled on screen (null on the done card), such as the
+ *   chart bubble (LS-9).
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -81,6 +84,7 @@ internal fun LessonPlayer(
     cardActions: @Composable (TeachingCard) -> Unit = {},
     keepResume: Boolean = true,
     readAloud: ReadAloud? = null,
+    overlay: @Composable BoxScope.(Card?) -> Unit = {},
 ) {
     val cards = lesson.cards
     // Chosen option per quiz card index. Kept for this visit only: reopening a lesson asks the quizzes again.
@@ -160,81 +164,84 @@ internal fun LessonPlayer(
             )
             if (readAloud != null) ListeningButton(onClick = { listening = true })
         }
-        VerticalPager(
-            state = pager,
-            modifier = Modifier.weight(1f),
-            key = { page -> cards.getOrNull(page)?.id ?: DONE_KEY },
-        ) { page ->
-            val toNext: () -> Unit = { scope.launch { pager.animateScrollToPage((page + 1).coerceAtMost(pageCount - 1)) } }
-            Box(
-                Modifier
-                    .fillMaxSize()
-                    .padding(horizontal = Spacing.md, vertical = Spacing.sm)
-                    .graphicsLayer {
-                        // Cards settle into place: the incoming card grows and brightens as it arrives.
-                        val offset = ((pager.currentPage - page) + pager.currentPageOffsetFraction).absoluteValue.coerceIn(0f, 1f)
-                        alpha = lerp(1f, 0.35f, offset)
-                        if (!reduceMotion) {
-                            val scale = lerp(1f, 0.9f, offset)
-                            scaleX = scale
-                            scaleY = scale
-                        }
-                    },
-            ) {
-                val active = pager.settledPage == page
-                val position = stringResource(R.string.learn_card_position, page + 1, cards.size)
-                when (val card = cards.getOrNull(page)) {
-                    is LearnCard -> LearnCardPage(
-                        card = card,
-                        language = language,
-                        active = active,
-                        position = position,
-                        onNext = toNext,
-                        actions = {
-                            speaker(card, page)
-                            cardActions(card)
+        Box(Modifier.weight(1f)) {
+            VerticalPager(
+                state = pager,
+                modifier = Modifier.fillMaxSize(),
+                key = { page -> cards.getOrNull(page)?.id ?: DONE_KEY },
+            ) { page ->
+                val toNext: () -> Unit = { scope.launch { pager.animateScrollToPage((page + 1).coerceAtMost(pageCount - 1)) } }
+                Box(
+                    Modifier
+                        .fillMaxSize()
+                        .padding(horizontal = Spacing.md, vertical = Spacing.sm)
+                        .graphicsLayer {
+                            // Cards settle into place: the incoming card grows and brightens as it arrives.
+                            val offset = ((pager.currentPage - page) + pager.currentPageOffsetFraction).absoluteValue.coerceIn(0f, 1f)
+                            alpha = lerp(1f, 0.35f, offset)
+                            if (!reduceMotion) {
+                                val scale = lerp(1f, 0.9f, offset)
+                                scaleX = scale
+                                scaleY = scale
+                            }
                         },
-                        highlight = highlightOn(card),
-                    )
-                    is YourChartCard -> YourChartCardPage(
-                        card = card,
-                        text = card.text(language, facts.valueOf(card.fact)),
-                        language = language,
-                        position = position,
-                        onNext = toNext,
-                        actions = {
-                            speaker(card, page)
-                            cardActions(card)
-                        },
-                        highlight = highlightOn(card),
-                    )
-                    is QuizCard -> QuizCardPage(
-                        quiz = card,
-                        language = language,
-                        chosen = answers[page],
-                        position = position,
-                        onChoose = { choice ->
-                            answers[page] = choice
-                            // Every quiz answered joins the daily Review: missed ones come back tomorrow (LS-5).
-                            onProgress { recordQuiz(card.id, card.isCorrect(choice), LocalDate.now().toEpochDay()) }
-                        },
-                        onNext = toNext,
-                        actions = { speaker(card, page) },
-                    )
-                    null -> LessonDonePage(
-                        chapter = chapter,
-                        lesson = lesson,
-                        language = language,
-                        right = lesson.cards.withIndex().count { (index, card) -> card is QuizCard && answers[index]?.let(card::isCorrect) == true },
-                        total = lesson.quizzes.size,
-                        active = active,
-                        next = nextLesson(progress.completeLesson(lesson.id)),
-                        onNext = onOpenLesson,
-                        onClose = onClose,
-                        chapterDone = progress.completeLesson(lesson.id).let { done -> chapter.lessons.all { it.id in done.completedLessons } },
-                    )
+                ) {
+                    val active = pager.settledPage == page
+                    val position = stringResource(R.string.learn_card_position, page + 1, cards.size)
+                    when (val card = cards.getOrNull(page)) {
+                        is LearnCard -> LearnCardPage(
+                            card = card,
+                            language = language,
+                            active = active,
+                            position = position,
+                            onNext = toNext,
+                            actions = {
+                                speaker(card, page)
+                                cardActions(card)
+                            },
+                            highlight = highlightOn(card),
+                        )
+                        is YourChartCard -> YourChartCardPage(
+                            card = card,
+                            text = card.text(language, facts.valueOf(card.fact)),
+                            language = language,
+                            position = position,
+                            onNext = toNext,
+                            actions = {
+                                speaker(card, page)
+                                cardActions(card)
+                            },
+                            highlight = highlightOn(card),
+                        )
+                        is QuizCard -> QuizCardPage(
+                            quiz = card,
+                            language = language,
+                            chosen = answers[page],
+                            position = position,
+                            onChoose = { choice ->
+                                answers[page] = choice
+                                // Every quiz answered joins the daily Review: missed ones come back tomorrow (LS-5).
+                                onProgress { recordQuiz(card.id, card.isCorrect(choice), LocalDate.now().toEpochDay()) }
+                            },
+                            onNext = toNext,
+                            actions = { speaker(card, page) },
+                        )
+                        null -> LessonDonePage(
+                            chapter = chapter,
+                            lesson = lesson,
+                            language = language,
+                            right = lesson.cards.withIndex().count { (index, card) -> card is QuizCard && answers[index]?.let(card::isCorrect) == true },
+                            total = lesson.quizzes.size,
+                            active = active,
+                            next = nextLesson(progress.completeLesson(lesson.id)),
+                            onNext = onOpenLesson,
+                            onClose = onClose,
+                            chapterDone = progress.completeLesson(lesson.id).let { done -> chapter.lessons.all { it.id in done.completedLessons } },
+                        )
+                    }
                 }
             }
+            overlay(cards.getOrNull(pager.settledPage))
         }
     }
 }

@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The chart bubble and compare sheet on Learn cards (LS-9). Meaning lines are the Astro Guru's, rule-based.
+     Hindi in values-hi/strings_lens.xml. -->
+<resources>
+    <string name="lens_bubble">Compare with saved charts, %1$d charts</string>
+    <string name="lens_bubble_move">Move to the other side</string>
+    <string name="lens_title">%1$s in your saved charts</string>
+    <string name="lens_back">Back to all charts</string>
+    <string name="lens_locked">%1$s: finish %2$s</string>
+    <string name="lens_layer_sign">Sign</string>
+    <string name="lens_layer_house">House</string>
+    <string name="lens_layer_nakshatra">Nakshatra</string>
+    <string name="lens_layer_strength">Strength</string>
+    <string name="lens_house">House %1$d</string>
+    <string name="lens_time_unknown">Birth time unknown</string>
+    <string name="lens_pattern">Spot the pattern: %1$d of %2$d have %3$s in a %4$s sign.</string>
+    <string name="lens_add_more">Compare with up to %1$d more people</string>
+    <string name="lens_add_more_body">Family or friends, with their permission. Their details stay on this phone.</string>
+    <string name="lens_add">Add a person</string>
+    <string name="lens_check_title">Check yourself</string>
+    <string name="lens_check_question">Where is %1$s in %2$s\'s chart?</string>
+    <string name="lens_check_question_you">Where is %1$s in your chart?</string>
+    <string name="lens_check_hidden">Hidden until you answer Check yourself below.</string>
+    <string name="lens_check_show">Show the answer</string>
+    <string name="lens_check_note">Not scored. It\'s a quick way to practise reading a chart.</string>
+    <string name="lens_chart_description">Chart of %1$s with %2$s marked</string>
+    <string name="lens_line_graha">%1$s stands for %2$s.</string>
+    <string name="lens_line_sign">In %1$s, a %2$s sign.</string>
+    <string name="lens_line_house">House %1$d: %2$s.</string>
+    <string name="lens_line_house_unknown">Without a birth time the house isn\'t known.</string>
+    <string name="lens_line_nakshatra">In the nakshatra %1$s, ruled by %2$s.</string>
+    <string name="lens_not_prediction">What you\'ve learned, applied. Not a prediction.</string>
+    <string name="lens_element_fire">fire</string>
+    <string name="lens_element_earth">earth</string>
+    <string name="lens_element_air">air</string>
+    <string name="lens_element_water">water</string>
+    <string name="lens_dignity_exalted">Exalted</string>
+    <string name="lens_dignity_own">Own sign</string>
+    <string name="lens_dignity_friend">Friend\'s sign</string>
+    <string name="lens_dignity_neutral">Neutral sign</string>
+    <string name="lens_dignity_enemy">Enemy\'s sign</string>
+    <string name="lens_dignity_debilitated">Debilitated</string>
+    <string name="lens_dignity_exalted_line">Exalted: the graha is at its strongest here.</string>
+    <string name="lens_dignity_own_line">Own sign: at home and comfortable.</string>
+    <string name="lens_dignity_friend_line">Friend\'s sign: welcomed and supported.</string>
+    <string name="lens_dignity_neutral_line">Neutral sign: neither helped nor held back.</string>
+    <string name="lens_dignity_enemy_line">Enemy\'s sign: it has to work harder here.</string>
+    <string name="lens_dignity_debilitated_line">Debilitated: at its weakest here, so its lessons come through effort.</string>
+    <string-array name="lens_graha_keywords">
+        <item>the soul, confidence and authority</item>
+        <item>the mind, feelings and care</item>
+        <item>energy, courage and drive</item>
+        <item>thinking, speech and learning</item>
+        <item>wisdom, teaching and growth</item>
+        <item>love, beauty and comfort</item>
+        <item>discipline, patience and duty</item>
+        <item>desire, the new and the foreign</item>
+        <item>detachment, insight and the past</item>
+    </string-array>
+    <string-array name="lens_house_themes">
+        <item>the self, the body and how you meet the world</item>
+        <item>family, speech and savings</item>
+        <item>courage, siblings, short journeys and skills</item>
+        <item>home, mother and peace of mind</item>
+        <item>creativity, children, learning and joy</item>
+        <item>work, health, daily effort and obstacles</item>
+        <item>partners, marriage and dealings with others</item>
+        <item>change, hidden matters and long life</item>
+        <item>dharma, teachers, fortune and long journeys</item>
+        <item>career, public life and status</item>
+        <item>gains, friends and hopes</item>
+        <item>letting go, rest, faraway places and the spiritual</item>
+    </string-array>
+</resources>
