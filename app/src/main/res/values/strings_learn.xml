@@ -27,6 +27,11 @@
     <string name="learn_quiz_wrong">Not quite.</string>
     <string name="learn_quiz_answer_first">Answer to go on</string>
     <string name="learn_lesson_complete">Lesson complete!</string>
+    <string name="learn_goal_title">Today\'s goal</string>
+    <string name="learn_goal_progress">%1$d of %2$d min today</string>
+    <string name="learn_goal_met">Goal met today</string>
+    <string name="learn_goal_nudge">Even one lesson moves the ring.</string>
+    <string name="learn_goal_met_body">Well done. Anything more is a bonus.</string>
     <string name="learn_chapter_outcome">You\'ll be able to %1$s</string>
     <string name="learn_chapter_complete">Chapter complete!</string>
     <string name="learn_chapter_can_now">You can now %1$s.</string>

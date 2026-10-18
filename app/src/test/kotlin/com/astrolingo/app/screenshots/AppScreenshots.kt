@@ -11,8 +11,10 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import com.astrolingo.app.learn.BundledCourse
+import com.astrolingo.app.learn.GoalCard
 import com.astrolingo.app.learn.LessonDonePage
 import com.astrolingo.app.onboarding.BirthDetails
+import com.astrolingo.app.onboarding.DailyGoal
 import com.astrolingo.app.onboarding.Level
 import com.astrolingo.app.onboarding.OnboardingAnswers
 import com.astrolingo.app.onboarding.Purpose
@@ -24,6 +26,7 @@ import com.astrolingo.app.ui.LanguagePicker
 import com.astrolingo.app.ui.theme.AstroLingoTheme
 import com.astrolingo.engine.places.CityIndex
 import com.astrolingo.learn.content.Language
+import com.astrolingo.learn.progress.GoalProgress
 import com.github.takahirom.roborazzi.captureRoboImage
 import java.time.LocalDate
 import java.time.LocalTime
@@ -146,13 +149,14 @@ class AppScreenshots {
         Settings.Global.putFloat(compose.activity.contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 0f)
         val answers = OnboardingAnswers(
             purpose = Purpose.LEARN,
-            goal = null,
+            goal = DailyGoal.TEN,
             level = Level.NEW,
             birth = BirthDetails(LocalDate.of(1990, 8, 15), LocalTime.of(6, 30), index.search("Pune").first()),
         )
         compose.setContent { AstroLingoTheme { AstroLingoApp(InMemoryProfileRepository(answers)) } }
-        // A learner with a saved profile opens straight on Learn (LS-1), with no tab tapped.
+        // A learner with a saved profile opens straight on Learn (LS-1), with no tab tapped, and sees the goal (LS-4).
         waitForText("Start lesson")
+        waitForText("0 of 10 min today")
         shot("10_learn_home")
         compose.onNodeWithText("Start lesson").performClick()
         waitForText("Next card")
@@ -219,6 +223,13 @@ class AppScreenshots {
         }
         waitForText("Chapter complete!")
         shot("22_learn_chapter_done")
+    }
+
+    @Test
+    fun goalMet() {
+        compose.setContent { AstroLingoTheme { GoalCard(GoalProgress(goalMinutes = 10, seconds = 660)) } }
+        waitForText("Goal met today")
+        shot("23_learn_goal_met")
     }
 
     private companion object {

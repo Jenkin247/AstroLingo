@@ -26,6 +26,11 @@
     <string name="learn_quiz_wrong">थोड़ा चूक गए।</string>
     <string name="learn_quiz_answer_first">आगे बढ़ने के लिए जवाब दें</string>
     <string name="learn_lesson_complete">पाठ पूरा!</string>
+    <string name="learn_goal_title">आज का लक्ष्य</string>
+    <string name="learn_goal_progress">आज %2$d में से %1$d मिनट</string>
+    <string name="learn_goal_met">आज का लक्ष्य पूरा</string>
+    <string name="learn_goal_nudge">एक पाठ से भी घेरा आगे बढ़ता है।</string>
+    <string name="learn_goal_met_body">बहुत बढ़िया। अब जो भी करें, वह बोनस है।</string>
     <string name="learn_chapter_outcome">इसके बाद: %1$s</string>
     <string name="learn_chapter_complete">अध्याय पूरा!</string>
     <string name="learn_chapter_can_now">अब आप यह कर सकते हैं: %1$s</string>

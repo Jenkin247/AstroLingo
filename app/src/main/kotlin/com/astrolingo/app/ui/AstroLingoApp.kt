@@ -249,6 +249,7 @@ private fun Tabs(
                 store = learnStore,
                 modifier = Modifier.padding(padding),
                 knowsSome = profile.answers.level != Level.NEW,
+                goalMinutes = profile.answers.goal?.minutes,
                 onImmersive = { immersive = it },
             )
             Tab.ME -> MeScreen(

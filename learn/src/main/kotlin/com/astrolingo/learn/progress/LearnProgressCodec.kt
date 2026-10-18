@@ -1,9 +1,12 @@
 // Turns learning progress into key/value text for the app's private store, and back. Unit tested on the JVM.
 package com.astrolingo.learn.progress
 
-/** Key/value layout of saved progress. A version key lets later releases migrate old values. */
+/**
+ * Key/value layout of saved progress. A version key lets later releases migrate old values.
+ * Version 2 added study time (LS-4); version 1 values are read as they are, with no study time.
+ */
 object LearnProgressCodec {
-    const val VERSION = 1
+    const val VERSION = 2
 
     private const val K_VERSION = "version"
     private const val K_COMPLETED = "completed_lessons"
@@ -11,6 +14,7 @@ object LearnProgressCodec {
     private const val K_CHECK = "check_answered"
     private const val K_BOOKMARKS = "bookmarks"
     private const val K_RESUME = "resume"
+    private const val K_STUDY = "study_seconds"
 
     // Content ids are lowercase letters, digits, dots and hyphens, so these separators never clash.
     private const val LINE = "\n"
@@ -23,11 +27,12 @@ object LearnProgressCodec {
         put(K_CHECK, progress.checkAnswered.toString())
         put(K_BOOKMARKS, progress.bookmarks.joinToString(LINE) { "${it.cardId}$FIELD${it.savedAtMillis}" })
         progress.resume?.let { put(K_RESUME, "${it.lessonId}$FIELD${it.cardIndex}") }
+        put(K_STUDY, progress.studySeconds.toSortedMap().entries.joinToString(LINE) { "${it.key}$FIELD${it.value}" })
     }
 
     /** Rebuilds progress, or returns empty progress when nothing is saved or the values can't be read. */
     fun decode(values: Map<String, String>): LearnProgress = runCatching {
-        if (values[K_VERSION]?.toInt() != VERSION) return LearnProgress()
+        if (values[K_VERSION]?.toInt() !in 1..VERSION) return LearnProgress()
         LearnProgress(
             completedLessons = values[K_COMPLETED].lines().toSet(),
             knownChapters = values[K_KNOWN].lines().toSet(),
@@ -37,6 +42,10 @@ object LearnProgressCodec {
                 Bookmark(id, millis.toLong())
             },
             resume = values[K_RESUME]?.split(FIELD)?.let { (lesson, index) -> ResumePoint(lesson, index.toInt()) },
+            studySeconds = values[K_STUDY].lines().associate { line ->
+                val (day, seconds) = line.split(FIELD)
+                day.toLong() to seconds.toInt()
+            },
         )
     }.getOrDefault(LearnProgress())
 

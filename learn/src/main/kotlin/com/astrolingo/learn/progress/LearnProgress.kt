@@ -25,6 +25,8 @@ data class ResumePoint(val lessonId: String, val cardIndex: Int)
  * @property checkAnswered true once the learner has taken or declined the first-time knowledge check.
  * @property bookmarks saved cards, newest first.
  * @property resume the lesson left part-way, if any.
+ * @property studySeconds learning time per day, keyed by epoch day on the phone's clock; only the last
+ *   [StudyTime.DAYS_KEPT] days are kept.
  */
 data class LearnProgress(
     val completedLessons: Set<String> = emptySet(),
@@ -32,6 +34,7 @@ data class LearnProgress(
     val checkAnswered: Boolean = false,
     val bookmarks: List<Bookmark> = emptyList(),
     val resume: ResumePoint? = null,
+    val studySeconds: Map<Long, Int> = emptyMap(),
 ) {
     fun isBookmarked(cardId: String): Boolean = bookmarks.any { it.cardId == cardId }
 
@@ -57,4 +60,14 @@ data class LearnProgress(
 
     /** The learner declined the first-time check; they can still use "I know this" on any chapter. */
     fun skipCheck(): LearnProgress = copy(checkAnswered = true)
+
+    /** Learning time on [epochDay]. */
+    fun secondsOn(epochDay: Long): Int = studySeconds[epochDay] ?: 0
+
+    /** Adds [seconds] of learning to [epochDay] and drops days older than [StudyTime.DAYS_KEPT]. */
+    fun addStudyTime(epochDay: Long, seconds: Int): LearnProgress {
+        if (seconds <= 0) return this
+        val updated = studySeconds + (epochDay to secondsOn(epochDay) + seconds)
+        return copy(studySeconds = updated.filterKeys { it > epochDay - StudyTime.DAYS_KEPT })
+    }
 }

@@ -43,6 +43,7 @@ import com.astrolingo.learn.content.QuizCard
 import com.astrolingo.learn.content.TeachingCard
 import com.astrolingo.learn.content.YourChartCard
 import com.astrolingo.learn.progress.LearnProgress
+import java.time.LocalDate
 import kotlin.math.absoluteValue
 import kotlinx.coroutines.launch
 
@@ -50,7 +51,8 @@ import kotlinx.coroutines.launch
  * Plays one lesson.
  *
  * @param startIndex the card to open at, such as a resume point or a saved card.
- * @param onProgress called with progress when the lesson is finished or left part-way.
+ * @param onProgress called with a change to progress: the lesson finished or left part-way, or learning time added.
+ *   A change rather than a new value, so changes made in the same moment don't overwrite each other.
  * @param nextLesson the lesson to offer after this one, given the progress with this one finished.
  * @param cardActions extra controls on each teaching card, such as the bookmark.
  */
@@ -63,7 +65,7 @@ internal fun LessonPlayer(
     language: Language,
     facts: ChartFacts,
     progress: LearnProgress,
-    onProgress: (LearnProgress) -> Unit,
+    onProgress: (LearnProgress.() -> LearnProgress) -> Unit,
     onClose: () -> Unit,
     onOpenLesson: (Lesson) -> Unit,
     nextLesson: (LearnProgress) -> Lesson?,
@@ -84,14 +86,16 @@ internal fun LessonPlayer(
     val latestPage by rememberUpdatedState(pager.currentPage)
     val finishedNow = pager.currentPage == cards.size
     LaunchedEffect(finishedNow) {
-        if (finishedNow && lesson.id !in latestProgress.completedLessons) onProgress(latestProgress.completeLesson(lesson.id))
+        if (finishedNow && lesson.id !in latestProgress.completedLessons) onProgress { completeLesson(lesson.id) }
     }
     // Leaving part-way (close, back or another tab) remembers the card for "Continue".
     DisposableEffect(lesson.id) {
         onDispose {
-            if (latestPage < cards.size) onProgress(latestProgress.leaveLesson(lesson.id, latestPage))
+            if (latestPage < cards.size) onProgress { leaveLesson(lesson.id, latestPage) }
         }
     }
+    // Time on each card counts toward today's goal.
+    StudyTimer(key = pager.settledPage) { seconds -> onProgress { addStudyTime(LocalDate.now().toEpochDay(), seconds) } }
 
     Column(modifier.fillMaxSize()) {
         Row(

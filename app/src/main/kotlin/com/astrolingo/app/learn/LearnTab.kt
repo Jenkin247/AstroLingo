@@ -4,7 +4,9 @@ package com.astrolingo.app.learn
 
 import android.provider.Settings
 import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -22,6 +24,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import com.astrolingo.app.R
 import com.astrolingo.app.ui.kundli.displayName
+import com.astrolingo.app.ui.theme.Spacing
 import com.astrolingo.engine.jyotish.Graha
 import com.astrolingo.engine.jyotish.Kundli
 import com.astrolingo.engine.jyotish.Rashi
@@ -30,7 +33,9 @@ import com.astrolingo.learn.content.Course
 import com.astrolingo.learn.content.CourseLoader
 import com.astrolingo.learn.content.Language
 import com.astrolingo.learn.path.CoursePath
+import com.astrolingo.learn.progress.GoalProgress
 import com.astrolingo.learn.progress.LearnProgress
+import java.time.LocalDate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -85,6 +90,7 @@ internal sealed interface LearnRoute {
  * @param store where progress and bookmarks are kept.
  * @param knowsSome true when the learner said in onboarding they know some astrology; the knowledge check then
  *   opens the first time they visit Learn. Others are offered it on Learn home.
+ * @param goalMinutes the daily goal chosen in onboarding, shown as a ring on Learn home; null shows no ring.
  * @param onImmersive called with true while a lesson, the check or the saved cards fill the screen, so the app can
  *   hide its bottom tabs (LS-3), and with false back on Learn home.
  */
@@ -95,6 +101,7 @@ fun LearnTab(
     store: LearnProgressStore,
     modifier: Modifier = Modifier,
     knowsSome: Boolean = false,
+    goalMinutes: Int? = null,
     onImmersive: (Boolean) -> Unit = {},
 ) {
     val course by produceState<Course?>(null) { value = withContext(Dispatchers.IO) { BundledCourse.course } }
@@ -114,6 +121,8 @@ fun LearnTab(
         progress = changed
         store.save(changed)
     }
+    // Applies a change to the progress as it is now, so two changes in the same moment both count.
+    val change: (LearnProgress.() -> LearnProgress) -> Unit = { edit -> progress?.let { update(it.edit()) } }
     val language = Language.fromTag(LocalConfiguration.current.locales[0].language)
     val facts = rememberChartFacts(kundli, timeKnown)
     val open: (LearnRoute) -> Unit = { routeValue = it.encode() }
@@ -140,8 +149,13 @@ fun LearnTab(
             modifier = modifier,
             actions = { SavedButton(onClick = { open(LearnRoute.Saved) }) },
             banner = {
-                if (!loadedProgress.checkAnswered && !knowsSome) {
-                    CheckOffer(onTake = { open(LearnRoute.Check(null)) }, onLater = { update(loadedProgress.skipCheck()) })
+                Column(verticalArrangement = Arrangement.spacedBy(Spacing.sm)) {
+                    goalMinutes?.let { minutes ->
+                        GoalCard(GoalProgress(minutes, loadedProgress.secondsOn(LocalDate.now().toEpochDay())))
+                    }
+                    if (!loadedProgress.checkAnswered && !knowsSome) {
+                        CheckOffer(onTake = { open(LearnRoute.Check(null)) }, onLater = { update(loadedProgress.skipCheck()) })
+                    }
                 }
             },
             chapterActions = { chapter, dismiss ->
@@ -201,7 +215,7 @@ fun LearnTab(
                     language = language,
                     facts = facts,
                     progress = loadedProgress,
-                    onProgress = update,
+                    onProgress = change,
                     onClose = { open(LearnRoute.Home) },
                     onOpenLesson = { next -> open(LearnRoute.Lesson(next.id, 0)) },
                     nextLesson = { done -> CoursePath.of(loadedCourse, done).next },
