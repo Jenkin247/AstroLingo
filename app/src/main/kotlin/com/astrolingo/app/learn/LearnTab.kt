@@ -105,6 +105,7 @@ fun LearnTab(
             path = CoursePath.of(loadedCourse, loadedProgress),
             language = language,
             onOpenLesson = { lesson, start -> open(LearnRoute.Lesson(lesson.id, start)) },
+            completedLessons = loadedProgress.completedLessons,
             modifier = modifier,
         )
         is LearnRoute.Lesson -> {
