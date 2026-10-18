@@ -1,76 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   Daily card message library (docs/spec/daily-card-rules.md, "From facts to words").
-  Draft by the Astro Guru for review before release. Every line is positive, actionable and under 140 characters.
-  Themes: one array per strength, 12 items in house order (house 1 first). One wording per slot for now;
-  more wordings are added as extra arrays and rotate by day.
+  Written by the Astro Guru, laid out with UX/UI so the card scans at a glance: a short focus headline
+  (under 40 characters) and two tips per slot, then one labelled row per star and for the weekday.
+  Focus and tips: one array per strength, 12 items in house order (house 1 first); each tips item holds two
+  tips separated by a line break. Tips are short phrases with no full stop, shown as a list.
 -->
 <resources>
-    <string-array name="daily_theme_strong">
-        <item>The Moon is in your own sign. You feel clear and like yourself. Start the thing you have been putting off.</item>
-        <item>A good day to talk about money or plans with family. Kind words open doors today.</item>
-        <item>Courage comes easily. Make the call, send the message or take the short trip.</item>
-        <item>Home feels warm today. Spend time with family or tidy one corner you love.</item>
-        <item>Ideas flow. Learn something new, play, or help a child with their homework.</item>
-        <item>You can beat a stubborn problem today. Tackle the hardest task first.</item>
-        <item>Partners and friends are on your side. Plan something together.</item>
-        <item>A quiet strength is with you. Look into something you have been curious about.</item>
-        <item>Luck and good advice find you. Ask a teacher or elder for their view.</item>
-        <item>Work goes well. Show your effort; people notice today.</item>
-        <item>Wishes move closer. Reach out to a friend; a small gain is likely.</item>
-        <item>Rest restores you. Give time or help to someone, and sleep early.</item>
+    <string-array name="daily_focus_strong">
+        <item>You feel clear and like yourself</item>
+        <item>Good words, good money talk</item>
+        <item>Courage comes easily</item>
+        <item>Home feels warm</item>
+        <item>Ideas flow freely</item>
+        <item>You can beat a stubborn problem</item>
+        <item>Partners are on your side</item>
+        <item>A quiet, deep strength</item>
+        <item>Luck and good advice find you</item>
+        <item>Your work shines</item>
+        <item>Wishes move closer</item>
+        <item>Rest restores you</item>
     </string-array>
-    <string-array name="daily_theme_steady">
-        <item>Steady and centred. Keep to your routine and look after your health.</item>
-        <item>Spend thoughtfully and speak gently at home. Small savings add up.</item>
-        <item>Good for small steps of courage. Finish one task you started.</item>
-        <item>Comfort matters today. Keep plans simple and stay close to home if you can.</item>
-        <item>Let your creative side play, but check details before you decide.</item>
-        <item>Keep up your daily habits. Steady effort clears today\'s obstacles.</item>
-        <item>Listen well in your relationships. A small kindness goes far.</item>
-        <item>Changes may come up. Stay flexible and keep important papers in order.</item>
-        <item>Read, reflect or pray. Wisdom comes quietly today.</item>
-        <item>Work moves at a steady pace. Plan tomorrow before you finish today.</item>
-        <item>Keep in touch with friends. Steady progress on a wish you hold.</item>
-        <item>Slow down when you can. Let go of one thing that no longer helps you.</item>
+    <string-array name="daily_tips_strong">
+        <item>Start the thing you have put off\nTrust your own judgement</item>
+        <item>Talk plans or money with family\nKind words open doors</item>
+        <item>Make the call or send the message\nA short trip goes well</item>
+        <item>Spend time with family\nTidy one corner you love</item>
+        <item>Learn something new\nPlay, or help a child learn</item>
+        <item>Do the hardest task first\nClear a pending task or dispute</item>
+        <item>Plan something together\nGood for a meeting or a deal</item>
+        <item>Look into what you are curious about\nStudy and research go well</item>
+        <item>Ask a teacher or elder for advice\nRead, pray or reflect</item>
+        <item>Show your effort; people notice\nGood for a work talk or a pitch</item>
+        <item>Reach out to a friend\nA small gain is likely</item>
+        <item>Give time or help to someone\nSleep early tonight</item>
     </string-array>
-    <string-array name="daily_theme_gentle">
-        <item>Go easy on yourself. Eat well, rest, and keep the day light.</item>
-        <item>Think before you speak or spend. Today is for finishing, not starting.</item>
-        <item>Save your energy for what matters. Short, simple tasks are best.</item>
-        <item>Look after your peace at home. A calm evening will help.</item>
-        <item>Keep plans flexible. Enjoy simple pleasures and avoid big bets.</item>
-        <item>Pace yourself at work and in exercise. Rest is part of the plan.</item>
-        <item>Be patient with others. Leave big talks for another day.</item>
-        <item>A day to go slow and be careful. Finish old work and keep things simple.</item>
-        <item>Keep faith, even if things move slowly. Small prayers or reflection help.</item>
-        <item>Do your work quietly and well. Hold off on big career moves today.</item>
-        <item>Enjoy what you have. Wishes can wait a day.</item>
-        <item>Rest and recharge. Watch your spending and sleep early.</item>
+    <string-array name="daily_focus_steady">
+        <item>Steady and centred</item>
+        <item>Mind your money and your words</item>
+        <item>Small brave steps</item>
+        <item>Keep it simple, stay close to home</item>
+        <item>Let your creative side play</item>
+        <item>Steady effort wins</item>
+        <item>Listen well to others</item>
+        <item>Stay flexible</item>
+        <item>Wisdom comes quietly</item>
+        <item>Work at a steady pace</item>
+        <item>Keep in touch</item>
+        <item>Slow down</item>
+    </string-array>
+    <string-array name="daily_tips_steady">
+        <item>Keep to your routine\nLook after your health</item>
+        <item>Spend with care; small savings add up\nSpeak gently at home</item>
+        <item>Finish one task you started\nSend that short message</item>
+        <item>Choose comfort over rush\nKeep plans light</item>
+        <item>Try an idea just for fun\nCheck details before you decide</item>
+        <item>Keep up your daily habits\nClear one small obstacle</item>
+        <item>Hear people out before you reply\nA small kindness goes far</item>
+        <item>Small changes may come up\nKeep important papers in order</item>
+        <item>Read, reflect or pray\nAsk an elder one question</item>
+        <item>Do today\'s work well\nPlan tomorrow before you stop</item>
+        <item>Message a friend\nTake one step towards a wish</item>
+        <item>Rest when you can\nLet go of one thing that no longer helps</item>
+    </string-array>
+    <string-array name="daily_focus_gentle">
+        <item>Be easy on yourself</item>
+        <item>Think before you speak or spend</item>
+        <item>Save your energy</item>
+        <item>Protect your peace at home</item>
+        <item>Keep plans flexible</item>
+        <item>Pace yourself</item>
+        <item>Be patient with others</item>
+        <item>Go slow and careful</item>
+        <item>Keep faith</item>
+        <item>Work quietly and well</item>
+        <item>Enjoy what you have</item>
+        <item>Rest and recharge</item>
+    </string-array>
+    <string-array name="daily_tips_gentle">
+        <item>Eat well and rest\nKeep the day light</item>
+        <item>Finish old things; don\'t start new ones\nHold off on big purchases</item>
+        <item>Short, simple tasks are best\nSkip what can wait</item>
+        <item>Keep talks calm\nPlan a quiet evening</item>
+        <item>Enjoy simple pleasures\nAvoid big bets and risks</item>
+        <item>Don\'t overdo work or exercise\nRest is part of the plan</item>
+        <item>Leave big talks for another day\nGive people some space</item>
+        <item>Finish old work\nDouble-check before you sign</item>
+        <item>Things may move slowly\nA short prayer or quiet moment helps</item>
+        <item>Do what is on your plate\nHold off on big career moves</item>
+        <item>Wishes can wait a day\nSay thanks to a friend</item>
+        <item>Watch your spending\nSleep early tonight</item>
     </string-array>
 
-    <!-- Star line, by tara in order: Janma, Sampat, Vipat, Kshema, Pratyak, Sadhana, Naidhana, Mitra, Parama Mitra. -->
+    <!-- Star rows, by tara in order: Janma, Sampat, Vipat, Kshema, Pratyak, Sadhana, Naidhana, Mitra, Parama Mitra. -->
+    <string-array name="daily_tara_name">
+        <item>Your birth star (Janma)</item>
+        <item>Star of plenty (Sampat)</item>
+        <item>Star of caution (Vipat)</item>
+        <item>Star of wellbeing (Kshema)</item>
+        <item>Star of small hurdles (Pratyak)</item>
+        <item>Star of achievement (Sadhana)</item>
+        <item>Star of rest (Naidhana)</item>
+        <item>Friendly star (Mitra)</item>
+        <item>Best-friend star (Parama Mitra)</item>
+    </string-array>
     <string-array name="daily_tara">
-        <item>Your birth star returns. Go gently and check in with yourself.</item>
-        <item>A star of plenty. Good for money matters and practical plans.</item>
-        <item>A star that asks for care. Double-check before you commit.</item>
-        <item>A star of wellbeing. Look after your health and comfort.</item>
-        <item>A star of small hurdles. Patience gets you through.</item>
-        <item>A star of achievement. Effort today brings results.</item>
-        <item>A star that asks you to rest. Avoid big new starts today.</item>
-        <item>A friendly star. People are kind and helpful today.</item>
-        <item>Your best friend among the stars. A lovely day to begin something.</item>
+        <item>Go gently and check in with yourself</item>
+        <item>Good for money and practical plans</item>
+        <item>Double-check before you commit</item>
+        <item>Look after your health and comfort</item>
+        <item>Be patient; you will get through</item>
+        <item>Effort now brings results</item>
+        <item>Avoid big new starts</item>
+        <item>People are kind and helpful</item>
+        <item>A lovely time to begin something</item>
     </string-array>
 
-    <!-- Day line, by vara in order: Sunday to Saturday. -->
+    <!-- Day row, by vara in order: Sunday to Saturday. -->
+    <string-array name="daily_vara_title">
+        <item>Sunday · Surya\'s day</item>
+        <item>Monday · Chandra\'s day</item>
+        <item>Tuesday · Mangal\'s day</item>
+        <item>Wednesday · Budha\'s day</item>
+        <item>Thursday · Guru\'s day</item>
+        <item>Friday · Shukra\'s day</item>
+        <item>Saturday · Shani\'s day</item>
+    </string-array>
     <string-array name="daily_vara">
-        <item>Sunday belongs to Surya. Step forward with confidence.</item>
-        <item>Monday belongs to Chandra. Look after your mind and your mood.</item>
-        <item>Tuesday belongs to Mangal. Put your energy into action.</item>
-        <item>Wednesday belongs to Budha. Good for learning, writing and trade.</item>
-        <item>Thursday belongs to Guru. Seek wisdom and share it.</item>
-        <item>Friday belongs to Shukra. Enjoy beauty, art and good company.</item>
-        <item>Saturday belongs to Shani. Steady, patient work pays off.</item>
+        <item>Step forward with confidence</item>
+        <item>Look after your mind and your mood</item>
+        <item>Put your energy into action</item>
+        <item>Good for learning, writing and trade</item>
+        <item>Seek wisdom and share it</item>
+        <item>Enjoy beauty, art and good company</item>
+        <item>Steady, patient work pays off</item>
     </string-array>
 
     <!-- Rahu kaal tip, by strength: strong, steady, gentle. -->

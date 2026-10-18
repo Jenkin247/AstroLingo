@@ -42,16 +42,17 @@ The daily card is chosen by fixed Vedic rules on the phone, never by AI. The rul
 
 ## From facts to words
 
-The library is keyed so the Guru writes about 150 short messages, not thousands:
+The library is keyed so the Guru writes about 150 short messages, not thousands. The card is laid out to scan at a glance (UX/UI with the Guru, October 2026): no paragraphs, one short headline, a list, and labelled rows.
 
-| Slot | Keyed by | Messages |
-|---|---|---|
-| Theme | gochar house (12) × strength (3) | 36 themes, 3 wordings each = 108 |
-| Star line | tara (9) | 9 × 2 = 18 |
-| Day line | vara (7), shown with colour and deity | 7 × 3 = 21 |
-| Rahu kaal tip | one per strength | 3 |
+| Slot | Keyed by | On the card | Messages |
+|---|---|---|---|
+| Focus | gochar house (12) × strength (3) | headline under the strength pill, under 40 characters | 36 |
+| Tips | gochar house (12) × strength (3) | two short tips as a ticked list | 36 × 2 = 72 |
+| Star row | tara (9) | bold label "Until 3:38 PM · Star of plenty (Sampat)" (or "Today's star · …"), short tip under it | 9 names + 9 tips |
+| Day row | vara (7) | bold label "Monday · Chandra's day", short tip under it | 7 titles + 7 tips |
+| Rahu kaal tip | one per strength | note under Rahu kaal in Timings | 3 |
 
-Wordings rotate by day of the year so the same week never repeats a line. Every message is positive and actionable, under 140 characters, in AstroLingo's voice, and is reviewed by the Guru before it ships.
+Tips are short phrases without a full stop. Every message is positive and actionable, in AstroLingo's voice, and is reviewed by the Guru before it ships. Hindi has the same arrays in the same order.
 
 ## Unknown birth time
 
