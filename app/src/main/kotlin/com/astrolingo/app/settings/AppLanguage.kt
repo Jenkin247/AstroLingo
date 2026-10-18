@@ -40,10 +40,9 @@ class LanguagePreference(context: Context) {
 fun InLanguage(language: AppLanguage, content: @Composable () -> Unit) {
     val base = LocalContext.current
     val phoneConfig = LocalConfiguration.current
-    val locale = remember(language) { Locale.forLanguageTag(language.tag) }
+    // Dates and times are formatted with java.time, which reads the default locale, so that follows the choice too.
+    val locale = remember(language) { Locale.forLanguageTag(language.tag).also(Locale::setDefault) }
     val config = remember(phoneConfig, locale) { Configuration(phoneConfig).apply { setLocale(locale) } }
     val context = remember(base, config) { base.createConfigurationContext(config) }
-    // Dates and times are formatted with java.time, which reads the default locale.
-    remember(locale) { Locale.setDefault(locale) }
     CompositionLocalProvider(LocalContext provides context, LocalConfiguration provides config, content = content)
 }
