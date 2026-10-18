@@ -11,6 +11,10 @@
     "en": "Discover the 27 lunar mansions, their padas and lords, and the birth star that times your dashas and daily card.",
     "hi": ""
   },
+  "outcome": {
+    "en": "explain nakshatras and padas, and find your own birth star",
+    "hi": ""
+  },
   "check": [
     {
       "id": "nakshatras.check.1",

@@ -11,6 +11,10 @@
     "en": "Read North and South Indian charts, find the lagna and the grahas, follow house lords, and try a first gentle reading.",
     "hi": ""
   },
+  "outcome": {
+    "en": "read North and South Indian charts: lagna, placements and lords",
+    "hi": ""
+  },
   "check": [
     {
       "id": "reading.check.1",

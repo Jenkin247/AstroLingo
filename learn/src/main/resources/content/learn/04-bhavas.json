@@ -11,6 +11,10 @@
     "en": "Meet the twelve houses, the scenes of life in every kundli, and the groups that give them strength.",
     "hi": ""
   },
+  "outcome": {
+    "en": "say what each house governs and how the houses are grouped",
+    "hi": ""
+  },
   "check": [
     {
       "id": "bhavas.check.1",

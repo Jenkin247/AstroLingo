@@ -42,6 +42,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.produceState
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -55,8 +56,10 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.astrolingo.app.R
+import com.astrolingo.app.learn.BundledCourse
 import com.astrolingo.app.learn.InMemoryLearnStore
 import com.astrolingo.app.learn.LearnProgressStore
+import com.astrolingo.app.learn.LearnRequest
 import com.astrolingo.app.learn.LearnTab
 import com.astrolingo.app.onboarding.BirthDetailsResolver
 import com.astrolingo.app.onboarding.Level
@@ -77,7 +80,9 @@ import com.astrolingo.app.ui.theme.ThemeMode
 import com.astrolingo.engine.jyotish.Kundli
 import com.astrolingo.engine.jyotish.KundliCalculator
 import com.astrolingo.engine.places.CityIndex
+import com.astrolingo.learn.review.ReviewQueue
 import java.io.ByteArrayInputStream
+import java.time.LocalDate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -89,6 +94,12 @@ enum class Tab(@StringRes val label: Int, @StringRes val placeholder: Int, val i
     KUNDLI(R.string.tab_kundli, R.string.placeholder_kundli, Icons.Filled.Star),
     ME(R.string.tab_me, R.string.placeholder_me, Icons.Filled.Person),
 }
+
+/**
+ * The tab the app opens on once a profile is saved: learners go straight to Learn's next lesson, guidance users to
+ * the daily card (learning review, gap 3). Day one is different: learners first see their kundli revealed.
+ */
+internal fun startTab(purpose: Purpose): Tab = if (purpose == Purpose.LEARN) Tab.LEARN else Tab.TODAY
 
 /** What the app knows about the user's profile. */
 private sealed interface ProfileState {
@@ -130,10 +141,15 @@ fun AstroLingoApp(
     val scope = rememberCoroutineScope()
     var profile by remember { mutableStateOf<ProfileState>(ProfileState.Loading) }
     var selected by rememberSaveable { mutableStateOf(Tab.TODAY) }
+    // True once the start tab was picked, so turning the phone keeps the tab the user is on.
+    var startPicked by rememberSaveable { mutableStateOf(false) }
     LaunchedEffect(profiles) {
-        profile = withContext(Dispatchers.IO) {
+        val loaded = withContext(Dispatchers.IO) {
             runCatching { profiles.load()?.let(::ready) }.getOrNull() ?: ProfileState.Missing
         }
+        if (!startPicked && loaded is ProfileState.Ready) selected = startTab(loaded.answers.purpose)
+        startPicked = true
+        profile = loaded
     }
     when (val current = profile) {
         ProfileState.Loading -> Box(Modifier.fillMaxSize())
@@ -192,9 +208,22 @@ private fun Tabs(
     onAnswersChange: (OnboardingAnswers) -> Unit,
     onDelete: () -> Unit,
 ) {
+    // True while Learn shows a lesson, the check or saved cards: the tabs then step aside so nothing distracts.
+    var immersive by remember { mutableStateOf(false) }
+    // A Review asked for from Today, handed to Learn once it opens.
+    var learnRequest by remember { mutableStateOf<LearnRequest?>(null) }
+    // Due Review cards, for the small Review card on Today. Read again each time the tab changes.
+    val reviewDue by produceState(0, selected) {
+        value = withContext(Dispatchers.IO) {
+            runCatching {
+                val progress = learnStore.load()
+                if (progress.review.isEmpty()) 0 else ReviewQueue.dueToday(progress, BundledCourse.course, LocalDate.now().toEpochDay()).size
+            }.getOrDefault(0)
+        }
+    }
     Scaffold(
         bottomBar = {
-            NavigationBar {
+            if (!(immersive && selected == Tab.LEARN)) NavigationBar {
                 Tab.entries.forEach { tab ->
                     NavigationBarItem(
                         selected = tab == selected,
@@ -229,6 +258,15 @@ private fun Tabs(
                 modifier = Modifier.padding(padding),
                 // "Use my birthplace" is an answer too, so it is stored as the birthplace rather than cleared.
                 onPlaceChange = { place -> onAnswersChange(profile.answers.copy(currentPlace = place ?: profile.answers.birth.city)) },
+                reviewDue = reviewDue,
+                onReview = {
+                    learnRequest = LearnRequest.Review
+                    onSelect(Tab.LEARN)
+                },
+                onLearn = { topic ->
+                    learnRequest = LearnRequest.Lesson(topic.lessonId)
+                    onSelect(Tab.LEARN)
+                },
             )
             Tab.LEARN -> LearnTab(
                 kundli = profile.kundli,
@@ -236,6 +274,11 @@ private fun Tabs(
                 store = learnStore,
                 modifier = Modifier.padding(padding),
                 knowsSome = profile.answers.level != Level.NEW,
+                goalMinutes = profile.answers.goal?.minutes,
+                request = learnRequest,
+                onRequestHandled = { learnRequest = null },
+                onReturn = { onSelect(Tab.TODAY) },
+                onImmersive = { immersive = it },
             )
             Tab.ME -> MeScreen(
                 showDeity = profile.answers.showDeity,

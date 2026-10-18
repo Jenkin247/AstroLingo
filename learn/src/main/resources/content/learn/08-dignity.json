@@ -11,6 +11,10 @@
     "en": "How comfortable is a graha in its sign? Learn exaltation and debilitation, own signs and moolatrikona, natural friends and enemies, and how a weak graha can rise through neecha bhanga.",
     "hi": ""
   },
+  "outcome": {
+    "en": "judge whether a graha is strong or weak in its sign",
+    "hi": ""
+  },
   "check": [
     {
       "id": "dignity.check.1",

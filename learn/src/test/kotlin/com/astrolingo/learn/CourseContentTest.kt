@@ -79,6 +79,9 @@ class CourseContentTest {
         chapters.forEach {
             check(it.id, it.title, 40)
             check(it.id, it.summary, 320)
+            // One line on the chapter tile, after "You'll be able to".
+            check(it.id, it.outcome, 70)
+            assertWithMessage("${it.id} outcome starts lowercase, mid-sentence").that(it.outcome.en.first().isLowerCase()).isTrue()
         }
         lessons.forEach { check(it.id, it.title, 40) }
         cards.forEach { card ->

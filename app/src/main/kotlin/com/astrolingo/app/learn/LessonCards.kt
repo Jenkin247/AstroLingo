@@ -5,7 +5,6 @@ package com.astrolingo.app.learn
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.Animatable
-import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.infiniteRepeatable
@@ -33,8 +32,6 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.KeyboardArrowDown
-import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.Button
 import androidx.compose.material3.Icon
@@ -56,6 +53,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.semantics.clearAndSetSemantics
 import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.semantics.stateDescription
@@ -77,7 +75,7 @@ import kotlin.math.sin
 
 /**
  * The frame every card sits in: a rounded sheet with a small label, optional actions (bookmark) at the top right,
- * scrolling content for large fonts, and a "Next card" button for people who can't swipe.
+ * scrolling content for large fonts, and one "Next card" button, with "or swipe up" under it.
  */
 @Composable
 private fun CardFrame(
@@ -87,7 +85,6 @@ private fun CardFrame(
     onNext: (() -> Unit)?,
     modifier: Modifier = Modifier,
     actions: @Composable () -> Unit = {},
-    footer: @Composable () -> Unit = {},
     content: @Composable ColumnScope.() -> Unit,
 ) {
     Surface(
@@ -123,19 +120,25 @@ private fun CardFrame(
                 verticalArrangement = Arrangement.spacedBy(Spacing.md, Alignment.CenterVertically),
                 content = content,
             )
-            footer()
             if (onNext != null) {
-                TextButton(
+                // One way on, for everyone: a button, with swiping named quietly under it (LS-3).
+                Button(
                     onClick = onNext,
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
-                        .padding(bottom = Spacing.sm)
                         .heightIn(min = Spacing.touchTarget),
                 ) {
-                    Icon(Icons.Filled.KeyboardArrowDown, contentDescription = null)
-                    Spacer(Modifier.size(Spacing.xs))
                     Text(stringResource(R.string.learn_next_card))
                 }
+                Text(
+                    stringResource(R.string.learn_or_swipe),
+                    style = MaterialTheme.typography.labelMedium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .padding(top = Spacing.xs, bottom = Spacing.sm)
+                        .clearAndSetSemantics {},
+                )
             }
         }
     }
@@ -153,34 +156,6 @@ private fun TermChip(term: Term) {
     )
 }
 
-/** "Swipe up for the next card", with a gently bobbing arrow on the first card of a lesson. */
-@Composable
-private fun SwipeHint() {
-    val reduceMotion = rememberReduceMotion()
-    val bob = if (reduceMotion) {
-        0f
-    } else {
-        val transition = rememberInfiniteTransition(label = "swipe hint")
-        val value by transition.animateFloat(0f, -8f, infiniteRepeatable(tween(700), RepeatMode.Reverse), label = "bob")
-        value
-    }
-    Row(
-        Modifier
-            .fillMaxWidth()
-            .padding(bottom = Spacing.xs),
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically,
-    ) {
-        Icon(
-            Icons.Filled.KeyboardArrowUp,
-            contentDescription = null,
-            tint = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.graphicsLayer { translationY = bob * density },
-        )
-        Text(stringResource(R.string.learn_swipe_hint), style = MaterialTheme.typography.labelLarge, color = MaterialTheme.colorScheme.primary)
-    }
-}
-
 /**
  * A learn card. A flip card (graha cards) first shows only the picture and title; a tap turns it over to the text,
  * and another tap turns it back.
@@ -191,7 +166,6 @@ internal fun LearnCardPage(
     language: Language,
     active: Boolean,
     position: String,
-    showSwipeHint: Boolean,
     onNext: () -> Unit,
     actions: @Composable () -> Unit,
 ) {
@@ -202,7 +176,6 @@ internal fun LearnCardPage(
             color = MaterialTheme.colorScheme.surface,
             onNext = onNext,
             actions = actions,
-            footer = { if (showSwipeHint) SwipeHint() },
         ) {
             card.visual?.let { CardVisual(it, active) }
             Text(card.title.get(language), style = MaterialTheme.typography.headlineSmall, modifier = Modifier.semantics { heading() })
@@ -235,8 +208,7 @@ internal fun LearnCardPage(
                 onNext = null,
                 modifier = content,
                 actions = actions,
-                footer = { if (showSwipeHint) SwipeHint() },
-            ) {
+                ) {
                 CardVisual(card.visual!!, active, size = 240.dp)
                 Text(
                     card.title.get(language),
@@ -392,6 +364,7 @@ internal fun LessonDonePage(
     next: Lesson?,
     onNext: (Lesson) -> Unit,
     onClose: () -> Unit,
+    chapterDone: Boolean = false,
 ) {
     val reduceMotion = rememberReduceMotion()
     CardFrame(
@@ -405,7 +378,7 @@ internal fun LessonDonePage(
             SitaraAvatar(size = 120.dp)
         }
         Text(
-            stringResource(R.string.learn_lesson_complete),
+            stringResource(if (chapterDone) R.string.learn_chapter_complete else R.string.learn_lesson_complete),
             style = MaterialTheme.typography.displaySmall,
             color = AstroLingoTheme.tabColors.onPastel,
             textAlign = TextAlign.Center,
@@ -425,6 +398,25 @@ internal fun LessonDonePage(
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth(),
         )
+        if (chapterDone) {
+            // Names what the learner can now do, so finishing a chapter feels like a skill gained (LS-2).
+            Text(
+                stringResource(R.string.learn_chapter_can_now, chapter.outcome.get(language)),
+                style = MaterialTheme.typography.bodyLarge,
+                color = AstroLingoTheme.tabColors.onPastel,
+                textAlign = TextAlign.Center,
+                modifier = Modifier.fillMaxWidth(),
+            )
+            if (chapter.id == READ_CHART_CHAPTER) {
+                Text(
+                    stringResource(R.string.learn_milestone_read_chart),
+                    style = MaterialTheme.typography.titleMedium,
+                    color = AstroLingoTheme.tabColors.onPastel,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.fillMaxWidth(),
+                )
+            }
+        }
         if (next != null) {
             Button(onClick = { onNext(next) }, modifier = Modifier.fillMaxWidth().heightIn(min = Spacing.touchTarget)) {
                 Text(stringResource(R.string.learn_next_lesson, next.title.get(language)))
@@ -468,5 +460,8 @@ private fun androidx.compose.ui.graphics.drawscope.DrawScope.drawStar(color: Col
 }
 
 private const val FLIP_MILLIS = 450
+
+/** Chapter 6, Reading a kundli: finishing it is the milestone "You can read your own chart". */
+private const val READ_CHART_CHAPTER = "reading"
 private const val STARS_MILLIS = 3200
 private const val STAR_COUNT = 9

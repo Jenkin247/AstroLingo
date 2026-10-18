@@ -17,6 +17,7 @@ class CourseLoaderTest {
           "schemaVersion": 1, "contentVersion": 3, "id": "grahas", "glyph": "☉",
           "title": { "en": "The nine grahas", "hi": "नौ ग्रह" },
           "summary": { "en": "Meet the grahas." },
+          "outcome": { "en": "name the nine grahas" },
           "check": [
             { "id": "grahas.check.1", "type": "quiz", "question": { "en": "Q1" }, "options": [ { "en": "a" }, { "en": "b" }, { "en": "c" } ], "answer": 2, "explanation": { "en": "e" } }
           ],

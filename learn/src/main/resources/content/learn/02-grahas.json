@@ -11,6 +11,10 @@
     "en": "Meet the nine grahas, the actors of every kundli: what each one signifies and whether it is gentle or sharp by nature.",
     "hi": ""
   },
+  "outcome": {
+    "en": "name the nine grahas, what each signifies and its nature",
+    "hi": ""
+  },
   "check": [
     {
       "id": "grahas.check.1",

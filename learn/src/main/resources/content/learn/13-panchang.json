@@ -11,6 +11,10 @@
     "en": "Read the five limbs of the Hindu almanac, find Rahu kaal, and see how your daily card is built.",
     "hi": ""
   },
+  "outcome": {
+    "en": "name the five limbs of the day and see how your daily card is built",
+    "hi": ""
+  },
   "check": [
     {
       "id": "panchang.check.1",

@@ -11,6 +11,10 @@
     "en": "Zoom into each sign. Learn what divisional charts are, how the navamsa (D9) is built and read, what vargottama means, and why every varga needs an accurate birth time.",
     "hi": ""
   },
+  "outcome": {
+    "en": "explain divisional charts and read the basics of the navamsa",
+    "hi": ""
+  },
   "check": [
     {
       "id": "vargas.check.1",

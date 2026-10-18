@@ -186,6 +186,8 @@ data class Lesson(
  * A chapter of the course.
  *
  * @property glyph the symbol on its tile on the path.
+ * @property outcome what the learner can do after the chapter, as words that follow "You'll be able to" and
+ *   "You can now", such as "name the nine grahas". Shown on the tile and when the chapter is finished.
  * @property check the two questions the knowledge check asks to let someone skip this chapter.
  */
 @Serializable
@@ -196,6 +198,7 @@ data class Chapter(
     val glyph: String,
     val title: LocalizedText,
     val summary: LocalizedText,
+    val outcome: LocalizedText,
     val check: List<QuizCard>,
     val lessons: List<Lesson>,
 )
