@@ -11,12 +11,16 @@ import com.astrolingo.app.onboarding.Level
 import com.astrolingo.app.onboarding.OnboardingAnswers
 import com.astrolingo.app.onboarding.Purpose
 import com.astrolingo.app.profile.InMemoryProfileRepository
+import com.astrolingo.app.settings.AppLanguage
+import com.astrolingo.app.settings.InLanguage
 import com.astrolingo.app.ui.AstroLingoApp
+import com.astrolingo.app.ui.LanguagePicker
 import com.astrolingo.app.ui.theme.AstroLingoTheme
 import com.astrolingo.engine.places.CityIndex
 import com.github.takahirom.roborazzi.captureRoboImage
 import java.time.LocalDate
 import java.time.LocalTime
+import java.util.Locale
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -96,6 +100,37 @@ class AppScreenshots {
         compose.onNodeWithText("Kundli").performClick()
         compose.waitForIdle()
         shot("09_kundli_dark")
+    }
+
+    @Test
+    fun languagePicker() {
+        compose.setContent { AstroLingoTheme { LanguagePicker(onPick = {}) } }
+        waitForText("Choose your language")
+        shot("10_language_picker")
+    }
+
+    @Test
+    fun hindi() {
+        val answers = OnboardingAnswers(
+            purpose = Purpose.GUIDANCE,
+            goal = null,
+            level = Level.SOME,
+            birth = BirthDetails(LocalDate.of(1990, 8, 15), LocalTime.of(6, 30), index.search("Pune").first()),
+            currentPlace = index.search("London").first(),
+        )
+        val before = Locale.getDefault()
+        try {
+            compose.setContent {
+                AstroLingoTheme { InLanguage(AppLanguage.HINDI) { AstroLingoApp(InMemoryProfileRepository(answers)) } }
+            }
+            waitForText("कुंडली")
+            shot("11_today_hindi")
+            compose.onNodeWithText("कुंडली").performClick()
+            compose.waitForIdle()
+            shot("12_kundli_hindi")
+        } finally {
+            Locale.setDefault(before)
+        }
     }
 
     private companion object {
