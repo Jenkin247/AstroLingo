@@ -46,6 +46,9 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.astrolingo.app.R
+import com.astrolingo.app.learn.InMemoryLearnStore
+import com.astrolingo.app.learn.LearnProgressStore
+import com.astrolingo.app.learn.LearnTab
 import com.astrolingo.app.onboarding.BirthDetailsResolver
 import com.astrolingo.app.onboarding.OnboardingAnswers
 import com.astrolingo.app.onboarding.OnboardingFlow
@@ -97,9 +100,11 @@ private fun ready(answers: OnboardingAnswers): ProfileState.Ready {
 /**
  * Root composable: onboarding until a profile exists, then bottom navigation plus the selected tab.
  * The profile is read from and saved to [profiles] off the main thread.
+ *
+ * @param learnStore Learn progress and bookmarks; wiped with the profile by "Delete my details".
  */
 @Composable
-fun AstroLingoApp(profiles: ProfileRepository) {
+fun AstroLingoApp(profiles: ProfileRepository, learnStore: LearnProgressStore = remember { InMemoryLearnStore() }) {
     val scope = rememberCoroutineScope()
     var profile by remember { mutableStateOf<ProfileState>(ProfileState.Loading) }
     var selected by rememberSaveable { mutableStateOf(Tab.TODAY) }
@@ -125,6 +130,7 @@ fun AstroLingoApp(profiles: ProfileRepository) {
         )
         is ProfileState.Ready -> Tabs(
             profile = current,
+            learnStore = learnStore,
             selected = selected,
             onSelect = { selected = it },
             onRevealed = { profile = current.copy(reveal = false) },
@@ -134,7 +140,10 @@ fun AstroLingoApp(profiles: ProfileRepository) {
             },
             onDelete = {
                 scope.launch {
-                    withContext(Dispatchers.IO) { runCatching { profiles.deleteAll() } }
+                    withContext(Dispatchers.IO) {
+                        runCatching { profiles.deleteAll() }
+                        runCatching { learnStore.deleteAll() }
+                    }
                     selected = Tab.TODAY
                     profile = ProfileState.Missing
                 }
@@ -146,6 +155,7 @@ fun AstroLingoApp(profiles: ProfileRepository) {
 @Composable
 private fun Tabs(
     profile: ProfileState.Ready,
+    learnStore: LearnProgressStore,
     selected: Tab,
     onSelect: (Tab) -> Unit,
     onRevealed: () -> Unit,
@@ -189,6 +199,12 @@ private fun Tabs(
                 modifier = Modifier.padding(padding),
                 // "Use my birthplace" is an answer too, so it is stored as the birthplace rather than cleared.
                 onPlaceChange = { place -> onAnswersChange(profile.answers.copy(currentPlace = place ?: profile.answers.birth.city)) },
+            )
+            Tab.LEARN -> LearnTab(
+                kundli = profile.kundli,
+                timeKnown = profile.birth.timeKnown,
+                store = learnStore,
+                modifier = Modifier.padding(padding),
             )
             Tab.ME -> MeScreen(
                 showDeity = profile.answers.showDeity,
