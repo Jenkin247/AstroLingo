@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- सुनने की सुविधा (LS-7)। हिन्दी समीक्षक से जाँच बाकी है। -->
+<resources>
+    <string name="audio_read_aloud">यह कार्ड सुनें</string>
+    <string name="audio_stop">रोकें</string>
+    <string name="audio_listening">सुनना</string>
+    <string name="audio_listening_open">सुनने की सेटिंग</string>
+    <string name="audio_listen_mode">सुनने का मोड</string>
+    <string name="audio_listen_mode_body">हर कार्ड खुलते ही पढ़कर सुनाएँ</string>
+    <string name="audio_voice_english">अंग्रेज़ी आवाज़</string>
+    <string name="audio_voice_hindi">हिन्दी आवाज़</string>
+    <string name="audio_voice_installed">इंस्टॉल है</string>
+    <string name="audio_voice_missing">इंस्टॉल नहीं है। फ़ोन की आवाज़ सेटिंग में जोड़ने के लिए टैप करें।</string>
+    <string name="audio_voice_checking">जाँच रहे हैं…</string>
+    <string name="audio_note">यह आपके फ़ोन की अपनी आवाज़ का उपयोग करता है। यह मुफ़्त है, बिना इंटरनेट चलता है और कुछ भी फ़ोन से बाहर नहीं जाता। संस्कृत शब्दों का उच्चारण हमेशा सही नहीं होगा।</string>
+    <string name="audio_no_hindi_title">हिन्दी आवाज़ इंस्टॉल नहीं है</string>
+    <string name="audio_no_hindi_body">आपके फ़ोन में अभी हिन्दी आवाज़ नहीं है, इसलिए यह कार्ड हिन्दी में नहीं सुनाया जा सकता। आप फ़ोन की आवाज़ सेटिंग में इसे मुफ़्त जोड़ सकते हैं, या अभी अंग्रेज़ी में सुन सकते हैं।</string>
+    <string name="audio_use_english">अंग्रेज़ी में सुनें</string>
+    <string name="audio_open_settings">सेटिंग खोलें</string>
+    <string name="audio_no_engine_title">सुनने की सुविधा उपलब्ध नहीं है</string>
+    <string name="audio_no_engine_body">इस फ़ोन में कोई आवाज़ चालू नहीं है। आप फ़ोन की आवाज़ सेटिंग में इसे जोड़ सकते हैं।</string>
+    <string name="audio_close">बंद करें</string>
+</resources>

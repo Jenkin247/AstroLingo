@@ -146,6 +146,7 @@ fun LearnTab(
     val change: (LearnProgress.() -> LearnProgress) -> Unit = { edit -> progress?.let { update(it.edit()) } }
     val language = Language.fromTag(LocalConfiguration.current.locales[0].language)
     val facts = rememberChartFacts(kundli, timeKnown)
+    val readAloud = rememberReadAloud()
     val open: (LearnRoute) -> Unit = { routeValue = it.encode() }
 
     // First visit for someone who knows some astrology: find what to skip before showing the path.
@@ -282,6 +283,7 @@ fun LearnTab(
                     },
                     nextLesson = { done -> CoursePath.of(loadedCourse, done).next },
                     keepResume = keepResume,
+                    readAloud = readAloud,
                     modifier = modifier,
                     cardActions = { card ->
                         BookmarkButton(saved = loadedProgress.isBookmarked(card.id)) {

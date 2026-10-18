@@ -25,16 +25,22 @@ import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateMapOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import com.astrolingo.app.R
 import com.astrolingo.app.ui.theme.AstroLingoTheme
 import com.astrolingo.app.ui.theme.Spacing
+import com.astrolingo.learn.audio.CardSpeech
+import com.astrolingo.learn.audio.SpokenPart
+import com.astrolingo.learn.content.Card
 import com.astrolingo.learn.content.Chapter
 import com.astrolingo.learn.content.Language
 import com.astrolingo.learn.content.LearnCard
@@ -56,6 +62,7 @@ import kotlinx.coroutines.launch
  * @param nextLesson the lesson to offer after this one, given the progress with this one finished.
  * @param cardActions extra controls on each teaching card, such as the bookmark.
  * @param keepResume false for a lesson peeked at from Today, so leaving it part-way doesn't replace "Continue".
+ * @param readAloud reads cards aloud (LS-7); null hides the speaker and Listening buttons.
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -73,6 +80,7 @@ internal fun LessonPlayer(
     modifier: Modifier = Modifier,
     cardActions: @Composable (TeachingCard) -> Unit = {},
     keepResume: Boolean = true,
+    readAloud: ReadAloud? = null,
 ) {
     val cards = lesson.cards
     // Chosen option per quiz card index. Kept for this visit only: reopening a lesson asks the quizzes again.
@@ -96,6 +104,34 @@ internal fun LessonPlayer(
             if (keepResume && latestPage < cards.size) onProgress { leaveLesson(lesson.id, latestPage) }
         }
     }
+    // What each card says aloud (LS-7). Quiz explanations are read only once the quiz is answered.
+    fun speechOf(card: Card, page: Int, speechLanguage: Language): List<SpokenPart> = when (card) {
+        is LearnCard -> CardSpeech.learn(card, speechLanguage)
+        is YourChartCard -> CardSpeech.teaching(card.title.get(speechLanguage), card.text(speechLanguage, facts.valueOf(card.fact)))
+        is QuizCard -> CardSpeech.quiz(card, speechLanguage, answered = page in answers)
+    }
+    fun speak(card: Card, page: Int) {
+        readAloud?.speak(card.id, speechOf(card, page, language), language) { speechOf(card, page, Language.ENGLISH) }
+    }
+    if (readAloud != null) {
+        // Swiping stops the reading; in Listen mode the card that arrives is read instead.
+        LaunchedEffect(pager.settledPage, readAloud.listenMode) {
+            val card = cards.getOrNull(pager.settledPage)
+            if (readAloud.listenMode && card != null) speak(card, pager.settledPage) else readAloud.stop()
+        }
+        DisposableEffect(readAloud) { onDispose { readAloud.stop() } }
+        VoiceProblemDialog(readAloud)
+    }
+    var listening by remember { mutableStateOf(false) }
+    if (listening && readAloud != null) ListeningSheet(readAloud, onDismiss = { listening = false })
+    val speaker: @Composable (Card, Int) -> Unit = { card, page ->
+        if (readAloud != null) {
+            SpeakerButton(speaking = readAloud.speakingKey == card.id, onSpeak = { speak(card, page) }, onStop = readAloud::stop)
+        }
+    }
+    // The sentence being read on [card], to highlight it.
+    fun highlightOn(card: Card): IntRange? = readAloud?.takeIf { it.speakingKey == card.id }?.speakingPart?.bodyRange
+
     // Time on each card counts toward today's goal.
     StudyTimer(key = pager.settledPage) { seconds -> onProgress { addStudyTime(LocalDate.now().toEpochDay(), seconds) } }
 
@@ -120,8 +156,9 @@ internal fun LessonPlayer(
             Text(
                 "${(pager.currentPage + 1).coerceAtMost(cards.size)}/${cards.size}",
                 style = MaterialTheme.typography.labelMedium,
-                modifier = Modifier.padding(end = Spacing.sm),
+                modifier = Modifier.padding(end = if (readAloud == null) Spacing.sm else 0.dp),
             )
+            if (readAloud != null) ListeningButton(onClick = { listening = true })
         }
         VerticalPager(
             state = pager,
@@ -153,7 +190,11 @@ internal fun LessonPlayer(
                         active = active,
                         position = position,
                         onNext = toNext,
-                        actions = { cardActions(card) },
+                        actions = {
+                            speaker(card, page)
+                            cardActions(card)
+                        },
+                        highlight = highlightOn(card),
                     )
                     is YourChartCard -> YourChartCardPage(
                         card = card,
@@ -161,7 +202,11 @@ internal fun LessonPlayer(
                         language = language,
                         position = position,
                         onNext = toNext,
-                        actions = { cardActions(card) },
+                        actions = {
+                            speaker(card, page)
+                            cardActions(card)
+                        },
+                        highlight = highlightOn(card),
                     )
                     is QuizCard -> QuizCardPage(
                         quiz = card,
@@ -174,6 +219,7 @@ internal fun LessonPlayer(
                             onProgress { recordQuiz(card.id, card.isCorrect(choice), LocalDate.now().toEpochDay()) }
                         },
                         onNext = toNext,
+                        actions = { speaker(card, page) },
                     )
                     null -> LessonDonePage(
                         chapter = chapter,
