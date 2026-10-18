@@ -43,6 +43,7 @@ import com.astrolingo.learn.content.QuizCard
 import com.astrolingo.learn.content.TeachingCard
 import com.astrolingo.learn.content.YourChartCard
 import com.astrolingo.learn.progress.LearnProgress
+import java.time.LocalDate
 import kotlin.math.absoluteValue
 import kotlinx.coroutines.launch
 
@@ -50,9 +51,11 @@ import kotlinx.coroutines.launch
  * Plays one lesson.
  *
  * @param startIndex the card to open at, such as a resume point or a saved card.
- * @param onProgress called with progress when the lesson is finished or left part-way.
+ * @param onProgress called with a change to progress: the lesson finished or left part-way, or learning time added.
+ *   A change rather than a new value, so changes made in the same moment don't overwrite each other.
  * @param nextLesson the lesson to offer after this one, given the progress with this one finished.
  * @param cardActions extra controls on each teaching card, such as the bookmark.
+ * @param keepResume false for a lesson peeked at from Today, so leaving it part-way doesn't replace "Continue".
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -63,12 +66,13 @@ internal fun LessonPlayer(
     language: Language,
     facts: ChartFacts,
     progress: LearnProgress,
-    onProgress: (LearnProgress) -> Unit,
+    onProgress: (LearnProgress.() -> LearnProgress) -> Unit,
     onClose: () -> Unit,
     onOpenLesson: (Lesson) -> Unit,
     nextLesson: (LearnProgress) -> Lesson?,
     modifier: Modifier = Modifier,
     cardActions: @Composable (TeachingCard) -> Unit = {},
+    keepResume: Boolean = true,
 ) {
     val cards = lesson.cards
     // Chosen option per quiz card index. Kept for this visit only: reopening a lesson asks the quizzes again.
@@ -84,14 +88,16 @@ internal fun LessonPlayer(
     val latestPage by rememberUpdatedState(pager.currentPage)
     val finishedNow = pager.currentPage == cards.size
     LaunchedEffect(finishedNow) {
-        if (finishedNow && lesson.id !in latestProgress.completedLessons) onProgress(latestProgress.completeLesson(lesson.id))
+        if (finishedNow && lesson.id !in latestProgress.completedLessons) onProgress { completeLesson(lesson.id) }
     }
     // Leaving part-way (close, back or another tab) remembers the card for "Continue".
     DisposableEffect(lesson.id) {
         onDispose {
-            if (latestPage < cards.size) onProgress(latestProgress.leaveLesson(lesson.id, latestPage))
+            if (keepResume && latestPage < cards.size) onProgress { leaveLesson(lesson.id, latestPage) }
         }
     }
+    // Time on each card counts toward today's goal.
+    StudyTimer(key = pager.settledPage) { seconds -> onProgress { addStudyTime(LocalDate.now().toEpochDay(), seconds) } }
 
     Column(modifier.fillMaxSize()) {
         Row(
@@ -146,7 +152,6 @@ internal fun LessonPlayer(
                         language = language,
                         active = active,
                         position = position,
-                        showSwipeHint = page == 0 && startIndex == 0,
                         onNext = toNext,
                         actions = { cardActions(card) },
                     )
@@ -163,7 +168,11 @@ internal fun LessonPlayer(
                         language = language,
                         chosen = answers[page],
                         position = position,
-                        onChoose = { choice -> answers[page] = choice },
+                        onChoose = { choice ->
+                            answers[page] = choice
+                            // Every quiz answered joins the daily Review: missed ones come back tomorrow (LS-5).
+                            onProgress { recordQuiz(card.id, card.isCorrect(choice), LocalDate.now().toEpochDay()) }
+                        },
                         onNext = toNext,
                     )
                     null -> LessonDonePage(
