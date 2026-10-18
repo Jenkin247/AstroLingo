@@ -49,6 +49,9 @@ internal object BundledCourse {
 sealed interface LearnRequest {
     /** Today's Review, from the card on Today. */
     data object Review : LearnRequest
+
+    /** The lesson behind a part of the daily card, from a "Learn why" link on Today (LS-6). */
+    data class Lesson(val id: String) : LearnRequest
 }
 
 /** Where the Learn tab is. Saved as a short string so it survives rotation. */
@@ -105,6 +108,7 @@ internal sealed interface LearnRoute {
  *   opens the first time they visit Learn. Others are offered it on Learn home.
  * @param goalMinutes the daily goal chosen in onboarding, shown as a ring on Learn home; null shows no ring.
  * @param request something another tab asked Learn to open; [onRequestHandled] is called once it is open.
+ * @param onReturn called when a lesson opened from Today is closed, so the app can go back there.
  * @param onImmersive called with true while a lesson, the check or the saved cards fill the screen, so the app can
  *   hide its bottom tabs (LS-3), and with false back on Learn home.
  */
@@ -118,6 +122,7 @@ fun LearnTab(
     goalMinutes: Int? = null,
     request: LearnRequest? = null,
     onRequestHandled: () -> Unit = {},
+    onReturn: () -> Unit = {},
     onImmersive: (Boolean) -> Unit = {},
 ) {
     val course by produceState<Course?>(null) { value = withContext(Dispatchers.IO) { BundledCourse.course } }
@@ -152,12 +157,25 @@ fun LearnTab(
 
     val today = LocalDate.now().toEpochDay()
     val openReview = { open(LearnRoute.Review(ReviewQueue.dueToday(loadedProgress, loadedCourse, today).map { it.card.id })) }
+    // True while a lesson opened from Today is on screen: closing it goes back to Today, not Learn home.
+    var fromToday by rememberSaveable { mutableStateOf(false) }
     LaunchedEffect(request) {
         when (request) {
             LearnRequest.Review -> openReview()
+            is LearnRequest.Lesson -> {
+                fromToday = true
+                open(LearnRoute.Lesson(request.id, 0))
+            }
             null -> return@LaunchedEffect
         }
         onRequestHandled()
+    }
+    val closeLesson = {
+        open(LearnRoute.Home)
+        if (fromToday) {
+            fromToday = false
+            onReturn()
+        }
     }
 
     val immersive = LearnRoute.decode(routeValue) != LearnRoute.Home
@@ -243,9 +261,11 @@ fun LearnTab(
                 LaunchedEffect(route) { open(LearnRoute.Home) }
                 return
             }
-            BackHandler { open(LearnRoute.Home) }
+            BackHandler(onBack = closeLesson)
             // A new lesson gets a fresh pager and quiz answers.
             key(route.id) {
+                // Fixed when the lesson opens: a lesson peeked at from Today doesn't become "Continue".
+                val keepResume = remember { !fromToday }
                 LessonPlayer(
                     chapter = chapter,
                     lesson = lesson,
@@ -254,9 +274,14 @@ fun LearnTab(
                     facts = facts,
                     progress = loadedProgress,
                     onProgress = change,
-                    onClose = { open(LearnRoute.Home) },
-                    onOpenLesson = { next -> open(LearnRoute.Lesson(next.id, 0)) },
+                    onClose = closeLesson,
+                    onOpenLesson = { next ->
+                        // Going on to the next lesson means the learner stays in Learn.
+                        fromToday = false
+                        open(LearnRoute.Lesson(next.id, 0))
+                    },
                     nextLesson = { done -> CoursePath.of(loadedCourse, done).next },
+                    keepResume = keepResume,
                     modifier = modifier,
                     cardActions = { card ->
                         BookmarkButton(saved = loadedProgress.isBookmarked(card.id)) {

@@ -263,6 +263,10 @@ private fun Tabs(
                     learnRequest = LearnRequest.Review
                     onSelect(Tab.LEARN)
                 },
+                onLearn = { topic ->
+                    learnRequest = LearnRequest.Lesson(topic.lessonId)
+                    onSelect(Tab.LEARN)
+                },
             )
             Tab.LEARN -> LearnTab(
                 kundli = profile.kundli,
@@ -273,6 +277,7 @@ private fun Tabs(
                 goalMinutes = profile.answers.goal?.minutes,
                 request = learnRequest,
                 onRequestHandled = { learnRequest = null },
+                onReturn = { onSelect(Tab.TODAY) },
                 onImmersive = { immersive = it },
             )
             Tab.ME -> MeScreen(

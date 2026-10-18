@@ -55,6 +55,7 @@ import kotlinx.coroutines.launch
  *   A change rather than a new value, so changes made in the same moment don't overwrite each other.
  * @param nextLesson the lesson to offer after this one, given the progress with this one finished.
  * @param cardActions extra controls on each teaching card, such as the bookmark.
+ * @param keepResume false for a lesson peeked at from Today, so leaving it part-way doesn't replace "Continue".
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -71,6 +72,7 @@ internal fun LessonPlayer(
     nextLesson: (LearnProgress) -> Lesson?,
     modifier: Modifier = Modifier,
     cardActions: @Composable (TeachingCard) -> Unit = {},
+    keepResume: Boolean = true,
 ) {
     val cards = lesson.cards
     // Chosen option per quiz card index. Kept for this visit only: reopening a lesson asks the quizzes again.
@@ -91,7 +93,7 @@ internal fun LessonPlayer(
     // Leaving part-way (close, back or another tab) remembers the card for "Continue".
     DisposableEffect(lesson.id) {
         onDispose {
-            if (latestPage < cards.size) onProgress { leaveLesson(lesson.id, latestPage) }
+            if (keepResume && latestPage < cards.size) onProgress { leaveLesson(lesson.id, latestPage) }
         }
     }
     // Time on each card counts toward today's goal.
