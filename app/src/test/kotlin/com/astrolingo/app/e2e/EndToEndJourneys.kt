@@ -124,6 +124,9 @@ class EndToEndJourneys {
         click(compose.onAllNodes(result), "a place matching $name")
     }
 
+    /** A day in the date picker, which opens on January 1990. Each day is named in full, such as "Monday, January 15, 1990". */
+    private fun day(number: Int) = hasText(number.toString(), substring = true) and hasText("1990", substring = true) and hasClickAction()
+
     private fun learnerAnswers(level: Level = Level.NEW) = OnboardingAnswers(
         purpose = Purpose.LEARN,
         goal = DailyGoal.TEN,
@@ -147,7 +150,7 @@ class EndToEndJourneys {
         tap("Next")
         waitForText("When were you born?")
         // The calendar opens on January 1990.
-        click(compose.onAllNodesWithContentDescription("January 15, 1990", substring = true), "15 January 1990")
+        click(compose.onAllNodes(day(15)), "15 January 1990")
         tap("Next")
         waitForText("What time were you born?")
         tap("My birth time is", partial = true)
@@ -211,7 +214,7 @@ class EndToEndJourneys {
         waitForText("Nickname")
         compose.onAllNodes(hasSetTextAction()).onFirst().performTextInput("Meera")
         tap("Choose the date")
-        click(compose.onAllNodesWithContentDescription("January 20, 1990", substring = true), "20 January 1990")
+        click(compose.onAllNodes(day(20)), "20 January 1990")
         tap("OK")
         tap("Choose the time")
         tap("OK")
