@@ -90,6 +90,12 @@ enum class Tab(@StringRes val label: Int, @StringRes val placeholder: Int, val i
     ME(R.string.tab_me, R.string.placeholder_me, Icons.Filled.Person),
 }
 
+/**
+ * The tab the app opens on once a profile is saved: learners go straight to Learn's next lesson, guidance users to
+ * the daily card (learning review, gap 3). Day one is different: learners first see their kundli revealed.
+ */
+internal fun startTab(purpose: Purpose): Tab = if (purpose == Purpose.LEARN) Tab.LEARN else Tab.TODAY
+
 /** What the app knows about the user's profile. */
 private sealed interface ProfileState {
     data object Loading : ProfileState
@@ -130,10 +136,15 @@ fun AstroLingoApp(
     val scope = rememberCoroutineScope()
     var profile by remember { mutableStateOf<ProfileState>(ProfileState.Loading) }
     var selected by rememberSaveable { mutableStateOf(Tab.TODAY) }
+    // True once the start tab was picked, so turning the phone keeps the tab the user is on.
+    var startPicked by rememberSaveable { mutableStateOf(false) }
     LaunchedEffect(profiles) {
-        profile = withContext(Dispatchers.IO) {
+        val loaded = withContext(Dispatchers.IO) {
             runCatching { profiles.load()?.let(::ready) }.getOrNull() ?: ProfileState.Missing
         }
+        if (!startPicked && loaded is ProfileState.Ready) selected = startTab(loaded.answers.purpose)
+        startPicked = true
+        profile = loaded
     }
     when (val current = profile) {
         ProfileState.Loading -> Box(Modifier.fillMaxSize())

@@ -148,8 +148,7 @@ class AppScreenshots {
             birth = BirthDetails(LocalDate.of(1990, 8, 15), LocalTime.of(6, 30), index.search("Pune").first()),
         )
         compose.setContent { AstroLingoTheme { AstroLingoApp(InMemoryProfileRepository(answers)) } }
-        waitForText("Today")
-        compose.onNodeWithText("Learn").performClick()
+        // A learner with a saved profile opens straight on Learn (LS-1), with no tab tapped.
         waitForText("Start lesson")
         shot("10_learn_home")
         compose.onNodeWithText("Start lesson").performClick()
