@@ -48,22 +48,28 @@ internal sealed interface LearnRoute {
     /** The saved cards. */
     data object Saved : LearnRoute
 
+    /** The knowledge check, for [chapters] or, when null, for chapters the learner picks. */
+    data class Check(val chapters: List<String>?) : LearnRoute
+
     fun encode(): String = when (this) {
         Home -> HOME
         is Lesson -> "$LESSON|$id|$start"
         Saved -> SAVED
+        is Check -> listOfNotNull(CHECK, chapters?.joinToString(",")).joinToString("|")
     }
 
     companion object {
         private const val HOME = "home"
         private const val LESSON = "lesson"
         private const val SAVED = "saved"
+        private const val CHECK = "check"
 
         fun decode(value: String): LearnRoute {
             val parts = value.split('|')
             return when (parts.first()) {
                 LESSON -> Lesson(parts[1], parts[2].toInt())
                 SAVED -> Saved
+                CHECK -> Check(parts.getOrNull(1)?.split(','))
                 else -> Home
             }
         }
@@ -76,6 +82,8 @@ internal sealed interface LearnRoute {
  * @param kundli the user's chart, used only on screen to fill "your chart" cards.
  * @param timeKnown false when the birth time is unknown; cards that need the lagna then say so.
  * @param store where progress and bookmarks are kept.
+ * @param knowsSome true when the learner said in onboarding they know some astrology; the knowledge check then
+ *   opens the first time they visit Learn. Others are offered it on Learn home.
  */
 @Composable
 fun LearnTab(
@@ -83,6 +91,7 @@ fun LearnTab(
     timeKnown: Boolean,
     store: LearnProgressStore,
     modifier: Modifier = Modifier,
+    knowsSome: Boolean = false,
 ) {
     val course by produceState<Course?>(null) { value = withContext(Dispatchers.IO) { BundledCourse.course } }
     var progress by remember(store) { mutableStateOf<LearnProgress?>(null) }
@@ -105,6 +114,13 @@ fun LearnTab(
     val facts = rememberChartFacts(kundli, timeKnown)
     val open: (LearnRoute) -> Unit = { routeValue = it.encode() }
 
+    // First visit for someone who knows some astrology: find what to skip before showing the path.
+    LaunchedEffect(Unit) {
+        if (knowsSome && !loadedProgress.checkAnswered && LearnRoute.decode(routeValue) == LearnRoute.Home) {
+            open(LearnRoute.Check(null))
+        }
+    }
+
     when (val route = LearnRoute.decode(routeValue)) {
         LearnRoute.Home -> LearnHome(
             course = loadedCourse,
@@ -114,7 +130,37 @@ fun LearnTab(
             modifier = modifier,
             completedLessons = loadedProgress.completedLessons,
             actions = { SavedButton(onClick = { open(LearnRoute.Saved) }) },
+            banner = {
+                if (!loadedProgress.checkAnswered && !knowsSome) {
+                    CheckOffer(onTake = { open(LearnRoute.Check(null)) }, onLater = { update(loadedProgress.skipCheck()) })
+                }
+            },
+            chapterActions = { chapter, dismiss ->
+                if (chapter.id !in loadedProgress.knownChapters) {
+                    KnowThisButton {
+                        dismiss()
+                        open(LearnRoute.Check(listOf(chapter.id)))
+                    }
+                }
+            },
         )
+        is LearnRoute.Check -> {
+            BackHandler { open(LearnRoute.Home) }
+            KnowledgeCheckScreen(
+                course = loadedCourse,
+                chapterIds = route.chapters,
+                language = language,
+                onDone = { passed ->
+                    update(loadedProgress.recordCheck(passed))
+                    open(LearnRoute.Home)
+                },
+                onSkip = {
+                    update(loadedProgress.skipCheck())
+                    open(LearnRoute.Home)
+                },
+                modifier = modifier,
+            )
+        }
         LearnRoute.Saved -> {
             BackHandler { open(LearnRoute.Home) }
             SavedCards(

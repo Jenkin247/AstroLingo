@@ -50,6 +50,7 @@ import com.astrolingo.app.learn.InMemoryLearnStore
 import com.astrolingo.app.learn.LearnProgressStore
 import com.astrolingo.app.learn.LearnTab
 import com.astrolingo.app.onboarding.BirthDetailsResolver
+import com.astrolingo.app.onboarding.Level
 import com.astrolingo.app.onboarding.OnboardingAnswers
 import com.astrolingo.app.onboarding.OnboardingFlow
 import com.astrolingo.app.onboarding.Purpose
@@ -205,6 +206,7 @@ private fun Tabs(
                 timeKnown = profile.birth.timeKnown,
                 store = learnStore,
                 modifier = Modifier.padding(padding),
+                knowsSome = profile.answers.level != Level.NEW,
             )
             Tab.ME -> MeScreen(
                 showDeity = profile.answers.showDeity,

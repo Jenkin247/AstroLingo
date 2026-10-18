@@ -129,6 +129,15 @@ class AppScreenshots {
         compose.onNodeWithText("Saved").performClick()
         waitForText("Saved cards")
         shot("16_learn_saved")
+        compose.onNodeWithContentDescription("Back").performClick()
+        waitForText("Take the check")
+        compose.onNodeWithText("Take the check").performClick()
+        waitForText("What do you know already?")
+        compose.onNodeWithText("The nine grahas", substring = true).performClick()
+        shot("17_learn_check_pick")
+        compose.onNodeWithText("Check me", substring = true).performClick()
+        waitForText("Question 1 of 2")
+        shot("18_learn_check_question")
     }
 
     private companion object {
