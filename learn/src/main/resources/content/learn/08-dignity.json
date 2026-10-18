@@ -1,0 +1,869 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": 1,
+  "id": "dignity",
+  "glyph": "▲",
+  "title": {
+    "en": "Dignity: strong and weak",
+    "hi": ""
+  },
+  "summary": {
+    "en": "How comfortable is a graha in its sign? Learn exaltation and debilitation, own signs and moolatrikona, natural friends and enemies, and how a weak graha can rise through neecha bhanga.",
+    "hi": ""
+  },
+  "check": [
+    {
+      "id": "dignity.check.1",
+      "type": "quiz",
+      "question": {
+        "en": "Which graha is debilitated in Karka, the sign where Guru is exalted?",
+        "hi": ""
+      },
+      "options": [
+        {
+          "en": "Shani",
+          "hi": ""
+        },
+        {
+          "en": "Chandra",
+          "hi": ""
+        },
+        {
+          "en": "Mangal",
+          "hi": ""
+        },
+        {
+          "en": "Budha",
+          "hi": ""
+        }
+      ],
+      "answer": 2,
+      "explanation": {
+        "en": "Mangal is exalted in Makara and debilitated in the opposite sign, Karka (deepest at 28°). Guru is the reverse: exalted in Karka, debilitated in Makara.",
+        "hi": ""
+      }
+    },
+    {
+      "id": "dignity.check.2",
+      "type": "quiz",
+      "question": {
+        "en": "Guru is in Makara, and Shani, the lord of Makara, sits in a kendra from the lagna. What does tradition say?",
+        "hi": ""
+      },
+      "options": [
+        {
+          "en": "Guru becomes exalted",
+          "hi": ""
+        },
+        {
+          "en": "Guru's debilitation tends to be cancelled",
+          "hi": ""
+        },
+        {
+          "en": "Shani becomes debilitated",
+          "hi": ""
+        },
+        {
+          "en": "Nothing changes",
+          "hi": ""
+        }
+      ],
+      "answer": 1,
+      "explanation": {
+        "en": "Guru is debilitated in Makara. When the lord of the debilitation sign is in a kendra from the lagna or Chandra, that is a classic neecha bhanga, a cancellation.",
+        "hi": ""
+      }
+    }
+  ],
+  "lessons": [
+    {
+      "id": "dignity.exaltation",
+      "title": {
+        "en": "Exaltation and debilitation",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "dignity.exaltation.1",
+          "type": "learn",
+          "title": {
+            "en": "What dignity means",
+            "hi": ""
+          },
+          "body": {
+            "en": "Dignity is how comfortable a graha is in the sign it occupies. A graha at ease tends to give its results freely; one ill at ease has to work harder. The two extremes are exaltation and debilitation.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dignity.exaltation.2",
+          "type": "learn",
+          "title": {
+            "en": "Exaltation",
+            "hi": ""
+          },
+          "body": {
+            "en": "Each graha has one sign where it is at its very best: its uchcha, exaltation. Within it lies a deepest point. Surya is exalted in Mesha, deepest at 10°. Chandra in Vrishabha, deepest at 3°.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "उच्च",
+            "roman": "Uchcha"
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 1
+          }
+        },
+        {
+          "id": "dignity.exaltation.3",
+          "type": "learn",
+          "title": {
+            "en": "More exaltations",
+            "hi": ""
+          },
+          "body": {
+            "en": "Mangal is exalted in Makara, deepest at 28°. Budha in Kanya, deepest at 15°. Guru in Karka, deepest at 5°.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 4
+          }
+        },
+        {
+          "id": "dignity.exaltation.4",
+          "type": "learn",
+          "title": {
+            "en": "Shukra and Shani",
+            "hi": ""
+          },
+          "body": {
+            "en": "Shukra is exalted in Meena, deepest at 27°. Shani is exalted in Tula, deepest at 20°. That completes the seven visible grahas.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 12
+          }
+        },
+        {
+          "id": "dignity.exaltation.5",
+          "type": "learn",
+          "title": {
+            "en": "Debilitation",
+            "hi": ""
+          },
+          "body": {
+            "en": "Opposite the exaltation sign, at the same degree, is the neecha, debilitation. Surya is debilitated in Tula 10°, Chandra Vrishchika 3°, Mangal Karka 28°, Budha Meena 15°, Guru Makara 5°, Shukra Kanya 27°, Shani Mesha 20°.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "नीच",
+            "roman": "Neecha"
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 7
+          }
+        },
+        {
+          "id": "dignity.exaltation.6",
+          "type": "learn",
+          "title": {
+            "en": "Rahu and Ketu",
+            "hi": ""
+          },
+          "body": {
+            "en": "For the nodes, views differ. Many give Rahu exaltation in Vrishabha and Ketu in Vrishchika; others say Mithuna and Dhanu. Their debilitations are the opposite signs. Use one view consistently.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "RAHU"
+          }
+        },
+        {
+          "id": "dignity.exaltation.7",
+          "type": "quiz",
+          "question": {
+            "en": "Where is Shukra exalted?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Vrishabha",
+              "hi": ""
+            },
+            {
+              "en": "Tula",
+              "hi": ""
+            },
+            {
+              "en": "Meena",
+              "hi": ""
+            },
+            {
+              "en": "Kanya",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Shukra is exalted in Meena, deepest at 27°. Vrishabha and Tula are its own signs, and Kanya is its debilitation.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dignity.exaltation.8",
+          "type": "quiz",
+          "question": {
+            "en": "Surya is exalted in Mesha. Where is it debilitated?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Tula",
+              "hi": ""
+            },
+            {
+              "en": "Makara",
+              "hi": ""
+            },
+            {
+              "en": "Kumbha",
+              "hi": ""
+            },
+            {
+              "en": "Karka",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Debilitation is always the sign opposite the exaltation, at the same degree: Surya is debilitated in Tula, deepest at 10°.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dignity.exaltation.9",
+          "type": "quiz",
+          "question": {
+            "en": "Which pair is correct?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Shani exalted in Makara",
+              "hi": ""
+            },
+            {
+              "en": "Budha exalted in Mithuna",
+              "hi": ""
+            },
+            {
+              "en": "Guru exalted in Dhanu",
+              "hi": ""
+            },
+            {
+              "en": "Chandra exalted in Vrishabha",
+              "hi": ""
+            }
+          ],
+          "answer": 3,
+          "explanation": {
+            "en": "Chandra is exalted in Vrishabha. Makara, Mithuna and Dhanu are own signs of Shani, Budha and Guru; their exaltations are Tula, Kanya and Karka.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "dignity.own-signs",
+      "title": {
+        "en": "Own signs and moolatrikona",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "dignity.own-signs.1",
+          "type": "learn",
+          "title": {
+            "en": "At home",
+            "hi": ""
+          },
+          "body": {
+            "en": "A graha in a sign it rules is in svakshetra, its own sign. Like a person at home, it tends to act with confidence and look after that sign's matters well.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "स्वक्षेत्र",
+            "roman": "Svakshetra"
+          }
+        },
+        {
+          "id": "dignity.own-signs.2",
+          "type": "learn",
+          "title": {
+            "en": "The lights and two more",
+            "hi": ""
+          },
+          "body": {
+            "en": "Surya owns Simha and Chandra owns Karka, one sign each. Mangal owns Mesha and Vrishchika. Budha owns Mithuna and Kanya.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 5
+          }
+        },
+        {
+          "id": "dignity.own-signs.3",
+          "type": "learn",
+          "title": {
+            "en": "The other three",
+            "hi": ""
+          },
+          "body": {
+            "en": "Guru owns Dhanu and Meena. Shukra owns Vrishabha and Tula. Shani owns Makara and Kumbha. In most texts Rahu and Ketu own no sign, though some give them co-rulership.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 10
+          }
+        },
+        {
+          "id": "dignity.own-signs.4",
+          "type": "learn",
+          "title": {
+            "en": "Moolatrikona",
+            "hi": ""
+          },
+          "body": {
+            "en": "Moolatrikona is a special stretch of one sign where a graha works like an officer at its own desk: steady and capable. It ranks just below exaltation. Surya: Simha 0°–20°. Chandra: Vrishabha 3°–30°. Mangal: Mesha 0°–12°.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "मूलत्रिकोण",
+            "roman": "Moolatrikona"
+          }
+        },
+        {
+          "id": "dignity.own-signs.5",
+          "type": "learn",
+          "title": {
+            "en": "More moolatrikonas",
+            "hi": ""
+          },
+          "body": {
+            "en": "Budha: Kanya 15°–20°. Guru: Dhanu 0°–10°. Shukra: Tula 0°–15°. Shani: Kumbha 0°–20°. These follow Parashara; a few texts differ by a degree or so.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dignity.own-signs.6",
+          "type": "learn",
+          "title": {
+            "en": "A ladder of comfort",
+            "hi": ""
+          },
+          "body": {
+            "en": "A common ladder, strongest first: exalted, moolatrikona, own sign, a friend's sign, a neutral sign, an enemy's sign, debilitated. Friends and enemies come next.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dignity.own-signs.7",
+          "type": "yourChart",
+          "fact": "MOON_RASHI",
+          "title": {
+            "en": "Your Chandra's comfort",
+            "hi": ""
+          },
+          "body": {
+            "en": "Your Chandra is in {value}. Chandra is exalted in Vrishabha, at home in Karka and debilitated in Vrishchika. Anywhere else, its comfort depends on how it gets on with that sign's lord.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "CHANDRA"
+          }
+        },
+        {
+          "id": "dignity.own-signs.8",
+          "type": "quiz",
+          "question": {
+            "en": "Which graha owns only one sign?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Mangal",
+              "hi": ""
+            },
+            {
+              "en": "Chandra",
+              "hi": ""
+            },
+            {
+              "en": "Shukra",
+              "hi": ""
+            },
+            {
+              "en": "Shani",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Surya and Chandra own one sign each: Simha and Karka. The other five visible grahas own two signs each.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dignity.own-signs.9",
+          "type": "quiz",
+          "question": {
+            "en": "Where is Shani's moolatrikona?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Kumbha 0°–20°",
+              "hi": ""
+            },
+            {
+              "en": "Makara 0°–20°",
+              "hi": ""
+            },
+            {
+              "en": "Tula 0°–20°",
+              "hi": ""
+            },
+            {
+              "en": "Kumbha 20°–30°",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Shani's moolatrikona is the first 20° of Kumbha. Makara is its other own sign, and Tula is its exaltation.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dignity.own-signs.10",
+          "type": "quiz",
+          "question": {
+            "en": "On the common ladder, which is strongest?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Own sign",
+              "hi": ""
+            },
+            {
+              "en": "A friend's sign",
+              "hi": ""
+            },
+            {
+              "en": "Moolatrikona",
+              "hi": ""
+            },
+            {
+              "en": "Neutral sign",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Moolatrikona ranks just below exaltation and above own sign, a friend's sign and a neutral sign.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "dignity.friends",
+      "title": {
+        "en": "Friends, neutrals and enemies",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "dignity.friends.1",
+          "type": "learn",
+          "title": {
+            "en": "Natural friendship",
+            "hi": ""
+          },
+          "body": {
+            "en": "Parashara gives each graha natural friends, neutrals and enemies. A graha in a friend's sign tends to feel welcome; in an enemy's sign it feels like a guest who isn't quite at ease.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "नैसर्गिक मैत्री",
+            "roman": "Naisargika maitri"
+          }
+        },
+        {
+          "id": "dignity.friends.2",
+          "type": "learn",
+          "title": {
+            "en": "Surya and Chandra",
+            "hi": ""
+          },
+          "body": {
+            "en": "Surya: friends Chandra, Mangal, Guru; neutral Budha; enemies Shukra, Shani. Chandra: friends Surya, Budha; neutral to the rest; Chandra has no enemies.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "SURYA"
+          }
+        },
+        {
+          "id": "dignity.friends.3",
+          "type": "learn",
+          "title": {
+            "en": "Mangal and Budha",
+            "hi": ""
+          },
+          "body": {
+            "en": "Mangal: friends Surya, Chandra, Guru; neutral Shukra, Shani; enemy Budha. Budha: friends Surya, Shukra; neutral Mangal, Guru, Shani; enemy Chandra.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "MANGAL"
+          }
+        },
+        {
+          "id": "dignity.friends.4",
+          "type": "learn",
+          "title": {
+            "en": "Guru",
+            "hi": ""
+          },
+          "body": {
+            "en": "Guru: friends Surya, Chandra, Mangal; neutral Shani; enemies Budha and Shukra. Guru and Shukra are both teachers, of different schools, so tradition keeps them apart.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "GURU"
+          }
+        },
+        {
+          "id": "dignity.friends.5",
+          "type": "learn",
+          "title": {
+            "en": "Shukra and Shani",
+            "hi": ""
+          },
+          "body": {
+            "en": "Shukra: friends Budha, Shani; neutral Mangal, Guru; enemies Surya, Chandra. Shani: friends Budha, Shukra; neutral Guru; enemies Surya, Chandra, Mangal.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "SHANI"
+          }
+        },
+        {
+          "id": "dignity.friends.6",
+          "type": "learn",
+          "title": {
+            "en": "Not always mutual",
+            "hi": ""
+          },
+          "body": {
+            "en": "Friendship can be one-sided. Chandra treats Budha as a friend, but Budha treats Chandra as an enemy. Texts also add a temporary friendship from positions in the chart; we'll keep to the natural one for now.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dignity.friends.7",
+          "type": "quiz",
+          "question": {
+            "en": "Which graha has no natural enemies?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Surya",
+              "hi": ""
+            },
+            {
+              "en": "Guru",
+              "hi": ""
+            },
+            {
+              "en": "Shani",
+              "hi": ""
+            },
+            {
+              "en": "Chandra",
+              "hi": ""
+            }
+          ],
+          "answer": 3,
+          "explanation": {
+            "en": "Chandra counts Surya and Budha as friends and is neutral to the rest. It has no enemies.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dignity.friends.8",
+          "type": "quiz",
+          "question": {
+            "en": "Shani sits in Simha, Surya's sign. How does it tend to feel?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Uneasy: Surya is Shani's enemy",
+              "hi": ""
+            },
+            {
+              "en": "At home: it is its own sign",
+              "hi": ""
+            },
+            {
+              "en": "Exalted",
+              "hi": ""
+            },
+            {
+              "en": "Very welcome: Surya is a friend",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Shani counts Surya as an enemy, so in Simha it sits in an enemy's sign and has to work harder.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dignity.friends.9",
+          "type": "quiz",
+          "question": {
+            "en": "Budha treats Chandra as an enemy. How does Chandra treat Budha?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "As an enemy",
+              "hi": ""
+            },
+            {
+              "en": "As a friend",
+              "hi": ""
+            },
+            {
+              "en": "As neutral",
+              "hi": ""
+            },
+            {
+              "en": "As its exaltation lord",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Natural friendship isn't always mutual: Chandra counts Budha as a friend even though Budha doesn't return it.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "dignity.neecha-bhanga",
+      "title": {
+        "en": "Neecha bhanga and balance",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "dignity.neecha-bhanga.1",
+          "type": "learn",
+          "title": {
+            "en": "Weak is not doomed",
+            "hi": ""
+          },
+          "body": {
+            "en": "A debilitated graha is not a curse. Tradition gives many ways for its weakness to be cancelled. This is called neecha bhanga, the breaking of debilitation.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "नीचभंग",
+            "roman": "Neecha bhanga"
+          }
+        },
+        {
+          "id": "dignity.neecha-bhanga.2",
+          "type": "learn",
+          "title": {
+            "en": "The sign's lord helps",
+            "hi": ""
+          },
+          "body": {
+            "en": "One classic rule: the lord of the sign where the graha is debilitated sits in a kendra (1st, 4th, 7th or 10th) from the lagna or from Chandra. For Guru in Makara, that lord is Shani.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 1
+          }
+        },
+        {
+          "id": "dignity.neecha-bhanga.3",
+          "type": "learn",
+          "title": {
+            "en": "The exaltation lord helps",
+            "hi": ""
+          },
+          "body": {
+            "en": "Another rule: the lord of the graha's exaltation sign sits in a kendra from the lagna or Chandra. Guru exalts in Karka, so for Guru in Makara we look at Chandra, lord of Karka.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dignity.neecha-bhanga.4",
+          "type": "learn",
+          "title": {
+            "en": "More conditions",
+            "hi": ""
+          },
+          "body": {
+            "en": "Texts like Phaladeepika list more: for example the graha that is exalted in that sign (Mangal, for Makara) in a kendra, or the debilitated graha being exalted in the navamsa. Several together count for more.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dignity.neecha-bhanga.5",
+          "type": "learn",
+          "title": {
+            "en": "Struggle into strength",
+            "hi": ""
+          },
+          "body": {
+            "en": "When debilitation is cancelled, tradition says the graha can give strong results, often after early effort. Many people with such a graha grow through it. Still, read it gently and in context.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dignity.neecha-bhanga.6",
+          "type": "learn",
+          "title": {
+            "en": "One factor among many",
+            "hi": ""
+          },
+          "body": {
+            "en": "Dignity is only one factor. The house a graha sits in, the houses it rules, its aspects, its navamsa and the running dasha all matter. Never judge a chart, or a person, from one graha's sign.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dignity.neecha-bhanga.7",
+          "type": "quiz",
+          "question": {
+            "en": "What does neecha bhanga mean?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Cancellation of debilitation",
+              "hi": ""
+            },
+            {
+              "en": "Double exaltation",
+              "hi": ""
+            },
+            {
+              "en": "A graha in its own sign",
+              "hi": ""
+            },
+            {
+              "en": "An enemy's aspect",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Neecha bhanga is the breaking, or cancellation, of debilitation, under conditions the texts describe.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dignity.neecha-bhanga.8",
+          "type": "quiz",
+          "question": {
+            "en": "Shukra is in Kanya. Whose position helps cancel its debilitation, by the sign-lord rule?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Guru's",
+              "hi": ""
+            },
+            {
+              "en": "Shani's",
+              "hi": ""
+            },
+            {
+              "en": "Budha's",
+              "hi": ""
+            },
+            {
+              "en": "Surya's",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Shukra is debilitated in Kanya, whose lord is Budha. Budha in a kendra from the lagna or Chandra is a classic cancellation.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "dignity.neecha-bhanga.9",
+          "type": "quiz",
+          "question": {
+            "en": "Which is the wisest way to use dignity?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "A debilitated graha ruins its houses",
+              "hi": ""
+            },
+            {
+              "en": "As one factor among house, lordship, aspects and dasha",
+              "hi": ""
+            },
+            {
+              "en": "Only exalted grahas matter",
+              "hi": ""
+            },
+            {
+              "en": "Ignore it completely",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Dignity matters, but it is one layer. House, lordship, aspects, vargas and dasha all shape how a graha works.",
+            "hi": ""
+          }
+        }
+      ]
+    }
+  ]
+}

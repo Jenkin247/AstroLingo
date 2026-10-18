@@ -1,0 +1,850 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": 1,
+  "id": "vargas",
+  "glyph": "◫",
+  "title": {
+    "en": "Vargas: divisional charts",
+    "hi": ""
+  },
+  "summary": {
+    "en": "Zoom into each sign. Learn what divisional charts are, how the navamsa (D9) is built and read, what vargottama means, and why every varga needs an accurate birth time.",
+    "hi": ""
+  },
+  "check": [
+    {
+      "id": "vargas.check.1",
+      "type": "quiz",
+      "question": {
+        "en": "A graha is at Karka 2°. What is its navamsa sign?",
+        "hi": ""
+      },
+      "options": [
+        {
+          "en": "Mesha",
+          "hi": ""
+        },
+        {
+          "en": "Makara",
+          "hi": ""
+        },
+        {
+          "en": "Karka",
+          "hi": ""
+        },
+        {
+          "en": "Tula",
+          "hi": ""
+        }
+      ],
+      "answer": 2,
+      "explanation": {
+        "en": "Karka is a water sign, so its navamsas start from Karka. 2° falls in the first 3°20′, so the navamsa is Karka itself: the graha is vargottama.",
+        "hi": ""
+      }
+    },
+    {
+      "id": "vargas.check.2",
+      "type": "quiz",
+      "question": {
+        "en": "Why do divisional charts depend on an accurate birth time?",
+        "hi": ""
+      },
+      "options": [
+        {
+          "en": "They are counted from the weekday",
+          "hi": ""
+        },
+        {
+          "en": "Their slices are small, so the lagna crosses them in minutes",
+          "hi": ""
+        },
+        {
+          "en": "They use the Sun's sign only",
+          "hi": ""
+        },
+        {
+          "en": "They change only once a year",
+          "hi": ""
+        }
+      ],
+      "answer": 1,
+      "explanation": {
+        "en": "Vargas divide each sign into small parts. The lagna moves through a D9 part in about 13 minutes on average, so a small time error can change the chart.",
+        "hi": ""
+      }
+    }
+  ],
+  "lessons": [
+    {
+      "id": "vargas.intro",
+      "title": {
+        "en": "What is a varga?",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "vargas.intro.1",
+          "type": "learn",
+          "title": {
+            "en": "Slicing the sign",
+            "hi": ""
+          },
+          "body": {
+            "en": "A varga, or divisional chart, divides each 30° sign into equal parts. Each part is given a sign of its own, and placing every graha by its part builds a new chart.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "वर्ग",
+            "roman": "Varga"
+          },
+          "visual": {
+            "kind": "glyph",
+            "value": "◫"
+          }
+        },
+        {
+          "id": "vargas.intro.2",
+          "type": "learn",
+          "title": {
+            "en": "D1, the rashi chart",
+            "hi": ""
+          },
+          "body": {
+            "en": "The chart you already know is D1, the rashi chart: one part per sign, so each graha simply sits in its sign. Every other varga is read alongside D1, never instead of it.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "राशि चक्र",
+            "roman": "Rashi chakra"
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 0
+          }
+        },
+        {
+          "id": "vargas.intro.3",
+          "type": "learn",
+          "title": {
+            "en": "Sixteen charts",
+            "hi": ""
+          },
+          "body": {
+            "en": "Parashara describes sixteen vargas, the shodasha vargas: D1, D2, D3, D4, D7, D9, D10, D12, D16, D20, D24, D27, D30, D40, D45 and D60. The number tells how many parts each sign gets.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "षोडशवर्ग",
+            "roman": "Shodasha varga"
+          }
+        },
+        {
+          "id": "vargas.intro.4",
+          "type": "learn",
+          "title": {
+            "en": "Each zooms in",
+            "hi": ""
+          },
+          "body": {
+            "en": "Each varga looks closely at one area of life. Traditionally D9 for marriage and dharma, D10 for career, D7 for children, D12 for parents, D4 for home and property.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "vargas.intro.5",
+          "type": "learn",
+          "title": {
+            "en": "D1 comes first",
+            "hi": ""
+          },
+          "body": {
+            "en": "A simple rule: D1 shows what the chart promises; the vargas confirm, refine or qualify it. A varga rarely overturns a clear D1 picture, so start from D1 every time.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "vargas.intro.6",
+          "type": "quiz",
+          "question": {
+            "en": "What is D1?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "The navamsa",
+              "hi": ""
+            },
+            {
+              "en": "The career chart",
+              "hi": ""
+            },
+            {
+              "en": "The main rashi chart",
+              "hi": ""
+            },
+            {
+              "en": "The Moon chart",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "D1 is the rashi chart: each sign is one part, so every graha simply sits in its sign. All vargas are read alongside it.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "vargas.intro.7",
+          "type": "quiz",
+          "question": {
+            "en": "In D10, what does the number 10 tell you?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Each sign is split into 10 parts",
+              "hi": ""
+            },
+            {
+              "en": "It is read from the 10th house only",
+              "hi": ""
+            },
+            {
+              "en": "It has 10 grahas",
+              "hi": ""
+            },
+            {
+              "en": "It is used after age 10",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "The number of a varga is how many parts each sign is divided into. D10 splits each sign into ten parts of 3°.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "vargas.intro.8",
+          "type": "quiz",
+          "question": {
+            "en": "How should vargas be used with D1?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "They replace D1",
+              "hi": ""
+            },
+            {
+              "en": "They confirm and refine what D1 shows",
+              "hi": ""
+            },
+            {
+              "en": "They are read only when D1 is unclear",
+              "hi": ""
+            },
+            {
+              "en": "They matter more than D1",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "D1 shows the promise. Vargas zoom into particular areas and confirm, refine or qualify it.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "vargas.navamsa",
+      "title": {
+        "en": "The navamsa (D9)",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "vargas.navamsa.1",
+          "type": "learn",
+          "title": {
+            "en": "Nine parts",
+            "hi": ""
+          },
+          "body": {
+            "en": "The navamsa, D9, divides each sign into nine parts of 3°20′. It is the most used varga, and many astrologers read it beside D1 in every chart.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "नवांश",
+            "roman": "Navamsa"
+          },
+          "visual": {
+            "kind": "glyph",
+            "value": "◫"
+          }
+        },
+        {
+          "id": "vargas.navamsa.2",
+          "type": "learn",
+          "title": {
+            "en": "Where counting starts",
+            "hi": ""
+          },
+          "body": {
+            "en": "The navamsas of a sign are counted from a start set by its element. Fire signs start from Mesha. Earth signs from Makara. Air signs from Tula. Water signs from Karka.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 1
+          }
+        },
+        {
+          "id": "vargas.navamsa.3",
+          "type": "learn",
+          "title": {
+            "en": "A worked example",
+            "hi": ""
+          },
+          "body": {
+            "en": "A graha at Simha 8°. Simha is fire, so count from Mesha. 0°–3°20′ is Mesha, 3°20′–6°40′ Vrishabha, 6°40′–10° Mithuna. So its navamsa sign is Mithuna.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 5
+          }
+        },
+        {
+          "id": "vargas.navamsa.4",
+          "type": "learn",
+          "title": {
+            "en": "Navamsa and padas",
+            "hi": ""
+          },
+          "body": {
+            "en": "There are 27 nakshatras of 4 padas each: 108 padas. There are also 12 × 9 = 108 navamsas, each 3°20′. They match exactly: every pada is one navamsa. Ashwini pada 1 is Mesha navamsa.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "पाद",
+            "roman": "Pada"
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 1
+          }
+        },
+        {
+          "id": "vargas.navamsa.5",
+          "type": "learn",
+          "title": {
+            "en": "One unbroken loop",
+            "hi": ""
+          },
+          "body": {
+            "en": "The 108 navamsas run Mesha to Meena nine times around the zodiac without a break. Mesha's ninth navamsa is Dhanu, so Vrishabha's first is Makara. That's why the element rule works.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "vargas.navamsa.6",
+          "type": "learn",
+          "title": {
+            "en": "What D9 shows",
+            "hi": ""
+          },
+          "body": {
+            "en": "Traditionally D9 shows marriage and partnership, dharma, and the inner strength of each graha: how well it delivers what D1 promises. A graha strong in both tends to give good results.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "vargas.navamsa.7",
+          "type": "yourChart",
+          "fact": "MOON_NAKSHATRA",
+          "title": {
+            "en": "Your Chandra's navamsa",
+            "hi": ""
+          },
+          "body": {
+            "en": "Your Chandra is in {value}. That pada is also one navamsa, a 3°20′ slice of the sky, so your Moon's pada tells you its D9 sign. The Moon crosses a pada in about six hours, so without a birth time treat it as a best guess.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "CHANDRA"
+          }
+        },
+        {
+          "id": "vargas.navamsa.8",
+          "type": "quiz",
+          "question": {
+            "en": "A graha is at Vrishabha 5°. What is its navamsa sign?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Makara",
+              "hi": ""
+            },
+            {
+              "en": "Vrishabha",
+              "hi": ""
+            },
+            {
+              "en": "Mithuna",
+              "hi": ""
+            },
+            {
+              "en": "Kumbha",
+              "hi": ""
+            }
+          ],
+          "answer": 3,
+          "explanation": {
+            "en": "Vrishabha is an earth sign, so count from Makara. 0°–3°20′ is Makara, 3°20′–6°40′ is Kumbha. So the navamsa is Kumbha.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "vargas.navamsa.9",
+          "type": "quiz",
+          "question": {
+            "en": "Air signs start their navamsa count from which sign?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Tula",
+              "hi": ""
+            },
+            {
+              "en": "Mithuna",
+              "hi": ""
+            },
+            {
+              "en": "Mesha",
+              "hi": ""
+            },
+            {
+              "en": "Kumbha",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Fire signs start from Mesha, earth from Makara, air from Tula and water from Karka.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "vargas.navamsa.10",
+          "type": "quiz",
+          "question": {
+            "en": "Why does every nakshatra pada match one navamsa?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Both are ruled by Chandra",
+              "hi": ""
+            },
+            {
+              "en": "Both are 3°20′ long, 108 in all",
+              "hi": ""
+            },
+            {
+              "en": "Both are 13°20′ long",
+              "hi": ""
+            },
+            {
+              "en": "They don't match",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "27 nakshatras × 4 padas = 108, and 12 signs × 9 navamsas = 108. Each is 3°20′, so they line up exactly.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "vargas.vargottama",
+      "title": {
+        "en": "Vargottama",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "vargas.vargottama.1",
+          "type": "learn",
+          "title": {
+            "en": "Same sign twice",
+            "hi": ""
+          },
+          "body": {
+            "en": "A graha is vargottama when it sits in the same sign in D1 and in D9. The word means best in the varga. It is traditionally a mark of strength.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "वर्गोत्तम",
+            "roman": "Vargottama"
+          }
+        },
+        {
+          "id": "vargas.vargottama.2",
+          "type": "learn",
+          "title": {
+            "en": "Where it happens",
+            "hi": ""
+          },
+          "body": {
+            "en": "Vargottama falls in one slice of each sign: the 1st navamsa of movable signs (0°–3°20′), the 5th of fixed signs (13°20′–16°40′) and the 9th of dual signs (26°40′–30°).",
+            "hi": ""
+          }
+        },
+        {
+          "id": "vargas.vargottama.3",
+          "type": "learn",
+          "title": {
+            "en": "An example",
+            "hi": ""
+          },
+          "body": {
+            "en": "Our fictional Arjun has Shukra at Tula 2°. Tula is movable and air, so its navamsas start from Tula. 2° is the first slice, Tula again: his Shukra is vargottama.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 7
+          }
+        },
+        {
+          "id": "vargas.vargottama.4",
+          "type": "learn",
+          "title": {
+            "en": "What it means",
+            "hi": ""
+          },
+          "body": {
+            "en": "A vargottama graha tends to give its results steadily and clearly, like a voice that says the same thing in two rooms. It adds strength, but doesn't change the graha's dignity in D1.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "vargas.vargottama.5",
+          "type": "learn",
+          "title": {
+            "en": "Vargottama lagna",
+            "hi": ""
+          },
+          "body": {
+            "en": "When the lagna is vargottama, tradition says the person tends to have a steady, well-defined sense of self. Because it depends on the lagna degree, it needs an accurate birth time.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 1
+          }
+        },
+        {
+          "id": "vargas.vargottama.6",
+          "type": "quiz",
+          "question": {
+            "en": "When is a graha vargottama?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "When it is exalted in D1",
+              "hi": ""
+            },
+            {
+              "en": "When it sits in the same sign in D1 and D9",
+              "hi": ""
+            },
+            {
+              "en": "When it is in the 9th house",
+              "hi": ""
+            },
+            {
+              "en": "When it aspects its own sign",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Vargottama means the graha's D1 sign and D9 sign are the same.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "vargas.vargottama.7",
+          "type": "quiz",
+          "question": {
+            "en": "Which degree range of a fixed sign is vargottama?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "0°–3°20′",
+              "hi": ""
+            },
+            {
+              "en": "26°40′–30°",
+              "hi": ""
+            },
+            {
+              "en": "10°–13°20′",
+              "hi": ""
+            },
+            {
+              "en": "13°20′–16°40′",
+              "hi": ""
+            }
+          ],
+          "answer": 3,
+          "explanation": {
+            "en": "In fixed signs the 5th navamsa, 13°20′–16°40′, repeats the sign itself. Movable signs use the 1st slice, dual signs the 9th.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "vargas.vargottama.8",
+          "type": "quiz",
+          "question": {
+            "en": "A graha at Mithuna 28°: is it vargottama?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Yes, it's in the last slice of a dual sign",
+              "hi": ""
+            },
+            {
+              "en": "No, only movable signs can be",
+              "hi": ""
+            },
+            {
+              "en": "No, Mithuna has no vargottama slice",
+              "hi": ""
+            },
+            {
+              "en": "Only if it is Budha",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Mithuna is dual and air. Counting from Tula, the 9th navamsa is Mithuna, at 26°40′–30°. So 28° is vargottama.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "vargas.others",
+      "title": {
+        "en": "Other useful vargas",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "vargas.others.1",
+          "type": "learn",
+          "title": {
+            "en": "D10, the dashamsha",
+            "hi": ""
+          },
+          "body": {
+            "en": "D10 splits each sign into ten parts of 3°. It is read for career, work and public standing. Odd signs count from the sign itself; even signs from the 9th sign from it.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "दशांश",
+            "roman": "Dashamsha"
+          }
+        },
+        {
+          "id": "vargas.others.2",
+          "type": "learn",
+          "title": {
+            "en": "D2, the hora",
+            "hi": ""
+          },
+          "body": {
+            "en": "D2 splits each sign into two halves of 15°, and is read for wealth and resources. In Parashara's method, odd signs give Surya's half (Simha) first, then Chandra's (Karka); even signs the reverse.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "होरा",
+            "roman": "Hora"
+          }
+        },
+        {
+          "id": "vargas.others.3",
+          "type": "learn",
+          "title": {
+            "en": "D3, the drekkana",
+            "hi": ""
+          },
+          "body": {
+            "en": "D3 splits each sign into three parts of 10°: the sign itself, then the 5th and 9th signs from it. It is read for siblings, courage and initiative.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "द्रेष्काण",
+            "roman": "Drekkana"
+          }
+        },
+        {
+          "id": "vargas.others.4",
+          "type": "learn",
+          "title": {
+            "en": "D7, the saptamsha",
+            "hi": ""
+          },
+          "body": {
+            "en": "D7 splits each sign into seven parts of about 4°17′. It is read for children, creativity and what we pass on. Odd signs count from the sign itself; even signs from the 7th sign.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "सप्तांश",
+            "roman": "Saptamsha"
+          }
+        },
+        {
+          "id": "vargas.others.5",
+          "type": "learn",
+          "title": {
+            "en": "Time matters",
+            "hi": ""
+          },
+          "body": {
+            "en": "The finer the varga, the faster it changes. The D9 lagna shifts about every 13 minutes, the D10 lagna about every 12, the D60 lagna about every 2. A small time error can change these charts.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "vargas.others.6",
+          "type": "yourChart",
+          "fact": "LAGNA",
+          "title": {
+            "en": "Your lagna and vargas",
+            "hi": ""
+          },
+          "body": {
+            "en": "Your lagna is {value}. Every varga lagna comes from the lagna's exact degree, the fastest-moving point in the chart. If your time is off by 10 minutes, your D9 or D10 lagna may differ.",
+            "hi": ""
+          },
+          "unknownTime": {
+            "en": "Without a birth time, the lagna and divisional charts can't be fixed. Your Moon's sign and nakshatra and the slow grahas' signs still hold, so lean on those.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "vargas.others.7",
+          "type": "quiz",
+          "question": {
+            "en": "Which varga is traditionally read for career?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "D2",
+              "hi": ""
+            },
+            {
+              "en": "D7",
+              "hi": ""
+            },
+            {
+              "en": "D10",
+              "hi": ""
+            },
+            {
+              "en": "D3",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "D10, the dashamsha, splits each sign into ten parts and is read for career, work and public standing.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "vargas.others.8",
+          "type": "quiz",
+          "question": {
+            "en": "How many parts does D3, the drekkana, divide a sign into?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Two of 15°",
+              "hi": ""
+            },
+            {
+              "en": "Three of 10°",
+              "hi": ""
+            },
+            {
+              "en": "Seven of about 4°17′",
+              "hi": ""
+            },
+            {
+              "en": "Nine of 3°20′",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "The drekkana splits each sign into three parts of 10°: the sign itself, then the 5th and 9th from it.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "vargas.others.9",
+          "type": "quiz",
+          "question": {
+            "en": "Your birth time is uncertain. What is the wisest approach?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Trust the D60 fully",
+              "hi": ""
+            },
+            {
+              "en": "Ignore D1 and use vargas",
+              "hi": ""
+            },
+            {
+              "en": "Lean on D1 and the Moon; read vargas with care",
+              "hi": ""
+            },
+            {
+              "en": "Assume every graha is vargottama",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Fine vargas change within minutes. With an uncertain time, the Moon-based picture and D1 signs are far more reliable.",
+            "hi": ""
+          }
+        }
+      ]
+    }
+  ]
+}

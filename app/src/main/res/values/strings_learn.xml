@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Learn tab labels. Lesson text itself lives in learn/src/main/resources/content/learn/ (docs/spec/learn-content.md).
+     Hindi goes in values-hi/strings_learn.xml. -->
+<resources>
+    <string name="learn_title">Learn</string>
+    <string name="learn_up_next">Up next</string>
+    <string name="learn_chapter_number">Chapter %1$d</string>
+    <string name="learn_minutes">%1$d min</string>
+    <string name="learn_start">Start lesson</string>
+    <string name="learn_continue">Continue</string>
+    <string name="learn_course_done_title">You\'ve finished the course!</string>
+    <string name="learn_course_done_body">Every chapter is done or known. Open any chapter to read it again.</string>
+    <string name="learn_state_known">Known</string>
+    <string name="learn_state_done">Done</string>
+    <string name="learn_state_progress">%1$d of %2$d lessons</string>
+    <string name="learn_state_new">%1$d lessons</string>
+    <string name="learn_lesson_done_description">Finished</string>
+    <string name="learn_close">Close lesson</string>
+    <string name="learn_card_position">Card %1$d of %2$d</string>
+    <string name="learn_next_card">Next card</string>
+    <string name="learn_swipe_hint">Swipe up for the next card</string>
+    <string name="learn_flip_card">Turn the card over</string>
+    <string name="learn_tap_to_flip">Tap to turn over</string>
+    <string name="learn_your_chart">Your chart</string>
+    <string name="learn_quiz">Quick question</string>
+    <string name="learn_quiz_right">That\'s right!</string>
+    <string name="learn_quiz_wrong">Not quite.</string>
+    <string name="learn_quiz_answer_first">Answer to go on</string>
+    <string name="learn_lesson_complete">Lesson complete!</string>
+    <string name="learn_lesson_score">You got %1$d of %2$d right.</string>
+    <string name="learn_lesson_sitara_great">Wonderful! Every answer right. The stars are speaking to you.</string>
+    <string name="learn_lesson_sitara_good">Well done. One more step on the path.</string>
+    <string name="learn_next_lesson">Next: %1$s</string>
+    <string name="learn_back_to_path">Back to Learn</string>
+    <string name="learn_house_number">House %1$d</string>
+    <string name="learn_nakshatra_pada">%1$s, pada %2$d</string>
+    <string name="learn_loading">Opening your lessons…</string>
+    <string name="learn_saved">Saved</string>
+    <string name="learn_saved_title">Saved cards</string>
+    <string name="learn_save_card">Save this card</string>
+    <string name="learn_unsave_card">Remove from saved</string>
+    <string name="learn_saved_empty">Tap the bookmark on any card to keep it here.</string>
+    <string name="learn_back">Back</string>
+    <string name="check_offer_title">Know some astrology already?</string>
+    <string name="check_offer_body">Take a quick check and skip the chapters you know.</string>
+    <string name="check_offer_take">Take the check</string>
+    <string name="check_offer_later">Not now</string>
+    <string name="check_pick_sitara">Let\'s not waste your time! Which of these do you already know? I\'ll ask two quick questions for each one and skip what you know.</string>
+    <string name="check_pick_title">What do you know already?</string>
+    <string name="check_start">Check me (%1$d questions)</string>
+    <string name="check_from_start">Start from the beginning</string>
+    <string name="check_question_count">Question %1$d of %2$d</string>
+    <string name="check_next">Next question</string>
+    <string name="check_finish">See my path</string>
+    <string name="check_stop">Stop here and build my path</string>
+    <string name="check_result_title">Your path is ready</string>
+    <string name="check_result_known">You know these, so we\'ll skip them. You can still open them any time:</string>
+    <string name="check_result_refresh">These stay on your path as a quick refresher:</string>
+    <string name="check_result_none">No chapters skipped this time. That\'s fine: you\'ll move fast through what you know.</string>
+    <string name="check_result_start">Start learning</string>
+    <string name="check_know_this">I know this: skip it with 2 questions</string>
+    <string name="check_close">Close the check</string>
+</resources>

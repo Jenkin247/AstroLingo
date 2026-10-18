@@ -1,0 +1,777 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": 1,
+  "id": "matching",
+  "glyph": "♡",
+  "title": {
+    "en": "Kundli matching",
+    "hi": ""
+  },
+  "summary": {
+    "en": "Learn how ashtakoota compares two Moons, what the 36 gunas mean, and why a score is never the whole story.",
+    "hi": ""
+  },
+  "check": [
+    {
+      "id": "matching.check.1",
+      "type": "quiz",
+      "question": {
+        "en": "A couple scores 16 of 36, but their Moon signs share a lord, which cancels the Bhakoot dosha. How should this be read?",
+        "hi": ""
+      },
+      "options": [
+        {
+          "en": "Weigh the cancellation and whole charts, not the total",
+          "hi": ""
+        },
+        {
+          "en": "The match is ruled out, since it is below 18",
+          "hi": ""
+        },
+        {
+          "en": "Only the Nadi koota decides, so ignore the rest",
+          "hi": ""
+        }
+      ],
+      "answer": 0,
+      "explanation": {
+        "en": "A shared lord is a recognised Bhakoot cancellation, which many astrologers treat as restoring its 7 points. The total is a start; the whole charts and the people matter more.",
+        "hi": ""
+      }
+    },
+    {
+      "id": "matching.check.2",
+      "type": "quiz",
+      "question": {
+        "en": "Two people's Moons fall in the same nadi. What does tradition say?",
+        "hi": ""
+      },
+      "options": [
+        {
+          "en": "It gives the full 8 points",
+          "hi": ""
+        },
+        {
+          "en": "It is Nadi dosha, and it has recognised cancellations",
+          "hi": ""
+        },
+        {
+          "en": "It is Nadi dosha, and nothing can ever cancel it",
+          "hi": ""
+        }
+      ],
+      "answer": 1,
+      "explanation": {
+        "en": "The same nadi scores 0 of 8, called Nadi dosha. Tradition also lists cancellations, such as the same Moon sign with different nakshatras.",
+        "hi": ""
+      }
+    }
+  ],
+  "lessons": [
+    {
+      "id": "matching.why",
+      "title": {
+        "en": "Why matching exists",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "matching.why.1",
+          "type": "learn",
+          "title": {
+            "en": "Kundli milan",
+            "hi": ""
+          },
+          "body": {
+            "en": "Kundli milan (chart matching) is the custom of comparing two people's charts before marriage. It is widely used in North and West India; South India has its own related system, porutham, with ten checks.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "कुण्डली मिलान",
+            "roman": "Kundli milan"
+          },
+          "visual": {
+            "kind": "glyph",
+            "value": "♡"
+          }
+        },
+        {
+          "id": "matching.why.2",
+          "type": "learn",
+          "title": {
+            "en": "Built on the Moon",
+            "hi": ""
+          },
+          "body": {
+            "en": "Ashtakoota matching uses only each person's Moon: its rashi and its nakshatra. In Jyotish the Moon is the mind and feelings, so the method compares emotional temperament and how two minds tend to meet.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "CHANDRA"
+          }
+        },
+        {
+          "id": "matching.why.3",
+          "type": "learn",
+          "title": {
+            "en": "Often works without a birth time",
+            "hi": ""
+          },
+          "body": {
+            "en": "Because it needs only the Moon's sign and nakshatra, matching can often work without a birth time. The Moon changes nakshatra about once a day, though, so if it changed on either birth day, both possibilities should be checked.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "matching.why.4",
+          "type": "yourChart",
+          "fact": "MOON_NAKSHATRA",
+          "title": {
+            "en": "Your matching star",
+            "hi": ""
+          },
+          "body": {
+            "en": "Your Moon nakshatra is {value}. In matching, this star and your Moon sign are what get compared with another person's. Nothing else in your kundli enters the 36-point score.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "matching.why.5",
+          "type": "learn",
+          "title": {
+            "en": "A conversation, not a verdict",
+            "hi": ""
+          },
+          "body": {
+            "en": "Tradition saw matching as a starting point for families to talk about temperament. It was never meant to replace knowing a person. A score can raise good questions; it cannot answer them.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "matching.why.6",
+          "type": "learn",
+          "title": {
+            "en": "Who decides",
+            "hi": ""
+          },
+          "body": {
+            "en": "In AstroLingo, matching is for learning and reflection. The choice to marry belongs to the two people, made freely and with consent. No number, dosha or astrologer should override that.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "matching.why.7",
+          "type": "quiz",
+          "question": {
+            "en": "Which graha does ashtakoota matching compare?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Surya",
+              "hi": ""
+            },
+            {
+              "en": "Chandra",
+              "hi": ""
+            },
+            {
+              "en": "Shukra",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Ashtakoota compares the two Moons: their signs and their nakshatras.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "matching.why.8",
+          "type": "quiz",
+          "question": {
+            "en": "What is a matching score meant to be?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "A starting point for conversation",
+              "hi": ""
+            },
+            {
+              "en": "A final verdict on the marriage",
+              "hi": ""
+            },
+            {
+              "en": "A measure of family standing",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "A score opens a conversation about temperament. It never replaces knowing each other.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "matching.why.9",
+          "type": "quiz",
+          "question": {
+            "en": "Who should decide on a marriage?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "The astrologer, by the score",
+              "hi": ""
+            },
+            {
+              "en": "The family elders alone",
+              "hi": ""
+            },
+            {
+              "en": "The two people, freely and with consent",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Astrology can offer reflection, but the choice belongs to the couple, freely made.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "matching.kootas",
+      "title": {
+        "en": "The eight kootas",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "matching.kootas.1",
+          "type": "learn",
+          "title": {
+            "en": "Ashtakoota",
+            "hi": ""
+          },
+          "body": {
+            "en": "Ashtakoota means 'eight parts'. Each koota compares one quality of the two Moons and carries more points than the one before, from 1 up to 8. Together they add up to 36 points, often called the 36 gunas.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "अष्टकूट",
+            "roman": "Ashtakoota"
+          }
+        },
+        {
+          "id": "matching.kootas.2",
+          "type": "learn",
+          "title": {
+            "en": "Varna 1, Vashya 2",
+            "hi": ""
+          },
+          "body": {
+            "en": "Varna (1 point) groups Moon signs by element into four temperament types and looks at how two approaches to work and duty fit. Vashya (2 points) sorts signs into groups such as human, four-footed and water, to see mutual influence.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "matching.kootas.3",
+          "type": "learn",
+          "title": {
+            "en": "Tara 3, Yoni 4",
+            "hi": ""
+          },
+          "body": {
+            "en": "Tara (3 points) counts from one person's nakshatra to the other's in cycles of nine, both ways, like the daily tara bala. Yoni (4 points) gives each nakshatra an animal symbol and compares the two for instinct and ease together.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "nakshatras",
+            "value": 0
+          }
+        },
+        {
+          "id": "matching.kootas.4",
+          "type": "learn",
+          "title": {
+            "en": "Graha Maitri 5, Gana 6",
+            "hi": ""
+          },
+          "body": {
+            "en": "Graha Maitri (5 points) asks whether the lords of the two Moon signs are friends, neutral or enemies: how two minds get along. Gana (6 points) sorts nakshatras into Deva, Manushya and Rakshasa, three temperaments from gentle to intense.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "गण",
+            "roman": "Gana"
+          }
+        },
+        {
+          "id": "matching.kootas.5",
+          "type": "learn",
+          "title": {
+            "en": "Bhakoot 7, Nadi 8",
+            "hi": ""
+          },
+          "body": {
+            "en": "Bhakoot (7 points) looks at how far apart the two Moon signs are; the 2/12, 5/9 and 6/8 distances score 0. Nadi (8 points) sorts nakshatras into three nadis, Adi, Madhya and Antya; the same nadi traditionally scores 0.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "नाडी",
+            "roman": "Nadi"
+          }
+        },
+        {
+          "id": "matching.kootas.6",
+          "type": "learn",
+          "title": {
+            "en": "The heavy three",
+            "hi": ""
+          },
+          "body": {
+            "en": "The lighter kootas look at day-to-day fit. Gana, Bhakoot and Nadi together carry 21 of the 36 points, so tradition pays them the most attention, and their cancellations matter most too.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "matching.kootas.7",
+          "type": "quiz",
+          "question": {
+            "en": "How many points does Nadi koota carry?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "6",
+              "hi": ""
+            },
+            {
+              "en": "7",
+              "hi": ""
+            },
+            {
+              "en": "8",
+              "hi": ""
+            },
+            {
+              "en": "5",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Nadi is the heaviest koota with 8 points. Bhakoot has 7 and Gana 6.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "matching.kootas.8",
+          "type": "quiz",
+          "question": {
+            "en": "Which koota checks the friendship of the two Moon sign lords?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Graha Maitri",
+              "hi": ""
+            },
+            {
+              "en": "Yoni",
+              "hi": ""
+            },
+            {
+              "en": "Bhakoot",
+              "hi": ""
+            },
+            {
+              "en": "Varna",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Graha Maitri (5 points) looks at whether the two Moon sign lords are friends, neutral or enemies.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "matching.kootas.9",
+          "type": "quiz",
+          "question": {
+            "en": "What do all eight kootas add up to?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "27",
+              "hi": ""
+            },
+            {
+              "en": "36",
+              "hi": ""
+            },
+            {
+              "en": "108",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 = 36, the famous 36 gunas.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "matching.score",
+      "title": {
+        "en": "Reading the score",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "matching.score.1",
+          "type": "learn",
+          "title": {
+            "en": "The traditional bands",
+            "hi": ""
+          },
+          "body": {
+            "en": "Tradition often reads the total like this: below 18 is weak, 18 to 24 acceptable, 25 to 32 good, and 33 to 36 very good. Some families use only the 18-point line. These are customs, not laws.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "matching.score.2",
+          "type": "learn",
+          "title": {
+            "en": "Why 18",
+            "hi": ""
+          },
+          "body": {
+            "en": "18 is half of 36: the idea is that at least half the qualities should fit. But the kootas are not equal in weight, and a high total can hide a hard spot while a low one can hide real harmony.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "matching.score.3",
+          "type": "learn",
+          "title": {
+            "en": "Nadi dosha",
+            "hi": ""
+          },
+          "body": {
+            "en": "When both Moons share a nadi, Nadi koota gives 0 of 8: Nadi dosha. Many traditions cancel it when the Moon sign is the same but the nakshatras differ, or the nakshatra is the same but the Moon signs or padas differ.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "नाडी दोष",
+            "roman": "Nadi dosha"
+          }
+        },
+        {
+          "id": "matching.score.4",
+          "type": "learn",
+          "title": {
+            "en": "Bhakoot dosha",
+            "hi": ""
+          },
+          "body": {
+            "en": "Bhakoot gives 0 when the Moon signs are 2/12, 5/9 or 6/8 from each other. A common cancellation: both signs share a lord, as Mesha and Vrishchika do, or their lords are friends. Many astrologers then restore the points.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 8
+          }
+        },
+        {
+          "id": "matching.score.5",
+          "type": "learn",
+          "title": {
+            "en": "A fictional example",
+            "hi": ""
+          },
+          "body": {
+            "en": "Kavya and Arjun score 17. Their Bhakoot is 0 because their Moons in Mesha and Vrishchika are 6/8. Both signs are ruled by Mangal, so the dosha is cancelled. Many astrologers would now call the match acceptable and look at the whole charts.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "matching.score.6",
+          "type": "learn",
+          "title": {
+            "en": "A low score is not a no",
+            "hi": ""
+          },
+          "body": {
+            "en": "Many happy couples have low scores, and high scores promise nothing. A score below 18 is an invitation to look deeper, never a reason to shame anyone or to call a relationship doomed.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "matching.score.7",
+          "type": "quiz",
+          "question": {
+            "en": "Which total is traditionally seen as the minimum?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "12",
+              "hi": ""
+            },
+            {
+              "en": "18",
+              "hi": ""
+            },
+            {
+              "en": "27",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "18 of 36, half the points, is the traditional threshold, though cancellations and the whole charts matter more.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "matching.score.8",
+          "type": "quiz",
+          "question": {
+            "en": "Which Moon sign distances score 0 in Bhakoot?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "1/7 and 3/11",
+              "hi": ""
+            },
+            {
+              "en": "4/10 and the same sign",
+              "hi": ""
+            },
+            {
+              "en": "2/12, 5/9 and 6/8",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "The 2/12, 5/9 and 6/8 relationships give Bhakoot dosha. The others score the full 7 points.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "matching.score.9",
+          "type": "quiz",
+          "question": {
+            "en": "Which is a recognised cancellation of Nadi dosha?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Same Moon sign, different nakshatras",
+              "hi": ""
+            },
+            {
+              "en": "Both born on the same weekday",
+              "hi": ""
+            },
+            {
+              "en": "A total above 10 points",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "When the Moon sign is the same but the nakshatras differ, many traditions cancel Nadi dosha.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "matching.beyond",
+      "title": {
+        "en": "Beyond the score",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "matching.beyond.1",
+          "type": "learn",
+          "title": {
+            "en": "The whole charts",
+            "hi": ""
+          },
+          "body": {
+            "en": "A thoughtful astrologer looks at both full charts: the 7th house and its lord, Shukra, Guru, the navamsa, and the dashas each person is running. Ashtakoota compares only two Moons, a small slice of two lives.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 7
+          }
+        },
+        {
+          "id": "matching.beyond.2",
+          "type": "learn",
+          "title": {
+            "en": "Character and values",
+            "hi": ""
+          },
+          "body": {
+            "en": "Kindness, honesty, shared values, respect and the freedom to choose matter more than any koota. Many teachers say a match is finally made by two people's understanding, not by points.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "matching.beyond.3",
+          "type": "learn",
+          "title": {
+            "en": "Mangal dosha in matching",
+            "hi": ""
+          },
+          "body": {
+            "en": "Many families check Mangal dosha too. In balance: about half of all people are manglik by common rules, both partners having it is traditionally a cancellation, and many other cancellations exist. It should never decide a marriage alone.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "MANGAL"
+          }
+        },
+        {
+          "id": "matching.beyond.4",
+          "type": "learn",
+          "title": {
+            "en": "Varna, gently",
+            "hi": ""
+          },
+          "body": {
+            "en": "Varna koota is sometimes misread. In this course it is only a grouping of Moon signs by element into four temperament types, about how two people approach work and duty. It says nothing about anyone's birth, family or worth.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "matching.beyond.5",
+          "type": "learn",
+          "title": {
+            "en": "No shaming, ever",
+            "hi": ""
+          },
+          "body": {
+            "en": "No one should be shamed, blamed or pressured over a score or a dosha, and no partner, woman or man, is ever 'at fault' for a chart. Gentle practices like prayer or kindness are optional; no paid ritual is ever needed.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "matching.beyond.6",
+          "type": "learn",
+          "title": {
+            "en": "Better questions",
+            "hi": ""
+          },
+          "body": {
+            "en": "Instead of 'Is the score high?', ask: do we respect each other, share values, talk well through conflict and both freely want this? A chart can prompt those talks. It can never replace them.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "matching.beyond.7",
+          "type": "quiz",
+          "question": {
+            "en": "What does ashtakoota leave out?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "The two Moon signs",
+              "hi": ""
+            },
+            {
+              "en": "The two Moon nakshatras",
+              "hi": ""
+            },
+            {
+              "en": "The rest of both charts",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Ashtakoota uses only the two Moons. The lagna, 7th house, navamsa and dashas need a fuller reading.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "matching.beyond.8",
+          "type": "quiz",
+          "question": {
+            "en": "How is varna koota explained in this course?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "A temperament grouping of Moon signs",
+              "hi": ""
+            },
+            {
+              "en": "A check of the 7th house lord",
+              "hi": ""
+            },
+            {
+              "en": "A count of nakshatras in nines",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Here varna is a neutral grouping of Moon signs by element into four temperament types. Counting nakshatras in nines is Tara koota.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "matching.beyond.9",
+          "type": "quiz",
+          "question": {
+            "en": "Both partners are manglik. What does tradition say?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "The match is ruled out",
+              "hi": ""
+            },
+            {
+              "en": "It is traditionally a cancellation",
+              "hi": ""
+            },
+            {
+              "en": "Only the bride's chart matters",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "When both partners have Mangal dosha, tradition treats it as cancelled. And it is never a reason to blame either person.",
+            "hi": ""
+          }
+        }
+      ]
+    }
+  ]
+}

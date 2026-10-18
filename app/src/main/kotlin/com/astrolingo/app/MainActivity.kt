@@ -13,6 +13,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import com.astrolingo.app.learn.SharedPreferencesLearnStore
 import com.astrolingo.app.profile.EncryptedProfileStore
 import com.astrolingo.app.ui.AstroLingoApp
 import com.astrolingo.app.ui.theme.AstroLingoTheme
@@ -23,6 +24,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val profiles = EncryptedProfileStore(this)
+        val learnStore = SharedPreferencesLearnStore(this)
         val themePreference = ThemePreference(this)
         setContent {
             var themeMode by remember { mutableStateOf(themePreference.load()) }
@@ -38,6 +40,7 @@ class MainActivity : ComponentActivity() {
             AstroLingoTheme(darkTheme = dark) {
                 AstroLingoApp(
                     profiles = profiles,
+                    learnStore = learnStore,
                     themeMode = themeMode,
                     onThemeMode = { mode ->
                         themeMode = mode

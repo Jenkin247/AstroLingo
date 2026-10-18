@@ -1,0 +1,1098 @@
+{
+  "schemaVersion": 1,
+  "contentVersion": 1,
+  "id": "bhavas",
+  "glyph": "◇",
+  "title": {
+    "en": "The twelve bhavas",
+    "hi": ""
+  },
+  "summary": {
+    "en": "Meet the twelve houses, the scenes of life in every kundli, and the groups that give them strength.",
+    "hi": ""
+  },
+  "check": [
+    {
+      "id": "bhavas.check.1",
+      "type": "quiz",
+      "question": {
+        "en": "With whole-sign houses, a chart has Tula lagna. Which sign is the 4th house?",
+        "hi": ""
+      },
+      "options": [
+        {
+          "en": "Karka",
+          "hi": ""
+        },
+        {
+          "en": "Vrishchika",
+          "hi": ""
+        },
+        {
+          "en": "Makara",
+          "hi": ""
+        },
+        {
+          "en": "Mesha",
+          "hi": ""
+        }
+      ],
+      "answer": 2,
+      "explanation": {
+        "en": "Tula is house 1. Count forward one sign per house: Vrishchika 2, Dhanu 3, Makara 4. Karka is the 4th sign of the zodiac, not the 4th house from Tula.",
+        "hi": ""
+      }
+    },
+    {
+      "id": "bhavas.check.2",
+      "type": "quiz",
+      "question": {
+        "en": "Which house is traditionally read first for career and public standing, and which group is it in?",
+        "hi": ""
+      },
+      "options": [
+        {
+          "en": "The 10th, a kendra",
+          "hi": ""
+        },
+        {
+          "en": "The 10th, a dusthana",
+          "hi": ""
+        },
+        {
+          "en": "The 6th, a kendra",
+          "hi": ""
+        },
+        {
+          "en": "The 11th, a trikona",
+          "hi": ""
+        }
+      ],
+      "answer": 0,
+      "explanation": {
+        "en": "The 10th house, karma bhava, shows work, action and reputation. It is one of the four kendras (1, 4, 7, 10), the pillars of the chart.",
+        "hi": ""
+      }
+    }
+  ],
+  "lessons": [
+    {
+      "id": "bhavas.lagna",
+      "title": {
+        "en": "What a bhava is",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "bhavas.lagna.1",
+          "type": "learn",
+          "title": {
+            "en": "Twelve scenes of life",
+            "hi": ""
+          },
+          "body": {
+            "en": "A bhava (house) is one of twelve areas of life in a kundli: self, wealth, home, partners, work and more. The grahas are the actors, the rashis are their costumes, and the bhavas are the scenes where the story plays out.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "भाव",
+            "roman": "Bhava"
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 0
+          }
+        },
+        {
+          "id": "bhavas.lagna.2",
+          "type": "learn",
+          "title": {
+            "en": "Signs are shared, houses are yours",
+            "hi": ""
+          },
+          "body": {
+            "en": "Everyone born on the same day shares roughly the same signs for the slow grahas. The houses are what make a chart personal: they depend on the exact time and place of birth, because they are counted from the horizon.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 0
+          }
+        },
+        {
+          "id": "bhavas.lagna.3",
+          "type": "learn",
+          "title": {
+            "en": "The lagna: house 1",
+            "hi": ""
+          },
+          "body": {
+            "en": "The lagna is the rashi rising on the eastern horizon at the moment of birth. It is house 1, the starting point of the whole chart. As the Earth turns, a new sign rises roughly every two hours, so the lagna needs a birth time.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "लग्न",
+            "roman": "Lagna"
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 1
+          }
+        },
+        {
+          "id": "bhavas.lagna.4",
+          "type": "learn",
+          "title": {
+            "en": "Whole-sign houses",
+            "hi": ""
+          },
+          "body": {
+            "en": "AstroLingo uses whole-sign houses, the oldest and simplest method. The entire lagna sign is house 1. The next sign in zodiac order is house 2, the one after that house 3, and so on until all twelve signs are used once.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 1
+          }
+        },
+        {
+          "id": "bhavas.lagna.5",
+          "type": "learn",
+          "title": {
+            "en": "A worked example",
+            "hi": ""
+          },
+          "body": {
+            "en": "Meera, a fictional learner, has Karka lagna. So Karka is her house 1, Simha house 2, Kanya house 3, Tula house 4, and so on around the wheel until Mithuna, her house 12. Every graha in Simha sits in her 2nd house.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "zodiac",
+            "value": 4
+          }
+        },
+        {
+          "id": "bhavas.lagna.6",
+          "type": "yourChart",
+          "fact": "LAGNA",
+          "title": {
+            "en": "Your house 1",
+            "hi": ""
+          },
+          "body": {
+            "en": "Your lagna is {value}. That whole sign is your 1st house, and the signs that follow it in zodiac order are your houses 2 to 12. Keep this in mind as we tour the houses.",
+            "hi": ""
+          },
+          "unknownTime": {
+            "en": "Your lagna depends on your birth time, which we don't have. Many astrologers then count houses from the Moon's sign instead, called Chandra lagna. It's a respected way to read a chart.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "bhavas.lagna.7",
+          "type": "quiz",
+          "question": {
+            "en": "What is the lagna?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "The sign the Moon was in at birth",
+              "hi": ""
+            },
+            {
+              "en": "The sign rising in the east at birth",
+              "hi": ""
+            },
+            {
+              "en": "The sign the Sun was in at birth",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "The lagna is the rashi on the eastern horizon at the moment of birth. It becomes house 1, and every other house is counted from it.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "bhavas.lagna.8",
+          "type": "quiz",
+          "question": {
+            "en": "With whole-sign houses and Mesha lagna, which sign is the 3rd house?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Vrishabha",
+              "hi": ""
+            },
+            {
+              "en": "Karka",
+              "hi": ""
+            },
+            {
+              "en": "Mithuna",
+              "hi": ""
+            },
+            {
+              "en": "Meena",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Mesha is house 1, Vrishabha house 2 and Mithuna house 3. Each house is one whole sign, in zodiac order.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "bhavas.lagna.9",
+          "type": "quiz",
+          "question": {
+            "en": "Why does a lagna need an accurate birth time?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "A new sign rises about every two hours",
+              "hi": ""
+            },
+            {
+              "en": "The Moon changes sign every hour",
+              "hi": ""
+            },
+            {
+              "en": "The houses are fixed for everyone",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "As the Earth turns, the rising sign changes roughly every two hours, so a small error in time can change the lagna and every house.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "bhavas.houses-1-4",
+      "title": {
+        "en": "Houses 1 to 4",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "bhavas.houses-1-4.1",
+          "type": "learn",
+          "title": {
+            "en": "Reading a house",
+            "hi": ""
+          },
+          "body": {
+            "en": "Each house has a name, a set of life areas and a natural karaka, a graha that signifies it in every chart. To read a house, look at its sign, the grahas in it, and its lord. We start with the first four.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "कारक",
+            "roman": "Karaka"
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 0
+          }
+        },
+        {
+          "id": "bhavas.houses-1-4.2",
+          "type": "learn",
+          "title": {
+            "en": "1st: Tanu, the self",
+            "hi": ""
+          },
+          "body": {
+            "en": "The 1st house is you: body, temperament, vitality and the way you meet the world. It colours the whole chart. Its natural karaka is Surya, the soul.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "तनु",
+            "roman": "Tanu"
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 1
+          }
+        },
+        {
+          "id": "bhavas.houses-1-4.3",
+          "type": "learn",
+          "title": {
+            "en": "2nd: Dhana, resources",
+            "hi": ""
+          },
+          "body": {
+            "en": "The 2nd house holds what sustains you: money and savings, family, food, speech and the values you hold dear. Its natural karaka is Guru, the graha of abundance.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "धन",
+            "roman": "Dhana"
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 2
+          }
+        },
+        {
+          "id": "bhavas.houses-1-4.4",
+          "type": "learn",
+          "title": {
+            "en": "3rd: Sahaja, courage",
+            "hi": ""
+          },
+          "body": {
+            "en": "The 3rd house is effort and initiative: courage, skills of the hands, writing and talking, short journeys and, traditionally, younger siblings. Its natural karaka is Mangal, the graha of drive.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "सहज",
+            "roman": "Sahaja"
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 3
+          }
+        },
+        {
+          "id": "bhavas.houses-1-4.5",
+          "type": "learn",
+          "title": {
+            "en": "4th: Sukha, home and heart",
+            "hi": ""
+          },
+          "body": {
+            "en": "The 4th house is comfort and roots: mother, home, land, vehicles, early schooling and inner peace. Its natural karaka is Chandra, the mind and the mother.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "सुख",
+            "roman": "Sukha"
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 4
+          }
+        },
+        {
+          "id": "bhavas.houses-1-4.6",
+          "type": "learn",
+          "title": {
+            "en": "A natural flow",
+            "hi": ""
+          },
+          "body": {
+            "en": "Notice the story: first the self (1), then what sustains it (2), the effort it makes (3), and the home it returns to (4). The twelve houses unfold like this, one step of life after another.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 0
+          }
+        },
+        {
+          "id": "bhavas.houses-1-4.7",
+          "type": "quiz",
+          "question": {
+            "en": "Which house is mainly about home, mother and inner peace?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "The 2nd",
+              "hi": ""
+            },
+            {
+              "en": "The 4th",
+              "hi": ""
+            },
+            {
+              "en": "The 3rd",
+              "hi": ""
+            },
+            {
+              "en": "The 1st",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "The 4th house, sukha bhava, covers home, mother, land and contentment. Its natural karaka is Chandra.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "bhavas.houses-1-4.8",
+          "type": "quiz",
+          "question": {
+            "en": "A question about courage and personal effort points first to which house?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "The 3rd",
+              "hi": ""
+            },
+            {
+              "en": "The 2nd",
+              "hi": ""
+            },
+            {
+              "en": "The 4th",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "The 3rd house, sahaja bhava, shows courage, initiative and skills. Its karaka is Mangal, the graha of drive.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "bhavas.houses-1-4.9",
+          "type": "quiz",
+          "question": {
+            "en": "Which is the natural karaka of the 2nd house of resources?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Shukra",
+              "hi": ""
+            },
+            {
+              "en": "Shani",
+              "hi": ""
+            },
+            {
+              "en": "Guru",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Guru, the graha of abundance and wisdom, is the natural karaka of the 2nd house of wealth, family and speech.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "bhavas.houses-5-8",
+      "title": {
+        "en": "Houses 5 to 8",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "bhavas.houses-5-8.1",
+          "type": "learn",
+          "title": {
+            "en": "5th: Putra, creativity",
+            "hi": ""
+          },
+          "body": {
+            "en": "The 5th house is what you create: children, ideas, art, romance, study and joy. Tradition also links it to purva punya, the good merit you bring into this life. Its natural karaka is Guru.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "पुत्र",
+            "roman": "Putra"
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 5
+          }
+        },
+        {
+          "id": "bhavas.houses-5-8.2",
+          "type": "learn",
+          "title": {
+            "en": "6th: Ari, daily challenges",
+            "hi": ""
+          },
+          "body": {
+            "en": "The 6th house is the arena of effort: daily work, service, rivals, debts, and the habits that keep you well. It shows how you meet and overcome obstacles. Mangal and Shani are its traditional karakas.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "अरि",
+            "roman": "Ari"
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 6
+          }
+        },
+        {
+          "id": "bhavas.houses-5-8.3",
+          "type": "learn",
+          "title": {
+            "en": "7th: Kalatra, partners",
+            "hi": ""
+          },
+          "body": {
+            "en": "The 7th house faces the 1st: it is the other person. Marriage and life partners, business partners, contracts and how you deal with the public all live here. Its natural karaka is Shukra.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "कलत्र",
+            "roman": "Kalatra"
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 7
+          }
+        },
+        {
+          "id": "bhavas.houses-5-8.4",
+          "type": "learn",
+          "title": {
+            "en": "8th: Randhra, the hidden",
+            "hi": ""
+          },
+          "body": {
+            "en": "The 8th house is what lies beneath: research, secrets, shared money, inheritance, deep change and the study of the unseen. Tradition also reads it for lifespan, which AstroLingo never predicts. Its karaka is Shani.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "रन्ध्र",
+            "roman": "Randhra"
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 8
+          }
+        },
+        {
+          "id": "bhavas.houses-5-8.5",
+          "type": "learn",
+          "title": {
+            "en": "No house is bad",
+            "hi": ""
+          },
+          "body": {
+            "en": "The 6th and 8th have a tough reputation, but a strong 6th can make a tireless worker or a fine healer, and a busy 8th a gifted researcher. Houses show where life asks something of you, not a fixed fate.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 6
+          }
+        },
+        {
+          "id": "bhavas.houses-5-8.6",
+          "type": "quiz",
+          "question": {
+            "en": "Which house is read for partners, both in marriage and in business?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "The 5th",
+              "hi": ""
+            },
+            {
+              "en": "The 8th",
+              "hi": ""
+            },
+            {
+              "en": "The 7th",
+              "hi": ""
+            },
+            {
+              "en": "The 6th",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "The 7th house, kalatra bhava, faces the lagna across the chart and shows the other person: spouse, business partners and the public.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "bhavas.houses-5-8.7",
+          "type": "quiz",
+          "question": {
+            "en": "Research, secrets and deep transformation belong to which house?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "The 8th",
+              "hi": ""
+            },
+            {
+              "en": "The 5th",
+              "hi": ""
+            },
+            {
+              "en": "The 6th",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "The 8th house, randhra bhava, covers what is hidden or shared: research, secrets, inheritance and change.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "bhavas.houses-5-8.8",
+          "type": "quiz",
+          "question": {
+            "en": "Which life area belongs to the 5th house?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Daily work and service",
+              "hi": ""
+            },
+            {
+              "en": "Creativity, children and study",
+              "hi": ""
+            },
+            {
+              "en": "Contracts and agreements",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "The 5th house is creative expression: children, ideas, romance, learning and joy. Daily work is the 6th; contracts are the 7th.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "bhavas.houses-9-12",
+      "title": {
+        "en": "Houses 9 to 12",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "bhavas.houses-9-12.1",
+          "type": "learn",
+          "title": {
+            "en": "9th: Dharma, fortune",
+            "hi": ""
+          },
+          "body": {
+            "en": "The 9th house is meaning and grace: luck, father, teachers and gurus, higher learning, faith and long journeys. It is often called the house of fortune. Guru is its main karaka, with Surya for the father.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "धर्म",
+            "roman": "Dharma"
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 9
+          }
+        },
+        {
+          "id": "bhavas.houses-9-12.2",
+          "type": "learn",
+          "title": {
+            "en": "10th: Karma, action",
+            "hi": ""
+          },
+          "body": {
+            "en": "The 10th house is what you do in the world: career, duty, status and reputation. It sits at the top of the sky. Tradition gives it several karakas, among them Surya, Budha, Guru and Shani.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "कर्म",
+            "roman": "Karma"
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 10
+          }
+        },
+        {
+          "id": "bhavas.houses-9-12.3",
+          "type": "learn",
+          "title": {
+            "en": "11th: Labha, gains",
+            "hi": ""
+          },
+          "body": {
+            "en": "The 11th house is what comes to you: income, gains, friends, networks, elder siblings and hopes fulfilled. Most grahas are said to give good results here. Its natural karaka is Guru.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "लाभ",
+            "roman": "Labha"
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 11
+          }
+        },
+        {
+          "id": "bhavas.houses-9-12.4",
+          "type": "learn",
+          "title": {
+            "en": "12th: Vyaya, release",
+            "hi": ""
+          },
+          "body": {
+            "en": "The 12th house is letting go: expenses, sleep, retreat, foreign lands, charity and, in the end, moksha, spiritual freedom. Spending here can be generous giving, not only loss. Shani is its natural karaka.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "व्यय",
+            "roman": "Vyaya"
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 12
+          }
+        },
+        {
+          "id": "bhavas.houses-9-12.5",
+          "type": "learn",
+          "title": {
+            "en": "From self to freedom",
+            "hi": ""
+          },
+          "body": {
+            "en": "Step back and the twelve houses read as a journey: from the self (1) through resources, effort, home, creation, work, partners and change, to wisdom, action, gains, and finally release (12).",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 0
+          }
+        },
+        {
+          "id": "bhavas.houses-9-12.6",
+          "type": "yourChart",
+          "fact": "GURU_HOUSE",
+          "title": {
+            "en": "Guru in your chart",
+            "hi": ""
+          },
+          "body": {
+            "en": "Guru, the great expander, sits in house {value} of your kundli. Look back at what that house governs: tradition says it is an area where Guru tends to bring growth, learning and good counsel.",
+            "hi": ""
+          },
+          "unknownTime": {
+            "en": "Guru's house depends on your lagna, so it needs your birth time. Without it, you can still count from your Moon sign to see where Guru sits from your mind's point of view.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "bhavas.houses-9-12.7",
+          "type": "quiz",
+          "question": {
+            "en": "Which house is called the house of gains and friends?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "The 9th",
+              "hi": ""
+            },
+            {
+              "en": "The 12th",
+              "hi": ""
+            },
+            {
+              "en": "The 11th",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "The 11th house, labha bhava, shows income, gains, friends, networks and hopes fulfilled.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "bhavas.houses-9-12.8",
+          "type": "quiz",
+          "question": {
+            "en": "What does the 12th house cover besides expenses?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Career and reputation",
+              "hi": ""
+            },
+            {
+              "en": "Retreat, foreign lands and moksha",
+              "hi": ""
+            },
+            {
+              "en": "Courage and siblings",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "The 12th house, vyaya bhava, is letting go: spending, sleep, retreat, distant places and spiritual freedom.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "bhavas.houses-9-12.9",
+          "type": "quiz",
+          "question": {
+            "en": "Teachers, faith and higher learning point first to which house?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "The 9th",
+              "hi": ""
+            },
+            {
+              "en": "The 10th",
+              "hi": ""
+            },
+            {
+              "en": "The 4th",
+              "hi": ""
+            },
+            {
+              "en": "The 3rd",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "The 9th house, dharma bhava, covers fortune, father, gurus, faith and higher learning.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "bhavas.groups",
+      "title": {
+        "en": "Kendra, trikona and more",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "bhavas.groups.1",
+          "type": "learn",
+          "title": {
+            "en": "Kendras: the pillars",
+            "hi": ""
+          },
+          "body": {
+            "en": "Houses 1, 4, 7 and 10 are the kendras, the four angles of the chart. They are its pillars: self, home, partners and work. Grahas here tend to be strong and visible in life.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "केन्द्र",
+            "roman": "Kendra"
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 10
+          }
+        },
+        {
+          "id": "bhavas.groups.2",
+          "type": "learn",
+          "title": {
+            "en": "Trikonas: the blessings",
+            "hi": ""
+          },
+          "body": {
+            "en": "Houses 1, 5 and 9 form the trikonas, the triangle of dharma. They are the most auspicious houses in Parashari astrology, linked to merit, wisdom and grace. Grahas here tend to give their best.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "त्रिकोण",
+            "roman": "Trikona"
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 9
+          }
+        },
+        {
+          "id": "bhavas.groups.3",
+          "type": "learn",
+          "title": {
+            "en": "The lagna is both",
+            "hi": ""
+          },
+          "body": {
+            "en": "Did you spot it? House 1 is both a kendra and a trikona. That is why the lagna and its lord matter so much: they carry the strength of a pillar and the grace of a blessing at once.",
+            "hi": ""
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 1
+          }
+        },
+        {
+          "id": "bhavas.groups.4",
+          "type": "learn",
+          "title": {
+            "en": "Dusthanas: the hard teachers",
+            "hi": ""
+          },
+          "body": {
+            "en": "Houses 6, 8 and 12 are the dusthanas, traditionally the difficult houses: obstacles, upheaval and loss. They are not doom. They are where we grow through effort, and tradition even has yogas where they turn into gains.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "दुःस्थान",
+            "roman": "Dusthana"
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 8
+          }
+        },
+        {
+          "id": "bhavas.groups.5",
+          "type": "learn",
+          "title": {
+            "en": "Upachayas: houses that grow",
+            "hi": ""
+          },
+          "body": {
+            "en": "Houses 3, 6, 10 and 11 are the upachayas, the houses of growth. Their results improve with time and effort. Tradition says the natural malefics, like Shani and Mangal, often do well here.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "उपचय",
+            "roman": "Upachaya"
+          },
+          "visual": {
+            "kind": "houses",
+            "value": 11
+          }
+        },
+        {
+          "id": "bhavas.groups.6",
+          "type": "yourChart",
+          "fact": "SHANI_HOUSE",
+          "title": {
+            "en": "Shani in your chart",
+            "hi": ""
+          },
+          "body": {
+            "en": "Shani sits in house {value} of your kundli. If that is 3, 6, 10 or 11, an upachaya, tradition says his slow, steady work tends to grow stronger with the years. Anywhere else, his gift is patience and lasting effort.",
+            "hi": ""
+          },
+          "unknownTime": {
+            "en": "Shani's house needs your birth time, which we don't have. His message is the same everywhere: patience and steady effort build things that last.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "bhavas.groups.7",
+          "type": "quiz",
+          "question": {
+            "en": "Which houses are the trikonas?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "1, 4, 7 and 10",
+              "hi": ""
+            },
+            {
+              "en": "6, 8 and 12",
+              "hi": ""
+            },
+            {
+              "en": "1, 5 and 9",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "The trikonas are houses 1, 5 and 9, the triangle of dharma and the most auspicious houses. 1, 4, 7 and 10 are the kendras.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "bhavas.groups.8",
+          "type": "quiz",
+          "question": {
+            "en": "Which house is both a kendra and a trikona?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "The 1st",
+              "hi": ""
+            },
+            {
+              "en": "The 5th",
+              "hi": ""
+            },
+            {
+              "en": "The 10th",
+              "hi": ""
+            },
+            {
+              "en": "The 9th",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "The 1st house, the lagna, belongs to both groups. That is one reason the lagna and its lord carry so much weight.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "bhavas.groups.9",
+          "type": "quiz",
+          "question": {
+            "en": "What do upachaya houses have in common?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "They are always unlucky",
+              "hi": ""
+            },
+            {
+              "en": "Their results grow with time and effort",
+              "hi": ""
+            },
+            {
+              "en": "They hold no grahas",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Upachaya means growth. Houses 3, 6, 10 and 11 tend to improve with time and effort, and malefics often do well in them.",
+            "hi": ""
+          }
+        }
+      ]
+    }
+  ]
+}
