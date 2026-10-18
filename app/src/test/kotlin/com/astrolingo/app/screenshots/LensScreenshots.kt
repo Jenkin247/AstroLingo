@@ -2,6 +2,7 @@ package com.astrolingo.app.screenshots
 
 import android.provider.Settings
 import androidx.activity.ComponentActivity
+import androidx.compose.ui.test.ComposeTimeoutException
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onAllNodesWithText
@@ -42,7 +43,17 @@ class LensScreenshots {
 
     private fun shot(name: String) = compose.onRoot().captureRoboImage("build/outputs/roborazzi/$name.png")
 
-    private fun waitForText(text: String) = compose.waitUntil(WAIT_MILLIS) {
+    /** Waits for [condition]; on a timeout saves the screen and names what was missing, so CI says which step failed. */
+    private fun waitFor(what: String, condition: () -> Boolean) {
+        try {
+            compose.waitUntil(WAIT_MILLIS, condition)
+        } catch (e: ComposeTimeoutException) {
+            runCatching { shot("lens_failure") }
+            throw AssertionError("Timed out waiting for: $what", e)
+        }
+    }
+
+    private fun waitForText(text: String) = waitFor(text) {
         compose.onAllNodesWithText(text, substring = true).fetchSemanticsNodes().isNotEmpty()
     }
 
@@ -73,8 +84,7 @@ class LensScreenshots {
                 )
             }
         }
-        waitForText("Next card")
-        compose.waitUntil(WAIT_MILLIS) {
+        waitFor("the chart bubble") {
             compose.onAllNodesWithContentDescription("Compare with saved charts", substring = true).fetchSemanticsNodes().isNotEmpty()
         }
         shot("33_learn_chart_bubble")
