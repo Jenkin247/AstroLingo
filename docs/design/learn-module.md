@@ -38,6 +38,7 @@ Each chapter has 3 to 5 lessons. A lesson is one idea, 3 to 5 minutes: 5 to 7 le
 | 14 | Kundli matching | Ashtakoota and the 36 gunas, and why a score is never the whole story |
 
 ### Cards
+- **Graha flip card (PO, 17 Oct):** the card that introduces each graha shows a drawn picture of it on the front (Shani with its rings, Surya glowing, Rahu as the eclipse shadow, Ketu as a comet). A tap turns it over to the text; swipe up to go on.
 - **Learn card:** a title, up to about 300 characters of text, an optional Sanskrit term (Devanagari and roman), and an optional visual: a big glyph, the zodiac wheel with one sign lit, the house diagram with one house lit, or the nakshatra ring with one star lit.
 - **Your chart card:** the same lesson, made personal from the user's own kundli, for example "Your Moon is in Rohini, ruled by the Moon". When the birth time is unknown, cards that need the lagna or houses say so gently instead.
 - **Quiz card:** a question, 3 or 4 answers, and a "why" explanation after answering. Wrong answers are never punished: the right answer and the reason are shown.
@@ -82,10 +83,9 @@ Accessibility: every card works at 200% font (text scrolls inside the card), all
 ### Stories, one pull request each (stacked)
 1. Learn design, ADR 0011 and the learn engine (model, loader, path, knowledge check, progress, bookmarks) with tests.
 2. The Guru's course: all 14 chapters, with content tests.
-3. Learn home: the path on the Learn tab, chapter sheet, progress saved.
-4. Card player: swipe-up cards, your-chart cards, quizzes, lesson done, motion.
-5. Bookmarks and the Saved list.
-6. Knowledge check that skips chapters.
+3. Learn home and the card player: the path, chapter sheet, swipe-up cards, graha flip cards, your-chart cards, quizzes, lesson done, motion, progress saved. (Home and player were joined: one without the other can't be used.)
+4. Bookmarks and the Saved list.
+5. Knowledge check that skips chapters.
 
 ### QA approach
 - Content tests on every file: schema, unique ids, 3 quiz cards per lesson, the answer index inside the options, length limits, 2 check questions per chapter, every `hi` either empty or filled.
