@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Saved people in Me (LS-8). Hindi in values-hi/strings_people.xml. -->
+<resources>
+    <string name="people_title">Saved people</string>
+    <string name="people_count">%1$d of %2$d charts saved</string>
+    <string name="people_you">You</string>
+    <string name="people_add">Add a person</string>
+    <string name="people_places_left">Places left: %1$d</string>
+    <string name="people_full">All places are used. Delete someone to add another.</string>
+    <string name="people_privacy">Saved people stay on this phone only. They are never uploaded, never sent to Sitara and are removed by Delete my birth details.</string>
+    <string name="people_edit">Edit %1$s</string>
+    <string name="people_delete">Delete %1$s</string>
+    <string name="people_delete_title">Delete %1$s?</string>
+    <string name="people_delete_body">Their birth details will be removed from this phone.</string>
+    <string name="people_time_unknown">time unknown</string>
+    <string name="people_add_title">Add a person</string>
+    <string name="people_edit_title">Edit %1$s</string>
+    <string name="people_back">Back</string>
+    <string name="people_name">Nickname</string>
+    <string name="people_name_hint">How you call them, such as Asha or Dad</string>
+    <string name="people_date">Date of birth</string>
+    <string name="people_date_choose">Choose the date</string>
+    <string name="people_time">Time of birth</string>
+    <string name="people_time_choose">Choose the time</string>
+    <string name="people_time_unknown_check">I don\'t know the time. Houses and the lagna will be hidden for this person.</string>
+    <string name="people_place">Place of birth</string>
+    <string name="people_consent">%1$s knows I\'m saving their birth details. They stay on this phone and are never uploaded.</string>
+    <string name="people_consent_someone">This person knows I\'m saving their birth details. They stay on this phone and are never uploaded.</string>
+    <string name="people_save">Save</string>
+    <string name="people_ok">OK</string>
+    <string name="people_cancel">Cancel</string>
+    <string name="people_delete_too">Your saved people are deleted too.</string>
+</resources>

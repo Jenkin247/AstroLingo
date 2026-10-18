@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- सहेजे गए लोग (LS-8)। हिन्दी समीक्षक से जाँच बाकी है। -->
+<resources>
+    <string name="people_title">सहेजे गए लोग</string>
+    <string name="people_count">%2$d में से %1$d कुंडलियाँ सहेजी गईं</string>
+    <string name="people_you">आप</string>
+    <string name="people_add">व्यक्ति जोड़ें</string>
+    <string name="people_places_left">बची जगह: %1$d</string>
+    <string name="people_full">सभी जगहें भर गई हैं। किसी और को जोड़ने के लिए पहले किसी को हटाएँ।</string>
+    <string name="people_privacy">सहेजे गए लोग केवल इसी फ़ोन पर रहते हैं। ये कभी अपलोड नहीं होते, सितारा को नहीं भेजे जाते और "मेरा जन्म विवरण हटाएँ" से हट जाते हैं।</string>
+    <string name="people_edit">%1$s बदलें</string>
+    <string name="people_delete">%1$s हटाएँ</string>
+    <string name="people_delete_title">%1$s को हटाएँ?</string>
+    <string name="people_delete_body">उनका जन्म विवरण इस फ़ोन से हटा दिया जाएगा।</string>
+    <string name="people_time_unknown">समय अज्ञात</string>
+    <string name="people_add_title">व्यक्ति जोड़ें</string>
+    <string name="people_edit_title">%1$s बदलें</string>
+    <string name="people_back">वापस</string>
+    <string name="people_name">उपनाम</string>
+    <string name="people_name_hint">जैसे आप उन्हें बुलाते हैं, जैसे आशा या पापा</string>
+    <string name="people_date">जन्म तिथि</string>
+    <string name="people_date_choose">तिथि चुनें</string>
+    <string name="people_time">जन्म समय</string>
+    <string name="people_time_choose">समय चुनें</string>
+    <string name="people_time_unknown_check">मुझे समय नहीं पता। इस व्यक्ति के भाव और लग्न नहीं दिखाए जाएँगे।</string>
+    <string name="people_place">जन्म स्थान</string>
+    <string name="people_consent">%1$s जानते हैं कि मैं उनका जन्म विवरण सहेज रहा/रही हूँ। यह इसी फ़ोन पर रहता है और कभी अपलोड नहीं होता।</string>
+    <string name="people_consent_someone">यह व्यक्ति जानता है कि मैं उनका जन्म विवरण सहेज रहा/रही हूँ। यह इसी फ़ोन पर रहता है और कभी अपलोड नहीं होता।</string>
+    <string name="people_save">सहेजें</string>
+    <string name="people_ok">ठीक है</string>
+    <string name="people_cancel">रद्द करें</string>
+    <string name="people_delete_too">आपके सहेजे गए लोग भी हट जाएँगे।</string>
+</resources>

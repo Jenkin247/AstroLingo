@@ -1,5 +1,5 @@
 // The profile in a SQLCipher database (AES-256) keyed by DatabaseKey (ADR 0002).
-// One key/value table for now; Room comes in when lesson progress needs real tables.
+// Key/value tables: one for the user's profile, one for saved people (LS-8), rows per person id.
 package com.astrolingo.app.profile
 
 import android.content.ContentValues
@@ -41,6 +41,40 @@ class EncryptedProfileStore(context: Context) : ProfileRepository {
             }
         }
 
+    override fun loadPeople(): List<SavedPerson> {
+        if (!appContext.getDatabasePath(DB_NAME).exists()) return emptyList()
+        val rows = withDatabase { db ->
+            db.rawQuery("SELECT id, key, value FROM $PEOPLE", null).use { cursor ->
+                val byId = mutableMapOf<String, MutableMap<String, String>>()
+                while (cursor.moveToNext()) byId.getOrPut(cursor.getString(0)) { mutableMapOf() }[cursor.getString(1)] = cursor.getString(2)
+                byId
+            }
+        } ?: return emptyList()
+        return rows.mapNotNull { (id, values) -> ProfileCodec.decodePerson(id, values) }.sortedBy { it.createdAt }
+    }
+
+    override fun savePerson(person: SavedPerson) {
+        checkNotNull(
+            withDatabase { db ->
+                db.beginTransaction()
+                try {
+                    db.delete(PEOPLE, "id = ?", arrayOf(person.id))
+                    ProfileCodec.encodePerson(person).forEach { (k, v) ->
+                        db.insert(PEOPLE, null, ContentValues().apply { put("id", person.id); put("key", k); put("value", v) })
+                    }
+                    db.setTransactionSuccessful()
+                } finally {
+                    db.endTransaction()
+                }
+            },
+        ) { "person could not be saved" }
+    }
+
+    override fun deletePerson(id: String) {
+        if (!appContext.getDatabasePath(DB_NAME).exists()) return
+        withDatabase { db -> db.delete(PEOPLE, "id = ?", arrayOf(id)) }
+    }
+
     override fun deleteAll() {
         appContext.deleteDatabase(DB_NAME)
         key.destroy()
@@ -67,6 +101,7 @@ class EncryptedProfileStore(context: Context) : ProfileRepository {
         }
         return db.use {
             it.execSQL("CREATE TABLE IF NOT EXISTS $TABLE (key TEXT PRIMARY KEY NOT NULL, value TEXT NOT NULL)")
+            it.execSQL("CREATE TABLE IF NOT EXISTS $PEOPLE (id TEXT NOT NULL, key TEXT NOT NULL, value TEXT NOT NULL, PRIMARY KEY (id, key))")
             block(it)
         }
     }
@@ -74,6 +109,7 @@ class EncryptedProfileStore(context: Context) : ProfileRepository {
     private companion object {
         const val DB_NAME = "profile.db"
         const val TABLE = "profile"
+        const val PEOPLE = "people"
         val loadNativeLibrary: Unit by lazy { System.loadLibrary("sqlcipher") }
     }
 }

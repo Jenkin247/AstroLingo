@@ -28,6 +28,8 @@ object ProfileCodec {
     private const val K_CITY_CLOCK = "use_city_clock"
     private const val K_DAY_PART = "day_part"
     private const val K_SHOW_DEITY = "show_deity"
+    private const val K_NAME = "name"
+    private const val K_CREATED = "created"
 
     /** Key prefixes for a stored place: the birthplace keeps the original "city_" keys. */
     private const val CITY = "city"
@@ -72,6 +74,34 @@ object ProfileCodec {
             ),
             showDeity = rows[K_SHOW_DEITY]?.toBooleanStrict() ?: true,
             currentPlace = rows.city(HERE),
+        )
+    }.getOrNull()
+
+    /** Rows for one saved person (LS-8), in their own table keyed by the person's id. */
+    fun encodePerson(person: SavedPerson): Map<String, String> {
+        val birth = person.birth
+        return buildMap {
+            put(K_VERSION, VERSION.toString())
+            put(K_NAME, person.name)
+            put(K_CREATED, person.createdAt.toString())
+            put(K_DATE, birth.date.toString())
+            birth.time?.let { put(K_TIME, it.toString()) }
+            putCity(CITY, birth.city)
+        }
+    }
+
+    /** The person from their rows, or null when they can't be read (then they are left out, not guessed). */
+    fun decodePerson(id: String, rows: Map<String, String>): SavedPerson? = runCatching {
+        if (rows[K_VERSION]?.toInt() != VERSION) return null
+        SavedPerson(
+            id = id,
+            name = rows.getValue(K_NAME),
+            birth = BirthDetails(
+                date = LocalDate.parse(rows.getValue(K_DATE)),
+                time = rows[K_TIME]?.let(LocalTime::parse),
+                city = checkNotNull(rows.city(CITY)),
+            ),
+            createdAt = rows.getValue(K_CREATED).toLong(),
         )
     }.getOrNull()
 
