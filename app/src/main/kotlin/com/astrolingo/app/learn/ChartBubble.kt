@@ -61,6 +61,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.res.pluralStringResource
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.CustomAccessibilityAction
@@ -146,7 +147,7 @@ internal fun BoxScope.ChartBubble(count: Int, onOpen: () -> Unit) {
         left = !left
         prefs.edit().putBoolean(KEY_LEFT, left).apply()
     }
-    val label = stringResource(R.string.lens_bubble, count)
+    val label = pluralStringResource(R.plurals.lens_bubble, count, count)
     val moveLabel = stringResource(R.string.lens_bubble_move)
     Box(
         Modifier
@@ -154,7 +155,7 @@ internal fun BoxScope.ChartBubble(count: Int, onOpen: () -> Unit) {
             .padding(start = Spacing.md, end = Spacing.md, bottom = BOTTOM_CLEARANCE)
             .offset { IntOffset(drag.x.roundToInt(), (lift + drag.y).roundToInt()) }
             .size(BUBBLE_SIZE)
-            .shadow(6.dp, CircleShape)
+            .shadow(6.dp, CircleShape, clip = false)
             .background(MaterialTheme.colorScheme.primaryContainer, CircleShape)
             .pointerInput(left) {
                 detectDragGestures(
@@ -179,7 +180,7 @@ internal fun BoxScope.ChartBubble(count: Int, onOpen: () -> Unit) {
         contentAlignment = Alignment.Center,
     ) {
         Icon(Icons.Filled.Person, contentDescription = null, tint = MaterialTheme.colorScheme.onPrimaryContainer)
-        Badge(Modifier.align(Alignment.TopEnd).clearAndSetSemantics {}) { Text(count.toString()) }
+        Badge(Modifier.align(Alignment.TopEnd).offset(x = 4.dp, y = (-4).dp).clearAndSetSemantics {}) { Text(count.toString()) }
     }
 }
 
@@ -269,7 +270,7 @@ private fun Overview(
     if (others < SavedPerson.MAX_OTHERS) {
         Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh)) {
             Column(Modifier.padding(Spacing.md), verticalArrangement = Arrangement.spacedBy(Spacing.sm)) {
-                Text(stringResource(R.string.lens_add_more, SavedPerson.MAX_OTHERS - others), style = MaterialTheme.typography.titleMedium)
+                Text(pluralStringResource(R.plurals.lens_add_more, SavedPerson.MAX_OTHERS - others, SavedPerson.MAX_OTHERS - others), style = MaterialTheme.typography.titleMedium)
                 Text(
                     stringResource(R.string.lens_add_more_body),
                     style = MaterialTheme.typography.bodySmall,
