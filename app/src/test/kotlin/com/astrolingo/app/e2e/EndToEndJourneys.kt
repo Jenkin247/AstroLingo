@@ -4,7 +4,9 @@ import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.ComposeTimeoutException
 import androidx.compose.ui.test.isRoot
+import androidx.compose.ui.test.SemanticsNodeInteractionCollection
 import androidx.compose.ui.test.hasClickAction
+import androidx.compose.ui.test.isDisplayed
 import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -12,8 +14,6 @@ import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onLast
-import androidx.compose.ui.test.onNodeWithContentDescription
-import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performTextInput
@@ -90,11 +90,28 @@ class EndToEndJourneys {
     /** Taps the first node with exactly [text] (or containing it, with [partial]), scrolling to it when it is in a list. */
     private fun tap(text: String, partial: Boolean = false) {
         waitFor("something to tap: $text") { compose.onAllNodesWithText(text, substring = partial).fetchSemanticsNodes().isNotEmpty() }
-        val node = compose.onAllNodesWithText(text, substring = partial).onFirst()
-        // Tabs and dialog buttons have no scrolling parent.
-        runCatching { node.performScrollTo() }
-        node.performClick()
-        compose.waitForIdle()
+        click(compose.onAllNodesWithText(text, substring = partial), text)
+    }
+
+    /**
+     * Clicks the first of [nodes] that is on screen, scrolling to each in turn when it sits in a list. Pages next to
+     * the current card and closed sheets can hold the same text off screen, where a tap can't land.
+     */
+    private fun click(nodes: SemanticsNodeInteractionCollection, what: String) {
+        val count = nodes.fetchSemanticsNodes().size
+        for (i in 0 until count) {
+            val node = nodes[i]
+            // Tabs and dialog buttons have no scrolling parent.
+            runCatching { node.performScrollTo() }
+            if (runCatching { node.isDisplayed() }.getOrDefault(false)) {
+                node.performClick()
+                compose.waitForIdle()
+                return
+            }
+        }
+        val name = "e2e_failure_" + testName.methodName.replace(Regex("[^A-Za-z0-9]+"), "_").take(40)
+        runCatching { compose.onAllNodes(isRoot()).onLast().captureRoboImage("build/outputs/roborazzi/$name.png") }
+        throw AssertionError("Nothing on screen to tap: $what ($count found off screen)")
     }
 
     /** Types a place and picks the first match, as in onboarding and Add a person. */
@@ -104,7 +121,7 @@ class EndToEndJourneys {
         compose.onAllNodes(hasSetTextAction()).onLast().performTextInput(name)
         val result = hasText(name, substring = true) and hasClickAction() and !hasSetTextAction()
         waitFor("a place matching $name") { compose.onAllNodes(result).fetchSemanticsNodes().isNotEmpty() }
-        compose.onAllNodes(result).onFirst().performScrollTo().performClick()
+        click(compose.onAllNodes(result), "a place matching $name")
     }
 
     private fun learnerAnswers(level: Level = Level.NEW) = OnboardingAnswers(
@@ -130,7 +147,7 @@ class EndToEndJourneys {
         tap("Next")
         waitForText("When were you born?")
         // The calendar opens on January 1990.
-        compose.onAllNodesWithText("15").onFirst().performClick()
+        click(compose.onAllNodesWithText("15"), "the 15th")
         tap("Next")
         waitForText("What time were you born?")
         tap("My birth time is", partial = true)
@@ -164,14 +181,14 @@ class EndToEndJourneys {
         lesson.cards.forEach { card ->
             if (card is QuizCard) {
                 waitForText(card.question.en)
-                compose.onAllNodes(hasText(card.options[card.answer].en) and hasClickAction()).onFirst().performClick()
+                click(compose.onAllNodes(hasText(card.options[card.answer].en) and hasClickAction()), "the right answer")
                 waitForText("That's right!")
             }
             tap("Next card")
         }
         waitForText("Lesson complete!")
 
-        compose.onNodeWithContentDescription("Close lesson").performClick()
+        click(compose.onAllNodesWithContentDescription("Close lesson"), "Close lesson")
         waitForText("Today")
         tap("Today")
         waitForText("Rahu kaal")
@@ -194,7 +211,7 @@ class EndToEndJourneys {
         waitForText("Nickname")
         compose.onAllNodes(hasSetTextAction()).onFirst().performTextInput("Meera")
         tap("Choose the date")
-        compose.onAllNodesWithText("20").onFirst().performClick()
+        click(compose.onAllNodesWithText("20"), "the 20th")
         tap("OK")
         tap("Choose the time")
         tap("OK")
@@ -211,10 +228,10 @@ class EndToEndJourneys {
         waitForText("Sun and Moon")
         tap("Sun and Moon")
         waitForText("Next card")
-        compose.onAllNodesWithText("Next card").onFirst().performClick()
+        tap("Next card")
         // The second card is about Surya: the bubble shows both charts.
         waitForDescription("Compare with saved charts, 2 charts")
-        compose.onNodeWithContentDescription("Compare with saved charts, 2 charts").performClick()
+        click(compose.onAllNodesWithContentDescription("Compare with saved charts, 2 charts"), "the chart bubble")
         waitForText("Surya (Sun) in your saved charts")
         waitForText("Meera")
         // Strength is a later chapter, so it says what opens it.
@@ -238,7 +255,7 @@ class EndToEndJourneys {
         repeat(MAX_CARDS) {
             assertThat(compose.onAllNodesWithContentDescription("Compare with saved charts", substring = true).fetchSemanticsNodes()).isEmpty()
             if (!shows("Quick question")) {
-                compose.onAllNodesWithText("Next card").onFirst().performClick()
+                tap("Next card")
                 compose.waitForIdle()
             }
         }
