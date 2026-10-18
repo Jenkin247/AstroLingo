@@ -87,6 +87,9 @@ class AppScreenshots {
         compose.onNodeWithText("Learn").performClick()
         compose.waitForIdle()
         shot("06_learn")
+        // Someone who knows some astrology gets the knowledge check first, full screen without tabs (LS-3).
+        compose.onNodeWithText("Start from the beginning").performScrollTo().performClick()
+        waitForText("Start lesson")
         compose.onNodeWithText("Me").performClick()
         compose.waitForIdle()
         shot("07_me")
