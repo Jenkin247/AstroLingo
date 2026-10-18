@@ -164,4 +164,9 @@
     <string name="me_appearance_light">लाइट</string>
     <string name="me_appearance_dark">डार्क</string>
     <string name="me_language">भाषा</string>
+    <string name="today_why_day">आज का दिन ऐसा क्यों?</string>
+    <string name="today_why_colour">यह रंग क्यों?</string>
+    <string name="today_why_rahu">राहु काल क्या है?</string>
+    <string name="today_why_tithi">तिथि क्या है?</string>
+    <string name="today_why_star">नक्षत्र क्या है?</string>
 </resources>

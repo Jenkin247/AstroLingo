@@ -174,4 +174,9 @@
     <string name="language_more_hi" translatable="false">और भाषाएँ जल्द आ रही हैं।</string>
     <string name="language_note_en" translatable="false">You can change this any time in Me.</string>
     <string name="language_note_hi" translatable="false">आप इसे कभी भी “मैं” टैब में बदल सकते हैं।</string>
+    <string name="today_why_day">Why this kind of day?</string>
+    <string name="today_why_colour">Why this colour?</string>
+    <string name="today_why_rahu">What is Rahu kaal?</string>
+    <string name="today_why_tithi">What is a tithi?</string>
+    <string name="today_why_star">What is a nakshatra?</string>
 </resources>

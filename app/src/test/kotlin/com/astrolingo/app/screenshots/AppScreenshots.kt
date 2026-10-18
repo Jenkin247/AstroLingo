@@ -87,6 +87,12 @@ class AppScreenshots {
         waitForText("Use my location")
         shot("04_today_change_place")
         compose.onNodeWithText("Keep").performClick()
+        // "What is Rahu kaal?" opens that lesson, and closing it comes back to Today (LS-6).
+        compose.onNodeWithText("What is Rahu kaal?").performScrollTo().performClick()
+        waitForText("Next card")
+        shot("28_today_learn_why")
+        compose.onNodeWithContentDescription("Close lesson").performClick()
+        waitForText("What is Rahu kaal?")
         compose.onNodeWithText("Kundli").performClick()
         compose.waitForIdle()
         shot("05_kundli")
