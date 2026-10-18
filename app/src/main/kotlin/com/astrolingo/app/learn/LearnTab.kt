@@ -46,7 +46,7 @@ internal object BundledCourse {
 }
 
 /** Something another tab asks Learn to open. */
-internal sealed interface LearnRequest {
+sealed interface LearnRequest {
     /** Today's Review, from the card on Today. */
     data object Review : LearnRequest
 }
