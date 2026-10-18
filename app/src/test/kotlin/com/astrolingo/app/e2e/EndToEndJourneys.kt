@@ -1,0 +1,290 @@
+package com.astrolingo.app.e2e
+
+import android.provider.Settings
+import androidx.activity.ComponentActivity
+import androidx.compose.ui.test.ComposeTimeoutException
+import androidx.compose.ui.test.isRoot
+import androidx.compose.ui.test.SemanticsNodeInteractionCollection
+import androidx.compose.ui.test.hasClickAction
+import androidx.compose.ui.test.hasContentDescription
+import androidx.compose.ui.test.isDisplayed
+import androidx.compose.ui.test.hasSetTextAction
+import androidx.compose.ui.test.hasText
+import androidx.compose.ui.test.junit4.createAndroidComposeRule
+import androidx.compose.ui.test.onAllNodesWithContentDescription
+import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.onFirst
+import androidx.compose.ui.test.onLast
+import androidx.compose.ui.test.performClick
+import androidx.compose.ui.test.performScrollTo
+import androidx.compose.ui.test.performTextInput
+import com.astrolingo.app.learn.BundledCourse
+import com.astrolingo.app.learn.InMemoryLearnStore
+import com.astrolingo.app.onboarding.BirthDetails
+import com.astrolingo.app.onboarding.DailyGoal
+import com.astrolingo.app.onboarding.Level
+import com.astrolingo.app.onboarding.OnboardingAnswers
+import com.astrolingo.app.onboarding.Purpose
+import com.astrolingo.app.profile.InMemoryProfileRepository
+import com.astrolingo.app.ui.AstroLingoApp
+import com.astrolingo.app.ui.theme.AstroLingoTheme
+import com.astrolingo.engine.places.CityIndex
+import com.astrolingo.learn.content.QuizCard
+import com.astrolingo.learn.progress.LearnProgress
+import com.github.takahirom.roborazzi.captureRoboImage
+import com.google.common.truth.Truth.assertThat
+import java.time.LocalDate
+import java.time.LocalTime
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
+import org.junit.rules.TestName
+import org.junit.runner.RunWith
+import org.robolectric.RobolectricTestRunner
+import org.robolectric.annotation.Config
+import org.robolectric.annotation.GraphicsMode
+
+/**
+ * End-to-end journeys through the whole app, as a learner would take them (QA, 18 Oct 2026). Each test starts from
+ * the app's root composable with in-memory storage, taps through real screens and checks what is shown and saved.
+ * Fictional people only.
+ */
+@RunWith(RobolectricTestRunner::class)
+@GraphicsMode(GraphicsMode.Mode.NATIVE)
+@Config(sdk = [35], qualifiers = "w411dp-h891dp-xxhdpi")
+class EndToEndJourneys {
+    @get:Rule
+    val compose = createAndroidComposeRule<ComponentActivity>()
+
+    private val index = CityIndex.bundled()
+
+    @Before
+    fun noAnimations() {
+        Settings.Global.putFloat(compose.activity.contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 0f)
+    }
+
+    @get:Rule
+    val testName = TestName()
+
+    /** Waits for [condition]; on a timeout saves the screen and names what was missing, so CI says which step failed. */
+    private fun waitFor(what: String, condition: () -> Boolean) {
+        try {
+            compose.waitUntil(WAIT_MILLIS, condition)
+        } catch (e: ComposeTimeoutException) {
+            val name = "e2e_failure_" + testName.methodName.replace(Regex("[^A-Za-z0-9]+"), "_").take(40)
+            // The last root is the top window, such as an open sheet or dialog.
+            runCatching { compose.onAllNodes(isRoot()).onLast().captureRoboImage("build/outputs/roborazzi/$name.png") }
+            throw AssertionError("Timed out waiting for: $what", e)
+        }
+    }
+
+    private fun waitForText(text: String) = waitFor(text) {
+        compose.onAllNodesWithText(text, substring = true).fetchSemanticsNodes().isNotEmpty()
+    }
+
+    private fun waitForDescription(text: String) = waitFor(text) {
+        compose.onAllNodesWithContentDescription(text, substring = true).fetchSemanticsNodes().isNotEmpty()
+    }
+
+    private fun shows(text: String) = compose.onAllNodesWithText(text, substring = true).fetchSemanticsNodes().isNotEmpty()
+
+    /** Taps the first node with exactly [text] (or containing it, with [partial]), scrolling to it when it is in a list. */
+    private fun tap(text: String, partial: Boolean = false) {
+        waitFor("something to tap: $text") { compose.onAllNodesWithText(text, substring = partial).fetchSemanticsNodes().isNotEmpty() }
+        click(compose.onAllNodesWithText(text, substring = partial), text)
+    }
+
+    /**
+     * Clicks the first of [nodes] that is on screen, scrolling to each in turn when it sits in a list. Pages next to
+     * the current card and closed sheets can hold the same text off screen, where a tap can't land.
+     */
+    private fun click(nodes: SemanticsNodeInteractionCollection, what: String) {
+        val count = nodes.fetchSemanticsNodes().size
+        for (i in 0 until count) {
+            val node = nodes[i]
+            // Tabs and dialog buttons have no scrolling parent.
+            runCatching { node.performScrollTo() }
+            if (runCatching { node.isDisplayed() }.getOrDefault(false)) {
+                node.performClick()
+                compose.waitForIdle()
+                return
+            }
+        }
+        val name = "e2e_failure_" + testName.methodName.replace(Regex("[^A-Za-z0-9]+"), "_").take(40)
+        runCatching { compose.onAllNodes(isRoot()).onLast().captureRoboImage("build/outputs/roborazzi/$name.png") }
+        throw AssertionError("Nothing on screen to tap: $what ($count found off screen)")
+    }
+
+    /** Types a place and picks the first match, as in onboarding and Add a person. */
+    private fun pickPlace(name: String) {
+        waitFor("the place list to load") { !shows("Loading places") }
+        // The place field is the last text field on the screen.
+        compose.onAllNodes(hasSetTextAction()).onLast().performTextInput(name)
+        val result = hasText(name, substring = true) and hasClickAction() and !hasSetTextAction()
+        waitFor("a place matching $name") { compose.onAllNodes(result).fetchSemanticsNodes().isNotEmpty() }
+        click(compose.onAllNodes(result), "a place matching $name")
+    }
+
+    /** A day in the date picker, which opens on January 1990. Each day is named in full, such as "Monday, January 15, 1990". */
+    private fun day(number: Int) = hasClickAction() and (
+        (hasText(number.toString(), substring = true) and hasText("1990", substring = true)) or
+            (hasContentDescription(number.toString(), substring = true) and hasContentDescription("1990", substring = true))
+        )
+
+    private fun learnerAnswers(level: Level = Level.NEW) = OnboardingAnswers(
+        purpose = Purpose.LEARN,
+        goal = DailyGoal.TEN,
+        level = level,
+        birth = BirthDetails(LocalDate.of(1992, 3, 9), LocalTime.of(5, 50), index.search("Pune").first()),
+    )
+
+    @Test
+    fun `a new learner onboards, meets their kundli and finishes the first lesson`() {
+        val profiles = InMemoryProfileRepository()
+        compose.setContent { AstroLingoTheme { AstroLingoApp(profiles) } }
+
+        waitForText("What brings you here?")
+        tap("I want to learn Vedic astrology")
+        tap("Next")
+        waitForText("How long do you want to learn each day?")
+        tap("10 minutes a day")
+        tap("Next")
+        waitForText("How much do you know already?")
+        tap("I'm new to astrology")
+        tap("Next")
+        waitForText("When were you born?")
+        // The calendar opens on January 1990.
+        click(compose.onAllNodes(day(15)), "15 January 1990")
+        tap("Next")
+        waitForText("What time were you born?")
+        tap("My birth time is", partial = true)
+        tap("Next")
+        waitForText("Where were you born?")
+        pickPlace("Pune")
+        tap("Next")
+        waitForText("Where do you live now?")
+        tap("Next")
+        waitForText("Show a deity of the day on your card?")
+        tap("No, leave deities out")
+        tap("Next")
+        waitForText("Is this right?")
+        tap("Show my kundli")
+
+        // Learners meet their kundli first, and the answers are saved.
+        waitForText("Your kundli")
+        waitFor("the answers to be saved") { profiles.load() != null }
+        val saved = profiles.load()!!
+        assertThat(saved.purpose).isEqualTo(Purpose.LEARN)
+        assertThat(saved.birth.date).isEqualTo(LocalDate.of(1990, 1, 15))
+        assertThat(saved.birth.time).isEqualTo(LocalTime.of(6, 0))
+        assertThat(saved.showDeity).isFalse()
+
+        tap("Learn")
+        waitForText("0 of 10 min today")
+        tap("Start lesson")
+        waitForText("Next card")
+        check(compose.onAllNodesWithText("Today").fetchSemanticsNodes().isEmpty()) { "the bottom tabs should hide inside a lesson" }
+        val lesson = BundledCourse.course.chapters.first().lessons.first()
+        lesson.cards.forEach { card ->
+            if (card is QuizCard) {
+                waitForText(card.question.en)
+                click(compose.onAllNodes(hasText(card.options[card.answer].en) and hasClickAction()), "the right answer")
+                waitForText("That's right!")
+            }
+            tap("Next card")
+        }
+        waitForText("Lesson complete!")
+
+        click(compose.onAllNodesWithContentDescription("Close lesson"), "Close lesson")
+        waitForText("Today")
+        tap("Today")
+        waitForText("Rahu kaal")
+        tap("Me")
+        waitForText("Saved people")
+        waitForText("1 of 4 charts saved")
+    }
+
+    @Test
+    fun `a saved person shows in the chart bubble on a graha card`() {
+        val profiles = InMemoryProfileRepository(learnerAnswers())
+        // Grahas, signs and houses studied, so the bubble shows with sign and house.
+        val progress = LearnProgress(knownChapters = setOf("welcome", "grahas", "rashis", "bhavas"), checkAnswered = true)
+        compose.setContent { AstroLingoTheme { AstroLingoApp(profiles, learnStore = InMemoryLearnStore(progress)) } }
+
+        waitForText("Learn")
+        tap("Me")
+        waitForText("Add a person")
+        tap("Add a person")
+        waitForText("Nickname")
+        compose.onAllNodes(hasSetTextAction()).onFirst().performTextInput("Meera")
+        tap("Choose the date")
+        click(compose.onAllNodes(day(20)), "20 January 1990")
+        tap("OK")
+        tap("Choose the time")
+        tap("OK")
+        pickPlace("Nagpur")
+        tap("Meera knows I'm saving their birth details", partial = true)
+        tap("Save")
+        waitForText("2 of 4 charts saved")
+        waitFor("Meera to be saved") { profiles.loadPeople().size == 1 }
+        assertThat(profiles.loadPeople().single().name).isEqualTo("Meera")
+
+        tap("Learn")
+        waitForText("The nine grahas")
+        tap("The nine grahas")
+        waitForText("Sun and Moon")
+        tap("Sun and Moon")
+        waitForText("Next card")
+        tap("Next card")
+        // The second card is about Surya: the bubble shows both charts.
+        waitForDescription("Compare with saved charts, 2 charts")
+        click(compose.onAllNodesWithContentDescription("Compare with saved charts, 2 charts"), "the chart bubble")
+        waitForText("Surya (Sun) in your saved charts")
+        waitForText("Meera")
+        // Strength is a later chapter, so it says what opens it.
+        waitForText("Strength: finish")
+        tap("Show the answer")
+        tap("You")
+        waitForText("Back to all charts")
+        waitForText("Surya (Sun) stands for")
+
+        // The card can still be read aloud while the bubble is there.
+        check(compose.onAllNodesWithContentDescription("Read this card aloud").fetchSemanticsNodes().isNotEmpty()) { "no speaker" }
+    }
+
+    @Test
+    fun `no bubble before the grahas chapter, and none on quizzes`() {
+        val profiles = InMemoryProfileRepository(learnerAnswers())
+        compose.setContent { AstroLingoTheme { AstroLingoApp(profiles, learnStore = InMemoryLearnStore(LearnProgress(checkAnswered = true))) } }
+        waitForText("Start lesson")
+        tap("Start lesson")
+        waitForText("Next card")
+        repeat(MAX_CARDS) {
+            assertThat(compose.onAllNodesWithContentDescription("Compare with saved charts", substring = true).fetchSemanticsNodes()).isEmpty()
+            if (!shows("Quick question")) {
+                tap("Next card")
+                compose.waitForIdle()
+            }
+        }
+    }
+
+    @Test
+    fun `deleting my details removes saved people and starts again`() {
+        val profiles = InMemoryProfileRepository(learnerAnswers())
+        compose.setContent { AstroLingoTheme { AstroLingoApp(profiles) } }
+        waitForText("Learn")
+        tap("Me")
+        waitForText("Delete my birth details")
+        tap("Delete my birth details")
+        waitForText("Delete your birth details?")
+        tap("Delete")
+        waitForText("What brings you here?")
+        assertThat(profiles.load()).isNull()
+        assertThat(profiles.loadPeople()).isEmpty()
+    }
+
+    private companion object {
+        const val WAIT_MILLIS = 20_000L
+        const val MAX_CARDS = 12
+    }
+}

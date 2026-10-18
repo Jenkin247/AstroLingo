@@ -41,7 +41,7 @@ jobs:
       - name: Summarise build errors
         if: failure()
         run: |
-          grep -E "^e: |: error:|^\* What went wrong|^> |Error:|Caused by:| FAILED$|Exception" build.log \
+          grep -E "^e: |: error:|^\* What went wrong|^> |Error:|Caused by:| FAILED$|Exception|expected|but was|Timed out" build.log \
             | grep -v "^> Task " | head -40 \
             | while IFS= read -r line; do echo "::error::${line}"; done
 

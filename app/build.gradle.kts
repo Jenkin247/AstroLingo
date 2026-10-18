@@ -40,6 +40,12 @@ android {
             isIncludeAndroidResources = true
             all {
                 it.systemProperty("roborazzi.test.record", "true")
+                // Full failure messages in the CI log, so the annotations step can show why a test failed.
+                it.testLogging {
+                    exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+                    showCauses = false
+                    showStackTraces = false
+                }
             }
         }
     }
