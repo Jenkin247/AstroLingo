@@ -1,6 +1,10 @@
 package com.astrolingo.app.e2e
 
+import android.Manifest
 import android.content.Intent
+import android.location.Location
+import android.location.LocationManager
+import android.os.SystemClock
 import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.compose.runtime.CompositionLocalProvider
@@ -10,6 +14,7 @@ import androidx.compose.ui.test.SemanticsNodeInteractionCollection
 import androidx.compose.ui.test.hasClickAction
 import androidx.compose.ui.test.hasContentDescription
 import androidx.compose.ui.test.isDisplayed
+import androidx.compose.ui.test.isEnabled
 import androidx.compose.ui.test.hasSetTextAction
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
@@ -53,6 +58,7 @@ import org.junit.Test
 import org.junit.rules.TestName
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.Shadows.shadowOf
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
 
@@ -340,6 +346,38 @@ class EndToEndJourneys {
         tap("Use this place")
         waitForText("Times for Nagpur")
         waitFor("the new place to be saved") { profiles.load()?.currentPlace?.name == "Nagpur" }
+    }
+
+    @Test
+    fun `use my location fills the place from a recent reading without waiting`() {
+        // The phone already knows it is in Nagpur; the app should take that at once, not wait for a new fix.
+        shadowOf(compose.activity.application).grantPermissions(Manifest.permission.ACCESS_COARSE_LOCATION)
+        val manager = compose.activity.getSystemService(LocationManager::class.java)
+        shadowOf(manager).setProviderEnabled(LocationManager.NETWORK_PROVIDER, true)
+        shadowOf(manager).simulateLocation(
+            Location(LocationManager.NETWORK_PROVIDER).apply {
+                latitude = 21.1458
+                longitude = 79.0882
+                accuracy = 2_000f
+                time = System.currentTimeMillis()
+                elapsedRealtimeNanos = SystemClock.elapsedRealtimeNanos()
+            },
+        )
+        val answers = learnerAnswers()
+        val profiles = InMemoryProfileRepository(answers.copy(currentPlace = answers.birth.city))
+        showApp(profiles)
+        tap("Today")
+        waitForText("Times for Pune")
+        tap("Change")
+        waitForText("Where are you today?")
+        // The button stays off until the city list has loaded.
+        waitFor("Use my location to be ready") {
+            compose.onAllNodes(hasText("Use my location") and isEnabled()).fetchSemanticsNodes().isNotEmpty()
+        }
+        tap("Use my location")
+        waitForText("Nagpur")
+        tap("Use this place")
+        waitForText("Times for Nagpur")
     }
 
     @Test
