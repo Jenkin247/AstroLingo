@@ -58,6 +58,7 @@ import kotlin.math.floor
  * @param timeKnown false when the birth time is unknown: only the Moon chart is shown, since the lagna can't be trusted.
  * @param reveal true the first time the user sees their own chart: it fades and turns into place, and Sitara says hello.
  * @param onRevealed called when the user leaves the screen after the reveal, so it plays only once.
+ * @param top shown above the title, such as the picker for whose kundli this is.
  */
 @OptIn(ExperimentalMaterial3Api::class) // segmented buttons; stable in recent Material 3, harmless otherwise
 @Composable
@@ -69,6 +70,7 @@ fun KundliScreen(
     timeKnown: Boolean = true,
     reveal: Boolean = false,
     onRevealed: () -> Unit = {},
+    top: @Composable () -> Unit = {},
 ) {
     var style by rememberSaveable { mutableStateOf(ChartStyle.NORTH_INDIAN) }
     var fromMoon by rememberSaveable(timeKnown) { mutableStateOf(!timeKnown) }
@@ -90,6 +92,7 @@ fun KundliScreen(
             .padding(Spacing.md),
         verticalArrangement = Arrangement.spacedBy(Spacing.md),
     ) {
+        top()
         Text(title, style = MaterialTheme.typography.headlineMedium)
         if (note != null) {
             Text(note, style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)

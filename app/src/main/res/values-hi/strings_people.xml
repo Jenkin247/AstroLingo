@@ -30,4 +30,10 @@
     <string name="people_ok">ठीक है</string>
     <string name="people_cancel">रद्द करें</string>
     <string name="people_delete_too">आपके सहेजे गए लोग भी हट जाएँगे।</string>
+    <string name="people_edit_me">मेरा जन्म विवरण बदलें</string>
+    <string name="people_edit_me_note">आपकी कुंडली, आज और सीखें नए विवरण से चलेंगे। आपकी सीखने की प्रगति बनी रहेगी।</string>
+    <string name="people_time_unknown_check_me">मुझे अपना जन्म समय नहीं पता। भाव और लग्न छिपे रहेंगे।</string>
+    <string name="kundli_pick">किसकी कुंडली</string>
+    <string name="kundli_of">%1$s की कुंडली</string>
+    <string name="kundli_other_time_unknown">%1$s का जन्म समय पता नहीं है, इसलिए भाव चंद्र राशि (चंद्र लग्न) से गिने गए हैं और लग्न नहीं दिखाया गया है।</string>
 </resources>

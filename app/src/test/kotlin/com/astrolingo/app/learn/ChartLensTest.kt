@@ -65,8 +65,8 @@ class ChartLensTest {
         assertThat(ChartLens.unlocked(course, finished("rashis"))).containsExactly(LensLayer.SIGN)
         val bhavas = course.chapter("bhavas")!!.lessons.map { it.id }.toSet()
         assertThat(ChartLens.unlocked(course, LearnProgress(completedLessons = bhavas))).containsExactly(LensLayer.HOUSE)
-        assertThat(ChartLens.chapterFinished(course, LearnProgress(), ChartLens.GRAHAS_CHAPTER)).isFalse()
-        assertThat(ChartLens.chapterFinished(course, finished("grahas"), ChartLens.GRAHAS_CHAPTER)).isTrue()
+        assertThat(ChartLens.chapterFinished(course, LearnProgress(), "grahas")).isFalse()
+        assertThat(ChartLens.chapterFinished(course, finished("grahas"), "grahas")).isTrue()
     }
 
     @Test

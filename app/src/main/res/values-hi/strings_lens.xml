@@ -76,4 +76,7 @@
         <item>लाभ, मित्र और इच्छाएँ</item>
         <item>त्याग, विश्राम, दूर देश और आध्यात्म</item>
     </string-array>
+    <string name="lens_title_all">आपकी सहेजी कुंडलियाँ</string>
+    <string name="lens_moon">चंद्र %1$s में</string>
+    <string name="lens_lagna">लग्न %1$s</string>
 </resources>

@@ -111,6 +111,7 @@ internal fun birthSummary(birth: BirthDetails): String {
  * The Saved people block in Me.
  *
  * @param you the user's own birth details, always first.
+ * @param onEditYou opens the form to change the user's own birth details.
  */
 @Composable
 fun SavedPeopleCard(
@@ -120,6 +121,7 @@ fun SavedPeopleCard(
     onEdit: (SavedPerson) -> Unit,
     onDelete: (SavedPerson) -> Unit,
     modifier: Modifier = Modifier,
+    onEditYou: () -> Unit = {},
 ) {
     var deleting by remember { mutableStateOf<SavedPerson?>(null) }
     InfoCard(modifier = modifier, title = stringResource(R.string.people_title), icon = Icons.Filled.Person) {
@@ -128,7 +130,11 @@ fun SavedPeopleCard(
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
         )
-        PersonRow(name = stringResource(R.string.people_you), index = 0, summary = birthSummary(you))
+        PersonRow(name = stringResource(R.string.people_you), index = 0, summary = birthSummary(you)) {
+            IconButton(onClick = onEditYou) {
+                Icon(Icons.Filled.Edit, contentDescription = stringResource(R.string.people_edit_me))
+            }
+        }
         people.forEachIndexed { i, person ->
             HorizontalDivider()
             PersonRow(name = person.name, index = i + 1, summary = birthSummary(person.birth)) {
@@ -209,6 +215,9 @@ private fun PersonRow(name: String, index: Int, summary: String, actions: @Compo
 /**
  * Adds a person, or edits [editing]. Save stays off until there is a name, a date, a time (or "I don't know"),
  * a place and the consent tick.
+ *
+ * @param self true when the user edits their own birth details: no nickname or consent tick, and [editing] carries
+ *   their current details.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -217,6 +226,7 @@ fun PersonForm(
     onSave: (SavedPerson) -> Unit,
     onCancel: () -> Unit,
     modifier: Modifier = Modifier,
+    self: Boolean = false,
 ) {
     BackHandler(onBack = onCancel)
     val index by produceState<CityIndex?>(null) { value = withContext(Dispatchers.Default) { CityIndex.bundled() } }
@@ -234,7 +244,7 @@ fun PersonForm(
     val date = dateEpochDay?.let(LocalDate::ofEpochDay)
     val time = minuteOfDay?.let { LocalTime.of(it / 60, it % 60) }
     val cleanName = SavedPerson.cleanName(name)
-    val ready = cleanName.isNotEmpty() && date != null && (timeUnknown || time != null) && city != null && consent
+    val ready = (self || cleanName.isNotEmpty()) && date != null && (timeUnknown || time != null) && city != null && (self || consent)
 
     Column(
         modifier
@@ -248,12 +258,18 @@ fun PersonForm(
                 Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = stringResource(R.string.people_back))
             }
             Text(
-                if (editing == null) stringResource(R.string.people_add_title) else stringResource(R.string.people_edit_title, editing.name),
+                when {
+                    self -> stringResource(R.string.people_edit_me)
+                    editing == null -> stringResource(R.string.people_add_title)
+                    else -> stringResource(R.string.people_edit_title, editing.name)
+                },
                 style = MaterialTheme.typography.headlineSmall,
                 modifier = Modifier.semantics { heading() },
             )
         }
-        OutlinedTextField(
+        if (self) {
+            Text(stringResource(R.string.people_edit_me_note), style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        } else OutlinedTextField(
             value = name,
             onValueChange = { if (it.length <= SavedPerson.MAX_NAME_LENGTH) name = it },
             label = { Text(stringResource(R.string.people_name)) },
@@ -271,10 +287,13 @@ fun PersonForm(
                 Text(time?.format(DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT)) ?: stringResource(R.string.people_time_choose))
             }
         }
-        CheckRow(checked = timeUnknown, text = stringResource(R.string.people_time_unknown_check)) { timeUnknown = it }
+        CheckRow(
+            checked = timeUnknown,
+            text = stringResource(if (self) R.string.people_time_unknown_check_me else R.string.people_time_unknown_check),
+        ) { timeUnknown = it }
         Text(stringResource(R.string.people_place), style = MaterialTheme.typography.titleSmall)
         CitySearch(index = index, selected = city, onSelect = { cityId = it.id }, modifier = Modifier.heightIn(max = 320.dp))
-        CheckRow(
+        if (!self) CheckRow(
             checked = consent,
             text = if (cleanName.isEmpty()) stringResource(R.string.people_consent_someone) else stringResource(R.string.people_consent, cleanName),
         ) { consent = it }

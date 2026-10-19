@@ -89,12 +89,14 @@ import com.astrolingo.engine.jyotish.element
 import com.astrolingo.learn.content.Card as LessonCard
 import com.astrolingo.learn.content.Course
 import com.astrolingo.learn.content.Language
+import com.astrolingo.learn.content.QuizCard
 import com.astrolingo.learn.progress.LearnProgress
 import kotlin.math.roundToInt
 
 /**
- * The bubble and its sheet for the card on screen. Shows nothing on quizzes, on cards without a graha, and until the
- * learner has finished the Grahas chapter.
+ * The bubble and its sheet for the card on screen, on every card but quizzes (PO, 19 Oct 2026: it was hidden until the
+ * Grahas chapter, so new learners never saw it). On a card about a graha the sheet compares that graha; on any other
+ * card it lists the saved charts to open.
  *
  * @param people the learner first, then saved people.
  * @param onAddPerson opens Me's "Add a person" form.
@@ -108,8 +110,8 @@ internal fun BoxScope.ChartLensOverlay(
     language: Language,
     onAddPerson: () -> Unit,
 ) {
-    val graha = card?.let(ChartLens::grahaOf) ?: return
-    if (people.isEmpty() || !ChartLens.chapterFinished(course, progress, ChartLens.GRAHAS_CHAPTER)) return
+    if (card == null || card is QuizCard || people.isEmpty()) return
+    val graha = ChartLens.grahaOf(card)
     var open by remember(card) { mutableStateOf(false) }
     ChartBubble(count = people.size, onOpen = { open = true })
     if (open) {
@@ -184,11 +186,14 @@ internal fun BoxScope.ChartBubble(count: Int, onOpen: () -> Unit) {
     }
 }
 
-/** Where the card's graha sits in each saved chart, a pattern to spot, and a quick self-check. */
+/**
+ * Where the card's graha sits in each saved chart, a pattern to spot, and a quick self-check. Without a [graha], the
+ * saved charts to open one by one.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun ChartLensSheet(
-    graha: Graha,
+    graha: Graha?,
     people: List<ChartPerson>,
     course: Course,
     progress: LearnProgress,
@@ -197,7 +202,7 @@ internal fun ChartLensSheet(
     onDismiss: () -> Unit,
 ) {
     val layers = remember(course, progress) { ChartLens.unlocked(course, progress) }
-    val readings = remember(people, graha, layers) { people.map { ChartLens.read(it, graha, layers) } }
+    val readings = remember(people, graha, layers) { graha?.let { g -> people.map { ChartLens.read(it, g, layers) } }.orEmpty() }
     var detail by rememberSaveable { mutableStateOf<String?>(null) }
     ModalBottomSheet(onDismissRequest = onDismiss, sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)) {
         Column(
@@ -210,10 +215,12 @@ internal fun ChartLensSheet(
             verticalArrangement = Arrangement.spacedBy(Spacing.md),
         ) {
             val shown = readings.indexOfFirst { it.person.id == detail }
-            if (shown >= 0) {
-                PersonReading(readings[shown], index = shown, layers = layers, onBack = { detail = null })
-            } else {
-                Overview(graha, readings, layers, course, language, onOpen = { detail = it.id }, onAddPerson = onAddPerson)
+            val opened = people.indexOfFirst { it.id == detail }
+            when {
+                shown >= 0 -> PersonReading(readings[shown], index = shown, layers = layers, onBack = { detail = null })
+                graha == null && opened >= 0 -> PersonChart(people[opened], index = opened, onBack = { detail = null })
+                graha == null -> AllCharts(people, onOpen = { detail = it.id }, onAddPerson = onAddPerson)
+                else -> Overview(graha, readings, layers, course, language, onOpen = { detail = it.id }, onAddPerson = onAddPerson)
             }
         }
     }
@@ -266,21 +273,94 @@ private fun Overview(
     if (subject != null) {
         CheckYourself(subject, grahaLabel, revealed, onReveal = { revealed = true })
     }
-    val others = readings.count { !it.person.isYou }
-    if (others < SavedPerson.MAX_OTHERS) {
-        Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh)) {
-            Column(Modifier.padding(Spacing.md), verticalArrangement = Arrangement.spacedBy(Spacing.sm)) {
-                Text(pluralStringResource(R.plurals.lens_add_more, SavedPerson.MAX_OTHERS - others, SavedPerson.MAX_OTHERS - others), style = MaterialTheme.typography.titleMedium)
-                Text(
-                    stringResource(R.string.lens_add_more_body),
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                )
-                OutlinedButton(onClick = onAddPerson) { Text(stringResource(R.string.lens_add)) }
+    AddMore(others = readings.count { !it.person.isYou }, onAddPerson = onAddPerson)
+    NotAPrediction()
+}
+
+/** The saved charts, for cards that aren't about one graha: each row opens that person's chart. */
+@Composable
+private fun AllCharts(people: List<ChartPerson>, onOpen: (ChartPerson) -> Unit, onAddPerson: () -> Unit) {
+    Text(
+        stringResource(R.string.lens_title_all),
+        style = MaterialTheme.typography.titleLarge,
+        modifier = Modifier.semantics { heading() },
+    )
+    people.forEachIndexed { index, person ->
+        val facts = listOfNotNull(
+            stringResource(R.string.lens_moon, rashiLabel(person.kundli.moonSign)),
+            if (person.timeKnown) stringResource(R.string.lens_lagna, rashiLabel(person.kundli.lagna)) else stringResource(R.string.lens_time_unknown),
+        )
+        ChartRow(person, index, facts, onClick = { onOpen(person) })
+    }
+    AddMore(others = people.count { !it.isYou }, onAddPerson = onAddPerson)
+    NotAPrediction()
+}
+
+/** One saved chart, as on the Kundli tab: counted from the Moon when the birth time is unknown. */
+@Composable
+private fun ColumnScope.PersonChart(person: ChartPerson, index: Int, onBack: () -> Unit) {
+    TextButton(onClick = onBack) {
+        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null, modifier = Modifier.size(18.dp))
+        Spacer(Modifier.size(Spacing.xs))
+        Text(stringResource(R.string.lens_back))
+    }
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        PersonAvatar(person.name, index)
+        Spacer(Modifier.size(Spacing.md))
+        Text(person.name, style = MaterialTheme.typography.titleLarge, modifier = Modifier.semantics { heading() })
+    }
+    val chart = if (person.timeKnown) person.kundli else person.kundli.fromMoon()
+    KundliChart(
+        kundli = chart,
+        style = ChartStyle.NORTH_INDIAN,
+        description = if (person.isYou) stringResource(R.string.your_kundli_title) else stringResource(R.string.kundli_of, person.name),
+        modifier = Modifier
+            .widthIn(max = DETAIL_CHART_WIDTH)
+            .align(Alignment.CenterHorizontally),
+        markLagna = person.timeKnown,
+    )
+    NotAPrediction()
+}
+
+@OptIn(ExperimentalLayoutApi::class)
+@Composable
+private fun ChartRow(person: ChartPerson, index: Int, facts: List<String>, onClick: () -> Unit) {
+    Row(
+        Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onClick)
+            .heightIn(min = Spacing.touchTarget)
+            .padding(vertical = Spacing.xs),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        PersonAvatar(person.name, index)
+        Spacer(Modifier.size(Spacing.md))
+        Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(Spacing.xs)) {
+            Text(person.name, style = MaterialTheme.typography.titleMedium)
+            FlowRow(horizontalArrangement = Arrangement.spacedBy(Spacing.xs), verticalArrangement = Arrangement.spacedBy(Spacing.xs)) {
+                facts.forEach { Chip(it) }
             }
         }
+        Icon(Icons.AutoMirrored.Filled.KeyboardArrowRight, contentDescription = null, tint = MaterialTheme.colorScheme.onSurfaceVariant)
     }
-    NotAPrediction()
+}
+
+/** "Compare with up to 2 more people", while there are places left. */
+@Composable
+private fun AddMore(others: Int, onAddPerson: () -> Unit) {
+    if (others >= SavedPerson.MAX_OTHERS) return
+    val left = SavedPerson.MAX_OTHERS - others
+    Card(colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceContainerHigh)) {
+        Column(Modifier.padding(Spacing.md), verticalArrangement = Arrangement.spacedBy(Spacing.sm)) {
+            Text(pluralStringResource(R.plurals.lens_add_more, left, left), style = MaterialTheme.typography.titleMedium)
+            Text(
+                stringResource(R.string.lens_add_more_body),
+                style = MaterialTheme.typography.bodySmall,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+            OutlinedButton(onClick = onAddPerson) { Text(stringResource(R.string.lens_add)) }
+        }
+    }
 }
 
 @OptIn(ExperimentalLayoutApi::class)
