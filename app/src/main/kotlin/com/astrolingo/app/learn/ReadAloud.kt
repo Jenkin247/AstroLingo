@@ -1,5 +1,7 @@
 // Read-aloud with the phone's own text-to-speech (ADR 0008, LS-7): free, offline, and nothing leaves the phone.
 // Each card is spoken part by part, so the sentence being read can be highlighted.
+// English and Hindi each get the most natural voice the phone has on-device (ADR 0008 addendum): never a network voice,
+// because "Your chart" cards speak the learner's own placements.
 package com.astrolingo.app.learn
 
 import android.content.ActivityNotFoundException
@@ -9,6 +11,7 @@ import android.os.Handler
 import android.os.Looper
 import android.speech.tts.TextToSpeech
 import android.speech.tts.UtteranceProgressListener
+import android.speech.tts.Voice
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.Stable
@@ -178,7 +181,7 @@ class ReadAloud internal constructor(private val context: Context) {
         pending = action
         if (tts != null) return
         tts = try {
-            TextToSpeech(context) { status ->
+            TextToSpeech(context, { status ->
                 main.post {
                     engineReady = true
                     engineFailed = status != TextToSpeech.SUCCESS
@@ -187,7 +190,7 @@ class ReadAloud internal constructor(private val context: Context) {
                     pending?.invoke()
                     pending = null
                 }
-            }
+            }, preferredEngine())
         } catch (e: RuntimeException) {
             engineReady = true
             engineFailed = true
@@ -203,6 +206,7 @@ class ReadAloud internal constructor(private val context: Context) {
         if (parts.isEmpty()) return
         val reading = ++generation
         engine.setLanguage(locale)
+        bestVoice(engine, locale)?.let { voice -> runCatching { engine.setVoice(voice) } }
         speakingKey = key
         currentParts = parts
         parts.forEachIndexed { index, part ->
@@ -220,6 +224,18 @@ class ReadAloud internal constructor(private val context: Context) {
             Language.HINDI -> HINDI.takeIf(::available)
             Language.ENGLISH -> listOf(INDIAN_ENGLISH, Locale.ENGLISH).firstOrNull(::available) ?: Locale.getDefault()
         }
+    }
+
+    /**
+     * Google's speech engine when installed: its on-device voices sound far more natural than most phone makers'
+     * engines (Samsung's in particular). Null keeps the phone's default engine.
+     */
+    private fun preferredEngine(): String? {
+        val engines = runCatching {
+            context.packageManager.queryIntentServices(Intent(TextToSpeech.Engine.INTENT_ACTION_TTS_SERVICE), 0)
+                .map { it.serviceInfo.packageName }
+        }.getOrDefault(emptyList())
+        return GOOGLE_TTS.takeIf { it in engines }
     }
 
     private val listener = object : UtteranceProgressListener() {
@@ -252,10 +268,31 @@ class ReadAloud internal constructor(private val context: Context) {
         const val KEY_LISTEN = "listen_mode"
         const val SEPARATOR = ':'
         const val TTS_SETTINGS = "com.android.settings.TTS_SETTINGS"
+        const val GOOGLE_TTS = "com.google.android.tts"
         val INDIAN_ENGLISH: Locale = Locale.forLanguageTag("en-IN")
         val HINDI: Locale = Locale.forLanguageTag("hi-IN")
     }
 }
+
+/**
+ * The most natural installed, on-device voice for [locale]'s language: same country first (Indian English over
+ * American), then the highest quality (the neural voices), then the quickest to start. Null leaves the engine's
+ * default voice for the language.
+ */
+internal fun bestVoice(engine: TextToSpeech, locale: Locale): Voice? =
+    pickVoice(runCatching { engine.voices }.getOrNull().orEmpty(), locale)
+
+internal fun pickVoice(voices: Collection<Voice>, locale: Locale): Voice? = voices
+    .filter { it.locale.language == locale.language }
+    .filter { !it.isNetworkConnectionRequired }
+    .filter { TextToSpeech.Engine.KEY_FEATURE_NOT_INSTALLED !in it.features.orEmpty() }
+    .sortedWith(
+        compareByDescending<Voice> { it.locale.country == locale.country }
+            .thenByDescending { it.quality }
+            .thenBy { it.latency }
+            .thenBy { it.name },
+    )
+    .firstOrNull()
 
 /** A [ReadAloud] for this screen, stopped and released when the screen goes away. */
 @Composable
