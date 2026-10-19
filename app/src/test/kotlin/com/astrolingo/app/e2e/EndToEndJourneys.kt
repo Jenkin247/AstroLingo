@@ -3,6 +3,7 @@ package com.astrolingo.app.e2e
 import android.content.Intent
 import android.provider.Settings
 import androidx.activity.ComponentActivity
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.test.ComposeTimeoutException
 import androidx.compose.ui.test.isRoot
 import androidx.compose.ui.test.SemanticsNodeInteractionCollection
@@ -33,6 +34,8 @@ import com.astrolingo.app.profile.ProfileRepository
 import com.astrolingo.app.settings.AppLanguage
 import com.astrolingo.app.settings.InLanguage
 import com.astrolingo.app.today.DayPerson
+import com.astrolingo.app.today.LocalShareLauncher
+import com.astrolingo.app.today.ShareLauncher
 import com.astrolingo.app.today.TodayCard
 import com.astrolingo.engine.jyotish.DayStrength
 import com.astrolingo.app.ui.AstroLingoApp
@@ -50,7 +53,6 @@ import org.junit.Test
 import org.junit.rules.TestName
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.Shadows
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
 
@@ -104,11 +106,17 @@ class EndToEndJourneys {
         compose.setContent {
             AstroLingoTheme {
                 InLanguage(AppLanguage.ENGLISH) {
-                    if (learnStore == null) AstroLingoApp(profiles) else AstroLingoApp(profiles, learnStore = learnStore)
+                    // Share the day hands its intent here instead of starting the share sheet's activity.
+                    CompositionLocalProvider(LocalShareLauncher provides ShareLauncher { _, chooser -> shared += chooser }) {
+                        if (learnStore == null) AstroLingoApp(profiles) else AstroLingoApp(profiles, learnStore = learnStore)
+                    }
                 }
             }
         }
     }
+
+    /** Share sheets the app asked for, oldest first. */
+    private val shared = mutableListOf<Intent>()
 
     private fun shows(text: String) = compose.onAllNodesWithText(text, substring = true).fetchSemanticsNodes().isNotEmpty()
 
@@ -400,7 +408,7 @@ class EndToEndJourneys {
         tap("Asha")
         waitForText("Asha's day")
         tap("Share Asha's day")
-        val chooser = checkNotNull(Shadows.shadowOf(compose.activity).nextStartedActivity) { "no share sheet opened" }
+        val chooser = checkNotNull(shared.singleOrNull()) { "expected one share sheet, got ${shared.size}" }
         assertThat(chooser.action).isEqualTo(Intent.ACTION_CHOOSER)
         @Suppress("DEPRECATION")
         val send = checkNotNull(chooser.getParcelableExtra<Intent>(Intent.EXTRA_INTENT))

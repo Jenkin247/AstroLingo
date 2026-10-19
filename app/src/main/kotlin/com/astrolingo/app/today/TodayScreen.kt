@@ -1,7 +1,6 @@
 // Today tab: the daily card from fixed Vedic rules, worked out on the phone (docs/spec/daily-card-rules.md).
 package com.astrolingo.app.today
 
-import android.content.Context
 import android.content.Intent
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
@@ -154,13 +153,14 @@ fun TodayScreen(
         }
         val share = dayShare(card, viewing, shownPlace)
         val context = LocalContext.current
+        val launcher = LocalShareLauncher.current
         val chooserTitle = stringResource(R.string.today_share_chooser)
         HeroCard(
             card,
             shownPlace.zone,
             onLearn,
             shareLabel = if (viewing != null) stringResource(R.string.today_share_person, viewing.name) else stringResource(R.string.today_share_mine),
-            onShare = { shareDay(context, share.text(), chooserTitle) },
+            onShare = { launcher.launch(context, shareIntent(share.text(), chooserTitle)) },
         )
         if (reviewDue > 0 && viewing == null) ReviewOffer(due = reviewDue, onStart = onReview)
         Row(horizontalArrangement = Arrangement.spacedBy(Spacing.md), modifier = Modifier.height(IntrinsicSize.Min)) {
@@ -324,13 +324,13 @@ private fun dayShare(card: TodayCard, viewing: DayPerson?, place: City): DayShar
     )
 }
 
-/** Opens Android's share sheet with [text]. Nothing leaves the phone unless the user picks an app there. */
-private fun shareDay(context: Context, text: String, chooserTitle: String) {
+/** Android's share sheet with [text]. Nothing leaves the phone unless the user picks an app there. */
+private fun shareIntent(text: String, chooserTitle: String): Intent {
     val send = Intent(Intent.ACTION_SEND).apply {
         type = "text/plain"
         putExtra(Intent.EXTRA_TEXT, text)
     }
-    context.startActivity(Intent.createChooser(send, chooserTitle))
+    return Intent.createChooser(send, chooserTitle)
 }
 
 /** "Until 3:38 PM · Star of plenty (Sampat)". */
