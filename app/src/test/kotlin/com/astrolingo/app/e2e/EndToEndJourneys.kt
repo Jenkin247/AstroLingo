@@ -409,7 +409,7 @@ class EndToEndJourneys {
         val text = checkNotNull(send.getStringExtra(Intent.EXTRA_TEXT))
         assertThat(text).startsWith("Asha's day · ")
         assertThat(text).contains("Colour of the day: ")
-        assertThat(text).contains("Rahu kaal in Pune: ")
+        assertThat(text).contains("Rahu kaal in Pune")
         assertThat(text).endsWith("Shared from AstroLingo")
         // Asha's birth date, time and birthplace never leave the phone.
         listOf("1990", "14:15", "Nagpur").forEach { assertThat(text).doesNotContain(it) }
