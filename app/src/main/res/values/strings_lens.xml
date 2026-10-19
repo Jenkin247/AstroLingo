@@ -77,4 +77,7 @@
         <item>gains, friends and hopes</item>
         <item>letting go, rest, faraway places and the spiritual</item>
     </string-array>
+    <string name="lens_title_all">Your saved charts</string>
+    <string name="lens_moon">Moon in %1$s</string>
+    <string name="lens_lagna">Lagna %1$s</string>
 </resources>

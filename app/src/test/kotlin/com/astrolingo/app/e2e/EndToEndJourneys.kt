@@ -22,13 +22,13 @@ import com.astrolingo.app.learn.BundledCourse
 import com.astrolingo.app.learn.InMemoryLearnStore
 import com.astrolingo.app.learn.LearnProgressStore
 import com.astrolingo.app.onboarding.BirthDetails
+import com.astrolingo.app.profile.SavedPerson
 import com.astrolingo.app.onboarding.DailyGoal
 import com.astrolingo.app.onboarding.Level
 import com.astrolingo.app.onboarding.OnboardingAnswers
 import com.astrolingo.app.onboarding.Purpose
 import com.astrolingo.app.profile.InMemoryProfileRepository
 import com.astrolingo.app.profile.ProfileRepository
-import com.astrolingo.app.profile.SavedPerson
 import com.astrolingo.app.settings.AppLanguage
 import com.astrolingo.app.settings.InLanguage
 import com.astrolingo.app.today.DayPerson
@@ -281,19 +281,39 @@ class EndToEndJourneys {
     }
 
     @Test
-    fun `no bubble before the grahas chapter, and none on quizzes`() {
+    fun `a brand-new learner sees the chart bubble on every card but quizzes`() {
+        // PO, 19 Oct 2026: the bubble didn't show in the installed app, because it waited for the Grahas chapter.
         val profiles = InMemoryProfileRepository(learnerAnswers())
         showApp(profiles, InMemoryLearnStore(LearnProgress(checkAnswered = true)))
         waitForText("Start lesson")
         tap("Start lesson")
         waitForText("Next card")
         repeat(MAX_CARDS) {
-            assertThat(compose.onAllNodesWithContentDescription("Compare with saved charts", substring = true).fetchSemanticsNodes()).isEmpty()
-            if (!shows("Quick question")) {
+            val bubbles = compose.onAllNodesWithContentDescription("Compare with saved charts", substring = true).fetchSemanticsNodes()
+            if (shows("Quick question")) {
+                assertThat(bubbles).isEmpty()
+            } else {
+                assertThat(bubbles).isNotEmpty()
                 tap("Next card")
-                compose.waitForIdle()
             }
         }
+        check(shows("Quick question")) { "the first lesson should reach a quiz" }
+    }
+
+    @Test
+    fun `the bubble on a general card opens the saved charts`() {
+        val profiles = InMemoryProfileRepository(learnerAnswers())
+        showApp(profiles, InMemoryLearnStore(LearnProgress(checkAnswered = true)))
+        waitForText("Start lesson")
+        tap("Start lesson")
+        waitForDescription("Compare with saved charts, 1 chart")
+        click(compose.onAllNodesWithContentDescription("Compare with saved charts, 1 chart"), "the chart bubble")
+        waitForText("Your saved charts")
+        waitForText("Moon in")
+        waitForText("Compare with up to 3 more people")
+        tap("You")
+        waitForText("Back to all charts")
+        waitForDescription("Your kundli")
     }
 
     @Test
@@ -381,6 +401,40 @@ class EndToEndJourneys {
         waitForText("What brings you here?")
         assertThat(profiles.load()).isNull()
         assertThat(profiles.loadPeople()).isEmpty()
+    }
+
+    @Test
+    fun `I can change my own birth details`() {
+        val profiles = InMemoryProfileRepository(learnerAnswers())
+        showApp(profiles)
+        waitForText("Learn")
+        tap("Me")
+        waitForDescription("Edit my birth details")
+        click(compose.onAllNodesWithContentDescription("Edit my birth details"), "Edit my birth details")
+        waitForText("Your kundli, Today and Learn will use the new details")
+        tap("I don't know my birth time", partial = true)
+        tap("Save")
+        waitForText("Saved people")
+        waitFor("the new details to be saved") { profiles.load()?.birth?.time == null }
+        assertThat(profiles.load()!!.birth.date).isEqualTo(LocalDate.of(1992, 3, 9))
+        tap("Kundli")
+        waitForText("Your birth time is not known")
+    }
+
+    @Test
+    fun `the Kundli tab switches to a saved person's chart`() {
+        val pune = index.search("Pune").first()
+        val asha = SavedPerson("a", "Asha", BirthDetails(LocalDate.of(1990, 1, 1), LocalTime.of(14, 15), pune), 1)
+        val profiles = InMemoryProfileRepository(learnerAnswers(), listOf(asha))
+        showApp(profiles)
+        waitForText("Learn")
+        tap("Kundli")
+        waitForText("Whose kundli")
+        waitForText("Your kundli")
+        tap("Asha")
+        waitForText("Asha's kundli")
+        tap("You")
+        waitForText("Your kundli")
     }
 
     private fun focusArray(strength: DayStrength): Int = when (strength) {

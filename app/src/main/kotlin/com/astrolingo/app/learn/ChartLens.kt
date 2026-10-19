@@ -56,9 +56,6 @@ data class GrahaReading(
 data class SharedElement(val element: Element, val count: Int, val total: Int)
 
 object ChartLens {
-    /** The chapter that opens the bubble at all: before it, a chart means nothing yet (PO default, 18 Oct 2026). */
-    const val GRAHAS_CHAPTER = "grahas"
-
     /** Finished means every lesson done, or skipped as known by the knowledge check. */
     fun chapterFinished(course: Course, progress: LearnProgress, chapterId: String): Boolean {
         if (chapterId in progress.knownChapters) return true

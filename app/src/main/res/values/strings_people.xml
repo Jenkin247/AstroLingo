@@ -30,4 +30,10 @@
     <string name="people_ok">OK</string>
     <string name="people_cancel">Cancel</string>
     <string name="people_delete_too">Your saved people are deleted too.</string>
+    <string name="people_edit_me">Edit my birth details</string>
+    <string name="people_edit_me_note">Your kundli, Today and Learn will use the new details. Your learning progress stays.</string>
+    <string name="people_time_unknown_check_me">I don\'t know my birth time. Houses and the lagna will be hidden.</string>
+    <string name="kundli_pick">Whose kundli</string>
+    <string name="kundli_of">%1$s\'s kundli</string>
+    <string name="kundli_other_time_unknown">%1$s\'s birth time is not known, so houses are counted from the Moon sign (Chandra lagna) and the lagna is not shown.</string>
 </resources>
