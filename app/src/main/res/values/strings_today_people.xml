@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Today for a saved person (LS-10). Hindi in values-hi/strings_today_people.xml. -->
+<resources>
+    <string name="today_see_friend">See a friend\'s day</string>
+    <string name="today_person_day">%1$s\'s day</string>
+    <string name="today_person_banner">You\'re seeing %1$s\'s day, worked out from their birth Moon and star. The colour follows the weekday, so it\'s the same for everyone today.</string>
+    <string name="today_person_moon_uncertain">%1$s\'s birth time isn\'t saved and the Moon changed sign that day, so their day may be off.</string>
+    <string name="today_person_back">Back to my day</string>
+    <string name="today_place_mine">Same as mine</string>
+</resources>

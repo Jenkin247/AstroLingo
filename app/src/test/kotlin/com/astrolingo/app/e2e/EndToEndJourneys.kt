@@ -31,6 +31,9 @@ import com.astrolingo.app.profile.InMemoryProfileRepository
 import com.astrolingo.app.profile.ProfileRepository
 import com.astrolingo.app.settings.AppLanguage
 import com.astrolingo.app.settings.InLanguage
+import com.astrolingo.app.today.DayPerson
+import com.astrolingo.app.today.TodayCard
+import com.astrolingo.engine.jyotish.DayStrength
 import com.astrolingo.app.ui.AstroLingoApp
 import com.astrolingo.app.ui.theme.AstroLingoTheme
 import com.astrolingo.engine.places.CityIndex
@@ -330,6 +333,62 @@ class EndToEndJourneys {
     }
 
     @Test
+    fun `I can see a saved friend's day on Today and go back to mine`() {
+        val answers = learnerAnswers()
+        val asha = SavedPerson("asha", "Asha", BirthDetails(LocalDate.of(1990, 1, 20), LocalTime.of(14, 15), index.search("Nagpur").first()), 1)
+        val profiles = InMemoryProfileRepository(answers.copy(currentPlace = answers.birth.city), listOf(asha))
+        showApp(profiles)
+        tap("Today")
+        waitForText("Times for Pune")
+        tap("Asha")
+        waitForText("Asha's day")
+        waitForText("You're seeing Asha's day")
+        // The headline comes from Asha's birth Moon, not the user's.
+        val today = LocalDate.now(answers.birth.city.zone)
+        val ashaCard = TodayCard.build(DayPerson.of(asha)!!.kundli, today, answers.birth.city)
+        val headline = compose.activity.resources.getStringArray(focusArray(ashaCard.facts!!.strength))[ashaCard.facts!!.gocharHouse - 1]
+        waitForText(headline)
+
+        // A place picked for Asha is for her view only.
+        tap("Change")
+        waitForText("Where are you today?")
+        pickPlace("Nagpur")
+        tap("Use this place")
+        waitForText("Times for Nagpur")
+        assertThat(profiles.load()?.currentPlace?.name).isEqualTo("Pune")
+
+        tap("Back to my day")
+        waitForText("Times for Pune")
+        assertThat(shows("Asha's day")).isFalse()
+    }
+
+    @Test
+    fun `with nobody saved, Today offers to add a friend`() {
+        showApp(InMemoryProfileRepository(learnerAnswers()))
+        tap("Today")
+        tap("See a friend's day")
+        waitForText("Nickname")
+    }
+
+    @Test
+    fun `deleting the friend I'm viewing takes Today back to my day`() {
+        val asha = SavedPerson("asha", "Asha", BirthDetails(LocalDate.of(1990, 1, 20), null, index.search("Nagpur").first()), 1)
+        val profiles = InMemoryProfileRepository(learnerAnswers(), listOf(asha))
+        showApp(profiles)
+        tap("Today")
+        tap("Asha")
+        waitForText("Asha's day")
+        tap("Me")
+        waitForDescription("Delete Asha")
+        click(compose.onAllNodesWithContentDescription("Delete Asha"), "Delete Asha")
+        tap("Delete")
+        waitFor("Asha to be deleted") { profiles.loadPeople().isEmpty() }
+        tap("Today")
+        waitForText("See a friend's day")
+        assertThat(shows("Asha's day")).isFalse()
+    }
+
+    @Test
     fun `deleting my details removes saved people and starts again`() {
         val profiles = InMemoryProfileRepository(learnerAnswers())
         showApp(profiles)
@@ -376,6 +435,12 @@ class EndToEndJourneys {
         waitForText("Asha's kundli")
         tap("You")
         waitForText("Your kundli")
+    }
+
+    private fun focusArray(strength: DayStrength): Int = when (strength) {
+        DayStrength.STRONG -> com.astrolingo.app.R.array.daily_focus_strong
+        DayStrength.STEADY -> com.astrolingo.app.R.array.daily_focus_steady
+        DayStrength.GENTLE -> com.astrolingo.app.R.array.daily_focus_gentle
     }
 
     private companion object {

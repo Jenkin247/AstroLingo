@@ -76,6 +76,7 @@ import com.astrolingo.app.profile.InMemoryProfileRepository
 import com.astrolingo.app.profile.ProfileRepository
 import com.astrolingo.app.profile.SavedPerson
 import com.astrolingo.app.settings.AppLanguage
+import com.astrolingo.app.today.DayPerson
 import com.astrolingo.app.today.TodayScreen
 import com.astrolingo.app.ui.components.InfoCard
 import com.astrolingo.app.ui.kundli.KundliScreen
@@ -259,6 +260,11 @@ private fun Tabs(
         value = listOf(you)
         value = listOf(you) + withContext(Dispatchers.Default) { people.mapNotNull(::chartOf) }
     }
+    // Whose day Today shows (LS-10): a saved person's id, or null for the user's own. Not stored with the profile.
+    var todayPersonId by rememberSaveable { mutableStateOf<String?>(null) }
+    val dayPeople by produceState(emptyList<DayPerson>(), people) {
+        value = withContext(Dispatchers.Default) { people.mapNotNull(DayPerson::of) }
+    }
     // True while Learn shows a lesson, the check or saved cards: the tabs then step aside so nothing distracts.
     var immersive by remember { mutableStateOf(false) }
     // A Review asked for from Today, handed to Learn once it opens.
@@ -348,6 +354,16 @@ private fun Tabs(
                     learnRequest = LearnRequest.Lesson(topic.lessonId)
                     onSelect(Tab.LEARN)
                 },
+                people = dayPeople,
+                // Someone deleted in Me drops out of the list, which takes Today back to the user's own day.
+                viewing = dayPeople.firstOrNull { it.id == todayPersonId },
+                onView = { todayPersonId = it?.id },
+                onAddPerson = if (people.size < SavedPerson.MAX_OTHERS) {
+                    {
+                        personForm = NEW_PERSON
+                        onSelect(Tab.ME)
+                    }
+                } else null,
             )
             Tab.LEARN -> LearnTab(
                 kundli = profile.kundli,
