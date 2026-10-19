@@ -2,7 +2,10 @@
 // before the cards after it appear. Ends with a "Lesson complete" card (docs/design/learn-module.md, UX/UI).
 package com.astrolingo.app.learn
 
+import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.snap
+import androidx.compose.animation.core.spring
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,6 +15,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.pager.PagerDefaults
 import androidx.compose.foundation.pager.VerticalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material.icons.Icons
@@ -168,21 +172,31 @@ internal fun LessonPlayer(
             VerticalPager(
                 state = pager,
                 modifier = Modifier.fillMaxSize(),
+                // A soft spring, so a card lands with a little give instead of stopping dead.
+                flingBehavior = PagerDefaults.flingBehavior(pager, snapAnimationSpec = if (reduceMotion) snap() else cardSpring),
                 key = { page -> cards.getOrNull(page)?.id ?: DONE_KEY },
             ) { page ->
-                val toNext: () -> Unit = { scope.launch { pager.animateScrollToPage((page + 1).coerceAtMost(pageCount - 1)) } }
+                val toNext: () -> Unit = {
+                    scope.launch {
+                        pager.animateScrollToPage((page + 1).coerceAtMost(pageCount - 1), animationSpec = if (reduceMotion) snap() else cardSpring)
+                    }
+                }
                 Box(
                     Modifier
                         .fillMaxSize()
                         .padding(horizontal = Spacing.md, vertical = Spacing.sm)
                         .graphicsLayer {
-                            // Cards settle into place: the incoming card grows and brightens as it arrives.
-                            val offset = ((pager.currentPage - page) + pager.currentPageOffsetFraction).absoluteValue.coerceIn(0f, 1f)
+                            // Cards move like a deck: the leaving card tips back and the incoming card tips up, growing
+                            // and brightening as it arrives.
+                            val signed = ((pager.currentPage - page) + pager.currentPageOffsetFraction).coerceIn(-1f, 1f)
+                            val offset = signed.absoluteValue
                             alpha = lerp(1f, 0.35f, offset)
                             if (!reduceMotion) {
                                 val scale = lerp(1f, 0.9f, offset)
                                 scaleX = scale
                                 scaleY = scale
+                                rotationX = signed * CARD_TILT_DEGREES
+                                cameraDistance = 12f * density
                             }
                         },
                 ) {
@@ -247,5 +261,7 @@ internal fun LessonPlayer(
 }
 
 private const val DONE_KEY = "lesson-done"
+private const val CARD_TILT_DEGREES = 10f
+private val cardSpring = spring<Float>(dampingRatio = 0.78f, stiffness = Spring.StiffnessMediumLow)
 
 private fun lerp(start: Float, stop: Float, fraction: Float): Float = start + (stop - start) * fraction

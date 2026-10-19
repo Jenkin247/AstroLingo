@@ -1,5 +1,6 @@
 package com.astrolingo.app.screenshots
 
+import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
@@ -19,6 +20,7 @@ import com.astrolingo.engine.places.CityIndex
 import com.github.takahirom.roborazzi.captureRoboImage
 import java.time.LocalDate
 import java.time.LocalTime
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -33,6 +35,13 @@ import org.robolectric.annotation.GraphicsMode
 class PeopleScreenshots {
     @get:Rule
     val compose = createAndroidComposeRule<ComponentActivity>()
+
+    @Before
+    fun noAnimations() {
+        // The star field twinkles forever, which a test clock never waits out; still pictures, as on the phone's
+        // "Remove animations" setting.
+        Settings.Global.putFloat(compose.activity.contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 0f)
+    }
 
     private val index = CityIndex.bundled()
 

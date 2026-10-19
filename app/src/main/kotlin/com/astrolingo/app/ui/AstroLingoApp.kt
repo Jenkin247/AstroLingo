@@ -79,6 +79,7 @@ import com.astrolingo.app.settings.AppLanguage
 import com.astrolingo.app.today.DayPerson
 import com.astrolingo.app.today.TodayScreen
 import com.astrolingo.app.ui.components.InfoCard
+import com.astrolingo.app.ui.components.StarField
 import com.astrolingo.app.ui.kundli.KundliScreen
 import com.astrolingo.app.ui.sitara.SitaraAvatar
 import com.astrolingo.app.ui.theme.AstroLingoTheme
@@ -292,6 +293,8 @@ private fun Tabs(
             }
         },
     ) { padding ->
+        // A quiet twinkling sky behind the daily card and the learning path.
+        if (selected == Tab.TODAY || (selected == Tab.LEARN && !immersive)) StarField(Modifier.fillMaxSize().padding(padding))
         when (selected) {
             Tab.KUNDLI -> {
                 // The user's own kundli unless they picked a saved person; a deleted person falls back to the user.
