@@ -5,6 +5,7 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -53,6 +54,7 @@ import com.astrolingo.app.R
 import com.astrolingo.app.learn.ReviewOffer
 import com.astrolingo.app.ui.components.FactRow
 import com.astrolingo.app.ui.components.InfoCard
+import com.astrolingo.app.ui.components.riseIn
 import com.astrolingo.app.ui.kundli.SampleChart
 import com.astrolingo.app.ui.kundli.displayName
 import com.astrolingo.app.ui.places.CitySearch
@@ -121,7 +123,8 @@ fun TodayScreen(
             .padding(Spacing.md),
         verticalArrangement = Arrangement.spacedBy(Spacing.md),
     ) {
-        Column {
+        // The page fills in from the top down as it opens.
+        Column(Modifier.riseIn(0)) {
             if (viewing != null) {
                 PersonTitle(viewing)
             } else {
@@ -147,9 +150,9 @@ fun TodayScreen(
                 Button(onClick = { choosingPlace = true }) { Text(stringResource(R.string.today_ask_place_button)) }
             }
         }
-        HeroCard(card, shownPlace.zone, onLearn)
-        if (reviewDue > 0 && viewing == null) ReviewOffer(due = reviewDue, onStart = onReview)
-        Row(horizontalArrangement = Arrangement.spacedBy(Spacing.md), modifier = Modifier.height(IntrinsicSize.Min)) {
+        Box(Modifier.riseIn(1)) { HeroCard(card, shownPlace.zone, onLearn) }
+        if (reviewDue > 0 && viewing == null) Box(Modifier.riseIn(2)) { ReviewOffer(due = reviewDue, onStart = onReview) }
+        Row(horizontalArrangement = Arrangement.spacedBy(Spacing.md), modifier = Modifier.height(IntrinsicSize.Min).riseIn(3)) {
             InfoCard(modifier = Modifier.weight(1f).fillMaxHeight(), title = stringResource(R.string.today_label_colour)) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(Spacing.sm)) {
                     Spacer(
@@ -169,8 +172,8 @@ fun TodayScreen(
         }
         LearnLink(R.string.today_why_colour, TodayTopic.VARA, onLearn)
         if (facts != null) {
-            TimingsCard(facts, shownPlace.zone, onLearn)
-            MoonCard(facts, shownPlace.zone, onLearn)
+            Box(Modifier.riseIn(4)) { TimingsCard(facts, shownPlace.zone, onLearn) }
+            Box(Modifier.riseIn(5)) { MoonCard(facts, shownPlace.zone, onLearn) }
         } else {
             InfoCard { Text(stringResource(R.string.today_no_sunrise), style = MaterialTheme.typography.bodyMedium) }
         }

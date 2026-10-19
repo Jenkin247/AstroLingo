@@ -5,11 +5,15 @@ package com.astrolingo.app.learn
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.Crossfade
 import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.FastOutSlowInEasing
+import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.keyframes
 import androidx.compose.animation.core.rememberInfiniteTransition
+import androidx.compose.animation.core.snap
+import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
@@ -51,6 +55,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.semantics.clearAndSetSemantics
@@ -60,6 +65,11 @@ import androidx.compose.ui.semantics.stateDescription
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.astrolingo.app.R
+import com.astrolingo.app.ui.components.BURST_MILLIS
+import com.astrolingo.app.ui.components.confirm
+import com.astrolingo.app.ui.components.reject
+import com.astrolingo.app.ui.components.starBurst
+import com.astrolingo.app.ui.components.tick
 import com.astrolingo.app.ui.sitara.SitaraAvatar
 import com.astrolingo.app.ui.theme.AstroLingoTheme
 import com.astrolingo.app.ui.theme.Spacing
@@ -72,6 +82,7 @@ import com.astrolingo.learn.content.Term
 import com.astrolingo.learn.content.YourChartCard
 import kotlin.math.cos
 import kotlin.math.sin
+import kotlinx.coroutines.launch
 
 /**
  * The frame every card sits in: a rounded sheet with a small label, optional actions (bookmark) at the top right,
@@ -187,7 +198,9 @@ internal fun LearnCardPage(
     }
     var flipped by rememberSaveable(card.id) { mutableStateOf(false) }
     val reduceMotion = rememberReduceMotion()
-    val rotation by animateFloatAsState(if (flipped) 180f else 0f, tween(if (reduceMotion) 0 else FLIP_MILLIS), label = "flip")
+    // A springy turn that settles with a small wobble, like a real card.
+    val rotation by animateFloatAsState(if (flipped) 180f else 0f, if (reduceMotion) snap() else flipSpring, label = "flip")
+    val haptics = LocalHapticFeedback.current
     val showBack = rotation > 90f
     val turnLabel = stringResource(R.string.learn_flip_card)
     Box(
@@ -197,7 +210,10 @@ internal fun LearnCardPage(
                 rotationY = rotation
                 cameraDistance = 14f * density
             }
-            .clickable(role = Role.Button, onClickLabel = turnLabel) { flipped = !flipped },
+            .clickable(role = Role.Button, onClickLabel = turnLabel) {
+                haptics.tick()
+                flipped = !flipped
+            },
     ) {
         // The back is drawn mirrored so it reads the right way round once the card has turned.
         val content = Modifier.graphicsLayer { rotationY = if (showBack) 180f else 0f }
@@ -288,14 +304,23 @@ internal fun QuizCardPage(
     val reduceMotion = rememberReduceMotion()
     val shake = remember { Animatable(0f) }
     val pulse = remember { Animatable(1f) }
+    val burst = remember { Animatable(0f) }
+    val haptics = LocalHapticFeedback.current
+    // Coming back to a quiz answered earlier shows the answer without playing the reaction again.
+    val answeredBefore = remember { chosen != null }
     LaunchedEffect(chosen) {
-        if (chosen == null || reduceMotion) return@LaunchedEffect
+        if (chosen == null || answeredBefore) return@LaunchedEffect
+        if (quiz.isCorrect(chosen)) haptics.confirm() else haptics.reject()
+        if (reduceMotion) return@LaunchedEffect
         if (quiz.isCorrect(chosen)) {
+            // Stars burst from the right answer while it pulses.
+            launch { burst.animateTo(1f, tween(BURST_MILLIS, easing = FastOutSlowInEasing)) }
             pulse.animateTo(1f, keyframes { durationMillis = 320; 1.06f at 140 })
         } else {
             shake.animateTo(0f, keyframes { durationMillis = 420; -12f at 60; 12f at 140; -8f at 220; 6f at 300 })
         }
     }
+    val burstColors = listOf(MaterialTheme.colorScheme.primary, MaterialTheme.colorScheme.tertiary, AstroLingoTheme.tabColors.learn)
     CardFrame(
         label = stringResource(R.string.learn_quiz),
         position = position,
@@ -323,6 +348,7 @@ internal fun QuizCardPage(
                             scaleY = pulse.value
                         }
                     }
+                    .then(if (isChosen) Modifier.starBurst({ burst.value }, burstColors) else Modifier)
                     .border(2.dp, tint, MaterialTheme.shapes.medium)
                     .clickable(enabled = !answered, role = Role.Button) { onChoose(index) }
                     .heightIn(min = Spacing.touchTarget)
@@ -371,6 +397,8 @@ internal fun LessonDonePage(
     chapterDone: Boolean = false,
 ) {
     val reduceMotion = rememberReduceMotion()
+    val haptics = LocalHapticFeedback.current
+    LaunchedEffect(active) { if (active) haptics.confirm() }
     CardFrame(
         label = chapter.title.get(language),
         position = lesson.title.get(language),
@@ -463,7 +491,7 @@ private fun androidx.compose.ui.graphics.drawscope.DrawScope.drawStar(color: Col
     drawPath(path, color, alpha = alpha)
 }
 
-private const val FLIP_MILLIS = 450
+private val flipSpring = spring<Float>(dampingRatio = 0.62f, stiffness = Spring.StiffnessLow)
 
 /** Chapter 6, Reading a kundli: finishing it is the milestone "You can read your own chart". */
 private const val READ_CHART_CHAPTER = "reading"

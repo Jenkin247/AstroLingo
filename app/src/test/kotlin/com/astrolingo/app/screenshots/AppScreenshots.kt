@@ -34,6 +34,7 @@ import com.github.takahirom.roborazzi.captureRoboImage
 import java.time.LocalDate
 import java.time.LocalTime
 import java.util.Locale
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -51,6 +52,13 @@ import org.robolectric.annotation.GraphicsMode
 class AppScreenshots {
     @get:Rule
     val compose = createAndroidComposeRule<ComponentActivity>()
+
+    @Before
+    fun noAnimations() {
+        // Animations off, as with the phone's "Remove animations" setting: pictures are still and motion snaps. The
+        // star field behind Today and Learn twinkles forever otherwise, which a test clock never waits out.
+        Settings.Global.putFloat(compose.activity.contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 0f)
+    }
 
     private val index = CityIndex.bundled()
 
@@ -157,8 +165,6 @@ class AppScreenshots {
 
     @Test
     fun learn() {
-        // Animations off, as with the phone's "Remove animations" setting: pictures are still and motion snaps.
-        Settings.Global.putFloat(compose.activity.contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 0f)
         val answers = OnboardingAnswers(
             purpose = Purpose.LEARN,
             goal = DailyGoal.TEN,
@@ -215,7 +221,6 @@ class AppScreenshots {
 
     @Test
     fun chapterDone() {
-        Settings.Global.putFloat(compose.activity.contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 0f)
         val chapter = BundledCourse.course.chapter("reading")!!
         compose.setContent {
             AstroLingoTheme {
@@ -239,7 +244,6 @@ class AppScreenshots {
 
     @Test
     fun review() {
-        Settings.Global.putFloat(compose.activity.contentResolver, Settings.Global.ANIMATOR_DURATION_SCALE, 0f)
         val today = LocalDate.now().toEpochDay()
         // A missed quiz and a saved card, both due today.
         val store = InMemoryLearnStore(
