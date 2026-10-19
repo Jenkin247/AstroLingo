@@ -8,7 +8,9 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationManager
-import android.os.Build
+import android.os.Handler
+import android.os.Looper
+import android.os.SystemClock
 import android.os.CancellationSignal
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -86,23 +88,58 @@ fun UseMyLocation(index: CityIndex?, onFound: (City) -> Unit, modifier: Modifier
 private fun hasPermission(context: Context): Boolean =
     ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
 
-/** One reading from the best enabled provider, falling back to the last known one; null if there is none. */
+/**
+ * One reading, as fast as the phone can give it. A reading the phone already has from the last
+ * [RECENT_MINUTES] is used at once: the city is all we keep, and it will not have changed. Otherwise every
+ * enabled provider is asked at the same time and the first answer wins, so a slow GPS fix never holds up a
+ * network one. After [WAIT_MS] it settles for the newest reading the phone has, however old; null if none.
+ */
 @SuppressLint("MissingPermission") // only called once hasPermission() is true
 private fun readOnce(context: Context, onResult: (Location?) -> Unit) {
     val manager = context.getSystemService(LocationManager::class.java)
-    val enabled = manager?.getProviders(true).orEmpty()
-    val preferred = buildList {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) add(LocationManager.FUSED_PROVIDER)
-        add(LocationManager.NETWORK_PROVIDER)
-        add(LocationManager.GPS_PROVIDER)
-        add(LocationManager.PASSIVE_PROVIDER)
-    }
-    val provider = preferred.firstOrNull { it in enabled }
-    if (manager == null || provider == null || !hasPermission(context)) {
+    if (manager == null || !hasPermission(context)) {
         onResult(null)
         return
     }
-    LocationManagerCompat.getCurrentLocation(manager, provider, CancellationSignal(), ContextCompat.getMainExecutor(context)) { location ->
-        onResult(location ?: enabled.firstNotNullOfOrNull { manager.getLastKnownLocation(it) })
+    val enabled = manager.getProviders(true)
+    val lastKnown = enabled.mapNotNull { manager.getLastKnownLocation(it) }.maxByOrNull { it.elapsedRealtimeNanos }
+    if (lastKnown != null && ageMinutes(lastKnown) <= RECENT_MINUTES) {
+        onResult(lastKnown)
+        return
+    }
+    val active = enabled.filter { it != LocationManager.PASSIVE_PROVIDER }
+    if (active.isEmpty()) {
+        onResult(lastKnown)
+        return
+    }
+
+    val main = ContextCompat.getMainExecutor(context)
+    val handler = Handler(Looper.getMainLooper())
+    val signals = active.map { CancellationSignal() }
+    var done = false
+    var pending = active.size
+    // Every callback below runs on the main thread, so these plain vars are safe.
+    fun finish(location: Location?) {
+        if (done) return
+        done = true
+        handler.removeCallbacksAndMessages(null)
+        signals.forEach { it.cancel() }
+        onResult(location ?: lastKnown)
+    }
+    handler.postDelayed({ finish(null) }, WAIT_MS)
+    active.forEachIndexed { i, provider ->
+        LocationManagerCompat.getCurrentLocation(manager, provider, signals[i], main) { location ->
+            pending--
+            if (location != null || pending == 0) finish(location)
+        }
     }
 }
+
+private fun ageMinutes(location: Location): Long =
+    (SystemClock.elapsedRealtimeNanos() - location.elapsedRealtimeNanos) / 60_000_000_000L
+
+/** A reading this recent is used without asking for a new one. */
+private const val RECENT_MINUTES = 30L
+
+/** How long to wait for a new reading before falling back to the last one. */
+private const val WAIT_MS = 8_000L
