@@ -86,6 +86,9 @@ import kotlinx.coroutines.withContext
  * @param onPlaceChange called with the place the user picked, or null to go back to the birthplace.
  * @param reviewDue Review cards due today; when there are any, a small card offers [onReview] (LS-5).
  * @param onLearn opens the lesson behind a part of the card (LS-6); null hides the "Learn why" links.
+ * @param people people saved in Me whose day Today can show instead of the user's (LS-10).
+ * @param viewing whose day is shown, or null for the user's own; [onView] is called when the user picks another.
+ * @param onAddPerson opens Add a person in Me; shown as a link when nobody is saved. Null hides it.
  */
 @Composable
 fun TodayScreen(
@@ -98,10 +101,18 @@ fun TodayScreen(
     reviewDue: Int = 0,
     onReview: () -> Unit = {},
     onLearn: ((TodayTopic) -> Unit)? = null,
+    people: List<DayPerson> = emptyList(),
+    viewing: DayPerson? = null,
+    onView: (DayPerson?) -> Unit = {},
+    onAddPerson: (() -> Unit)? = null,
 ) {
     var choosingPlace by remember { mutableStateOf(false) }
-    val today = LocalDate.now(place.zone)
-    val card = remember(kundli, today, place) { TodayCard.build(kundli, today, place) }
+    // A place picked while viewing someone else is for that view only: the user's own place stays as it was.
+    var visitPlace by remember(viewing?.id) { mutableStateOf<City?>(null) }
+    val shownPlace = if (viewing != null) visitPlace ?: place else place
+    val chart = viewing?.kundli ?: kundli
+    val today = LocalDate.now(shownPlace.zone)
+    val card = remember(chart, today, shownPlace) { TodayCard.build(chart, today, shownPlace) }
     val facts = card.facts
     Column(
         modifier = modifier
@@ -111,27 +122,33 @@ fun TodayScreen(
         verticalArrangement = Arrangement.spacedBy(Spacing.md),
     ) {
         Column {
-            // The greeting follows the phone's own clock: that is the time where the user actually is.
-            Text(
-                stringResource(if (placeGiven) greeting(LocalTime.now()) else R.string.today_greeting),
-                style = MaterialTheme.typography.headlineMedium,
-            )
+            if (viewing != null) {
+                PersonTitle(viewing)
+            } else {
+                // The greeting follows the phone's own clock: that is the time where the user actually is.
+                Text(
+                    stringResource(if (placeGiven) greeting(LocalTime.now()) else R.string.today_greeting),
+                    style = MaterialTheme.typography.headlineMedium,
+                )
+            }
             Text(
                 card.date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)),
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
         }
-        PlaceRow(place, onChange = { choosingPlace = true })
-        if (!placeGiven) {
+        PersonChips(people, viewing, onView, onAddPerson)
+        PlaceRow(shownPlace, onChange = { choosingPlace = true })
+        if (viewing != null) PersonBanner(viewing, onBack = { onView(null) })
+        if (!placeGiven && viewing == null) {
             // Profiles saved before onboarding asked where the user lives: ask once here instead.
             InfoCard(title = stringResource(R.string.today_ask_place_title), icon = Icons.Filled.LocationOn) {
                 Text(stringResource(R.string.today_ask_place), style = MaterialTheme.typography.bodyMedium)
                 Button(onClick = { choosingPlace = true }) { Text(stringResource(R.string.today_ask_place_button)) }
             }
         }
-        HeroCard(card, place.zone, onLearn)
-        if (reviewDue > 0) ReviewOffer(due = reviewDue, onStart = onReview)
+        HeroCard(card, shownPlace.zone, onLearn)
+        if (reviewDue > 0 && viewing == null) ReviewOffer(due = reviewDue, onStart = onReview)
         Row(horizontalArrangement = Arrangement.spacedBy(Spacing.md), modifier = Modifier.height(IntrinsicSize.Min)) {
             InfoCard(modifier = Modifier.weight(1f).fillMaxHeight(), title = stringResource(R.string.today_label_colour)) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(Spacing.sm)) {
@@ -152,19 +169,21 @@ fun TodayScreen(
         }
         LearnLink(R.string.today_why_colour, TodayTopic.VARA, onLearn)
         if (facts != null) {
-            TimingsCard(facts, place.zone, onLearn)
-            MoonCard(facts, place.zone, onLearn)
+            TimingsCard(facts, shownPlace.zone, onLearn)
+            MoonCard(facts, shownPlace.zone, onLearn)
         } else {
             InfoCard { Text(stringResource(R.string.today_no_sunrise), style = MaterialTheme.typography.bodyMedium) }
         }
     }
     if (choosingPlace) {
         PlaceDialog(
-            current = place,
+            current = shownPlace,
+            resetLabel = if (viewing != null) R.string.today_place_mine else R.string.today_place_birthplace,
             onDismiss = { choosingPlace = false },
             onPick = {
                 choosingPlace = false
-                onPlaceChange(it)
+                // For someone else, null goes back to the user's own place rather than a birthplace.
+                if (viewing != null) visitPlace = it else onPlaceChange(it)
             },
         )
     }
@@ -172,7 +191,7 @@ fun TodayScreen(
 
 /** Full-screen place search, so sunrise and Rahu kaal follow where the user lives now. */
 @Composable
-private fun PlaceDialog(current: City, onDismiss: () -> Unit, onPick: (City?) -> Unit) {
+private fun PlaceDialog(current: City, @StringRes resetLabel: Int, onDismiss: () -> Unit, onPick: (City?) -> Unit) {
     val index by produceState<CityIndex?>(initialValue = null) {
         value = withContext(Dispatchers.Default) { CityIndex.bundled() }
     }
@@ -191,7 +210,7 @@ private fun PlaceDialog(current: City, onDismiss: () -> Unit, onPick: (City?) ->
                 UseMyLocation(index = index, onFound = { picked = it })
                 CitySearch(index = index, selected = picked, onSelect = { picked = it }, modifier = Modifier.weight(1f))
                 Row(horizontalArrangement = Arrangement.spacedBy(Spacing.sm)) {
-                    TextButton(onClick = { onPick(null) }) { Text(stringResource(R.string.today_place_birthplace)) }
+                    TextButton(onClick = { onPick(null) }) { Text(stringResource(resetLabel)) }
                     Spacer(Modifier.weight(1f))
                     TextButton(onClick = onDismiss) { Text(stringResource(R.string.me_delete_cancel)) }
                     Button(onClick = { onPick(picked) }, enabled = picked != null && picked != current) {

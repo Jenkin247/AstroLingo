@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Today for a saved person (LS-10). English in values/strings_today_people.xml. -->
+<resources>
+    <string name="today_see_friend">किसी दोस्त का दिन देखें</string>
+    <string name="today_person_day">%1$s का दिन</string>
+    <string name="today_person_banner">आप %1$s का दिन देख रहे हैं, जो उनके जन्म के चंद्रमा और नक्षत्र से निकाला गया है। रंग वार से तय होता है, इसलिए आज वह सबके लिए एक ही है।</string>
+    <string name="today_person_moon_uncertain">%1$s का जन्म समय सहेजा नहीं गया है और उस दिन चंद्रमा ने राशि बदली थी, इसलिए उनका दिन थोड़ा अलग हो सकता है।</string>
+    <string name="today_person_back">मेरे दिन पर लौटें</string>
+    <string name="today_place_mine">मेरी जगह जैसा</string>
+</resources>
