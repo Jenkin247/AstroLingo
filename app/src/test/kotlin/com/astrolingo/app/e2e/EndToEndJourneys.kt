@@ -1,5 +1,6 @@
 package com.astrolingo.app.e2e
 
+import android.content.Intent
 import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.ComposeTimeoutException
@@ -49,6 +50,7 @@ import org.junit.Test
 import org.junit.rules.TestName
 import org.junit.runner.RunWith
 import org.robolectric.RobolectricTestRunner
+import org.robolectric.Shadows
 import org.robolectric.annotation.Config
 import org.robolectric.annotation.GraphicsMode
 
@@ -386,6 +388,31 @@ class EndToEndJourneys {
         tap("Today")
         waitForText("See a friend's day")
         assertThat(shows("Asha's day")).isFalse()
+    }
+
+    @Test
+    fun `sharing a friend's day sends their day but none of their birth details`() {
+        val answers = learnerAnswers()
+        val asha = SavedPerson("asha", "Asha", BirthDetails(LocalDate.of(1990, 1, 20), LocalTime.of(14, 15), index.search("Nagpur").first()), 1)
+        val profiles = InMemoryProfileRepository(answers.copy(currentPlace = answers.birth.city), listOf(asha))
+        showApp(profiles)
+        tap("Today")
+        tap("Asha")
+        waitForText("Asha's day")
+        tap("Share Asha's day")
+        val chooser = checkNotNull(Shadows.shadowOf(compose.activity).nextStartedActivity) { "no share sheet opened" }
+        assertThat(chooser.action).isEqualTo(Intent.ACTION_CHOOSER)
+        @Suppress("DEPRECATION")
+        val send = checkNotNull(chooser.getParcelableExtra<Intent>(Intent.EXTRA_INTENT))
+        assertThat(send.action).isEqualTo(Intent.ACTION_SEND)
+        assertThat(send.type).isEqualTo("text/plain")
+        val text = checkNotNull(send.getStringExtra(Intent.EXTRA_TEXT))
+        assertThat(text).startsWith("Asha's day · ")
+        assertThat(text).contains("Colour of the day: ")
+        assertThat(text).contains("Rahu kaal in Pune: ")
+        assertThat(text).endsWith("Shared from AstroLingo")
+        // Asha's birth date, time and birthplace never leave the phone.
+        listOf("1990", "14:15", "Nagpur").forEach { assertThat(text).doesNotContain(it) }
     }
 
     @Test
