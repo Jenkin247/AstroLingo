@@ -3,6 +3,7 @@ package com.astrolingo.app.screenshots
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithText
+import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
@@ -61,6 +62,31 @@ class PeopleScreenshots {
         compose.onNodeWithText("Add a person").performClick()
         waitForText("Nickname")
         shot("32_me_add_person")
+    }
+
+    @Test
+    fun kundliPickerAndEditMe() {
+        val answers = OnboardingAnswers(
+            purpose = Purpose.GUIDANCE,
+            goal = null,
+            level = Level.SOME,
+            birth = BirthDetails(LocalDate.of(1994, 10, 12), LocalTime.of(6, 40), index.search("Jaipur").first()),
+        )
+        val people = listOf(
+            SavedPerson("a", "Asha", BirthDetails(LocalDate.of(1990, 1, 1), LocalTime.of(14, 15), index.search("Pune").first()), 1),
+        )
+        compose.setContent { AstroLingoTheme { AstroLingoApp(InMemoryProfileRepository(answers, people)) } }
+        waitForText("Rahu kaal")
+        compose.onNodeWithText("Kundli").performClick()
+        waitForText("Whose kundli")
+        compose.onNodeWithText("Asha").performClick()
+        waitForText("Asha's kundli")
+        shot("36_kundli_picker")
+        compose.onNodeWithText("Me").performClick()
+        waitForText("Saved people")
+        compose.onNodeWithContentDescription("Edit my birth details").performClick()
+        waitForText("Your kundli, Today and Learn")
+        shot("37_me_edit_my_details")
     }
 
     private companion object {

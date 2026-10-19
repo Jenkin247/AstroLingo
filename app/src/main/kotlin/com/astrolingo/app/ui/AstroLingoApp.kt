@@ -62,12 +62,14 @@ import com.astrolingo.app.learn.InMemoryLearnStore
 import com.astrolingo.app.learn.LearnProgressStore
 import com.astrolingo.app.learn.LearnRequest
 import com.astrolingo.app.learn.LearnTab
+import com.astrolingo.app.onboarding.BirthDetails
 import com.astrolingo.app.onboarding.BirthDetailsResolver
 import com.astrolingo.app.onboarding.Level
 import com.astrolingo.app.onboarding.OnboardingAnswers
 import com.astrolingo.app.onboarding.OnboardingFlow
 import com.astrolingo.app.onboarding.Purpose
 import com.astrolingo.app.onboarding.ResolvedBirth
+import com.astrolingo.app.people.KundliPicker
 import com.astrolingo.app.people.PersonForm
 import com.astrolingo.app.people.SavedPeopleCard
 import com.astrolingo.app.profile.InMemoryProfileRepository
@@ -201,6 +203,14 @@ fun AstroLingoApp(
                 people = (people.filterNot { it.id == person.id } + person).sortedBy { it.createdAt }
                 scope.launch(Dispatchers.IO) { runCatching { profiles.savePerson(person) } }
             },
+            onBirthChange = { birth ->
+                val answers = current.answers.copy(birth = birth)
+                scope.launch {
+                    // A new chart for the new details; Learn progress and saved people stay as they are.
+                    profile = withContext(Dispatchers.Default) { ready(answers) }
+                    withContext(Dispatchers.IO) { runCatching { profiles.save(answers) } }
+                }
+            },
             onDeletePerson = { person ->
                 people = people.filterNot { it.id == person.id }
                 scope.launch(Dispatchers.IO) { runCatching { profiles.deletePerson(person.id) } }
@@ -236,9 +246,12 @@ private fun Tabs(
     people: List<SavedPerson> = emptyList(),
     onSavePerson: (SavedPerson) -> Unit = {},
     onDeletePerson: (SavedPerson) -> Unit = {},
+    onBirthChange: (BirthDetails) -> Unit = {},
 ) {
-    // The person being added ("new") or edited (their id) in Me, or null.
+    // The person being added ("new") or edited (their id, or "me" for the user) in Me, or null.
     var personForm by rememberSaveable { mutableStateOf<String?>(null) }
+    // Whose kundli the Kundli tab shows: the user's, or a saved person's id.
+    var kundliOf by rememberSaveable { mutableStateOf(YOU_ID) }
     // Charts for the bubble on Learn cards (LS-9): the user's at once, saved people's once calculated.
     val youName = stringResource(R.string.people_you)
     val chartPeople by produceState(emptyList<ChartPerson>(), profile.kundli, profile.birth.timeKnown, people, youName) {
@@ -274,20 +287,50 @@ private fun Tabs(
         },
     ) { padding ->
         when (selected) {
-            Tab.KUNDLI -> KundliScreen(
-                kundli = profile.kundli,
-                title = stringResource(R.string.your_kundli_title),
-                note = when {
-                    profile.birth.timeKnown -> null
-                    profile.birth.moonUncertain ->
-                        stringResource(R.string.your_kundli_time_unknown) + " " + stringResource(R.string.your_kundli_moon_uncertain)
-                    else -> stringResource(R.string.your_kundli_time_unknown)
-                },
-                modifier = Modifier.padding(padding),
-                timeKnown = profile.birth.timeKnown,
-                reveal = profile.reveal,
-                onRevealed = onRevealed,
-            )
+            Tab.KUNDLI -> {
+                // The user's own kundli unless they picked a saved person; a deleted person falls back to the user.
+                val other = chartPeople.firstOrNull { it.id == kundliOf && !it.isYou }
+                val picker: @Composable () -> Unit = {
+                    // Day one's reveal is about the user's own chart alone.
+                    if (!profile.reveal) {
+                        KundliPicker(
+                            people = chartPeople,
+                            selectedId = other?.id ?: YOU_ID,
+                            onSelect = { kundliOf = it.id },
+                            onAdd = {
+                                personForm = NEW_PERSON
+                                onSelect(Tab.ME)
+                            },
+                        )
+                    }
+                }
+                if (other == null) {
+                    KundliScreen(
+                        kundli = profile.kundli,
+                        title = stringResource(R.string.your_kundli_title),
+                        note = when {
+                            profile.birth.timeKnown -> null
+                            profile.birth.moonUncertain ->
+                                stringResource(R.string.your_kundli_time_unknown) + " " + stringResource(R.string.your_kundli_moon_uncertain)
+                            else -> stringResource(R.string.your_kundli_time_unknown)
+                        },
+                        modifier = Modifier.padding(padding),
+                        timeKnown = profile.birth.timeKnown,
+                        reveal = profile.reveal,
+                        onRevealed = onRevealed,
+                        top = picker,
+                    )
+                } else {
+                    KundliScreen(
+                        kundli = other.kundli,
+                        title = stringResource(R.string.kundli_of, other.name),
+                        note = if (other.timeKnown) null else stringResource(R.string.kundli_other_time_unknown, other.name),
+                        modifier = Modifier.padding(padding),
+                        timeKnown = other.timeKnown,
+                        top = picker,
+                    )
+                }
+            }
             Tab.TODAY -> TodayScreen(
                 kundli = profile.kundli,
                 place = profile.answers.todayPlace,
@@ -323,7 +366,18 @@ private fun Tabs(
                     onSelect(Tab.ME)
                 },
             )
-            Tab.ME -> if (personForm != null) {
+            Tab.ME -> if (personForm == EDIT_ME) {
+                PersonForm(
+                    editing = SavedPerson(YOU_ID, youName, profile.answers.birth, 0),
+                    self = true,
+                    onSave = { me ->
+                        onBirthChange(keepDetails(profile.answers.birth, me.birth))
+                        personForm = null
+                    },
+                    onCancel = { personForm = null },
+                    modifier = Modifier.padding(padding),
+                )
+            } else if (personForm != null) {
                 PersonForm(
                     editing = people.firstOrNull { it.id == personForm },
                     onSave = { person ->
@@ -349,6 +403,7 @@ private fun Tabs(
                         onAdd = { personForm = NEW_PERSON },
                         onEdit = { personForm = it.id },
                         onDelete = onDeletePerson,
+                        onEditYou = { personForm = EDIT_ME },
                     )
                 },
                 hasPeople = people.isNotEmpty(),
@@ -450,6 +505,16 @@ private fun MeScreen(
 
 /** [Tabs]' person form value for a new person rather than an edit. */
 private const val NEW_PERSON = "new"
+private const val EDIT_ME = "me"
+
+/**
+ * The user's edited birth details, keeping onboarding's extra answers where they still apply: the part of the day for
+ * an unknown time on the same date, and the old city clock for the same moment and place.
+ */
+internal fun keepDetails(before: BirthDetails, after: BirthDetails): BirthDetails = after.copy(
+    dayPart = before.dayPart.takeIf { after.time == null && after.date == before.date },
+    useCityClock = before.useCityClock && after.date == before.date && after.time == before.time && after.city.id == before.city.id,
+)
 
 private val ThemeMode.label: Int
     get() = when (this) {
