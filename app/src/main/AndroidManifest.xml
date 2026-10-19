@@ -8,6 +8,13 @@
          No background location and no precise fix: a few kilometres move sunrise by seconds. -->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
+    <!-- Android 11+ hides text-to-speech engines unless the app declares it looks for them (read-aloud, ADR 0008). -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.TTS_SERVICE" />
+        </intent>
+    </queries>
+
     <application
         android:allowBackup="false"
         android:dataExtractionRules="@xml/data_extraction_rules"

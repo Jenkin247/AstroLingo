@@ -7,4 +7,12 @@
     <string name="today_person_moon_uncertain">%1$s का जन्म समय सहेजा नहीं गया है और उस दिन चंद्रमा ने राशि बदली थी, इसलिए उनका दिन थोड़ा अलग हो सकता है।</string>
     <string name="today_person_back">मेरे दिन पर लौटें</string>
     <string name="today_place_mine">मेरी जगह जैसा</string>
+    <!-- Share the day (LS-11) -->
+    <string name="today_share_mine">मेरा दिन शेयर करें</string>
+    <string name="today_share_person">%1$s का दिन शेयर करें</string>
+    <string name="today_share_title_mine">मेरा दिन</string>
+    <string name="today_share_chooser">दिन शेयर करें</string>
+    <string name="today_share_colour">आज का रंग: %1$s</string>
+    <string name="today_share_rahu">%1$s में राहु काल: %2$s</string>
+    <string name="today_share_footer">AstroLingo से शेयर किया गया</string>
 </resources>

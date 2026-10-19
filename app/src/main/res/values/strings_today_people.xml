@@ -7,4 +7,12 @@
     <string name="today_person_moon_uncertain">%1$s\'s birth time isn\'t saved and the Moon changed sign that day, so their day may be off.</string>
     <string name="today_person_back">Back to my day</string>
     <string name="today_place_mine">Same as mine</string>
+    <!-- Share the day (LS-11) -->
+    <string name="today_share_mine">Share my day</string>
+    <string name="today_share_person">Share %1$s\'s day</string>
+    <string name="today_share_title_mine">My day</string>
+    <string name="today_share_chooser">Share the day</string>
+    <string name="today_share_colour">Colour of the day: %1$s</string>
+    <string name="today_share_rahu">Rahu kaal in %1$s: %2$s</string>
+    <string name="today_share_footer">Shared from AstroLingo</string>
 </resources>

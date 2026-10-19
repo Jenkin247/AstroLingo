@@ -1,6 +1,7 @@
 // Today tab: the daily card from fixed Vedic rules, worked out on the phone (docs/spec/daily-card-rules.md).
 package com.astrolingo.app.today
 
+import android.content.Intent
 import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -26,11 +27,13 @@ import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
@@ -44,6 +47,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -150,7 +154,19 @@ fun TodayScreen(
                 Button(onClick = { choosingPlace = true }) { Text(stringResource(R.string.today_ask_place_button)) }
             }
         }
-        Box(Modifier.riseIn(1)) { HeroCard(card, shownPlace.zone, onLearn) }
+        val share = dayShare(card, viewing, shownPlace)
+        val context = LocalContext.current
+        val launcher = LocalShareLauncher.current
+        val chooserTitle = stringResource(R.string.today_share_chooser)
+        Box(Modifier.riseIn(1)) {
+            HeroCard(
+                card,
+                shownPlace.zone,
+                onLearn,
+                shareLabel = if (viewing != null) stringResource(R.string.today_share_person, viewing.name) else stringResource(R.string.today_share_mine),
+                onShare = { launcher.launch(context, shareIntent(share.text(), chooserTitle)) },
+            )
+        }
         if (reviewDue > 0 && viewing == null) Box(Modifier.riseIn(2)) { ReviewOffer(due = reviewDue, onStart = onReview) }
         Row(horizontalArrangement = Arrangement.spacedBy(Spacing.md), modifier = Modifier.height(IntrinsicSize.Min).riseIn(3)) {
             InfoCard(modifier = Modifier.weight(1f).fillMaxHeight(), title = stringResource(R.string.today_label_colour)) {
@@ -245,7 +261,7 @@ private fun PlaceRow(place: City, onChange: () -> Unit) {
  * two tips as a list, then one labelled row per star (two when the Moon changes star) and one for the weekday.
  */
 @Composable
-private fun HeroCard(card: TodayCard, zone: ZoneId, onLearn: ((TodayTopic) -> Unit)?) {
+private fun HeroCard(card: TodayCard, zone: ZoneId, onLearn: ((TodayTopic) -> Unit)?, shareLabel: String, onShare: () -> Unit) {
     val ink = AstroLingoTheme.tabColors.onPastel
     val facts = card.facts
     InfoCard(container = AstroLingoTheme.tabColors.today) {
@@ -285,7 +301,41 @@ private fun HeroCard(card: TodayCard, zone: ZoneId, onLearn: ((TodayTopic) -> Un
             ink,
         )
         if (facts != null) LearnLink(R.string.today_why_day, TodayTopic.STRENGTH, onLearn, color = ink)
+        OutlinedButton(onClick = onShare, modifier = Modifier.heightIn(min = Spacing.touchTarget)) {
+            Icon(Icons.Filled.Share, contentDescription = null, tint = ink, modifier = Modifier.size(18.dp))
+            Spacer(Modifier.size(Spacing.xs))
+            Text(shareLabel, color = ink)
+        }
     }
+}
+
+/** The shared text for the day on screen (LS-11). Birth details and the deity are never in it. */
+@Composable
+private fun dayShare(card: TodayCard, viewing: DayPerson?, place: City): DayShare {
+    val facts = card.facts
+    val slot = facts?.let { it.gocharHouse - 1 }
+    val rahu = facts?.panchang?.rahuKaal?.let {
+        stringResource(R.string.today_time_range, time(it.startUtcMillis, place.zone), time(it.endUtcMillis, place.zone))
+    }
+    return DayShare(
+        title = if (viewing != null) stringResource(R.string.today_person_day, viewing.name) else stringResource(R.string.today_share_title_mine),
+        date = card.date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)),
+        strength = facts?.let { stringResource(it.strength.label) },
+        headline = if (facts != null && slot != null) stringArrayResource(facts.strength.focus)[slot] else null,
+        tips = if (facts != null && slot != null) stringArrayResource(facts.strength.tips)[slot].split('\n') else emptyList(),
+        colour = stringResource(R.string.today_share_colour, stringResource(card.colour.label)),
+        rahu = rahu?.let { stringResource(R.string.today_share_rahu, place.label, it) },
+        footer = stringResource(R.string.today_share_footer),
+    )
+}
+
+/** Android's share sheet with [text]. Nothing leaves the phone unless the user picks an app there. */
+private fun shareIntent(text: String, chooserTitle: String): Intent {
+    val send = Intent(Intent.ACTION_SEND).apply {
+        type = "text/plain"
+        putExtra(Intent.EXTRA_TEXT, text)
+    }
+    return Intent.createChooser(send, chooserTitle)
 }
 
 /** "Until 3:38 PM · Star of plenty (Sampat)". */
