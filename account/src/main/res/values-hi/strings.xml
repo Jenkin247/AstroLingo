@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- साइन-इन और अपडेट का चुनाव (ADR 0012)। हिन्दी समीक्षक से जाँच बाकी है। -->
+<resources>
+    <string name="account_sign_in_sitara">आपकी कुंडली तैयार है। क्या आप इसे सुरक्षित रखना चाहेंगे?</string>
+    <string name="account_sign_in_title">Google से साइन इन करें</string>
+    <string name="account_benefit_backup">नए फ़ोन पर अपनी कुंडली, सहेजे गए लोग और प्रगति वापस पाएँ</string>
+    <string name="account_benefit_sitara">सितारा से अपने सवाल पूछें</string>
+    <string name="account_benefit_free">पाठ, आज का कार्ड और आपकी कुंडली दोनों तरह से मुफ़्त रहेंगे</string>
+    <string name="account_continue_google">Google के साथ आगे बढ़ें</string>
+    <string name="account_maybe_later">शायद बाद में</string>
+    <string name="account_sign_in_privacy">हमें Google से सिर्फ़ एक खाता आईडी मिलती है, आपका पासवर्ड कभी नहीं। आपकी जन्म की जानकारी इसी फ़ोन पर एन्क्रिप्ट होकर रहती है।</string>
+
+    <string name="account_error_no_google">इस फ़ोन पर कोई Google खाता नहीं है। फ़ोन की सेटिंग में एक जोड़ें, या बाद में \'मैं\' से साइन इन करें।</string>
+    <string name="account_error_offline">Google से जुड़ नहीं पाए। अपना कनेक्शन देखें और फिर कोशिश करें।</string>
+    <string name="account_error_not_set_up">इस टेस्ट संस्करण में साइन-इन अभी चालू नहीं है। बाकी सब काम करता है।</string>
+    <string name="account_error_failed">इस बार साइन-इन नहीं हो पाया। कृपया फिर कोशिश करें।</string>
+
+    <string name="account_updates_sitara">एक आख़िरी बात, और यह पूरी तरह आपकी मर्ज़ी है।</string>
+    <string name="account_updates_title">क्या आप हमसे ख़बरें पाना चाहेंगे?</string>
+    <string name="account_updates_lessons">नए पाठ</string>
+    <string name="account_updates_lessons_detail">नए पाठ आने पर एक सूचना</string>
+    <string name="account_updates_insights">आकाश की ख़ास बातें</string>
+    <string name="account_updates_insights_detail">ग्रहण, त्योहार और दूसरे ख़ास दिन</string>
+    <string name="account_updates_offers">ऑफ़र</string>
+    <string name="account_updates_offers_detail">छूट और ख़ास ऑफ़र</string>
+    <string name="account_updates_newsletter">न्यूज़लेटर</string>
+    <string name="account_updates_newsletter_detail">कभी-कभार आपके Google पते पर एक ईमेल</string>
+    <string name="account_updates_save">मेरा चुनाव सहेजें</string>
+    <string name="account_updates_not_now">अभी नहीं</string>
+    <string name="account_updates_note">आप इसे कभी भी \'मैं\' में बदल सकते हैं। हम आपका ईमेल कभी किसी से साझा नहीं करते।</string>
+
+    <string name="account_me_title">खाता</string>
+    <string name="account_me_signed_out">साइन इन नहीं है। अपनी कुंडली का बैकअप रखने और सितारा से पूछने के लिए साइन इन करें।</string>
+    <string name="account_me_signed_in">Google से साइन इन है</string>
+    <string name="account_sign_out">साइन आउट करें</string>
+</resources>

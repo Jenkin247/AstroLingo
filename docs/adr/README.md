@@ -13,5 +13,6 @@
 | [0009](0009-crash-reporting.md) | Crashlytics with personal data stripped, no analytics |
 | [0010](0010-daily-notification.md) | Daily notification with WorkManager, no exact alarms, in the `notify` module |
 | [0011](0011-learn-module.md) | Learn module as a pure-Kotlin build with its content |
+| [0012](0012-account-module.md) | Sign-in in its own module, optional, with an opt-in for updates |
 
 A change to modules, the data model, security or a new library needs a new or updated ADR, reviewed by the Architect.

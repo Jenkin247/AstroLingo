@@ -18,6 +18,7 @@ import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
+import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
@@ -51,10 +52,19 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.astrolingo.account.AccountGate
+import com.astrolingo.account.AccountSection
+import com.astrolingo.account.AccountState
+import com.astrolingo.account.SignInResult
+import com.astrolingo.account.SignInScreen
+import com.astrolingo.account.UpdatesConsent
+import com.astrolingo.account.UpdatesScreen
+import com.astrolingo.account.message
 import com.astrolingo.app.R
 import com.astrolingo.app.learn.BundledCourse
 import com.astrolingo.app.learn.ChartPerson
@@ -85,6 +95,7 @@ import com.astrolingo.app.ui.components.InfoCard
 import com.astrolingo.app.ui.components.StarField
 import com.astrolingo.app.ui.kundli.KundliScreen
 import com.astrolingo.app.ui.sitara.SitaraAvatar
+import com.astrolingo.app.ui.sitara.SitaraSays
 import com.astrolingo.app.ui.theme.AstroLingoTheme
 import com.astrolingo.app.ui.theme.Spacing
 import com.astrolingo.app.ui.theme.ThemeMode
@@ -153,6 +164,7 @@ private const val YOU_ID = "you"
  * @param notes the daily note's settings, offered on Today and changed in Me.
  * @param resumed goes up each time the app comes back to the front, so the note settings are read again (the user
  *   may have allowed notifications in the phone's settings meanwhile).
+ * @param account Google sign-in and the updates choice (ADR 0012); null leaves sign-in out, as in most tests.
  */
 @Composable
 fun AstroLingoApp(
@@ -164,8 +176,42 @@ fun AstroLingoApp(
     onLanguage: (AppLanguage) -> Unit = {},
     notes: NoteSettings = remember { InMemoryNoteSettings() },
     resumed: Int = 0,
+    account: AccountGate? = null,
 ) {
     val scope = rememberCoroutineScope()
+    val context = LocalContext.current
+    var accountState by remember { mutableStateOf(account?.repository?.current() ?: AccountState.SignedOut) }
+    // Sign-in is offered once, after onboarding (or on the first launch with this version), then lives in Me.
+    var offerSignIn by remember { mutableStateOf(account != null && !account.choices.signInOffered()) }
+    // The updates question follows a sign-in from that offer.
+    var askUpdates by remember { mutableStateOf(false) }
+    var consent by remember { mutableStateOf(account?.choices?.consent()) }
+    var signingIn by remember { mutableStateOf(false) }
+    var signInMessage by remember { mutableStateOf<Int?>(null) }
+    fun signIn(fromOffer: Boolean) {
+        val gate = account ?: return
+        signingIn = true
+        signInMessage = null
+        scope.launch {
+            val result = gate.repository.signIn(context)
+            signingIn = false
+            signInMessage = result.message()
+            if (result is SignInResult.Success) {
+                accountState = result.account
+                if (fromOffer) {
+                    gate.choices.markSignInOffered()
+                    offerSignIn = false
+                    askUpdates = true
+                }
+            }
+        }
+    }
+    fun saveConsent(chosen: UpdatesConsent) {
+        val gate = account ?: return
+        val stamped = chosen.decided(gate.now())
+        gate.choices.saveConsent(stamped)
+        consent = stamped
+    }
     var profile by remember { mutableStateOf<ProfileState>(ProfileState.Loading) }
     // People saved to learn from (LS-8), oldest first.
     var people by remember { mutableStateOf<List<SavedPerson>>(emptyList()) }
@@ -196,7 +242,35 @@ fun AstroLingoApp(
             },
             modifier = Modifier.safeDrawingPadding(),
         )
-        is ProfileState.Ready -> Tabs(
+        is ProfileState.Ready -> if (account != null && offerSignIn) {
+            SignInScreen(
+                busy = signingIn,
+                message = signInMessage,
+                onContinue = { signIn(fromOffer = true) },
+                onLater = {
+                    account.choices.markSignInOffered()
+                    offerSignIn = false
+                    signInMessage = null
+                },
+                sitara = { SitaraSays(it) },
+                modifier = Modifier.safeDrawingPadding(),
+            )
+        } else if (account != null && askUpdates) {
+            UpdatesScreen(
+                initial = consent ?: UpdatesConsent.NONE,
+                onSave = {
+                    saveConsent(it)
+                    askUpdates = false
+                },
+                // "Not now" is a choice too: everything stays off, and it is recorded as decided.
+                onNotNow = {
+                    saveConsent(UpdatesConsent.NONE)
+                    askUpdates = false
+                },
+                sitara = { SitaraSays(it) },
+                modifier = Modifier.safeDrawingPadding(),
+            )
+        } else Tabs(
             profile = current,
             learnStore = learnStore,
             selected = selected,
@@ -229,11 +303,39 @@ fun AstroLingoApp(
                 people = people.filterNot { it.id == person.id }
                 scope.launch(Dispatchers.IO) { runCatching { profiles.deletePerson(person.id) } }
             },
+            account = account?.let { gate ->
+                @Composable {
+                    AccountSection(
+                        state = accountState,
+                        busy = signingIn,
+                        message = signInMessage,
+                        consent = consent ?: UpdatesConsent.NONE,
+                        onSignIn = { signIn(fromOffer = false) },
+                        onSignOut = {
+                            scope.launch {
+                                gate.repository.signOut(context)
+                                accountState = AccountState.SignedOut
+                                // Updates were agreed for that account; signing out withdraws them.
+                                saveConsent(UpdatesConsent.NONE)
+                            }
+                        },
+                        onConsent = ::saveConsent,
+                    )
+                }
+            },
             onDelete = {
                 scope.launch {
                     withContext(Dispatchers.IO) {
                         runCatching { profiles.deleteAll() }
                         runCatching { learnStore.deleteAll() }
+                    }
+                    // Starting again signs out and forgets the updates choice; sign-in is offered after onboarding.
+                    if (account != null) {
+                        runCatching { account.repository.signOut(context) }
+                        account.choices.clear()
+                        accountState = AccountState.SignedOut
+                        consent = account.choices.consent()
+                        offerSignIn = true
                     }
                     selected = Tab.TODAY
                     people = emptyList()
@@ -263,6 +365,7 @@ private fun Tabs(
     onSavePerson: (SavedPerson) -> Unit = {},
     onDeletePerson: (SavedPerson) -> Unit = {},
     onBirthChange: (BirthDetails) -> Unit = {},
+    account: (@Composable () -> Unit)? = null,
 ) {
     // The person being added ("new") or edited (their id, or "me" for the user) in Me, or null.
     var personForm by rememberSaveable { mutableStateOf<String?>(null) }
@@ -479,6 +582,7 @@ private fun Tabs(
                         },
                     )
                 },
+                account = account,
             )
             else -> PlaceholderScreen(tab = selected, modifier = Modifier.padding(padding))
         }
@@ -500,6 +604,7 @@ private fun MeScreen(
     savedPeople: @Composable () -> Unit = {},
     hasPeople: Boolean = false,
     notes: @Composable () -> Unit = {},
+    account: (@Composable () -> Unit)? = null,
 ) {
     var confirming by remember { mutableStateOf(false) }
     Column(
@@ -512,6 +617,11 @@ private fun MeScreen(
         Text(stringResource(R.string.tab_me), style = MaterialTheme.typography.headlineMedium)
         savedPeople()
         notes()
+        if (account != null) {
+            InfoCard(title = stringResource(com.astrolingo.account.R.string.account_me_title), icon = Icons.Filled.AccountCircle) {
+                account()
+            }
+        }
         InfoCard(title = stringResource(R.string.me_block_privacy), icon = Icons.Filled.Lock) {
             Text(stringResource(R.string.me_privacy), style = MaterialTheme.typography.bodyMedium)
         }

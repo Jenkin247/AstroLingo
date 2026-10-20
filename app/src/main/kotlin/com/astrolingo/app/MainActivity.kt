@@ -14,6 +14,9 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import com.astrolingo.account.AccountGate
+import com.astrolingo.account.AccountPreferences
+import com.astrolingo.account.GoogleAccountRepository
 import com.astrolingo.app.learn.SharedPreferencesLearnStore
 import com.astrolingo.app.profile.EncryptedProfileStore
 import com.astrolingo.app.settings.AppLanguage
@@ -45,6 +48,7 @@ class MainActivity : ComponentActivity() {
         val learnStore = SharedPreferencesLearnStore(this)
         val themePreference = ThemePreference(this)
         val languagePreference = LanguagePreference(this)
+        val account = AccountGate(GoogleAccountRepository(this), AccountPreferences(this))
         setContent {
             var themeMode by remember { mutableStateOf(themePreference.load()) }
             var language by remember { mutableStateOf(languagePreference.load()) }
@@ -79,6 +83,7 @@ class MainActivity : ComponentActivity() {
                             onLanguage = pickLanguage,
                             notes = notes,
                             resumed = resumed,
+                            account = account,
                         )
                     }
                 }

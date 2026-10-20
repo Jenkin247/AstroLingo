@@ -36,8 +36,8 @@ jobs:
       - name: Notification module tests and lint
         run: ./gradlew :notify:testDebugUnitTest :notify:lintDebug 2>&1 | tee -a build.log; exit ${PIPESTATUS[0]}
 
-      - name: App unit tests, lint and debug APK
-        run: ./gradlew :app:testDebugUnitTest :app:lintDebug :app:assembleDebug 2>&1 | tee -a build.log; exit ${PIPESTATUS[0]}
+      - name: Account and app unit tests, lint and debug APK
+        run: ./gradlew :account:testDebugUnitTest :app:testDebugUnitTest :app:lintDebug :app:assembleDebug 2>&1 | tee -a build.log; exit ${PIPESTATUS[0]}
 
       # Puts compiler, lint and test errors on the checks page as annotations, so they can be read
       # without opening the full log.
