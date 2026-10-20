@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_name">AstroLingo दिन</string>
+    <string name="widget_description">आज का ग्रह, आज का रंग और इस घड़ी का मिज़ाज</string>
+
+    <string name="widget_planet_surya">सूर्य</string>
+    <string name="widget_planet_chandra">चंद्र</string>
+    <string name="widget_planet_mangal">मंगल</string>
+    <string name="widget_planet_budha">बुध</string>
+    <string name="widget_planet_guru">गुरु</string>
+    <string name="widget_planet_shukra">शुक्र</string>
+    <string name="widget_planet_shani">शनि</string>
+
+    <string name="widget_mood_bright">तेजस्वी</string>
+    <string name="widget_mood_calm">शांत</string>
+    <string name="widget_mood_energising">ऊर्जावान</string>
+    <string name="widget_mood_sharp">चुस्त</string>
+    <string name="widget_mood_wise">ज्ञानी</string>
+    <string name="widget_mood_joyful">आनंदमय</string>
+    <string name="widget_mood_steady">स्थिर</string>
+
+    <string name="widget_colour_orange">नारंगी</string>
+    <string name="widget_colour_white">सफ़ेद</string>
+    <string name="widget_colour_red">लाल</string>
+    <string name="widget_colour_green">हरा</string>
+    <string name="widget_colour_yellow">पीला</string>
+    <string name="widget_colour_pink">गुलाबी</string>
+    <string name="widget_colour_dark_blue">गहरा नीला</string>
+
+    <string name="widget_read_out">%1$s का दिन। आज का रंग: %2$s। यह घड़ी %3$s है।</string>
+    <string name="widget_read_out_no_hour">%1$s का दिन। आज का रंग: %2$s।</string>
+
+    <string name="widget_offer_title">एक नज़र में आपका दिन</string>
+    <string name="widget_offer_body">अपनी होम स्क्रीन पर AstroLingo का छोटा विजेट लगाएँ। इसमें आज का ग्रह, आज का रंग और इस घड़ी का मिज़ाज दिखता है।</string>
+    <string name="widget_offer_manual">इसे लगाने के लिए होम स्क्रीन पर किसी खाली जगह को दबाकर रखें, विजेट पर टैप करें और AstroLingo ढूँढें।</string>
+    <string name="widget_offer_add">विजेट लगाएँ</string>
+    <string name="widget_offer_got_it">ठीक है</string>
+    <string name="widget_offer_not_now">अभी नहीं</string>
+</resources>

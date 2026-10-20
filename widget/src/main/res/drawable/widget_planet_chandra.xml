@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Chandra (the Moon) for the home-screen widget. Same paths as the design preview. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#E9DDB0"
+        android:strokeColor="#B9A468"
+        android:strokeWidth="0.8"
+        android:pathData="M15.5,3.2A9,9 0,1 0,15.5 20.8A5.2,8.8 0,0 1,15.5 3.2Z" />
+</vector>

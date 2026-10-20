@@ -88,6 +88,7 @@ import com.astrolingo.app.ui.theme.ThemeMode
 import com.astrolingo.engine.jyotish.Kundli
 import com.astrolingo.engine.jyotish.KundliCalculator
 import com.astrolingo.engine.places.CityIndex
+import com.astrolingo.widget.WidgetOffer
 import com.astrolingo.learn.review.ReviewQueue
 import java.io.ByteArrayInputStream
 import java.time.LocalDate
@@ -186,49 +187,53 @@ fun AstroLingoApp(
             },
             modifier = Modifier.safeDrawingPadding(),
         )
-        is ProfileState.Ready -> Tabs(
-            profile = current,
-            learnStore = learnStore,
-            selected = selected,
-            onSelect = { selected = it },
-            onRevealed = { profile = current.copy(reveal = false) },
-            themeMode = themeMode,
-            onThemeMode = onThemeMode,
-            language = language,
-            onLanguage = onLanguage,
-            onAnswersChange = { answers ->
-                profile = current.copy(answers = answers)
-                scope.launch(Dispatchers.IO) { runCatching { profiles.save(answers) } }
-            },
-            people = people,
-            onSavePerson = { person ->
-                people = (people.filterNot { it.id == person.id } + person).sortedBy { it.createdAt }
-                scope.launch(Dispatchers.IO) { runCatching { profiles.savePerson(person) } }
-            },
-            onBirthChange = { birth ->
-                val answers = current.answers.copy(birth = birth)
-                scope.launch {
-                    // A new chart for the new details; Learn progress and saved people stay as they are.
-                    profile = withContext(Dispatchers.Default) { ready(answers) }
-                    withContext(Dispatchers.IO) { runCatching { profiles.save(answers) } }
-                }
-            },
-            onDeletePerson = { person ->
-                people = people.filterNot { it.id == person.id }
-                scope.launch(Dispatchers.IO) { runCatching { profiles.deletePerson(person.id) } }
-            },
-            onDelete = {
-                scope.launch {
-                    withContext(Dispatchers.IO) {
-                        runCatching { profiles.deleteAll() }
-                        runCatching { learnStore.deleteAll() }
+        is ProfileState.Ready -> {
+            Tabs(
+                profile = current,
+                learnStore = learnStore,
+                selected = selected,
+                onSelect = { selected = it },
+                onRevealed = { profile = current.copy(reveal = false) },
+                themeMode = themeMode,
+                onThemeMode = onThemeMode,
+                language = language,
+                onLanguage = onLanguage,
+                onAnswersChange = { answers ->
+                    profile = current.copy(answers = answers)
+                    scope.launch(Dispatchers.IO) { runCatching { profiles.save(answers) } }
+                },
+                people = people,
+                onSavePerson = { person ->
+                    people = (people.filterNot { it.id == person.id } + person).sortedBy { it.createdAt }
+                    scope.launch(Dispatchers.IO) { runCatching { profiles.savePerson(person) } }
+                },
+                onBirthChange = { birth ->
+                    val answers = current.answers.copy(birth = birth)
+                    scope.launch {
+                        // A new chart for the new details; Learn progress and saved people stay as they are.
+                        profile = withContext(Dispatchers.Default) { ready(answers) }
+                        withContext(Dispatchers.IO) { runCatching { profiles.save(answers) } }
                     }
-                    selected = Tab.TODAY
-                    people = emptyList()
-                    profile = ProfileState.Missing
-                }
-            },
-        )
+                },
+                onDeletePerson = { person ->
+                    people = people.filterNot { it.id == person.id }
+                    scope.launch(Dispatchers.IO) { runCatching { profiles.deletePerson(person.id) } }
+                },
+                onDelete = {
+                    scope.launch {
+                        withContext(Dispatchers.IO) {
+                            runCatching { profiles.deleteAll() }
+                            runCatching { learnStore.deleteAll() }
+                        }
+                        selected = Tab.TODAY
+                        people = emptyList()
+                        profile = ProfileState.Missing
+                    }
+                },
+            )
+            // A couple of days after the first use, offer the home-screen widget once.
+            WidgetOffer()
+        }
     }
 }
 

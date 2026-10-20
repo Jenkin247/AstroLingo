@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Budha (Mercury) for the home-screen widget. Same paths as the design preview. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#8DB69A"
+        android:pathData="M12,5a7,7 0,1 1,0 14a7,7 0,1 1,0 -14z" />
+    <path
+        android:fillColor="#5F8E6E"
+        android:pathData="M10,8.6a1.3,1.3 0,1 1,0 2.6a1.3,1.3 0,1 1,0 -2.6zM14.4,12.6a1.8,1.8 0,1 1,0 3.6a1.8,1.8 0,1 1,0 -3.6z" />
+    <path
+        android:fillColor="#F6E7A0"
+        android:pathData="M20,3.2l0.6,1.4l1.4,0.6l-1.4,0.6l-0.6,1.4l-0.6,-1.4l-1.4,-0.6l1.4,-0.6z" />
+</vector>

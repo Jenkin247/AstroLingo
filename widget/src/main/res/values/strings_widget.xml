@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Home-screen widget. Planet names follow the app (Shani's day); mood words describe the current planetary hour. -->
+<resources>
+    <string name="widget_name">AstroLingo day</string>
+    <string name="widget_description">The planet of the day, its colour, and the mood of this hour</string>
+
+    <string name="widget_planet_surya">Surya</string>
+    <string name="widget_planet_chandra">Chandra</string>
+    <string name="widget_planet_mangal">Mangal</string>
+    <string name="widget_planet_budha">Budha</string>
+    <string name="widget_planet_guru">Guru</string>
+    <string name="widget_planet_shukra">Shukra</string>
+    <string name="widget_planet_shani">Shani</string>
+
+    <!-- One word each, for the planetary hour's lord: Surya, Chandra, Mangal, Budha, Guru, Shukra, Shani. -->
+    <string name="widget_mood_bright">Bright</string>
+    <string name="widget_mood_calm">Calm</string>
+    <string name="widget_mood_energising">Energising</string>
+    <string name="widget_mood_sharp">Sharp</string>
+    <string name="widget_mood_wise">Wise</string>
+    <string name="widget_mood_joyful">Joyful</string>
+    <string name="widget_mood_steady">Steady</string>
+
+    <string name="widget_colour_orange">Orange</string>
+    <string name="widget_colour_white">White</string>
+    <string name="widget_colour_red">Red</string>
+    <string name="widget_colour_green">Green</string>
+    <string name="widget_colour_yellow">Yellow</string>
+    <string name="widget_colour_pink">Pink</string>
+    <string name="widget_colour_dark_blue">Dark blue</string>
+
+    <!-- Read aloud by TalkBack for the whole widget. -->
+    <string name="widget_read_out">%1$s\'s day. Colour of the day: %2$s. This hour feels %3$s.</string>
+    <string name="widget_read_out_no_hour">%1$s\'s day. Colour of the day: %2$s.</string>
+
+    <!-- The offer to add the widget, shown once after a couple of days of use. -->
+    <string name="widget_offer_title">Your day at a glance</string>
+    <string name="widget_offer_body">Add a small AstroLingo widget to your home screen. It shows the planet of the day, the colour of the day, and the mood of the hour you are in.</string>
+    <string name="widget_offer_manual">To add it, touch and hold an empty spot on your home screen, tap Widgets, and find AstroLingo.</string>
+    <string name="widget_offer_add">Add widget</string>
+    <string name="widget_offer_got_it">Got it</string>
+    <string name="widget_offer_not_now">Not now</string>
+</resources>
