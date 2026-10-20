@@ -62,6 +62,9 @@ import com.astrolingo.app.learn.InMemoryLearnStore
 import com.astrolingo.app.learn.LearnProgressStore
 import com.astrolingo.app.learn.LearnRequest
 import com.astrolingo.app.learn.LearnTab
+import com.astrolingo.app.notes.NoteOffer
+import com.astrolingo.app.notes.NoteSettingsCard
+import com.astrolingo.app.notes.rememberNotePermission
 import com.astrolingo.app.onboarding.BirthDetails
 import com.astrolingo.app.onboarding.BirthDetailsResolver
 import com.astrolingo.app.onboarding.Level
@@ -89,6 +92,8 @@ import com.astrolingo.engine.jyotish.Kundli
 import com.astrolingo.engine.jyotish.KundliCalculator
 import com.astrolingo.engine.places.CityIndex
 import com.astrolingo.learn.review.ReviewQueue
+import com.astrolingo.notify.InMemoryNoteSettings
+import com.astrolingo.notify.NoteSettings
 import java.io.ByteArrayInputStream
 import java.time.LocalDate
 import kotlinx.coroutines.Dispatchers
@@ -145,6 +150,9 @@ private const val YOU_ID = "you"
  * @param learnStore Learn progress and bookmarks; wiped with the profile by "Delete my details".
  * @param themeMode the light or dark choice shown in Me; [onThemeMode] is called when the user changes it.
  * @param language the app's language, also changeable in Me through [onLanguage].
+ * @param notes the daily note's settings, offered on Today and changed in Me.
+ * @param resumed goes up each time the app comes back to the front, so the note settings are read again (the user
+ *   may have allowed notifications in the phone's settings meanwhile).
  */
 @Composable
 fun AstroLingoApp(
@@ -154,6 +162,8 @@ fun AstroLingoApp(
     onThemeMode: (ThemeMode) -> Unit = {},
     language: AppLanguage = AppLanguage.ENGLISH,
     onLanguage: (AppLanguage) -> Unit = {},
+    notes: NoteSettings = remember { InMemoryNoteSettings() },
+    resumed: Int = 0,
 ) {
     val scope = rememberCoroutineScope()
     var profile by remember { mutableStateOf<ProfileState>(ProfileState.Loading) }
@@ -196,6 +206,8 @@ fun AstroLingoApp(
             onThemeMode = onThemeMode,
             language = language,
             onLanguage = onLanguage,
+            notes = notes,
+            resumed = resumed,
             onAnswersChange = { answers ->
                 profile = current.copy(answers = answers)
                 scope.launch(Dispatchers.IO) { runCatching { profiles.save(answers) } }
@@ -245,6 +257,8 @@ private fun Tabs(
     onLanguage: (AppLanguage) -> Unit,
     onAnswersChange: (OnboardingAnswers) -> Unit,
     onDelete: () -> Unit,
+    notes: NoteSettings = InMemoryNoteSettings(),
+    resumed: Int = 0,
     people: List<SavedPerson> = emptyList(),
     onSavePerson: (SavedPerson) -> Unit = {},
     onDeletePerson: (SavedPerson) -> Unit = {},
@@ -265,6 +279,19 @@ private fun Tabs(
     var todayPersonId by rememberSaveable { mutableStateOf<String?>(null) }
     val dayPeople by produceState(emptyList<DayPerson>(), people) {
         value = withContext(Dispatchers.Default) { people.mapNotNull(DayPerson::of) }
+    }
+    // The daily note's settings, read again on each tab change and each return to the app.
+    var noteState by remember(notes) { mutableStateOf(notes.state()) }
+    LaunchedEffect(notes, selected, resumed) { noteState = notes.state() }
+    val refreshNotes = { noteState = notes.state() }
+    val acceptOffer = rememberNotePermission(notes) { allowed ->
+        if (allowed) notes.turnOn() else notes.declineOffer()
+        refreshNotes()
+    }
+    // From Me the note is turned on even if Android said no, so Me can show the way to the phone's settings.
+    val turnOnInMe = rememberNotePermission(notes) {
+        notes.turnOn()
+        refreshNotes()
     }
     // True while Learn shows a lesson, the check or saved cards: the tabs then step aside so nothing distracts.
     var immersive by remember { mutableStateOf(false) }
@@ -361,6 +388,19 @@ private fun Tabs(
                 // Someone deleted in Me drops out of the list, which takes Today back to the user's own day.
                 viewing = dayPeople.firstOrNull { it.id == todayPersonId },
                 onView = { todayPersonId = it?.id },
+                offer = if (noteState.ask) {
+                    {
+                        NoteOffer(
+                            noteState,
+                            showDeity = profile.answers.showDeity,
+                            onYes = acceptOffer,
+                            onNotNow = {
+                                notes.declineOffer()
+                                refreshNotes()
+                            },
+                        )
+                    }
+                } else null,
                 onAddPerson = if (people.size < SavedPerson.MAX_OTHERS) {
                     {
                         personForm = NEW_PERSON
@@ -426,6 +466,19 @@ private fun Tabs(
                     )
                 },
                 hasPeople = people.isNotEmpty(),
+                notes = {
+                    NoteSettingsCard(
+                        noteState,
+                        onTurn = { on ->
+                            if (on) turnOnInMe() else notes.turnOff()
+                            refreshNotes()
+                        },
+                        onTime = { time ->
+                            notes.setTime(time)
+                            refreshNotes()
+                        },
+                    )
+                },
             )
             else -> PlaceholderScreen(tab = selected, modifier = Modifier.padding(padding))
         }
@@ -446,6 +499,7 @@ private fun MeScreen(
     modifier: Modifier = Modifier,
     savedPeople: @Composable () -> Unit = {},
     hasPeople: Boolean = false,
+    notes: @Composable () -> Unit = {},
 ) {
     var confirming by remember { mutableStateOf(false) }
     Column(
@@ -457,6 +511,7 @@ private fun MeScreen(
     ) {
         Text(stringResource(R.string.tab_me), style = MaterialTheme.typography.headlineMedium)
         savedPeople()
+        notes()
         InfoCard(title = stringResource(R.string.me_block_privacy), icon = Icons.Filled.Lock) {
             Text(stringResource(R.string.me_privacy), style = MaterialTheme.typography.bodyMedium)
         }

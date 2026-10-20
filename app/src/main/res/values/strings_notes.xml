@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The daily note: its words, the offer on Today and the settings in Me. Hindi in values-hi/strings_notes.xml. -->
+<resources>
+    <!-- The note. "A strong day: Begin what matters" / "Colour: Yellow · Deity: Vishnu". -->
+    <string name="notes_daily_title">%1$s: %2$s</string>
+    <string name="notes_daily_text">%1$s · %2$s</string>
+    <string name="notes_label_value">%1$s: %2$s</string>
+    <!-- Deities in the engine's order: Surya, Shiva, Hanuman, Ganesha, Vishnu, Lakshmi, Shani. -->
+    <string-array name="notes_deity_names">
+        <item>Surya</item>
+        <item>Shiva</item>
+        <item>Hanuman</item>
+        <item>Ganesha</item>
+        <item>Vishnu</item>
+        <item>Lakshmi</item>
+        <item>Shani</item>
+    </string-array>
+    <!-- The Monday note after a quiet spell. -->
+    <string name="notes_week_title">A new week begins</string>
+    <string name="notes_week_strong">%1$s looks like your strongest day. Take a look at the week ahead.</string>
+    <string name="notes_week_steady">%1$s looks like your steadiest day. Take a look at the week ahead.</string>
+    <string name="notes_week_gentle">A gentle week: go easy, and find each day\'s colour in the app.</string>
+    <string name="notes_week_none">See each day\'s colour and the best times for the week ahead.</string>
+    <!-- The offer on Today. -->
+    <string name="notes_offer_title">A calm note each morning?</string>
+    <string name="notes_offer_body_deity">Your day in one line, with its colour and deity, at %1$s. No sound, and never more than one a day. Change the time or turn it off in Me.</string>
+    <string name="notes_offer_body">Your day in one line, with its colour, at %1$s. No sound, and never more than one a day. Change the time or turn it off in Me.</string>
+    <string name="notes_offer_yes">Yes, please</string>
+    <string name="notes_offer_no">Not now</string>
+    <!-- Me. -->
+    <string name="notes_settings_title">Daily note</string>
+    <string name="notes_settings_switch">A calm note each morning</string>
+    <string name="notes_settings_note">One quiet note a day about your day, worked out on this phone. If you are away for a while, it waits and sends just one note on Mondays about the week ahead.</string>
+    <string name="notes_settings_time">At %1$s</string>
+    <string name="notes_settings_change">Change</string>
+    <string name="notes_settings_blocked">Notifications for AstroLingo are off in your phone\'s settings, so the note can\'t show.</string>
+    <string name="notes_settings_open">Open phone settings</string>
+    <string name="notes_time_title">When should the note come?</string>
+    <string name="notes_time_save">Save</string>
+</resources>

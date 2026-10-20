@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The notification engine's own words. Hindi in values-hi/strings_notify.xml. The note's text comes from the app. -->
+<resources>
+    <string name="note_channel_name">Daily note</string>
+    <string name="note_channel_description">One quiet note a day about your day, and one about the week when you have been away.</string>
+    <!-- Shown on a locked phone instead of the note, so nothing from the user's chart shows there. -->
+    <string name="note_public_title">AstroLingo</string>
+    <string name="note_public_text">Your day is ready</string>
+</resources>

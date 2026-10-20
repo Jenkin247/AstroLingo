@@ -10,6 +10,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -22,9 +23,22 @@ import com.astrolingo.app.ui.AstroLingoApp
 import com.astrolingo.app.ui.LanguagePicker
 import com.astrolingo.app.ui.theme.AstroLingoTheme
 import com.astrolingo.app.ui.theme.ThemePreference
+import com.astrolingo.notify.DailyNotes
 
 /** Entry point of the app. Everything visible is drawn by [AstroLingoApp]. */
 class MainActivity : ComponentActivity() {
+    private val notes by lazy { DailyNotes(this) }
+
+    // Goes up on each return to the app, so screens read the note settings again.
+    private var resumed by mutableIntStateOf(0)
+
+    override fun onResume() {
+        super.onResume()
+        // Opening the app is what keeps the daily notes coming (NotePlan) and clears today's note.
+        notes.opened()
+        resumed++
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val profiles = EncryptedProfileStore(this)
@@ -63,6 +77,8 @@ class MainActivity : ComponentActivity() {
                             },
                             language = chosen,
                             onLanguage = pickLanguage,
+                            notes = notes,
+                            resumed = resumed,
                         )
                     }
                 }
