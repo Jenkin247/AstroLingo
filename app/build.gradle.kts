@@ -60,6 +60,7 @@ kotlin {
 dependencies {
     implementation("com.astrolingo:jyotish")
     implementation("com.astrolingo:learn")
+    implementation(project(":account"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)

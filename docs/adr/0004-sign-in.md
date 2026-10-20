@@ -1,6 +1,6 @@
 # ADR 0004: Google-only sign-in with Firebase Auth and Credential Manager
 
-- Status: accepted
+- Status: accepted; the no-skip rule is replaced by ADR 0012
 - Date: 2026-10-17
 
 ## Context
