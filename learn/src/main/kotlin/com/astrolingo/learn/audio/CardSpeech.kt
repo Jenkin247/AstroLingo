@@ -44,8 +44,20 @@ object CardSpeech {
     fun teaching(title: String, body: String): List<SpokenPart> =
         listOf(SpokenPart(title)) + sentences(body).map { SpokenPart(body.substring(it), it) }
 
-    /** A learn card in [language]. */
-    fun learn(card: LearnCard, language: Language): List<SpokenPart> = teaching(card.title.get(language), card.body.get(language))
+    /**
+     * A learn card in [language]: the title, then its badge, fact rows, chips and sheet in the order they are shown,
+     * then the body sentence by sentence.
+     */
+    fun learn(card: LearnCard, language: Language): List<SpokenPart> {
+        val details = buildList {
+            card.badge?.let { add(SpokenPart(it.text.get(language))) }
+            card.rows.forEach { add(SpokenPart("${it.label.get(language)}: ${it.value.get(language)}.")) }
+            card.chips.forEach { add(SpokenPart("${it.label.get(language)}: ${it.items(language).joinToString(", ")}.")) }
+        }
+        val sheet = card.sheet.map { SpokenPart("${it.name.get(language)}: ${it.think.get(language)}. ${it.nature.text.get(language)}. ${it.facts.get(language)}.") }
+        val parts = teaching(card.title.get(language), card.body.get(language))
+        return listOf(parts.first()) + details + parts.drop(1) + sheet
+    }
 
     /**
      * A quiz card: the question and the numbered options, and once [answered], the explanation too.

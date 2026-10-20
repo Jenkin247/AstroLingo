@@ -97,3 +97,19 @@ Accessibility: every card works at 200% font (text scrolls inside the card), all
 1. **Lock chapters until the one before is done?** Default: no, the path recommends an order but every chapter is open.
 2. **Two questions per chapter in the check?** Default: yes, both must be right to skip.
 3. **XP and streaks on lessons?** Default: not in this module; the streak story in the sprint plan picks up "lesson completed" later.
+
+## 3. Richer graha cards (PO, 20 Oct 2026)
+The PO found the graha cards too thin to learn from. After a review (plan and wireframe in the project files,
+`learn/planet-cards/`), the PO approved:
+- **One lesson per graha** in "The nine grahas", so a learner can open any graha directly: Meet the grahas, then Surya,
+  Chandra, Mangal, Budha, Guru, Shukra, Shani, Rahu, Ketu, and **Navagraha Sangraha** (sangraha: a gathering) last.
+- **The same cards for every graha:** Meet (flip card), Nature and signs (a coloured benefic/malefic/neutral/shadow
+  badge and rows: owns, exalted (uchcha), debilitated (neecha), moolatrikona, day), What it rules (chip groups: people,
+  self, body (traditional), work; then strong and troubled), At a glance (friends, aspects, dasha years, nakshatras,
+  speed, colour and direction), and Your graha from the learner's own chart. Then three quizzes.
+- **Navagraha Sangraha:** all nine on one page (think of, nature, signs, day, colour). A tap opens it full screen with a
+  faint AstroLingo watermark behind.
+- **Graha tags** on cards, so the chart bubble marks the graha a card is about even when its picture is a zodiac or
+  house diagram. The content checker fails any card whose title names a graha without the tag.
+- Saved progress follows the moved lessons and cards (`ContentMoves`): a learner who finished the old lessons keeps
+  the chapter finished, and saved cards point at their new versions.

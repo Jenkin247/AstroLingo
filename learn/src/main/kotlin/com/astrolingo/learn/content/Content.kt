@@ -75,6 +75,53 @@ data class Visual(val kind: VisualKind, val value: String) {
     val number: Int? get() = if (kind == VisualKind.GLYPH || kind == VisualKind.GRAHA) null else value.toIntOrNull()
 }
 
+/** A graha's natural temperament, shown as a coloured badge on graha cards (PO, 20 Oct 2026). */
+@Serializable
+enum class Nature {
+    @SerialName("benefic")
+    BENEFIC,
+
+    @SerialName("malefic")
+    MALEFIC,
+
+    /** Budha: takes on the nature of the grahas it sits with. */
+    @SerialName("neutral")
+    NEUTRAL,
+
+    /** Rahu and Ketu, the two nodes. */
+    @SerialName("shadow")
+    SHADOW,
+}
+
+/** The nature badge: its colour comes from [kind], its words from [text], e.g. "Mild malefic". */
+@Serializable
+data class Badge(val kind: Nature, val text: LocalizedText)
+
+/** One "label: value" line of a fact table, e.g. "Owns: Simha (Leo)". */
+@Serializable
+data class FactRow(val label: LocalizedText, val value: LocalizedText)
+
+/**
+ * A labelled group of short words shown as chips, e.g. People: father, leaders, government.
+ *
+ * @property items the words, separated by commas, so a translator works on one line.
+ */
+@Serializable
+data class ChipGroup(val label: LocalizedText, val items: LocalizedText) {
+    fun items(language: Language): List<String> = items.get(language).split(',').map { it.trim() }.filter { it.isNotEmpty() }
+}
+
+/**
+ * One graha on the one-page sheet (Navagraha Sangraha).
+ *
+ * @property graha its name as in the engine, e.g. SURYA.
+ * @property name how the sheet names it, e.g. "Surya · Sun".
+ * @property think what to think of first when this graha comes up.
+ * @property facts its signs, day and colour on one line.
+ */
+@Serializable
+data class SheetEntry(val graha: String, val name: LocalizedText, val think: LocalizedText, val nature: Badge, val facts: LocalizedText)
+
 /**
  * A fact from the user's own kundli that a [YourChartCard] fills in.
  *
@@ -92,6 +139,13 @@ enum class ChartFact(val needsBirthTime: Boolean) {
     MOON_HOUSE(true),
     GURU_HOUSE(true),
     SHANI_HOUSE(true),
+    MANGAL_RASHI(false),
+    BUDHA_RASHI(false),
+    GURU_RASHI(false),
+    SHUKRA_RASHI(false),
+    SHANI_RASHI(false),
+    RAHU_RASHI(false),
+    KETU_RASHI(false),
 }
 
 /** One swipe-up card. Its [id] is stable across content versions because bookmarks and progress refer to it. */
@@ -103,6 +157,9 @@ sealed interface Card {
 /** A card that teaches, as opposed to a quiz. Only these can be bookmarked. */
 sealed interface TeachingCard : Card {
     val title: LocalizedText
+
+    /** The grahas the card is about, by engine name, so the chart bubble marks the right one; first is the main one. */
+    val grahas: List<String>
 }
 
 /**
@@ -112,6 +169,10 @@ sealed interface TeachingCard : Card {
  * @property visual the picture shown above the text, if any.
  * @property flip true for a card whose front shows only the picture and title; tapping turns it over to the text
  *   (PO, 17 Oct 2026: graha cards).
+ * @property badge a graha's nature, shown above the [rows].
+ * @property rows a short fact table, e.g. the signs a graha owns and where it is exalted.
+ * @property chips labelled groups of short words, e.g. what a graha signifies.
+ * @property sheet the nine grahas on one page; the card opens full screen on a tap.
  */
 @Serializable
 @SerialName("learn")
@@ -122,6 +183,11 @@ data class LearnCard(
     val term: Term? = null,
     val visual: Visual? = null,
     val flip: Boolean = false,
+    val badge: Badge? = null,
+    val rows: List<FactRow> = emptyList(),
+    val chips: List<ChipGroup> = emptyList(),
+    val sheet: List<SheetEntry> = emptyList(),
+    override val grahas: List<String> = emptyList(),
 ) : TeachingCard
 
 /**
@@ -139,6 +205,7 @@ data class YourChartCard(
     val body: LocalizedText,
     val unknownTime: LocalizedText? = null,
     val visual: Visual? = null,
+    override val grahas: List<String> = emptyList(),
 ) : TeachingCard {
     /** The text to show, with `{value}` replaced, or the unknown-time text when [value] is null. */
     fun text(language: Language, value: String?): String =

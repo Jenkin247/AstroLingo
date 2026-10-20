@@ -329,6 +329,13 @@ internal fun rememberChartFacts(kundli: Kundli, timeKnown: Boolean): ChartFacts 
                 ChartFact.MOON_HOUSE -> kundli.of(Graha.CHANDRA).house.toString()
                 ChartFact.GURU_HOUSE -> kundli.of(Graha.GURU).house.toString()
                 ChartFact.SHANI_HOUSE -> kundli.of(Graha.SHANI).house.toString()
+                ChartFact.MANGAL_RASHI -> rashi(kundli.of(Graha.MANGAL).rashi)
+                ChartFact.BUDHA_RASHI -> rashi(kundli.of(Graha.BUDHA).rashi)
+                ChartFact.GURU_RASHI -> rashi(kundli.of(Graha.GURU).rashi)
+                ChartFact.SHUKRA_RASHI -> rashi(kundli.of(Graha.SHUKRA).rashi)
+                ChartFact.SHANI_RASHI -> rashi(kundli.of(Graha.SHANI).rashi)
+                ChartFact.RAHU_RASHI -> rashi(kundli.of(Graha.RAHU).rashi)
+                ChartFact.KETU_RASHI -> rashi(kundli.of(Graha.KETU).rashi)
             }
         }
     }

@@ -126,7 +126,10 @@
           "visual": {
             "kind": "houses",
             "value": 1
-          }
+          },
+          "grahas": [
+            "CHANDRA"
+          ]
         },
         {
           "id": "gochar.what.3",
@@ -138,7 +141,10 @@
           "body": {
             "en": "Counting from the Moon needs no birth time, and the classic transit rules, such as those in Phaladeepika, are given from the Moon. Many Jyotishis also check transits from the lagna for a second view.",
             "hi": ""
-          }
+          },
+          "grahas": [
+            "CHANDRA"
+          ]
         },
         {
           "id": "gochar.what.4",
@@ -179,7 +185,10 @@
           "body": {
             "en": "Your Moon is in {value}, so that sign is house 1 for all your transits. Count forward sign by sign from it to find which house any transiting graha is in.",
             "hi": ""
-          }
+          },
+          "grahas": [
+            "CHANDRA"
+          ]
         },
         {
           "id": "gochar.what.7",
@@ -517,7 +526,10 @@
           "visual": {
             "kind": "houses",
             "value": 5
-          }
+          },
+          "grahas": [
+            "GURU"
+          ]
         },
         {
           "id": "gochar.guru-shani.3",
@@ -549,7 +561,10 @@
           "visual": {
             "kind": "houses",
             "value": 11
-          }
+          },
+          "grahas": [
+            "SHANI"
+          ]
         },
         {
           "id": "gochar.guru-shani.5",
@@ -944,7 +959,10 @@
           "visual": {
             "kind": "houses",
             "value": 1
-          }
+          },
+          "grahas": [
+            "CHANDRA"
+          ]
         },
         {
           "id": "gochar.tara.6",

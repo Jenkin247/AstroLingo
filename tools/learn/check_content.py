@@ -5,15 +5,25 @@ Usage: python3 tools/learn/check_content.py [chapter.json ...]
 With no arguments it checks every file listed in course.json. The Kotlin tests in learn/ enforce the same rules in CI.
 """
 import json
+import re
 import pathlib
 import sys
 
 CONTENT = pathlib.Path(__file__).resolve().parents[2] / "learn/src/main/resources/content/learn"
-FACTS_NO_TIME = {"SUN_RASHI", "MOON_RASHI", "MOON_NAKSHATRA", "MOON_NAKSHATRA_LORD"}
+FACTS_NO_TIME = {"SUN_RASHI", "MOON_RASHI", "MOON_NAKSHATRA", "MOON_NAKSHATRA_LORD", "MANGAL_RASHI", "BUDHA_RASHI",
+                 "GURU_RASHI", "SHUKRA_RASHI", "SHANI_RASHI", "RAHU_RASHI", "KETU_RASHI"}
 FACTS_TIME = {"LAGNA", "LAGNA_LORD", "SUN_HOUSE", "MOON_HOUSE", "GURU_HOUSE", "SHANI_HOUSE"}
 VISUAL_RANGE = {"zodiac": 12, "houses": 12, "nakshatras": 27}
 GRAHAS = {"SURYA", "CHANDRA", "MANGAL", "BUDHA", "GURU", "SHUKRA", "SHANI", "RAHU", "KETU"}
-LIMITS = {"title": 40, "body": 320, "question": 140, "explanation": 260, "outcome": 70}
+LIMITS = {"title": 40, "body": 320, "question": 140, "explanation": 260, "outcome": 70, "badge": 32, "label": 24,
+          "value": 60, "think": 40, "facts": 90}
+# Chapters with one lesson per graha, rashi or bhava (PO, 20 Oct 2026) may have up to 13 lessons.
+DEEP_DIVE = {"grahas"}
+NATURES = {"benefic", "malefic", "neutral", "shadow"}
+# A card whose title names a graha must say so in "grahas", so the chart bubble marks the right one.
+NAMES = {"Surya": "SURYA", "Chandra": "CHANDRA", "Mangal": "MANGAL", "Budha": "BUDHA", "Guru": "GURU", "Shukra": "SHUKRA",
+         "Shani": "SHANI", "Rahu": "RAHU", "Ketu": "KETU", "Sun": "SURYA", "Moon": "CHANDRA", "Mars": "MANGAL",
+         "Mercury": "BUDHA", "Jupiter": "GURU", "Venus": "SHUKRA", "Saturn": "SHANI"}
 
 
 def text(errors, where, value, limit=None):
@@ -39,6 +49,42 @@ def quiz(errors, card):
         errors.append(f"{cid}: answer index outside the options")
 
 
+def details(errors, cid, card):
+    """Graha tags, the nature badge, fact rows, chip groups and the one-page sheet."""
+    tags = card.get("grahas", [])
+    if any(t not in GRAHAS for t in tags) or len(set(tags)) != len(tags):
+        errors.append(f"{cid}: grahas must be distinct graha names")
+    visual = card.get("visual") or {}
+    marked = set(tags) | ({visual.get("value")} if visual.get("kind") == "graha" else set())
+    title = card.get("title", {}).get("en", "")
+    named = {g for name, g in NAMES.items() if re.search(rf"\b{name}\b", title)}
+    if named and not named & marked:
+        errors.append(f"{cid}: title names {sorted(named)} but the card isn't tagged with it")
+    badge = card.get("badge")
+    if badge:
+        if badge.get("kind") not in NATURES:
+            errors.append(f"{cid}: badge kind must be one of {sorted(NATURES)}")
+        text(errors, f"{cid} badge", badge.get("text"), LIMITS["badge"])
+    for row in card.get("rows", []):
+        text(errors, f"{cid} row label", row.get("label"), LIMITS["label"])
+        text(errors, f"{cid} row value", row.get("value"), LIMITS["value"])
+    if len(card.get("rows", [])) > 8 or len(card.get("chips", [])) > 4:
+        errors.append(f"{cid}: at most 8 rows and 4 chip groups")
+    for group in card.get("chips", []):
+        text(errors, f"{cid} chip label", group.get("label"), LIMITS["label"])
+        text(errors, f"{cid} chips", group.get("items"), LIMITS["value"])
+    sheet = card.get("sheet", [])
+    if sheet and sorted(e.get("graha") for e in sheet) != sorted(GRAHAS):
+        errors.append(f"{cid}: a sheet lists each of the nine grahas once")
+    for entry in sheet:
+        if (entry.get("nature") or {}).get("kind") not in NATURES:
+            errors.append(f"{cid}: sheet entry {entry.get('graha')} needs a nature")
+        text(errors, f"{cid} sheet name", entry.get("name"), LIMITS["label"])
+        text(errors, f"{cid} sheet think", entry.get("think"), LIMITS["think"])
+        text(errors, f"{cid} sheet nature", (entry.get("nature") or {}).get("text"), LIMITS["badge"])
+        text(errors, f"{cid} sheet facts", entry.get("facts"), LIMITS["facts"])
+
+
 def check_chapter(path, ids):
     errors = []
     chapter = json.loads(path.read_text(encoding="utf-8"))
@@ -57,8 +103,9 @@ def check_chapter(path, ids):
         quiz(errors, card)
         ids.append(card.get("id"))
     lessons = chapter.get("lessons", [])
-    if not 3 <= len(lessons) <= 5:
-        errors.append(f"{chid}: needs 3 to 5 lessons, has {len(lessons)}")
+    most = 13 if chid in DEEP_DIVE else 5
+    if not 3 <= len(lessons) <= most:
+        errors.append(f"{chid}: needs 3 to {most} lessons, has {len(lessons)}")
     for lesson in lessons:
         lid = lesson.get("id", "?")
         ids.append(lid)
@@ -93,6 +140,7 @@ def check_chapter(path, ids):
                         errors.append(f"{cid}: body needs {{value}}")
                     if fact in FACTS_TIME:
                         text(errors, f"{cid} unknownTime", card.get("unknownTime"), LIMITS["body"])
+                details(errors, cid, card)
                 visual = card.get("visual")
                 if card.get("flip") and (kind != "learn" or not visual):
                     errors.append(f"{cid}: only a learn card with a visual can flip")

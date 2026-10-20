@@ -22,6 +22,16 @@ class CourseContentTest {
 
     private val grahas = setOf("SURYA", "CHANDRA", "MANGAL", "BUDHA", "GURU", "SHUKRA", "SHANI", "RAHU", "KETU")
 
+    // Chapters with one lesson per graha (PO, 20 Oct 2026); rashis and bhavas may follow.
+    private val deepDives = setOf("grahas")
+
+    // Names a card title may use for a graha, Sanskrit and English.
+    private val names = mapOf(
+        "Surya" to "SURYA", "Chandra" to "CHANDRA", "Mangal" to "MANGAL", "Budha" to "BUDHA", "Guru" to "GURU",
+        "Shukra" to "SHUKRA", "Shani" to "SHANI", "Rahu" to "RAHU", "Ketu" to "KETU", "Sun" to "SURYA", "Moon" to "CHANDRA",
+        "Mars" to "MANGAL", "Mercury" to "BUDHA", "Jupiter" to "GURU", "Venus" to "SHUKRA", "Saturn" to "SHANI",
+    )
+
     @Test
     fun `the course has 14 chapters in teaching order`() {
         assertThat(chapters.map { it.id }).containsExactly(
@@ -44,9 +54,10 @@ class CourseContentTest {
     }
 
     @Test
-    fun `each chapter has 3 to 5 lessons and 2 check questions`() {
+    fun `each chapter has 3 to 5 lessons, a deep dive up to 13, and 2 check questions`() {
         chapters.forEach { chapter ->
-            assertWithMessage(chapter.id).that(chapter.lessons.size).isIn(3..5)
+            val most = if (chapter.id in deepDives) 13 else 5
+            assertWithMessage(chapter.id).that(chapter.lessons.size).isIn(3..most)
             assertWithMessage(chapter.id).that(chapter.check).hasSize(2)
         }
     }
@@ -89,6 +100,23 @@ class CourseContentTest {
                 is LearnCard -> {
                     check(card.id, card.title, 40)
                     check(card.id, card.body, 320)
+                    card.badge?.let { check(card.id, it.text, 32) }
+                    card.rows.forEach {
+                        check(card.id, it.label, 24)
+                        check(card.id, it.value, 60)
+                    }
+                    card.chips.forEach {
+                        check(card.id, it.label, 24)
+                        check(card.id, it.items, 60)
+                    }
+                    card.sheet.forEach {
+                        check(card.id, it.name, 24)
+                        check(card.id, it.think, 40)
+                        check(card.id, it.nature.text, 32)
+                        check(card.id, it.facts, 90)
+                    }
+                    assertWithMessage(card.id).that(card.rows.size).isAtMost(8)
+                    assertWithMessage(card.id).that(card.chips.size).isAtMost(4)
                 }
                 is YourChartCard -> {
                     check(card.id, card.title, 40)
@@ -131,6 +159,39 @@ class CourseContentTest {
         val flipped = course.chapter("grahas")!!.lessons.flatMap { it.cards }.filterIsInstance<LearnCard>()
             .filter { it.flip }.map { it.visual?.value }
         assertThat(flipped).containsExactlyElementsIn(grahas)
+    }
+
+    @Test
+    fun `a card whose title names a graha is tagged with it, so the chart bubble marks it`() {
+        cards.filterIsInstance<TeachingCard>().forEach { card ->
+            assertWithMessage(card.id).that(card.grahas).containsNoDuplicates()
+            assertWithMessage(card.id).that(grahas).containsAtLeastElementsIn(card.grahas)
+            val visual = (card as? LearnCard)?.visual ?: (card as? YourChartCard)?.visual
+            val pictured = visual?.takeIf { it.kind == VisualKind.GRAHA }?.value
+            val marked = card.grahas.toSet() + listOfNotNull(pictured)
+            val named = names.filterKeys { Regex("\\b$it\\b").containsMatchIn(card.title.en) }.values.toSet()
+            if (named.isNotEmpty()) assertWithMessage(card.id).that(marked.intersect(named)).isNotEmpty()
+        }
+    }
+
+    @Test
+    fun `each graha has its own lesson with its nature badge, rows, chips and your chart card`() {
+        val chapter = course.chapter("grahas")!!
+        grahas.forEach { graha ->
+            val lesson = chapter.lessons.single { lesson -> lesson.cards.any { it is LearnCard && it.flip && it.visual?.value == graha } }
+            val teaching = lesson.cards.filterIsInstance<TeachingCard>()
+            assertWithMessage(lesson.id).that(teaching.all { it.grahas == listOf(graha) }).isTrue()
+            assertWithMessage(lesson.id).that(teaching.filterIsInstance<LearnCard>().count { it.badge != null }).isEqualTo(1)
+            assertWithMessage(lesson.id).that(teaching.filterIsInstance<LearnCard>().count { it.chips.isNotEmpty() }).isEqualTo(1)
+            assertWithMessage(lesson.id).that(teaching.filterIsInstance<YourChartCard>()).hasSize(1)
+        }
+    }
+
+    @Test
+    fun `the grahas chapter ends with a one-page sheet of all nine`() {
+        val last = course.chapter("grahas")!!.lessons.last()
+        val sheet = last.cards.filterIsInstance<LearnCard>().single { it.sheet.isNotEmpty() }.sheet
+        assertThat(sheet.map { it.graha }).containsExactlyElementsIn(grahas).inOrder()
     }
 
     @Test

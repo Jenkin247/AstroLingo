@@ -79,7 +79,7 @@ class LensScreenshots {
                     kundli = you.kundli,
                     timeKnown = true,
                     store = InMemoryLearnStore(progress),
-                    request = LearnRequest.Lesson("grahas.mars-mercury-jupiter"),
+                    request = LearnRequest.Lesson("grahas.mangal"),
                     people = people,
                 )
             }

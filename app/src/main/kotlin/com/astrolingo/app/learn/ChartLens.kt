@@ -14,6 +14,7 @@ import com.astrolingo.learn.content.Card
 import com.astrolingo.learn.content.ChartFact
 import com.astrolingo.learn.content.Course
 import com.astrolingo.learn.content.LearnCard
+import com.astrolingo.learn.content.TeachingCard
 import com.astrolingo.learn.content.VisualKind
 import com.astrolingo.learn.content.YourChartCard
 import com.astrolingo.learn.progress.LearnProgress
@@ -68,18 +69,27 @@ object ChartLens {
 
     /**
      * The graha a card is about, or null when the bubble has nothing to compare (quizzes and general cards).
-     * Learn cards name it through their graha picture; "your chart" cards through their fact.
+     * The card's own graha tags come first (the first is the main one), so a card about Surya with a zodiac picture
+     * still marks Surya; then learn cards' graha picture, and "your chart" cards' fact.
      */
-    fun grahaOf(card: Card): Graha? = when (card) {
-        is LearnCard -> card.visual?.takeIf { it.kind == VisualKind.GRAHA }?.let { visual -> Graha.entries.firstOrNull { it.name == visual.value } }
-        is YourChartCard -> when (card.fact) {
-            ChartFact.SUN_RASHI, ChartFact.SUN_HOUSE -> Graha.SURYA
-            ChartFact.MOON_RASHI, ChartFact.MOON_HOUSE, ChartFact.MOON_NAKSHATRA -> Graha.CHANDRA
-            ChartFact.GURU_HOUSE -> Graha.GURU
-            ChartFact.SHANI_HOUSE -> Graha.SHANI
-            ChartFact.MOON_NAKSHATRA_LORD, ChartFact.LAGNA, ChartFact.LAGNA_LORD -> null
+    fun grahaOf(card: Card): Graha? {
+        if (card !is TeachingCard) return null
+        card.grahas.firstNotNullOfOrNull { tag -> Graha.entries.firstOrNull { it.name == tag } }?.let { return it }
+        return when (card) {
+            is LearnCard -> card.visual?.takeIf { it.kind == VisualKind.GRAHA }?.let { visual -> Graha.entries.firstOrNull { it.name == visual.value } }
+            is YourChartCard -> when (card.fact) {
+                ChartFact.SUN_RASHI, ChartFact.SUN_HOUSE -> Graha.SURYA
+                ChartFact.MOON_RASHI, ChartFact.MOON_HOUSE, ChartFact.MOON_NAKSHATRA -> Graha.CHANDRA
+                ChartFact.MANGAL_RASHI -> Graha.MANGAL
+                ChartFact.BUDHA_RASHI -> Graha.BUDHA
+                ChartFact.GURU_HOUSE, ChartFact.GURU_RASHI -> Graha.GURU
+                ChartFact.SHUKRA_RASHI -> Graha.SHUKRA
+                ChartFact.SHANI_HOUSE, ChartFact.SHANI_RASHI -> Graha.SHANI
+                ChartFact.RAHU_RASHI -> Graha.RAHU
+                ChartFact.KETU_RASHI -> Graha.KETU
+                ChartFact.MOON_NAKSHATRA_LORD, ChartFact.LAGNA, ChartFact.LAGNA_LORD -> null
+            }
         }
-        else -> null
     }
 
     fun read(person: ChartPerson, graha: Graha, layers: Set<LensLayer>): GrahaReading {

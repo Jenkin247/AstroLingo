@@ -21,6 +21,9 @@
     <string name="learn_or_swipe">or swipe up</string>
     <string name="learn_flip_card">Turn the card over</string>
     <string name="learn_tap_to_flip">Tap to turn over</string>
+    <string name="learn_sheet_open">Open the full page</string>
+    <string name="learn_sheet_close">Close the full page</string>
+    <string name="learn_sheet_think">Think of: %1$s</string>
     <string name="learn_your_chart">Your chart</string>
     <string name="learn_quiz">Quick question</string>
     <string name="learn_quiz_right">That\'s right!</string>

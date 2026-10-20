@@ -276,11 +276,10 @@ class EndToEndJourneys {
         tap("Learn")
         waitForText("The nine grahas")
         tap("The nine grahas")
-        waitForText("Sun and Moon")
-        tap("Sun and Moon")
-        waitForText("Next card")
-        tap("Next card")
-        // The second card is about Surya: the bubble shows both charts.
+        waitForText("Surya, the Sun")
+        tap("Surya, the Sun")
+        // Surya's lesson opens on its flip card: the bubble shows both charts.
+        waitForText("Tap to turn over")
         waitForDescription("Compare with saved charts, 2 charts")
         click(compose.onAllNodesWithContentDescription("Compare with saved charts, 2 charts"), "the chart bubble")
         waitForText("Surya (Sun) in your saved charts")

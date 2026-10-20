@@ -54,6 +54,25 @@ class ChartLensTest {
     }
 
     @Test
+    fun `a card's graha tag wins over its picture, so a card about Surya with a zodiac picture marks Surya`() {
+        val signs = LearnCard("s", LocalizedText("Surya's day and sign"), LocalizedText("…"), visual = Visual(VisualKind.ZODIAC, "5"), grahas = listOf("SURYA"))
+        val pair = LearnCard("p", LocalizedText("Guru and Shani"), LocalizedText("…"), visual = Visual(VisualKind.GRAHA, "SHANI"), grahas = listOf("GURU", "SHANI"))
+        val mangal = YourChartCard("m", LocalizedText("Your Mangal"), ChartFact.MANGAL_RASHI, LocalizedText("{value}"))
+        assertThat(ChartLens.grahaOf(signs)).isEqualTo(Graha.SURYA)
+        assertThat(ChartLens.grahaOf(pair)).isEqualTo(Graha.GURU)
+        assertThat(ChartLens.grahaOf(mangal)).isEqualTo(Graha.MANGAL)
+    }
+
+    @Test
+    fun `every card in a graha's own lesson marks that graha`() {
+        course.chapter("grahas")!!.lessons.drop(1).dropLast(1).forEach { lesson ->
+            val marked = lesson.cards.filterNot { it is QuizCard }.map { ChartLens.grahaOf(it) }.toSet()
+            assertThat(marked).hasSize(1)
+            assertThat(marked.single()).isNotNull()
+        }
+    }
+
+    @Test
     fun `the course has graha cards for the bubble to appear on`() {
         val cards = course.chapters.flatMap { chapter -> chapter.lessons.flatMap { it.cards } }
         assertThat(cards.count { ChartLens.grahaOf(it) != null }).isAtLeast(9)

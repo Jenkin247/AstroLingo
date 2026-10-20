@@ -20,6 +20,9 @@
     <string name="learn_or_swipe">या ऊपर स्वाइप करें</string>
     <string name="learn_flip_card">कार्ड पलटें</string>
     <string name="learn_tap_to_flip">पलटने के लिए टैप करें</string>
+    <string name="learn_sheet_open">पूरा पन्ना खोलें</string>
+    <string name="learn_sheet_close">पूरा पन्ना बंद करें</string>
+    <string name="learn_sheet_think">सोचें: %1$s</string>
     <string name="learn_your_chart">आपका चार्ट</string>
     <string name="learn_quiz">छोटा सा सवाल</string>
     <string name="learn_quiz_right">बिल्कुल सही!</string>

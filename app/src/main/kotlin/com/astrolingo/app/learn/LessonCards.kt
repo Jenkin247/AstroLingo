@@ -192,7 +192,9 @@ internal fun LearnCardPage(
             card.visual?.let { CardVisual(it, active) }
             Text(card.title.get(language), style = MaterialTheme.typography.headlineSmall, modifier = Modifier.semantics { heading() })
             card.term?.let { TermChip(it) }
+            CardDetails(card, language)
             Text(highlighted(card.body.get(language), highlight), style = MaterialTheme.typography.bodyLarge)
+            if (card.sheet.isNotEmpty()) GrahaSheetOnCard(card.title.get(language), card.sheet, language)
         }
         return
     }
@@ -256,6 +258,7 @@ internal fun LearnCardPage(
                 }
                 Text(card.title.get(language), style = MaterialTheme.typography.headlineSmall, modifier = Modifier.semantics { heading() })
                 card.term?.let { TermChip(it) }
+                CardDetails(card, language)
                 Text(highlighted(card.body.get(language), highlight), style = MaterialTheme.typography.bodyLarge)
             }
         }

@@ -2,9 +2,13 @@ package com.astrolingo.learn
 
 import com.astrolingo.learn.audio.CardSpeech
 import com.astrolingo.learn.audio.SpokenPart
+import com.astrolingo.learn.content.Badge
+import com.astrolingo.learn.content.ChipGroup
+import com.astrolingo.learn.content.FactRow
 import com.astrolingo.learn.content.Language
 import com.astrolingo.learn.content.LearnCard
 import com.astrolingo.learn.content.LocalizedText
+import com.astrolingo.learn.content.Nature
 import com.astrolingo.learn.content.QuizCard
 import com.google.common.truth.Truth.assertThat
 import org.junit.Test
@@ -57,5 +61,25 @@ class CardSpeechTest {
         assertThat(CardSpeech.quiz(quiz, Language.ENGLISH, answered = false).map { it.text })
             .containsExactly("Which graha is the soul?", "1. Chandra", "2. Surya").inOrder()
         assertThat(CardSpeech.quiz(quiz, Language.ENGLISH, answered = true).last().text).isEqualTo("Surya is the atma.")
+    }
+
+    @Test
+    fun `a graha card reads its badge, rows and chips before the body`() {
+        val card = LearnCard(
+            id = "c",
+            title = LocalizedText("Surya: nature and signs"),
+            body = LocalizedText("Hot. Bright."),
+            badge = Badge(Nature.MALEFIC, LocalizedText("Mild malefic")),
+            rows = listOf(FactRow(LocalizedText("Owns"), LocalizedText("Simha"))),
+            chips = listOf(ChipGroup(LocalizedText("People"), LocalizedText("father, leaders"))),
+        )
+        assertThat(CardSpeech.learn(card, Language.ENGLISH)).containsExactly(
+            SpokenPart("Surya: nature and signs"),
+            SpokenPart("Mild malefic"),
+            SpokenPart("Owns: Simha."),
+            SpokenPart("People: father, leaders."),
+            SpokenPart("Hot.", 0..3),
+            SpokenPart("Bright.", 5..11),
+        ).inOrder()
     }
 }

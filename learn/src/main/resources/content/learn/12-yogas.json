@@ -725,7 +725,10 @@
           "body": {
             "en": "Your Moon is in {value}. Count that sign as 1, then find Guru in your kundli. If Guru sits in the 1st, 4th, 7th or 10th sign from your Moon, you have Gaja Kesari; next, see how strong Guru is.",
             "hi": ""
-          }
+          },
+          "grahas": [
+            "CHANDRA"
+          ]
         },
         {
           "id": "yogas.gaja-kesari.4",
@@ -745,7 +748,10 @@
           "visual": {
             "kind": "glyph",
             "value": "☉☿"
-          }
+          },
+          "grahas": [
+            "BUDHA"
+          ]
         },
         {
           "id": "yogas.gaja-kesari.5",
@@ -904,7 +910,10 @@
           "visual": {
             "kind": "houses",
             "value": 7
-          }
+          },
+          "grahas": [
+            "MANGAL"
+          ]
         },
         {
           "id": "yogas.doshas.3",
