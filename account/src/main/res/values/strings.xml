@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Sign-in and the updates choice (ADR 0012). Short, calm lines: nothing here should feel like a gate. -->
+<resources>
+    <string name="account_sign_in_sitara">Your kundli is ready. Want to keep it safe?</string>
+    <string name="account_sign_in_title">Sign in with Google</string>
+    <string name="account_benefit_backup">Get your kundli, saved people and progress back on a new phone</string>
+    <string name="account_benefit_sitara">Ask Sitara your questions</string>
+    <string name="account_benefit_free">Lessons, Today and your kundli stay free either way</string>
+    <string name="account_continue_google">Continue with Google</string>
+    <string name="account_maybe_later">Maybe later</string>
+    <string name="account_sign_in_privacy">We get an account id from Google, never your password. Your birth details stay encrypted on this phone.</string>
+
+    <string name="account_error_no_google">There\'s no Google account on this phone. Add one in the phone\'s settings, or sign in later from Me.</string>
+    <string name="account_error_offline">Couldn\'t reach Google. Check your connection and try again.</string>
+    <string name="account_error_not_set_up">Sign-in isn\'t switched on in this test version yet. Everything else works.</string>
+    <string name="account_error_failed">Sign-in didn\'t work this time. Please try again.</string>
+
+    <string name="account_updates_sitara">One last thing, and it\'s entirely up to you.</string>
+    <string name="account_updates_title">Would you like to hear from us?</string>
+    <string name="account_updates_lessons">New lessons</string>
+    <string name="account_updates_lessons_detail">A notification when new lessons arrive</string>
+    <string name="account_updates_insights">Sky insights</string>
+    <string name="account_updates_insights_detail">Eclipses, festivals and other notable days</string>
+    <string name="account_updates_offers">Offers</string>
+    <string name="account_updates_offers_detail">Discounts and special offers</string>
+    <string name="account_updates_newsletter">Newsletter</string>
+    <string name="account_updates_newsletter_detail">An occasional email to your Google address</string>
+    <string name="account_updates_save">Save my choice</string>
+    <string name="account_updates_not_now">Not now</string>
+    <string name="account_updates_note">You can change this any time in Me. We never share your email.</string>
+
+    <string name="account_me_title">Account</string>
+    <string name="account_me_signed_out">Not signed in. Sign in to back up your kundli and ask Sitara.</string>
+    <string name="account_me_signed_in">Signed in with Google</string>
+    <string name="account_sign_out">Sign out</string>
+</resources>

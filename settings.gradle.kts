@@ -22,3 +22,4 @@ rootProject.name = "AstroLingo"
 includeBuild("engine")
 includeBuild("learn")
 include(":app")
+include(":account") // Google sign-in and the updates opt-in (ADR 0012)
