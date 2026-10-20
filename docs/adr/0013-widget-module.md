@@ -1,4 +1,4 @@
-# ADR 0012: Home-screen widget as its own Android library module
+# ADR 0013: Home-screen widget as its own Android library module
 
 - Status: proposed
 - Date: 2026-10-20

@@ -1,6 +1,6 @@
 // Onboarding: purpose, daily goal (learners), level, then birth date, time and place, where the user lives now,
 // whether to show a deity, then a check of what we'll use.
-// Sign-in (sprint 3) and the reminder time (sprint 4) slot in after the kundli reveal.
+// Sign-in is offered once after this flow (account module, ADR 0012); the reminder time (sprint 4) comes later.
 package com.astrolingo.app.onboarding
 
 import androidx.compose.foundation.clickable

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="notes_daily_title">%1$s: %2$s</string>
+    <string name="notes_daily_text">%1$s · %2$s</string>
+    <string name="notes_label_value">%1$s: %2$s</string>
+    <string-array name="notes_deity_names">
+        <item>सूर्य</item>
+        <item>शिव</item>
+        <item>हनुमान</item>
+        <item>गणेश</item>
+        <item>विष्णु</item>
+        <item>लक्ष्मी</item>
+        <item>शनि</item>
+    </string-array>
+    <string name="notes_week_title">नया हफ़्ता शुरू हो रहा है</string>
+    <string name="notes_week_strong">%1$s आपका सबसे मज़बूत दिन लगता है। आने वाले हफ़्ते पर एक नज़र डालें।</string>
+    <string name="notes_week_steady">%1$s आपका सबसे स्थिर दिन लगता है। आने वाले हफ़्ते पर एक नज़र डालें।</string>
+    <string name="notes_week_gentle">एक शांत हफ़्ता: आराम से चलें, और हर दिन का रंग ऐप में देखें।</string>
+    <string name="notes_week_none">आने वाले हफ़्ते के हर दिन का रंग और अच्छे समय देखें।</string>
+    <string name="notes_offer_title">हर सुबह एक शांत संदेश?</string>
+    <string name="notes_offer_body_deity">आपका दिन एक पंक्ति में, उसके रंग और देवता के साथ, %1$s पर। कोई आवाज़ नहीं, और दिन में एक से ज़्यादा कभी नहीं। समय बदलने या बंद करने के लिए \"मैं\" टैब देखें।</string>
+    <string name="notes_offer_body">आपका दिन एक पंक्ति में, उसके रंग के साथ, %1$s पर। कोई आवाज़ नहीं, और दिन में एक से ज़्यादा कभी नहीं। समय बदलने या बंद करने के लिए \"मैं\" टैब देखें।</string>
+    <string name="notes_offer_yes">हाँ, ज़रूर</string>
+    <string name="notes_offer_no">अभी नहीं</string>
+    <string name="notes_settings_title">रोज़ का संदेश</string>
+    <string name="notes_settings_switch">हर सुबह एक शांत संदेश</string>
+    <string name="notes_settings_note">आपके दिन के बारे में रोज़ एक शांत संदेश, इसी फ़ोन पर तैयार। अगर आप कुछ दिन न आएँ, तो यह रुक जाता है और सोमवार को आने वाले हफ़्ते के बारे में बस एक संदेश भेजता है।</string>
+    <string name="notes_settings_time">समय: %1$s</string>
+    <string name="notes_settings_change">बदलें</string>
+    <string name="notes_settings_blocked">फ़ोन की सेटिंग में AstroLingo की सूचनाएँ बंद हैं, इसलिए संदेश नहीं दिख सकता।</string>
+    <string name="notes_settings_open">फ़ोन की सेटिंग खोलें</string>
+    <string name="notes_time_title">संदेश कब आए?</string>
+    <string name="notes_time_save">सहेजें</string>
+</resources>
