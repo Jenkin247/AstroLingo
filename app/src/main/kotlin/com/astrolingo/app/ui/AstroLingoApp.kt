@@ -102,6 +102,7 @@ import com.astrolingo.app.ui.theme.ThemeMode
 import com.astrolingo.engine.jyotish.Kundli
 import com.astrolingo.engine.jyotish.KundliCalculator
 import com.astrolingo.engine.places.CityIndex
+import com.astrolingo.widget.WidgetOffer
 import com.astrolingo.learn.review.ReviewQueue
 import com.astrolingo.notify.InMemoryNoteSettings
 import com.astrolingo.notify.NoteSettings
@@ -270,79 +271,83 @@ fun AstroLingoApp(
                 sitara = { SitaraSays(it) },
                 modifier = Modifier.safeDrawingPadding(),
             )
-        } else Tabs(
-            profile = current,
-            learnStore = learnStore,
-            selected = selected,
-            onSelect = { selected = it },
-            onRevealed = { profile = current.copy(reveal = false) },
-            themeMode = themeMode,
-            onThemeMode = onThemeMode,
-            language = language,
-            onLanguage = onLanguage,
-            notes = notes,
-            resumed = resumed,
-            onAnswersChange = { answers ->
-                profile = current.copy(answers = answers)
-                scope.launch(Dispatchers.IO) { runCatching { profiles.save(answers) } }
-            },
-            people = people,
-            onSavePerson = { person ->
-                people = (people.filterNot { it.id == person.id } + person).sortedBy { it.createdAt }
-                scope.launch(Dispatchers.IO) { runCatching { profiles.savePerson(person) } }
-            },
-            onBirthChange = { birth ->
-                val answers = current.answers.copy(birth = birth)
-                scope.launch {
-                    // A new chart for the new details; Learn progress and saved people stay as they are.
-                    profile = withContext(Dispatchers.Default) { ready(answers) }
-                    withContext(Dispatchers.IO) { runCatching { profiles.save(answers) } }
-                }
-            },
-            onDeletePerson = { person ->
-                people = people.filterNot { it.id == person.id }
-                scope.launch(Dispatchers.IO) { runCatching { profiles.deletePerson(person.id) } }
-            },
-            account = account?.let { gate ->
-                @Composable {
-                    AccountSection(
-                        state = accountState,
-                        busy = signingIn,
-                        message = signInMessage,
-                        consent = consent ?: UpdatesConsent.NONE,
-                        onSignIn = { signIn(fromOffer = false) },
-                        onSignOut = {
-                            scope.launch {
-                                gate.repository.signOut(context)
-                                accountState = AccountState.SignedOut
-                                // Updates were agreed for that account; signing out withdraws them.
-                                saveConsent(UpdatesConsent.NONE)
-                            }
-                        },
-                        onConsent = ::saveConsent,
-                    )
-                }
-            },
-            onDelete = {
-                scope.launch {
-                    withContext(Dispatchers.IO) {
-                        runCatching { profiles.deleteAll() }
-                        runCatching { learnStore.deleteAll() }
+        } else {
+            Tabs(
+                profile = current,
+                learnStore = learnStore,
+                selected = selected,
+                onSelect = { selected = it },
+                onRevealed = { profile = current.copy(reveal = false) },
+                themeMode = themeMode,
+                onThemeMode = onThemeMode,
+                language = language,
+                onLanguage = onLanguage,
+                notes = notes,
+                resumed = resumed,
+                onAnswersChange = { answers ->
+                    profile = current.copy(answers = answers)
+                    scope.launch(Dispatchers.IO) { runCatching { profiles.save(answers) } }
+                },
+                people = people,
+                onSavePerson = { person ->
+                    people = (people.filterNot { it.id == person.id } + person).sortedBy { it.createdAt }
+                    scope.launch(Dispatchers.IO) { runCatching { profiles.savePerson(person) } }
+                },
+                onBirthChange = { birth ->
+                    val answers = current.answers.copy(birth = birth)
+                    scope.launch {
+                        // A new chart for the new details; Learn progress and saved people stay as they are.
+                        profile = withContext(Dispatchers.Default) { ready(answers) }
+                        withContext(Dispatchers.IO) { runCatching { profiles.save(answers) } }
                     }
-                    // Starting again signs out and forgets the updates choice; sign-in is offered after onboarding.
-                    if (account != null) {
-                        runCatching { account.repository.signOut(context) }
-                        account.choices.clear()
-                        accountState = AccountState.SignedOut
-                        consent = account.choices.consent()
-                        offerSignIn = true
+                },
+                onDeletePerson = { person ->
+                    people = people.filterNot { it.id == person.id }
+                    scope.launch(Dispatchers.IO) { runCatching { profiles.deletePerson(person.id) } }
+                },
+                account = account?.let { gate ->
+                    @Composable {
+                        AccountSection(
+                            state = accountState,
+                            busy = signingIn,
+                            message = signInMessage,
+                            consent = consent ?: UpdatesConsent.NONE,
+                            onSignIn = { signIn(fromOffer = false) },
+                            onSignOut = {
+                                scope.launch {
+                                    gate.repository.signOut(context)
+                                    accountState = AccountState.SignedOut
+                                    // Updates were agreed for that account; signing out withdraws them.
+                                    saveConsent(UpdatesConsent.NONE)
+                                }
+                            },
+                            onConsent = ::saveConsent,
+                        )
                     }
-                    selected = Tab.TODAY
-                    people = emptyList()
-                    profile = ProfileState.Missing
-                }
-            },
-        )
+                },
+                onDelete = {
+                    scope.launch {
+                        withContext(Dispatchers.IO) {
+                            runCatching { profiles.deleteAll() }
+                            runCatching { learnStore.deleteAll() }
+                        }
+                        // Starting again signs out and forgets the updates choice; sign-in is offered after onboarding.
+                        if (account != null) {
+                            runCatching { account.repository.signOut(context) }
+                            account.choices.clear()
+                            accountState = AccountState.SignedOut
+                            consent = account.choices.consent()
+                            offerSignIn = true
+                        }
+                        selected = Tab.TODAY
+                        people = emptyList()
+                        profile = ProfileState.Missing
+                    }
+                },
+            )
+            // A couple of days after the first use, offer the home-screen widget once.
+            WidgetOffer()
+        }
     }
 }
 

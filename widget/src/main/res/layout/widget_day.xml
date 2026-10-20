@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The small widget: the planet of the day, its name, and a dot in the colour of the day beside the mood of the
+     current planetary hour. Filled in by WidgetViews; every view here must be one RemoteViews allows. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_background"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="6dp">
+
+    <ImageView
+        android:id="@+id/widget_planet"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:importantForAccessibility="no"
+        android:src="@drawable/widget_planet_surya" />
+
+    <TextView
+        android:id="@+id/widget_planet_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textColor="@color/widget_ink"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <FrameLayout
+            android:layout_width="11dp"
+            android:layout_height="11dp"
+            android:background="@drawable/widget_dot_ring">
+
+            <ImageView
+                android:id="@+id/widget_colour"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="1dp"
+                android:importantForAccessibility="no"
+                android:src="@drawable/widget_dot" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/widget_mood"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/widget_muted"
+            android:textSize="11sp" />
+    </LinearLayout>
+</LinearLayout>

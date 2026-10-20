@@ -27,6 +27,7 @@ import com.astrolingo.app.ui.LanguagePicker
 import com.astrolingo.app.ui.theme.AstroLingoTheme
 import com.astrolingo.app.ui.theme.ThemePreference
 import com.astrolingo.notify.DailyNotes
+import com.astrolingo.widget.AstroDayWidget
 
 /** Entry point of the app. Everything visible is drawn by [AstroLingoApp]. */
 class MainActivity : ComponentActivity() {
@@ -89,6 +90,12 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        // The user may have changed their place or language; the home-screen widget follows.
+        AstroDayWidget.refresh(this)
     }
 
     private companion object {

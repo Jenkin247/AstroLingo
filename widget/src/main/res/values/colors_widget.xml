@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Widget colours, from the app's "morning garden" palette (app/.../ui/theme/Color.kt). -->
+<resources>
+    <color name="widget_surface">#F2F6F9F8</color>
+    <color name="widget_ink">#FF253042</color>
+    <color name="widget_muted">#FF5C677A</color>
+    <color name="widget_ring">#FFA2B0B8</color>
+</resources>

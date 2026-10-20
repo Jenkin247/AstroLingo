@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Shukra (Venus) for the home-screen widget. Same paths as the design preview. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#F5C6D4"
+        android:pathData="M11,4.5a7.5,7.5 0,1 1,0 15a7.5,7.5 0,1 1,0 -15z" />
+    <path
+        android:fillColor="#FBE3EA"
+        android:pathData="M8.6,7.6a2.4,2.4 0,1 1,0 4.8a2.4,2.4 0,1 1,0 -4.8z" />
+    <path
+        android:fillColor="#E78FAE"
+        android:pathData="M19.6,2.4l0.8,1.9l1.9,0.8l-1.9,0.8l-0.8,1.9l-0.8,-1.9l-1.9,-0.8l1.9,-0.8z" />
+</vector>

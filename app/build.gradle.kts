@@ -62,6 +62,7 @@ dependencies {
     implementation("com.astrolingo:learn")
     implementation(project(":notify"))
     implementation(project(":account"))
+    implementation(project(":widget"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)
