@@ -732,7 +732,10 @@
           "unknownTime": {
             "en": "Guru's houses need your birth time. Guru still looks at the 5th, 7th and 9th signs from its own sign, and you'll see the houses when you add a time.",
             "hi": ""
-          }
+          },
+          "grahas": [
+            "GURU"
+          ]
         },
         {
           "id": "drishti.reading.7",

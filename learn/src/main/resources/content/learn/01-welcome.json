@@ -529,7 +529,10 @@
           "body": {
             "en": "In the sidereal zodiac your Sun is in {value}. If that isn't the sign you knew, nothing is wrong: both systems watch the same sky. They simply start counting from different points.",
             "hi": ""
-          }
+          },
+          "grahas": [
+            "SURYA"
+          ]
         },
         {
           "id": "welcome.vedic-sky.7",
@@ -705,7 +708,10 @@
           "body": {
             "en": "At your birth the Moon was in {value}. This is your Chandra rashi. AstroLingo reads your daily card from it, and you'll meet it again in many lessons ahead.",
             "hi": ""
-          }
+          },
+          "grahas": [
+            "CHANDRA"
+          ]
         },
         {
           "id": "welcome.kundli.6",

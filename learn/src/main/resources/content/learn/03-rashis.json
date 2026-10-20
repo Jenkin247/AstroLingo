@@ -366,7 +366,10 @@
           "visual": {
             "kind": "zodiac",
             "value": 0
-          }
+          },
+          "grahas": [
+            "CHANDRA"
+          ]
         },
         {
           "id": "rashis.mesha-karka.6",
@@ -896,7 +899,11 @@
           "body": {
             "en": "In the classical scheme only the seven visible grahas own signs. Rahu and Ketu act through the lord of the sign they sit in. Some texts do give the nodes signs, but most astrologers use the seven lords.",
             "hi": ""
-          }
+          },
+          "grahas": [
+            "RAHU",
+            "KETU"
+          ]
         },
         {
           "id": "rashis.lords.5",

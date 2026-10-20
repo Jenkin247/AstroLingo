@@ -35,7 +35,7 @@ Files: `learn/src/main/resources/content/learn/`. `course.json` lists the chapte
 with a verb. The Guru writes it from the chapter's learning goal (LS-2).
 
 ### Cards
-Every card has a unique `id`: the lesson id, a dot and a number (`grahas.sun-moon.1`). Check questions use the chapter id, `.check.` and a number (`grahas.check.1`). Ids never change once released, because bookmarks and progress refer to them.
+Every card has a unique `id`: the lesson id, a dot and a number (`grahas.sun-moon.1`). Check questions use the chapter id, `.check.` and a number (`grahas.check.1`). Ids never change once released, because bookmarks and progress refer to them. If content has to be reorganised, list every moved lesson and card in `ContentMoves` (learn/.../progress) so saved progress follows them; content version 2 did this when Grahas got one lesson per graha.
 
 **learn**
 ```json
@@ -61,6 +61,23 @@ Every card has a unique `id`: the lesson id, a dot and a number (`grahas.sun-moo
 picture and the title; the learner taps to turn it over and read the text, then swipes up. Used for the card that
 introduces each graha.
 
+**Graha tags** (PO, 20 Oct 2026): `"grahas": ["SURYA"]` on a learn or yourChart card names the grahas it is about, the
+main one first. The chart bubble marks the first. A card whose title names a graha (Sanskrit or English name) must
+carry it in `grahas` or show it as its `graha` picture.
+
+**Richer cards** (PO, 20 Oct 2026), all optional on a learn card, shown between the title and the body in this order:
+```json
+"badge": { "kind": "malefic", "text": { "en": "Mild malefic" } },
+"rows": [ { "label": { "en": "Owns" }, "value": { "en": "Simha (Leo)" } } ],
+"chips": [ { "label": { "en": "People" }, "items": { "en": "father, leaders, government" } } ],
+"sheet": [ { "graha": "SURYA", "name": { "en": "Surya · Sun" }, "think": { "en": "soul, father, authority" },
+             "nature": { "kind": "malefic", "text": { "en": "Mild malefic" } }, "facts": { "en": "Owns Simha · Exalted Mesha" } } ]
+```
+- `badge.kind`: `benefic`, `malefic`, `neutral` or `shadow` (colour); `text` ≤ 32 characters.
+- `rows`: up to 8; label ≤ 24, value ≤ 60. `chips`: up to 4 groups; label ≤ 24, items comma-separated, ≤ 60.
+- `sheet`: the Navagraha Sangraha page, each of the nine grahas once; name ≤ 24, think ≤ 40, facts ≤ 90. The card shows
+  it compactly and opens it full screen, with an AstroLingo watermark, on a tap.
+
 **yourChart**: the lesson applied to the user's own kundli.
 ```json
 {
@@ -82,6 +99,7 @@ introduces each graha.
 | `LAGNA` | Kanya (Virgo) | yes |
 | `LAGNA_LORD` | Budha (Mercury) | yes |
 | `SUN_HOUSE`, `MOON_HOUSE`, `GURU_HOUSE`, `SHANI_HOUSE` | 10 | yes |
+| `MANGAL_RASHI`, `BUDHA_RASHI`, `GURU_RASHI`, `SHUKRA_RASHI`, `SHANI_RASHI`, `RAHU_RASHI`, `KETU_RASHI` | Makara (Capricorn) | no |
 
 For a fact that needs the birth time, `unknownTime` is required: what to say when the user doesn't know their time (no `{value}`).
 
@@ -100,12 +118,13 @@ For a fact that needs the birth time, `unknownTime` is required: what to say whe
 
 ## Rules the tests enforce
 - `schemaVersion` 1. Ids unique across the whole course; card ids start with their lesson id, check ids with `<chapter>.check.`.
-- Each chapter: 3 to 5 lessons and exactly 2 `check` questions (quiz cards).
+- Each chapter: 3 to 5 lessons and exactly 2 `check` questions (quiz cards). A deep-dive chapter with one lesson per graha (Grahas) may have up to 13 lessons.
 - Each lesson: 5 to 7 learn or yourChart cards, then exactly 3 quiz cards, last. `minutes` 3 to 5.
 - Lengths (English): title ≤ 40, body ≤ 320, question ≤ 140, option ≤ 60, explanation ≤ 260 characters.
 - Quiz: 3 or 4 options, no duplicates, `answer` inside the options.
 - Every text has a non-empty `en`. `hi` may be missing or empty (falls back to English) until Hindi is written.
 - `yourChart` bodies contain `{value}`; facts that need the time have a non-empty `unknownTime`.
+- Graha tags, badges, rows, chips and sheets follow the limits above; each graha's lesson in Grahas has one badge card, one chips card and one yourChart card, all tagged with that graha.
 
 ## Writing rules (Astro Guru)
 - Lahiri ayanamsa, whole-sign houses, true node, Parashari tradition. Name a source in the text only when it helps the learner ("Parashara says…").

@@ -106,7 +106,10 @@
           "visual": {
             "kind": "nakshatras",
             "value": 0
-          }
+          },
+          "grahas": [
+            "CHANDRA"
+          ]
         },
         {
           "id": "nakshatras.mansions.2",

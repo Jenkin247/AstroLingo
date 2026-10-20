@@ -150,7 +150,11 @@
           "visual": {
             "kind": "zodiac",
             "value": 12
-          }
+          },
+          "grahas": [
+            "SHUKRA",
+            "SHANI"
+          ]
         },
         {
           "id": "dignity.exaltation.5",

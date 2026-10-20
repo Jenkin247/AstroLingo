@@ -801,7 +801,10 @@
           "unknownTime": {
             "en": "Guru's house depends on your lagna, so it needs your birth time. Without it, you can still count from your Moon sign to see where Guru sits from your mind's point of view.",
             "hi": ""
-          }
+          },
+          "grahas": [
+            "GURU"
+          ]
         },
         {
           "id": "bhavas.houses-9-12.7",
@@ -1009,7 +1012,10 @@
           "unknownTime": {
             "en": "Shani's house needs your birth time, which we don't have. His message is the same everywhere: patience and steady effort build things that last.",
             "hi": ""
-          }
+          },
+          "grahas": [
+            "SHANI"
+          ]
         },
         {
           "id": "bhavas.groups.7",

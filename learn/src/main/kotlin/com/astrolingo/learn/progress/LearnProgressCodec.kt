@@ -37,10 +37,13 @@ object LearnProgressCodec {
         progress.reviewDay?.let { put(K_REVIEW_TODAY, "$it$FIELD${progress.reviewCount}") }
     }
 
-    /** Rebuilds progress, or returns empty progress when nothing is saved or the values can't be read. */
+    /**
+     * Rebuilds progress, or returns empty progress when nothing is saved or the values can't be read. Lessons and
+     * cards that moved in a content update are followed to their new ids ([ContentMoves]).
+     */
     fun decode(values: Map<String, String>): LearnProgress = runCatching {
         if (values[K_VERSION]?.toInt() !in 1..VERSION) return LearnProgress()
-        LearnProgress(
+        val saved = LearnProgress(
             completedLessons = values[K_COMPLETED].lines().toSet(),
             knownChapters = values[K_KNOWN].lines().toSet(),
             checkAnswered = values[K_CHECK]?.toBooleanStrict() ?: false,
@@ -60,6 +63,7 @@ object LearnProgressCodec {
             reviewDay = values[K_REVIEW_TODAY]?.split(FIELD)?.first()?.toLong(),
             reviewCount = values[K_REVIEW_TODAY]?.split(FIELD)?.get(1)?.toInt() ?: 0,
         )
+        ContentMoves.apply(saved)
     }.getOrDefault(LearnProgress())
 
     private fun String?.lines(): List<String> = this?.split(LINE)?.filter { it.isNotEmpty() }.orEmpty()

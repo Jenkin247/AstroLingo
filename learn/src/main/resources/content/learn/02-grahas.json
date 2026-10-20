@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "contentVersion": 1,
+  "contentVersion": 2,
   "id": "grahas",
   "glyph": "☉",
   "title": {
@@ -8,11 +8,11 @@
     "hi": ""
   },
   "summary": {
-    "en": "Meet the nine grahas, the actors of every kundli: what each one signifies and whether it is gentle or sharp by nature.",
+    "en": "Meet the nine grahas one by one: what each signifies, whether it is gentle or sharp by nature, the signs it owns and where it is strongest and weakest.",
     "hi": ""
   },
   "outcome": {
-    "en": "name the nine grahas, what each signifies and its nature",
+    "en": "name each graha's nature, signs and what it signifies",
     "hi": ""
   },
   "check": [
@@ -77,15 +77,15 @@
   ],
   "lessons": [
     {
-      "id": "grahas.sun-moon",
+      "id": "grahas.meet",
       "title": {
-        "en": "Sun and Moon",
+        "en": "Meet the grahas",
         "hi": ""
       },
-      "minutes": 4,
+      "minutes": 3,
       "cards": [
         {
-          "id": "grahas.sun-moon.1",
+          "id": "grahas.meet.1",
           "type": "learn",
           "title": {
             "en": "What is a graha?",
@@ -98,21 +98,302 @@
           "term": {
             "devanagari": "ग्रह",
             "roman": "Graha"
-          },
-          "visual": {
-            "kind": "glyph",
-            "value": "✦"
           }
         },
         {
-          "id": "grahas.sun-moon.2",
+          "id": "grahas.meet.2",
+          "type": "learn",
+          "title": {
+            "en": "The royal court",
+            "hi": ""
+          },
+          "body": {
+            "en": "Parashara pictures the grahas as a royal court. Each one's role is a quick way to remember what it stands for.",
+            "hi": ""
+          },
+          "rows": [
+            {
+              "label": {
+                "en": "King",
+                "hi": ""
+              },
+              "value": {
+                "en": "Surya",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Queen",
+                "hi": ""
+              },
+              "value": {
+                "en": "Chandra",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Commander",
+                "hi": ""
+              },
+              "value": {
+                "en": "Mangal",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Prince",
+                "hi": ""
+              },
+              "value": {
+                "en": "Budha",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Ministers",
+                "hi": ""
+              },
+              "value": {
+                "en": "Guru, Shukra",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Servant",
+                "hi": ""
+              },
+              "value": {
+                "en": "Shani",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Army",
+                "hi": ""
+              },
+              "value": {
+                "en": "Rahu, Ketu",
+                "hi": ""
+              }
+            }
+          ]
+        },
+        {
+          "id": "grahas.meet.3",
+          "type": "learn",
+          "title": {
+            "en": "Gentle and sharp",
+            "hi": ""
+          },
+          "body": {
+            "en": "Jyotish sorts grahas by natural temperament. Benefics tend to give ease; malefics tend to bring challenge. Neither is simply good or bad: a sharp knife can heal. Every graha card shows its nature as a coloured badge.",
+            "hi": ""
+          },
+          "rows": [
+            {
+              "label": {
+                "en": "Benefic (saumya)",
+                "hi": ""
+              },
+              "value": {
+                "en": "gentle, tends to give ease",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Malefic (krura)",
+                "hi": ""
+              },
+              "value": {
+                "en": "sharp, tends to bring challenge",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Neutral",
+                "hi": ""
+              },
+              "value": {
+                "en": "takes on the nature of its company",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Shadow",
+                "hi": ""
+              },
+              "value": {
+                "en": "Rahu and Ketu: points, not bodies",
+                "hi": ""
+              }
+            }
+          ]
+        },
+        {
+          "id": "grahas.meet.4",
+          "type": "learn",
+          "title": {
+            "en": "Lights, planets and shadows",
+            "hi": ""
+          },
+          "body": {
+            "en": "Two lights, five planets you can see, and two shadow points make the navagraha, the nine. Uranus, Neptune and Pluto are not part of classical Jyotish.",
+            "hi": ""
+          },
+          "rows": [
+            {
+              "label": {
+                "en": "Two lights",
+                "hi": ""
+              },
+              "value": {
+                "en": "Surya, Chandra",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Five planets",
+                "hi": ""
+              },
+              "value": {
+                "en": "Mangal, Budha, Guru, Shukra, Shani",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Two shadows",
+                "hi": ""
+              },
+              "value": {
+                "en": "Rahu, Ketu",
+                "hi": ""
+              }
+            }
+          ]
+        },
+        {
+          "id": "grahas.meet.5",
+          "type": "learn",
+          "title": {
+            "en": "How to read a graha card",
+            "hi": ""
+          },
+          "body": {
+            "en": "Each graha has the same cards: meet it, its nature and signs, what it rules, a cheat sheet, then your own. Exalted (uchcha) is the sign where a graha is strongest; debilitated (neecha), opposite, is where it is weakest. Tap the chart bubble to find it in your kundli.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "grahas.meet.6",
+          "type": "quiz",
+          "question": {
+            "en": "In Parashara's royal court, who is the king?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Guru",
+              "hi": ""
+            },
+            {
+              "en": "Surya",
+              "hi": ""
+            },
+            {
+              "en": "Mangal",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Surya is the king and Chandra the queen. Mangal commands the army, and Guru is a minister.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "grahas.meet.7",
+          "type": "quiz",
+          "question": {
+            "en": "Which of these is a shadow graha?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Shani",
+              "hi": ""
+            },
+            {
+              "en": "Ketu",
+              "hi": ""
+            },
+            {
+              "en": "Budha",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Rahu and Ketu are the two shadow grahas: points where the Moon's path crosses the Sun's, not bodies in the sky.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "grahas.meet.8",
+          "type": "quiz",
+          "question": {
+            "en": "A graha is a natural malefic. What does that mean?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "It is simply bad",
+              "hi": ""
+            },
+            {
+              "en": "It is sharp and tends to bring challenge",
+              "hi": ""
+            },
+            {
+              "en": "It has no effect",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Malefics are sharp by nature and tend to bring challenge, which can also build strength. Sign, house and aspects change how any graha acts.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "grahas.surya",
+      "title": {
+        "en": "Surya, the Sun",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "grahas.surya.1",
           "type": "learn",
           "title": {
             "en": "Surya, the Sun",
             "hi": ""
           },
           "body": {
-            "en": "Surya is the atma, the soul of the chart. It shows confidence, vitality, purpose, the father and authority. Like a king, Surya wants to shine and to lead.",
+            "en": "Surya is the atma, the soul of the chart. It shows your core self, confidence, vitality and sense of purpose, and also the father and people in authority. In Parashara's court Surya is the king: it wants to shine, lead and serve a bigger cause.",
             "hi": ""
           },
           "term": {
@@ -123,33 +404,363 @@
             "kind": "graha",
             "value": "SURYA"
           },
-          "flip": true
+          "flip": true,
+          "grahas": [
+            "SURYA"
+          ]
         },
         {
-          "id": "grahas.sun-moon.3",
+          "id": "grahas.surya.2",
           "type": "learn",
           "title": {
-            "en": "Surya's day and sign",
+            "en": "Surya: nature and signs",
             "hi": ""
           },
           "body": {
-            "en": "Surya rules Sunday and owns one rashi, Simha (Leo). It is counted as a mild malefic: its heat gives strength, drive and willpower, but too much heat can burn.",
+            "en": "Surya's heat gives drive and willpower, but too much can burn, as pride or harshness. It is happiest in Mesha, where fire meets new beginnings, and weakest in Tula, where it must share the stage.",
             "hi": ""
           },
+          "badge": {
+            "kind": "malefic",
+            "text": {
+              "en": "Mild malefic",
+              "hi": ""
+            }
+          },
+          "rows": [
+            {
+              "label": {
+                "en": "Owns",
+                "hi": ""
+              },
+              "value": {
+                "en": "Simha (Leo)",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Exalted (uchcha)",
+                "hi": ""
+              },
+              "value": {
+                "en": "Mesha (Aries), deepest at 10°",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Debilitated (neecha)",
+                "hi": ""
+              },
+              "value": {
+                "en": "Tula (Libra), deepest at 10°",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Moolatrikona",
+                "hi": ""
+              },
+              "value": {
+                "en": "Simha, 0° to 20°",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Day",
+                "hi": ""
+              },
+              "value": {
+                "en": "Sunday",
+                "hi": ""
+              }
+            }
+          ],
+          "grahas": [
+            "SURYA"
+          ]
+        },
+        {
+          "id": "grahas.surya.3",
+          "type": "learn",
+          "title": {
+            "en": "What Surya rules",
+            "hi": ""
+          },
+          "body": {
+            "en": "When strong, Surya tends to give self-belief, good health and respect. When troubled, it can show as low confidence, ego clashes or friction with authority. Surya is strongest in the 10th house, the house of career.",
+            "hi": ""
+          },
+          "chips": [
+            {
+              "label": {
+                "en": "People",
+                "hi": ""
+              },
+              "items": {
+                "en": "father, leaders, government",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Self",
+                "hi": ""
+              },
+              "items": {
+                "en": "confidence, vitality, purpose",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Body (traditional)",
+                "hi": ""
+              },
+              "items": {
+                "en": "heart, bones, eyes",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Work",
+                "hi": ""
+              },
+              "items": {
+                "en": "leadership, public service, administration",
+                "hi": ""
+              }
+            }
+          ],
+          "grahas": [
+            "SURYA"
+          ],
           "visual": {
-            "kind": "zodiac",
-            "value": 5
+            "kind": "houses",
+            "value": 10
           }
         },
         {
-          "id": "grahas.sun-moon.4",
+          "id": "grahas.surya.4",
+          "type": "learn",
+          "title": {
+            "en": "Surya at a glance",
+            "hi": ""
+          },
+          "body": {
+            "en": "Did you know? A graha close to Surya is asta, combust: Surya's glare hides it, and its results can feel weaker.",
+            "hi": ""
+          },
+          "rows": [
+            {
+              "label": {
+                "en": "Friends",
+                "hi": ""
+              },
+              "value": {
+                "en": "Chandra, Mangal, Guru",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Neutral",
+                "hi": ""
+              },
+              "value": {
+                "en": "Budha",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Enemies",
+                "hi": ""
+              },
+              "value": {
+                "en": "Shukra, Shani",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Aspect",
+                "hi": ""
+              },
+              "value": {
+                "en": "7th",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Dasha",
+                "hi": ""
+              },
+              "value": {
+                "en": "6 years",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Nakshatras",
+                "hi": ""
+              },
+              "value": {
+                "en": "Krittika, Uttara Phalguni, Uttara Ashadha",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Speed",
+                "hi": ""
+              },
+              "value": {
+                "en": "one sign a month",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Colour · direction",
+                "hi": ""
+              },
+              "value": {
+                "en": "orange · east",
+                "hi": ""
+              }
+            }
+          ],
+          "grahas": [
+            "SURYA"
+          ]
+        },
+        {
+          "id": "grahas.surya.5",
+          "type": "yourChart",
+          "fact": "SUN_RASHI",
+          "title": {
+            "en": "Your Surya",
+            "hi": ""
+          },
+          "body": {
+            "en": "Your Surya is in {value}. Look back at Surya's nature and signs: is that its own sign, its exaltation, its debilitation, or none of these?",
+            "hi": ""
+          },
+          "grahas": [
+            "SURYA"
+          ]
+        },
+        {
+          "id": "grahas.surya.6",
+          "type": "quiz",
+          "question": {
+            "en": "Which rashi does Surya own?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Mesha",
+              "hi": ""
+            },
+            {
+              "en": "Simha",
+              "hi": ""
+            },
+            {
+              "en": "Karka",
+              "hi": ""
+            },
+            {
+              "en": "Tula",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Surya owns one sign, Simha. Mesha is where it is exalted, and Tula is where it is debilitated.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "grahas.surya.7",
+          "type": "quiz",
+          "question": {
+            "en": "By nature, Surya is counted as…",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "the greatest benefic",
+              "hi": ""
+            },
+            {
+              "en": "a mild malefic",
+              "hi": ""
+            },
+            {
+              "en": "a shadow graha",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Surya is a mild malefic: its heat gives drive and willpower, but too much can burn. Guru is the greatest benefic.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "grahas.surya.8",
+          "type": "quiz",
+          "question": {
+            "en": "A chart has Surya in Tula. What does tradition say?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Surya is exalted",
+              "hi": ""
+            },
+            {
+              "en": "Surya is in its own sign",
+              "hi": ""
+            },
+            {
+              "en": "Surya is debilitated",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Tula is opposite Mesha, Surya's exaltation, so Surya is debilitated there. Confidence may need building, and the rest of the chart can still help.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "grahas.chandra",
+      "title": {
+        "en": "Chandra, the Moon",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "grahas.chandra.1",
           "type": "learn",
           "title": {
             "en": "Chandra, the Moon",
             "hi": ""
           },
           "body": {
-            "en": "Chandra is the manas, the mind: feelings, memory, comfort, nourishment and the mother. If Surya is who you are at the core, Chandra is how you feel from day to day.",
+            "en": "Chandra is the manas, the mind: feelings, memory, comfort and how you nourish and are nourished. It shows the mother and the public. If Surya is who you are at the core, Chandra is how you feel from day to day. In the court, Chandra is the queen.",
             "hi": ""
           },
           "term": {
@@ -160,46 +771,694 @@
             "kind": "graha",
             "value": "CHANDRA"
           },
-          "flip": true
+          "flip": true,
+          "grahas": [
+            "CHANDRA"
+          ]
         },
         {
-          "id": "grahas.sun-moon.5",
+          "id": "grahas.chandra.2",
           "type": "learn",
           "title": {
-            "en": "Chandra's changing light",
+            "en": "Chandra: nature and signs",
             "hi": ""
           },
           "body": {
-            "en": "Chandra rules Monday and owns Karka (Cancer). A bright, waxing Moon is traditionally a benefic; a dark, waning one less so. Chandra is the fastest graha, crossing a sign in about two and a quarter days.",
+            "en": "Chandra's nature follows its light: waxing toward full, it is a benefic; waning toward new, it is counted with the malefics. It owns one sign, Karka, and is most at ease in Vrishabha: steady earth for a changing mind.",
             "hi": ""
           },
+          "badge": {
+            "kind": "benefic",
+            "text": {
+              "en": "Benefic when bright",
+              "hi": ""
+            }
+          },
+          "rows": [
+            {
+              "label": {
+                "en": "Owns",
+                "hi": ""
+              },
+              "value": {
+                "en": "Karka (Cancer)",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Exalted (uchcha)",
+                "hi": ""
+              },
+              "value": {
+                "en": "Vrishabha (Taurus), deepest at 3°",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Debilitated (neecha)",
+                "hi": ""
+              },
+              "value": {
+                "en": "Vrishchika (Scorpio), deepest at 3°",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Moolatrikona",
+                "hi": ""
+              },
+              "value": {
+                "en": "Vrishabha, after 3°",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Day",
+                "hi": ""
+              },
+              "value": {
+                "en": "Monday",
+                "hi": ""
+              }
+            }
+          ],
+          "grahas": [
+            "CHANDRA"
+          ]
+        },
+        {
+          "id": "grahas.chandra.3",
+          "type": "learn",
+          "title": {
+            "en": "What Chandra rules",
+            "hi": ""
+          },
+          "body": {
+            "en": "When strong, Chandra tends to give a calm, caring mind and popularity. When troubled, it can show as restlessness or mood swings. Chandra is strongest in the 4th house, the house of home and heart.",
+            "hi": ""
+          },
+          "chips": [
+            {
+              "label": {
+                "en": "People",
+                "hi": ""
+              },
+              "items": {
+                "en": "mother, caregivers, the public",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Self",
+                "hi": ""
+              },
+              "items": {
+                "en": "emotions, memory, sleep, comfort",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Body (traditional)",
+                "hi": ""
+              },
+              "items": {
+                "en": "mind, body fluids",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Work",
+                "hi": ""
+              },
+              "items": {
+                "en": "care, food, hospitality, public work",
+                "hi": ""
+              }
+            }
+          ],
+          "grahas": [
+            "CHANDRA"
+          ],
           "visual": {
-            "kind": "zodiac",
+            "kind": "houses",
             "value": 4
           }
         },
         {
-          "id": "grahas.sun-moon.6",
+          "id": "grahas.chandra.4",
           "type": "learn",
           "title": {
-            "en": "The two lights",
+            "en": "Chandra at a glance",
             "hi": ""
           },
           "body": {
-            "en": "Surya and Chandra are the luminaries. In Parashara's royal court of grahas, Surya is the king and Chandra the queen. Soul and mind: Jyotish looks at both before anything else.",
+            "en": "Did you know? Chandra is the only graha with no enemies, and the fastest graha of all.",
             "hi": ""
-          }
+          },
+          "rows": [
+            {
+              "label": {
+                "en": "Friends",
+                "hi": ""
+              },
+              "value": {
+                "en": "Surya, Budha",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Neutral",
+                "hi": ""
+              },
+              "value": {
+                "en": "all the others",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Enemies",
+                "hi": ""
+              },
+              "value": {
+                "en": "none",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Aspect",
+                "hi": ""
+              },
+              "value": {
+                "en": "7th",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Dasha",
+                "hi": ""
+              },
+              "value": {
+                "en": "10 years",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Nakshatras",
+                "hi": ""
+              },
+              "value": {
+                "en": "Rohini, Hasta, Shravana",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Speed",
+                "hi": ""
+              },
+              "value": {
+                "en": "a sign in about 2¼ days",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Colour · direction",
+                "hi": ""
+              },
+              "value": {
+                "en": "white · north-west",
+                "hi": ""
+              }
+            }
+          ],
+          "grahas": [
+            "CHANDRA"
+          ]
         },
         {
-          "id": "grahas.sun-moon.7",
+          "id": "grahas.chandra.5",
+          "type": "yourChart",
+          "fact": "MOON_RASHI",
+          "title": {
+            "en": "Your Chandra",
+            "hi": ""
+          },
+          "body": {
+            "en": "Your Chandra is in {value}. Look back at Chandra's nature and signs: is that its own sign, its exaltation, its debilitation, or none of these?",
+            "hi": ""
+          },
+          "grahas": [
+            "CHANDRA"
+          ]
+        },
+        {
+          "id": "grahas.chandra.6",
           "type": "quiz",
           "question": {
-            "en": "Which graha stands for the soul (atma)?",
+            "en": "In which rashi is Chandra exalted?",
             "hi": ""
           },
           "options": [
             {
+              "en": "Karka",
+              "hi": ""
+            },
+            {
+              "en": "Vrishabha",
+              "hi": ""
+            },
+            {
+              "en": "Vrishchika",
+              "hi": ""
+            },
+            {
+              "en": "Mesha",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Chandra is exalted in Vrishabha. It owns Karka and is debilitated in Vrishchika, opposite Vrishabha.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "grahas.chandra.7",
+          "type": "quiz",
+          "question": {
+            "en": "When is Chandra counted as a benefic?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "When it is bright and waxing",
+              "hi": ""
+            },
+            {
+              "en": "Always, in every chart",
+              "hi": ""
+            },
+            {
+              "en": "Never",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Chandra's nature follows its light: a bright, waxing Moon is a benefic; a dark, waning one is counted with the malefics.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "grahas.chandra.8",
+          "type": "quiz",
+          "question": {
+            "en": "Which graha has no enemies among the grahas?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Surya",
+              "hi": ""
+            },
+            {
+              "en": "Guru",
+              "hi": ""
+            },
+            {
               "en": "Chandra",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Chandra holds no graha as an enemy. Its friends are Surya and Budha, and it is neutral to the rest.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "grahas.mangal",
+      "title": {
+        "en": "Mangal, Mars",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "grahas.mangal.1",
+          "type": "learn",
+          "title": {
+            "en": "Mangal, Mars",
+            "hi": ""
+          },
+          "body": {
+            "en": "Mangal is energy, courage and action: the commander of the grahas' army. It shows drive, sport, siblings, land and the will to fight for what matters. Used well, Mangal is bravery and protection; used badly, anger and haste.",
+            "hi": ""
+          },
+          "term": {
+            "devanagari": "मङ्गल",
+            "roman": "Mangal"
+          },
+          "visual": {
+            "kind": "graha",
+            "value": "MANGAL"
+          },
+          "flip": true,
+          "grahas": [
+            "MANGAL"
+          ]
+        },
+        {
+          "id": "grahas.mangal.2",
+          "type": "learn",
+          "title": {
+            "en": "Mangal: nature and signs",
+            "hi": ""
+          },
+          "body": {
+            "en": "Mangal is not evil, just hot and sharp, like a surgeon's knife that can cut or heal. In Makara its fire meets discipline, so it is exalted; in watery Karka the fire is put out, so it is debilitated.",
+            "hi": ""
+          },
+          "badge": {
+            "kind": "malefic",
+            "text": {
+              "en": "Malefic",
+              "hi": ""
+            }
+          },
+          "rows": [
+            {
+              "label": {
+                "en": "Owns",
+                "hi": ""
+              },
+              "value": {
+                "en": "Mesha (Aries), Vrishchika (Scorpio)",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Exalted (uchcha)",
+                "hi": ""
+              },
+              "value": {
+                "en": "Makara (Capricorn), deepest at 28°",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Debilitated (neecha)",
+                "hi": ""
+              },
+              "value": {
+                "en": "Karka (Cancer), deepest at 28°",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Moolatrikona",
+                "hi": ""
+              },
+              "value": {
+                "en": "Mesha, 0° to 12°",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Day",
+                "hi": ""
+              },
+              "value": {
+                "en": "Tuesday",
+                "hi": ""
+              }
+            }
+          ],
+          "grahas": [
+            "MANGAL"
+          ]
+        },
+        {
+          "id": "grahas.mangal.3",
+          "type": "learn",
+          "title": {
+            "en": "What Mangal rules",
+            "hi": ""
+          },
+          "body": {
+            "en": "When strong, Mangal tends to give courage, stamina and decisive action. When troubled, it can show as impatience, quarrels or rushing. Mangal is strongest in the 10th house, where action builds a career.",
+            "hi": ""
+          },
+          "chips": [
+            {
+              "label": {
+                "en": "People",
+                "hi": ""
+              },
+              "items": {
+                "en": "brothers and sisters, soldiers, athletes",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Self",
+                "hi": ""
+              },
+              "items": {
+                "en": "courage, stamina, drive",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Body (traditional)",
+                "hi": ""
+              },
+              "items": {
+                "en": "blood, muscles",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Work",
+                "hi": ""
+              },
+              "items": {
+                "en": "army, police, engineering, surgery, sport, land",
+                "hi": ""
+              }
+            }
+          ],
+          "grahas": [
+            "MANGAL"
+          ],
+          "visual": {
+            "kind": "houses",
+            "value": 10
+          }
+        },
+        {
+          "id": "grahas.mangal.4",
+          "type": "learn",
+          "title": {
+            "en": "Mangal at a glance",
+            "hi": ""
+          },
+          "body": {
+            "en": "Did you know? Mangal dosha only means Mangal in certain houses, and it has many cancellations. You'll meet it, calmly, in the Yogas chapter.",
+            "hi": ""
+          },
+          "rows": [
+            {
+              "label": {
+                "en": "Friends",
+                "hi": ""
+              },
+              "value": {
+                "en": "Surya, Chandra, Guru",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Neutral",
+                "hi": ""
+              },
+              "value": {
+                "en": "Shukra, Shani",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Enemy",
+                "hi": ""
+              },
+              "value": {
+                "en": "Budha",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Aspects",
+                "hi": ""
+              },
+              "value": {
+                "en": "4th, 7th, 8th",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Dasha",
+                "hi": ""
+              },
+              "value": {
+                "en": "7 years",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Nakshatras",
+                "hi": ""
+              },
+              "value": {
+                "en": "Mrigashira, Chitra, Dhanishta",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Speed",
+                "hi": ""
+              },
+              "value": {
+                "en": "about 1½ months a sign",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Colour · direction",
+                "hi": ""
+              },
+              "value": {
+                "en": "red · south",
+                "hi": ""
+              }
+            }
+          ],
+          "grahas": [
+            "MANGAL"
+          ]
+        },
+        {
+          "id": "grahas.mangal.5",
+          "type": "yourChart",
+          "fact": "MANGAL_RASHI",
+          "title": {
+            "en": "Your Mangal",
+            "hi": ""
+          },
+          "body": {
+            "en": "Your Mangal is in {value}. Look back at Mangal's nature and signs: is that its own sign, its exaltation, its debilitation, or none of these?",
+            "hi": ""
+          },
+          "grahas": [
+            "MANGAL"
+          ]
+        },
+        {
+          "id": "grahas.mangal.6",
+          "type": "quiz",
+          "question": {
+            "en": "Besides the 7th, which houses does Mangal also look at?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "The 4th and 8th",
+              "hi": ""
+            },
+            {
+              "en": "The 5th and 9th",
+              "hi": ""
+            },
+            {
+              "en": "The 3rd and 10th",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Mangal has special aspects on the 4th and 8th from itself. Guru adds the 5th and 9th, and Shani the 3rd and 10th.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "grahas.mangal.7",
+          "type": "quiz",
+          "question": {
+            "en": "In which rashi is Mangal exalted?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Mesha",
+              "hi": ""
+            },
+            {
+              "en": "Karka",
+              "hi": ""
+            },
+            {
+              "en": "Makara",
+              "hi": ""
+            },
+            {
+              "en": "Simha",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Mangal is exalted in Makara, where its fire meets discipline. It owns Mesha and is debilitated in Karka.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "grahas.mangal.8",
+          "type": "quiz",
+          "question": {
+            "en": "Which graha does Mangal count as an enemy?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Budha",
               "hi": ""
             },
             {
@@ -211,126 +1470,31 @@
               "hi": ""
             }
           ],
-          "answer": 1,
-          "explanation": {
-            "en": "Surya is the atma, the soul. Chandra is the mind, and Guru is wisdom.",
-            "hi": ""
-          }
-        },
-        {
-          "id": "grahas.sun-moon.8",
-          "type": "quiz",
-          "question": {
-            "en": "Which rashi does Chandra own?",
-            "hi": ""
-          },
-          "options": [
-            {
-              "en": "Simha",
-              "hi": ""
-            },
-            {
-              "en": "Mesha",
-              "hi": ""
-            },
-            {
-              "en": "Vrishabha",
-              "hi": ""
-            },
-            {
-              "en": "Karka",
-              "hi": ""
-            }
-          ],
-          "answer": 3,
-          "explanation": {
-            "en": "Chandra owns Karka (Cancer). Vrishabha is where Chandra is exalted, and Simha belongs to Surya.",
-            "hi": ""
-          }
-        },
-        {
-          "id": "grahas.sun-moon.9",
-          "type": "quiz",
-          "question": {
-            "en": "Which graha moves fastest through the zodiac?",
-            "hi": ""
-          },
-          "options": [
-            {
-              "en": "Chandra",
-              "hi": ""
-            },
-            {
-              "en": "Surya",
-              "hi": ""
-            },
-            {
-              "en": "Budha",
-              "hi": ""
-            }
-          ],
           "answer": 0,
           "explanation": {
-            "en": "Chandra moves about 13° a day and changes sign roughly every two and a quarter days, far faster than any other graha.",
+            "en": "Mangal's friends are Surya, Chandra and Guru. It counts Budha as an enemy: the warrior and the clever talker don't get on.",
             "hi": ""
           }
         }
       ]
     },
     {
-      "id": "grahas.mars-mercury-jupiter",
+      "id": "grahas.budha",
       "title": {
-        "en": "Mars, Mercury and Jupiter",
+        "en": "Budha, Mercury",
         "hi": ""
       },
       "minutes": 4,
       "cards": [
         {
-          "id": "grahas.mars-mercury-jupiter.1",
+          "id": "grahas.budha.1",
           "type": "learn",
           "title": {
-            "en": "Mangal, the warrior",
+            "en": "Budha, Mercury",
             "hi": ""
           },
           "body": {
-            "en": "Mangal is energy, courage and action: the commander of the grahas. It shows drive, sport, siblings, land and the will to fight for what matters. Used well it is bravery; used badly, anger.",
-            "hi": ""
-          },
-          "term": {
-            "devanagari": "मङ्गल",
-            "roman": "Mangal"
-          },
-          "visual": {
-            "kind": "graha",
-            "value": "MANGAL"
-          },
-          "flip": true
-        },
-        {
-          "id": "grahas.mars-mercury-jupiter.2",
-          "type": "learn",
-          "title": {
-            "en": "Mangal's day and signs",
-            "hi": ""
-          },
-          "body": {
-            "en": "Mangal rules Tuesday and owns two rashis, Mesha (Aries) and Vrishchika (Scorpio). It is a natural malefic: not evil, just sharp and hot, like a surgeon's knife that can cut or heal.",
-            "hi": ""
-          },
-          "visual": {
-            "kind": "zodiac",
-            "value": 1
-          }
-        },
-        {
-          "id": "grahas.mars-mercury-jupiter.3",
-          "type": "learn",
-          "title": {
-            "en": "Budha, the messenger",
-            "hi": ""
-          },
-          "body": {
-            "en": "Budha is intellect, speech, learning, writing, trade and humour: the young prince of the grahas. Budha rules Wednesday and owns Mithuna (Gemini) and Kanya (Virgo).",
+            "en": "Budha is intellect, speech, learning, writing, trade and humour. It shows how you think, talk and calculate, and also friends and relatives on the mother's side. In the court Budha is the young prince: quick, curious and playful.",
             "hi": ""
           },
           "term": {
@@ -341,29 +1505,363 @@
             "kind": "graha",
             "value": "BUDHA"
           },
-          "flip": true
+          "flip": true,
+          "grahas": [
+            "BUDHA"
+          ]
         },
         {
-          "id": "grahas.mars-mercury-jupiter.4",
+          "id": "grahas.budha.2",
           "type": "learn",
           "title": {
-            "en": "Budha takes on colour",
+            "en": "Budha: nature and signs",
             "hi": ""
           },
           "body": {
-            "en": "Budha is neutral by nature. With benefics it acts as a benefic; with malefics it leans malefic. Like a clever student, it adapts to the company it keeps.",
+            "en": "With benefics Budha acts as a benefic; with malefics it leans malefic, like a clever student who adapts to the company it keeps. It is exalted in Kanya, a sign it also owns, where precise thought shines; in dreamy Meena it struggles.",
+            "hi": ""
+          },
+          "badge": {
+            "kind": "neutral",
+            "text": {
+              "en": "Neutral: takes on its company",
+              "hi": ""
+            }
+          },
+          "rows": [
+            {
+              "label": {
+                "en": "Owns",
+                "hi": ""
+              },
+              "value": {
+                "en": "Mithuna (Gemini), Kanya (Virgo)",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Exalted (uchcha)",
+                "hi": ""
+              },
+              "value": {
+                "en": "Kanya (Virgo), deepest at 15°",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Debilitated (neecha)",
+                "hi": ""
+              },
+              "value": {
+                "en": "Meena (Pisces), deepest at 15°",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Moolatrikona",
+                "hi": ""
+              },
+              "value": {
+                "en": "Kanya, 16° to 20°",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Day",
+                "hi": ""
+              },
+              "value": {
+                "en": "Wednesday",
+                "hi": ""
+              }
+            }
+          ],
+          "grahas": [
+            "BUDHA"
+          ]
+        },
+        {
+          "id": "grahas.budha.3",
+          "type": "learn",
+          "title": {
+            "en": "What Budha rules",
+            "hi": ""
+          },
+          "body": {
+            "en": "When strong, Budha tends to give a sharp mind, wit and good business sense. When troubled, it can show as nervousness or scattered thinking. Budha is strongest in the 1st house.",
+            "hi": ""
+          },
+          "chips": [
+            {
+              "label": {
+                "en": "People",
+                "hi": ""
+              },
+              "items": {
+                "en": "friends, students, traders, young people",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Self",
+                "hi": ""
+              },
+              "items": {
+                "en": "intellect, speech, wit, adaptability",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Body (traditional)",
+                "hi": ""
+              },
+              "items": {
+                "en": "skin, nerves",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Work",
+                "hi": ""
+              },
+              "items": {
+                "en": "writing, accounts, trade, media",
+                "hi": ""
+              }
+            }
+          ],
+          "grahas": [
+            "BUDHA"
+          ],
+          "visual": {
+            "kind": "houses",
+            "value": 1
+          }
+        },
+        {
+          "id": "grahas.budha.4",
+          "type": "learn",
+          "title": {
+            "en": "Budha at a glance",
+            "hi": ""
+          },
+          "body": {
+            "en": "Did you know? In the Puranas Budha is Chandra's son. Chandra counts Budha a friend, yet Budha counts Chandra an enemy.",
+            "hi": ""
+          },
+          "rows": [
+            {
+              "label": {
+                "en": "Friends",
+                "hi": ""
+              },
+              "value": {
+                "en": "Surya, Shukra",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Neutral",
+                "hi": ""
+              },
+              "value": {
+                "en": "Mangal, Guru, Shani",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Enemy",
+                "hi": ""
+              },
+              "value": {
+                "en": "Chandra",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Aspect",
+                "hi": ""
+              },
+              "value": {
+                "en": "7th",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Dasha",
+                "hi": ""
+              },
+              "value": {
+                "en": "17 years",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Nakshatras",
+                "hi": ""
+              },
+              "value": {
+                "en": "Ashlesha, Jyeshtha, Revati",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Speed",
+                "hi": ""
+              },
+              "value": {
+                "en": "travels with Surya, never more than about 28° away",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Colour · direction",
+                "hi": ""
+              },
+              "value": {
+                "en": "green · north",
+                "hi": ""
+              }
+            }
+          ],
+          "grahas": [
+            "BUDHA"
+          ]
+        },
+        {
+          "id": "grahas.budha.5",
+          "type": "yourChart",
+          "fact": "BUDHA_RASHI",
+          "title": {
+            "en": "Your Budha",
+            "hi": ""
+          },
+          "body": {
+            "en": "Your Budha is in {value}. Look back at Budha's nature and signs: is that its own sign, its exaltation, its debilitation, or none of these?",
+            "hi": ""
+          },
+          "grahas": [
+            "BUDHA"
+          ]
+        },
+        {
+          "id": "grahas.budha.6",
+          "type": "quiz",
+          "question": {
+            "en": "Budha sits with two malefics. How does it tend to act?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Like a benefic",
+              "hi": ""
+            },
+            {
+              "en": "It leans malefic",
+              "hi": ""
+            },
+            {
+              "en": "It has no effect",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Budha is neutral and takes on the nature of its company. With malefics it leans malefic; with benefics it acts as a benefic.",
             "hi": ""
           }
         },
         {
-          "id": "grahas.mars-mercury-jupiter.5",
+          "id": "grahas.budha.7",
+          "type": "quiz",
+          "question": {
+            "en": "Which sign does Budha both own and get exalted in?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Mithuna",
+              "hi": ""
+            },
+            {
+              "en": "Kanya",
+              "hi": ""
+            },
+            {
+              "en": "Meena",
+              "hi": ""
+            },
+            {
+              "en": "Tula",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Budha owns Mithuna and Kanya, and is exalted in Kanya too. Meena, opposite Kanya, is its debilitation.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "grahas.budha.8",
+          "type": "quiz",
+          "question": {
+            "en": "A chart has Budha in Meena. What does tradition say?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Budha is exalted",
+              "hi": ""
+            },
+            {
+              "en": "Budha is debilitated",
+              "hi": ""
+            },
+            {
+              "en": "Budha is in its own sign",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Meena is opposite Kanya, Budha's exaltation, so Budha is debilitated there. Thinking may need extra care, and the whole chart still matters.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "grahas.guru",
+      "title": {
+        "en": "Guru, Jupiter",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "grahas.guru.1",
           "type": "learn",
           "title": {
-            "en": "Guru, the teacher",
+            "en": "Guru, Jupiter",
             "hi": ""
           },
           "body": {
-            "en": "Guru, also called Brihaspati, is wisdom, teaching, faith, children, wealth and good fortune. Teacher of the devas, it is the greatest natural benefic. Guru rules Thursday and owns Dhanu (Sagittarius) and Meena (Pisces).",
+            "en": "Guru, also called Brihaspati, is wisdom, teaching, faith, children, wealth and good fortune. As teacher of the devas it stands for dharma, the right way to live. In the court Guru is a minister and counsellor. Wherever Guru looks, it tends to protect.",
             "hi": ""
           },
           "term": {
@@ -374,27 +1872,261 @@
             "kind": "graha",
             "value": "GURU"
           },
-          "flip": true
+          "flip": true,
+          "grahas": [
+            "GURU"
+          ]
         },
         {
-          "id": "grahas.mars-mercury-jupiter.6",
-          "type": "yourChart",
-          "fact": "GURU_HOUSE",
+          "id": "grahas.guru.2",
+          "type": "learn",
           "title": {
-            "en": "Where your Guru sits",
+            "en": "Guru: nature and signs",
             "hi": ""
           },
           "body": {
-            "en": "Guru is in house {value} of your chart. Houses are the areas of life, coming in chapter 4. Traditionally, the house Guru sits in is where growth, wisdom and blessings tend to flow.",
+            "en": "Guru is the greatest natural benefic: it expands, blesses and teaches. In caring Karka its wisdom flows freely, so it is exalted. In practical Makara it is debilitated: faith must prove itself through effort.",
             "hi": ""
           },
-          "unknownTime": {
-            "en": "Placing Guru in a house needs your birth time. Guru's gift of wisdom is in every chart, and you'll learn other ways to read it as the course goes on.",
+          "badge": {
+            "kind": "benefic",
+            "text": {
+              "en": "Great benefic",
+              "hi": ""
+            }
+          },
+          "rows": [
+            {
+              "label": {
+                "en": "Owns",
+                "hi": ""
+              },
+              "value": {
+                "en": "Dhanu (Sagittarius), Meena (Pisces)",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Exalted (uchcha)",
+                "hi": ""
+              },
+              "value": {
+                "en": "Karka (Cancer), deepest at 5°",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Debilitated (neecha)",
+                "hi": ""
+              },
+              "value": {
+                "en": "Makara (Capricorn), deepest at 5°",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Moolatrikona",
+                "hi": ""
+              },
+              "value": {
+                "en": "Dhanu, 0° to 10°",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Day",
+                "hi": ""
+              },
+              "value": {
+                "en": "Thursday",
+                "hi": ""
+              }
+            }
+          ],
+          "grahas": [
+            "GURU"
+          ]
+        },
+        {
+          "id": "grahas.guru.3",
+          "type": "learn",
+          "title": {
+            "en": "What Guru rules",
             "hi": ""
+          },
+          "body": {
+            "en": "When strong, Guru tends to give good judgement, generosity and support from mentors. When troubled, it can show as over-confidence or excess. Guru is strongest in the 1st house.",
+            "hi": ""
+          },
+          "chips": [
+            {
+              "label": {
+                "en": "People",
+                "hi": ""
+              },
+              "items": {
+                "en": "teachers, mentors, children, advisers",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Self",
+                "hi": ""
+              },
+              "items": {
+                "en": "wisdom, faith, optimism, ethics",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Body (traditional)",
+                "hi": ""
+              },
+              "items": {
+                "en": "liver, growth",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Work",
+                "hi": ""
+              },
+              "items": {
+                "en": "teaching, law, finance, counselling",
+                "hi": ""
+              }
+            }
+          ],
+          "grahas": [
+            "GURU"
+          ],
+          "visual": {
+            "kind": "houses",
+            "value": 1
           }
         },
         {
-          "id": "grahas.mars-mercury-jupiter.7",
+          "id": "grahas.guru.4",
+          "type": "learn",
+          "title": {
+            "en": "Guru at a glance",
+            "hi": ""
+          },
+          "body": {
+            "en": "Did you know? Guru in a kendra from Chandra makes Gaja Kesari, the elephant-and-lion yoga, one of the best known in Jyotish.",
+            "hi": ""
+          },
+          "rows": [
+            {
+              "label": {
+                "en": "Friends",
+                "hi": ""
+              },
+              "value": {
+                "en": "Surya, Chandra, Mangal",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Neutral",
+                "hi": ""
+              },
+              "value": {
+                "en": "Shani",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Enemies",
+                "hi": ""
+              },
+              "value": {
+                "en": "Budha, Shukra",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Aspects",
+                "hi": ""
+              },
+              "value": {
+                "en": "5th, 7th, 9th",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Dasha",
+                "hi": ""
+              },
+              "value": {
+                "en": "16 years",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Nakshatras",
+                "hi": ""
+              },
+              "value": {
+                "en": "Punarvasu, Vishakha, Purva Bhadrapada",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Speed",
+                "hi": ""
+              },
+              "value": {
+                "en": "about a year a sign",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Colour · direction",
+                "hi": ""
+              },
+              "value": {
+                "en": "yellow · north-east",
+                "hi": ""
+              }
+            }
+          ],
+          "grahas": [
+            "GURU"
+          ]
+        },
+        {
+          "id": "grahas.guru.5",
+          "type": "yourChart",
+          "fact": "GURU_RASHI",
+          "title": {
+            "en": "Your Guru",
+            "hi": ""
+          },
+          "body": {
+            "en": "Your Guru is in {value}. Look back at Guru's nature and signs: is that its own sign, its exaltation, its debilitation, or none of these?",
+            "hi": ""
+          },
+          "grahas": [
+            "GURU"
+          ]
+        },
+        {
+          "id": "grahas.guru.6",
           "type": "quiz",
           "question": {
             "en": "Which graha is the greatest natural benefic?",
@@ -406,10 +2138,6 @@
               "hi": ""
             },
             {
-              "en": "Budha",
-              "hi": ""
-            },
-            {
               "en": "Guru",
               "hi": ""
             },
@@ -418,85 +2146,89 @@
               "hi": ""
             }
           ],
-          "answer": 2,
+          "answer": 1,
           "explanation": {
-            "en": "Guru, the teacher of the devas, is the greatest natural benefic. Shukra comes close behind.",
+            "en": "Guru, teacher of the devas, is the greatest natural benefic. Shukra and a bright Chandra are benefics too, but gentler.",
             "hi": ""
           }
         },
         {
-          "id": "grahas.mars-mercury-jupiter.8",
+          "id": "grahas.guru.7",
           "type": "quiz",
           "question": {
-            "en": "Which two rashis does Mangal own?",
+            "en": "Besides the 7th, which houses does Guru also look at?",
             "hi": ""
           },
           "options": [
             {
-              "en": "Mesha and Vrishchika",
+              "en": "The 3rd and 10th",
               "hi": ""
             },
             {
-              "en": "Simha and Dhanu",
+              "en": "The 4th and 8th",
               "hi": ""
             },
             {
-              "en": "Makara and Kumbha",
+              "en": "The 5th and 9th",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Guru has special aspects on the 5th and 9th from itself, the houses of wisdom and fortune.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "grahas.guru.8",
+          "type": "quiz",
+          "question": {
+            "en": "In which rashi is Guru exalted?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Karka",
+              "hi": ""
+            },
+            {
+              "en": "Dhanu",
+              "hi": ""
+            },
+            {
+              "en": "Makara",
+              "hi": ""
+            },
+            {
+              "en": "Meena",
               "hi": ""
             }
           ],
           "answer": 0,
           "explanation": {
-            "en": "Mangal owns Mesha (Aries) and Vrishchika (Scorpio). Makara and Kumbha belong to Shani.",
-            "hi": ""
-          }
-        },
-        {
-          "id": "grahas.mars-mercury-jupiter.9",
-          "type": "quiz",
-          "question": {
-            "en": "Budha sits with two malefics. How does it tend to act?",
-            "hi": ""
-          },
-          "options": [
-            {
-              "en": "Always as a pure benefic",
-              "hi": ""
-            },
-            {
-              "en": "Leaning malefic",
-              "hi": ""
-            },
-            {
-              "en": "It loses all its effect",
-              "hi": ""
-            }
-          ],
-          "answer": 1,
-          "explanation": {
-            "en": "Budha is neutral and takes on the nature of its company. With malefics it leans malefic; with benefics, benefic.",
+            "en": "Guru is exalted in Karka. It owns Dhanu and Meena, and is debilitated in Makara, opposite Karka.",
             "hi": ""
           }
         }
       ]
     },
     {
-      "id": "grahas.venus-saturn",
+      "id": "grahas.shukra",
       "title": {
-        "en": "Venus and Saturn",
+        "en": "Shukra, Venus",
         "hi": ""
       },
       "minutes": 4,
       "cards": [
         {
-          "id": "grahas.venus-saturn.1",
+          "id": "grahas.shukra.1",
           "type": "learn",
           "title": {
-            "en": "Shukra, the artist",
+            "en": "Shukra, Venus",
             "hi": ""
           },
           "body": {
-            "en": "Shukra is love, beauty, art, music, pleasure, comfort and relationships. In the old stories Shukracharya is the brilliant teacher of the asuras, so Shukra also stands for refinement and skill.",
+            "en": "Shukra is love, beauty, art, music, comfort and pleasure. It shows relationships, taste, vehicles and the good things of life. In the stories Shukracharya is the wise teacher of the asuras. In the court Shukra is the second minister.",
             "hi": ""
           },
           "term": {
@@ -507,33 +2239,363 @@
             "kind": "graha",
             "value": "SHUKRA"
           },
-          "flip": true
+          "flip": true,
+          "grahas": [
+            "SHUKRA"
+          ]
         },
         {
-          "id": "grahas.venus-saturn.2",
+          "id": "grahas.shukra.2",
           "type": "learn",
           "title": {
-            "en": "Shukra's day and signs",
+            "en": "Shukra: nature and signs",
             "hi": ""
           },
           "body": {
-            "en": "Shukra rules Friday and owns Vrishabha (Taurus) and Tula (Libra). It is a natural benefic, generous and gentle. In the sky it never strays far from the Sun, always within about 47°.",
+            "en": "Shukra is a natural benefic, gentle and generous. In Meena, the sign of devotion, its love becomes boundless, so it is exalted. In Kanya, the sign of detail and critique, love finds it hard to relax.",
             "hi": ""
           },
+          "badge": {
+            "kind": "benefic",
+            "text": {
+              "en": "Benefic",
+              "hi": ""
+            }
+          },
+          "rows": [
+            {
+              "label": {
+                "en": "Owns",
+                "hi": ""
+              },
+              "value": {
+                "en": "Vrishabha (Taurus), Tula (Libra)",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Exalted (uchcha)",
+                "hi": ""
+              },
+              "value": {
+                "en": "Meena (Pisces), deepest at 27°",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Debilitated (neecha)",
+                "hi": ""
+              },
+              "value": {
+                "en": "Kanya (Virgo), deepest at 27°",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Moolatrikona",
+                "hi": ""
+              },
+              "value": {
+                "en": "Tula, 0° to 15°",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Day",
+                "hi": ""
+              },
+              "value": {
+                "en": "Friday",
+                "hi": ""
+              }
+            }
+          ],
+          "grahas": [
+            "SHUKRA"
+          ]
+        },
+        {
+          "id": "grahas.shukra.3",
+          "type": "learn",
+          "title": {
+            "en": "What Shukra rules",
+            "hi": ""
+          },
+          "body": {
+            "en": "When strong, Shukra tends to give charm, harmony and an eye for beauty. When troubled, it can show as indulgence or strain in relationships. Shukra is strongest in the 4th house.",
+            "hi": ""
+          },
+          "chips": [
+            {
+              "label": {
+                "en": "People",
+                "hi": ""
+              },
+              "items": {
+                "en": "partners, spouse, artists",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Self",
+                "hi": ""
+              },
+              "items": {
+                "en": "love, charm, taste, enjoyment",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Body (traditional)",
+                "hi": ""
+              },
+              "items": {
+                "en": "reproductive health",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Work",
+                "hi": ""
+              },
+              "items": {
+                "en": "arts, design, fashion, beauty, hospitality",
+                "hi": ""
+              }
+            }
+          ],
+          "grahas": [
+            "SHUKRA"
+          ],
           "visual": {
-            "kind": "zodiac",
-            "value": 7
+            "kind": "houses",
+            "value": 4
           }
         },
         {
-          "id": "grahas.venus-saturn.3",
+          "id": "grahas.shukra.4",
           "type": "learn",
           "title": {
-            "en": "Shani, the teacher of time",
+            "en": "Shukra at a glance",
             "hi": ""
           },
           "body": {
-            "en": "Shani is time, discipline, patience, hard work, duty and service. It is the slowest visible graha, spending about two and a half years in each sign. Shani's rewards come late, and they last.",
+            "en": "Did you know? Shukra's dasha is the longest of all, 20 years, and in the sky it never strays more than about 47° from Surya.",
+            "hi": ""
+          },
+          "rows": [
+            {
+              "label": {
+                "en": "Friends",
+                "hi": ""
+              },
+              "value": {
+                "en": "Budha, Shani",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Neutral",
+                "hi": ""
+              },
+              "value": {
+                "en": "Mangal, Guru",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Enemies",
+                "hi": ""
+              },
+              "value": {
+                "en": "Surya, Chandra",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Aspect",
+                "hi": ""
+              },
+              "value": {
+                "en": "7th",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Dasha",
+                "hi": ""
+              },
+              "value": {
+                "en": "20 years",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Nakshatras",
+                "hi": ""
+              },
+              "value": {
+                "en": "Bharani, Purva Phalguni, Purva Ashadha",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Speed",
+                "hi": ""
+              },
+              "value": {
+                "en": "about a month a sign, never far from Surya",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Colour · direction",
+                "hi": ""
+              },
+              "value": {
+                "en": "pink · south-east",
+                "hi": ""
+              }
+            }
+          ],
+          "grahas": [
+            "SHUKRA"
+          ]
+        },
+        {
+          "id": "grahas.shukra.5",
+          "type": "yourChart",
+          "fact": "SHUKRA_RASHI",
+          "title": {
+            "en": "Your Shukra",
+            "hi": ""
+          },
+          "body": {
+            "en": "Your Shukra is in {value}. Look back at Shukra's nature and signs: is that its own sign, its exaltation, its debilitation, or none of these?",
+            "hi": ""
+          },
+          "grahas": [
+            "SHUKRA"
+          ]
+        },
+        {
+          "id": "grahas.shukra.6",
+          "type": "quiz",
+          "question": {
+            "en": "Which pair of rashis does Shukra own?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Vrishabha and Tula",
+              "hi": ""
+            },
+            {
+              "en": "Mithuna and Kanya",
+              "hi": ""
+            },
+            {
+              "en": "Dhanu and Meena",
+              "hi": ""
+            }
+          ],
+          "answer": 0,
+          "explanation": {
+            "en": "Shukra owns Vrishabha and Tula. Mithuna and Kanya belong to Budha, and Dhanu and Meena to Guru.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "grahas.shukra.7",
+          "type": "quiz",
+          "question": {
+            "en": "In which rashi is Shukra exalted?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Tula",
+              "hi": ""
+            },
+            {
+              "en": "Kanya",
+              "hi": ""
+            },
+            {
+              "en": "Meena",
+              "hi": ""
+            },
+            {
+              "en": "Vrishabha",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Shukra is exalted in Meena, the sign of devotion, and debilitated in Kanya, opposite it.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "grahas.shukra.8",
+          "type": "quiz",
+          "question": {
+            "en": "Which graha has the longest Vimshottari dasha?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Shani",
+              "hi": ""
+            },
+            {
+              "en": "Shukra",
+              "hi": ""
+            },
+            {
+              "en": "Rahu",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Shukra's dasha lasts 20 years, the longest. Shani has 19 and Rahu 18.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "grahas.shani",
+      "title": {
+        "en": "Shani, Saturn",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "grahas.shani.1",
+          "type": "learn",
+          "title": {
+            "en": "Shani, Saturn",
+            "hi": ""
+          },
+          "body": {
+            "en": "Shani is time, discipline, patience and hard work. It shows duty, service, endurance, old age and the slow results of karma. In the court Shani is the servant, who knows the worth of labour. Shani teaches through delay, so its lessons last.",
             "hi": ""
           },
           "term": {
@@ -544,55 +2606,261 @@
             "kind": "graha",
             "value": "SHANI"
           },
-          "flip": true
+          "flip": true,
+          "grahas": [
+            "SHANI"
+          ]
         },
         {
-          "id": "grahas.venus-saturn.4",
+          "id": "grahas.shani.2",
           "type": "learn",
           "title": {
-            "en": "Shani's day and signs",
+            "en": "Shani: nature and signs",
             "hi": ""
           },
           "body": {
-            "en": "Shani rules Saturday and owns Makara (Capricorn) and Kumbha (Aquarius). It is a natural malefic, but a fair one: like a strict teacher, it rewards honest, steady work.",
+            "en": "Shani is a natural malefic, but a fair one: like a strict teacher, it rewards honest, steady work. In Tula, the scales of justice, it is exalted. In hasty Mesha patience runs short, so it is debilitated.",
             "hi": ""
           },
+          "badge": {
+            "kind": "malefic",
+            "text": {
+              "en": "Malefic, but fair",
+              "hi": ""
+            }
+          },
+          "rows": [
+            {
+              "label": {
+                "en": "Owns",
+                "hi": ""
+              },
+              "value": {
+                "en": "Makara (Capricorn), Kumbha (Aquarius)",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Exalted (uchcha)",
+                "hi": ""
+              },
+              "value": {
+                "en": "Tula (Libra), deepest at 20°",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Debilitated (neecha)",
+                "hi": ""
+              },
+              "value": {
+                "en": "Mesha (Aries), deepest at 20°",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Moolatrikona",
+                "hi": ""
+              },
+              "value": {
+                "en": "Kumbha, 0° to 20°",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Day",
+                "hi": ""
+              },
+              "value": {
+                "en": "Saturday",
+                "hi": ""
+              }
+            }
+          ],
+          "grahas": [
+            "SHANI"
+          ]
+        },
+        {
+          "id": "grahas.shani.3",
+          "type": "learn",
+          "title": {
+            "en": "What Shani rules",
+            "hi": ""
+          },
+          "body": {
+            "en": "When strong, Shani tends to give endurance, seriousness and lasting achievement. When troubled, it can show as delay, worry or a heavy load. Shani is strongest in the 7th house.",
+            "hi": ""
+          },
+          "chips": [
+            {
+              "label": {
+                "en": "People",
+                "hi": ""
+              },
+              "items": {
+                "en": "workers, elders, the neglected",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Self",
+                "hi": ""
+              },
+              "items": {
+                "en": "discipline, patience, responsibility",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Body (traditional)",
+                "hi": ""
+              },
+              "items": {
+                "en": "joints, teeth",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Work",
+                "hi": ""
+              },
+              "items": {
+                "en": "labour, service, farming, building, long projects",
+                "hi": ""
+              }
+            }
+          ],
+          "grahas": [
+            "SHANI"
+          ],
           "visual": {
-            "kind": "zodiac",
-            "value": 10
+            "kind": "houses",
+            "value": 7
           }
         },
         {
-          "id": "grahas.venus-saturn.5",
+          "id": "grahas.shani.4",
           "type": "learn",
           "title": {
-            "en": "Ease and structure",
+            "en": "Shani at a glance",
             "hi": ""
           },
           "body": {
-            "en": "Shukra brings ease and joy; Shani brings structure and endurance. Life needs both. A chart with good Shukra and Shani can blend beauty with discipline, like a musician who practises every single day.",
+            "en": "Did you know? Sade sati, Shani's 7½ years around your Moon, is a season of growth, not doom. The Gochar chapter explains it calmly.",
             "hi": ""
-          }
+          },
+          "rows": [
+            {
+              "label": {
+                "en": "Friends",
+                "hi": ""
+              },
+              "value": {
+                "en": "Budha, Shukra",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Neutral",
+                "hi": ""
+              },
+              "value": {
+                "en": "Guru",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Enemies",
+                "hi": ""
+              },
+              "value": {
+                "en": "Surya, Chandra, Mangal",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Aspects",
+                "hi": ""
+              },
+              "value": {
+                "en": "3rd, 7th, 10th",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Dasha",
+                "hi": ""
+              },
+              "value": {
+                "en": "19 years",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Nakshatras",
+                "hi": ""
+              },
+              "value": {
+                "en": "Pushya, Anuradha, Uttara Bhadrapada",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Speed",
+                "hi": ""
+              },
+              "value": {
+                "en": "about 2½ years a sign",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Colour · direction",
+                "hi": ""
+              },
+              "value": {
+                "en": "dark blue · west",
+                "hi": ""
+              }
+            }
+          ],
+          "grahas": [
+            "SHANI"
+          ]
         },
         {
-          "id": "grahas.venus-saturn.6",
+          "id": "grahas.shani.5",
           "type": "yourChart",
-          "fact": "SHANI_HOUSE",
+          "fact": "SHANI_RASHI",
           "title": {
             "en": "Your Shani",
             "hi": ""
           },
           "body": {
-            "en": "Shani is in house {value} of your chart. Traditionally, Shani's house is where life asks for patience and steady effort, and where that effort slowly grows into lasting strength.",
+            "en": "Your Shani is in {value}. Look back at Shani's nature and signs: is that its own sign, its exaltation, its debilitation, or none of these?",
             "hi": ""
           },
-          "unknownTime": {
-            "en": "Placing Shani in a house needs your birth time. Shani's lesson is the same for everyone, though: steady, honest effort pays off in time.",
-            "hi": ""
-          }
+          "grahas": [
+            "SHANI"
+          ]
         },
         {
-          "id": "grahas.venus-saturn.7",
+          "id": "grahas.shani.6",
           "type": "quiz",
           "question": {
             "en": "Which graha is linked with discipline, time and patience?",
@@ -600,145 +2868,101 @@
           },
           "options": [
             {
-              "en": "Shukra",
-              "hi": ""
-            },
-            {
               "en": "Mangal",
               "hi": ""
             },
             {
               "en": "Shani",
               "hi": ""
-            }
-          ],
-          "answer": 2,
-          "explanation": {
-            "en": "Shani is the graha of time and discipline. It is slow, and its rewards come through steady effort.",
-            "hi": ""
-          }
-        },
-        {
-          "id": "grahas.venus-saturn.8",
-          "type": "quiz",
-          "question": {
-            "en": "Which pair of rashis does Shukra own?",
-            "hi": ""
-          },
-          "options": [
-            {
-              "en": "Mithuna and Kanya",
-              "hi": ""
             },
             {
-              "en": "Vrishabha and Tula",
-              "hi": ""
-            },
-            {
-              "en": "Dhanu and Meena",
+              "en": "Shukra",
               "hi": ""
             }
           ],
           "answer": 1,
           "explanation": {
-            "en": "Shukra owns Vrishabha (Taurus) and Tula (Libra). Mithuna and Kanya are Budha's; Dhanu and Meena are Guru's.",
+            "en": "Shani is the teacher of time: discipline, patience and the slow, lasting results of steady work.",
             "hi": ""
           }
         },
         {
-          "id": "grahas.venus-saturn.9",
+          "id": "grahas.shani.7",
           "type": "quiz",
           "question": {
-            "en": "About how long does Shani stay in one sign?",
+            "en": "Besides the 7th, which houses does Shani also look at?",
             "hi": ""
           },
           "options": [
             {
-              "en": "About two and a half years",
+              "en": "The 3rd and 10th",
               "hi": ""
             },
             {
-              "en": "About one year",
+              "en": "The 5th and 9th",
               "hi": ""
             },
             {
-              "en": "About seven years",
+              "en": "The 4th and 8th",
               "hi": ""
             }
           ],
           "answer": 0,
           "explanation": {
-            "en": "Shani takes about 29.5 years to circle the zodiac, so roughly two and a half years in each sign.",
+            "en": "Shani has special aspects on the 3rd and 10th from itself. Mangal has the 4th and 8th, and Guru the 5th and 9th.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "grahas.shani.8",
+          "type": "quiz",
+          "question": {
+            "en": "In which rashi is Shani exalted?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Makara",
+              "hi": ""
+            },
+            {
+              "en": "Mesha",
+              "hi": ""
+            },
+            {
+              "en": "Tula",
+              "hi": ""
+            },
+            {
+              "en": "Kumbha",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "Shani is exalted in Tula, the scales of justice. It owns Makara and Kumbha, and is debilitated in Mesha.",
             "hi": ""
           }
         }
       ]
     },
     {
-      "id": "grahas.rahu-ketu",
+      "id": "grahas.rahu",
       "title": {
-        "en": "Rahu and Ketu",
+        "en": "Rahu, the north node",
         "hi": ""
       },
       "minutes": 4,
       "cards": [
         {
-          "id": "grahas.rahu-ketu.1",
+          "id": "grahas.rahu.1",
           "type": "learn",
           "title": {
-            "en": "Shadow grahas",
+            "en": "Rahu, the north node",
             "hi": ""
           },
           "body": {
-            "en": "Rahu and Ketu are not physical bodies. They are chhaya grahas, shadow points: the two places where the Moon's path crosses the Sun's path in the sky. Eclipses happen near them.",
-            "hi": ""
-          },
-          "term": {
-            "devanagari": "छाया ग्रह",
-            "roman": "Chhaya graha"
-          },
-          "visual": {
-            "kind": "graha",
-            "value": "RAHU"
-          }
-        },
-        {
-          "id": "grahas.rahu-ketu.2",
-          "type": "learn",
-          "title": {
-            "en": "Always opposite",
-            "hi": ""
-          },
-          "body": {
-            "en": "Rahu is the north node and Ketu the south node. They always sit exactly opposite, 180° apart, and usually move backwards through the signs, about 18 months in each. AstroLingo uses the true node.",
-            "hi": ""
-          },
-          "visual": {
-            "kind": "zodiac",
-            "value": 0
-          }
-        },
-        {
-          "id": "grahas.rahu-ketu.3",
-          "type": "learn",
-          "title": {
-            "en": "The story of the nodes",
-            "hi": ""
-          },
-          "body": {
-            "en": "In the Puranic churning of the ocean, an asura slipped in and drank the nectar of immortality. Vishnu cut him in two: the head became Rahu, the body Ketu. It's a poetic picture of how eclipses seem to swallow the lights.",
-            "hi": ""
-          }
-        },
-        {
-          "id": "grahas.rahu-ketu.4",
-          "type": "learn",
-          "title": {
-            "en": "Rahu, the hungry head",
-            "hi": ""
-          },
-          "body": {
-            "en": "Rahu is desire, ambition, the new and the foreign, technology and big dreams. It magnifies whatever it touches. Handled wisely, Rahu can drive unusual success; left unchecked, it brings restlessness.",
+            "en": "Rahu is the north node, a shadow point where the Moon's path crosses the Sun's. It is desire, ambition, the new and the foreign, technology and big dreams. In the story of the churning ocean, Rahu is the head that drank the nectar. It magnifies what it touches.",
             "hi": ""
           },
           "term": {
@@ -749,17 +2973,325 @@
             "kind": "graha",
             "value": "RAHU"
           },
-          "flip": true
+          "flip": true,
+          "grahas": [
+            "RAHU"
+          ]
         },
         {
-          "id": "grahas.rahu-ketu.5",
+          "id": "grahas.rahu.2",
           "type": "learn",
           "title": {
-            "en": "Ketu, the quiet body",
+            "en": "Rahu: nature and signs",
             "hi": ""
           },
           "body": {
-            "en": "Ketu is detachment, intuition, spirituality and letting go. It points to skills carried from the past and to moksha, liberation. Ketu can feel puzzling, yet it is a deep teacher of the inner life.",
+            "en": "Rahu has no body, so it acts through the lord of the sign it sits in, and like Shani, as the saying 'Shanivat Rahu' goes. Texts differ on where it is exalted; AstroLingo names both views. Use one view consistently.",
+            "hi": ""
+          },
+          "badge": {
+            "kind": "shadow",
+            "text": {
+              "en": "Shadow graha · malefic",
+              "hi": ""
+            }
+          },
+          "rows": [
+            {
+              "label": {
+                "en": "Owns",
+                "hi": ""
+              },
+              "value": {
+                "en": "no sign in most texts",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Exalted (uchcha)",
+                "hi": ""
+              },
+              "value": {
+                "en": "Vrishabha; some say Mithuna",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Debilitated (neecha)",
+                "hi": ""
+              },
+              "value": {
+                "en": "Vrishchika; some say Dhanu",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Day",
+                "hi": ""
+              },
+              "value": {
+                "en": "none of its own; Rahu kaal every day",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Acts like",
+                "hi": ""
+              },
+              "value": {
+                "en": "Shani",
+                "hi": ""
+              }
+            }
+          ],
+          "grahas": [
+            "RAHU"
+          ]
+        },
+        {
+          "id": "grahas.rahu.3",
+          "type": "learn",
+          "title": {
+            "en": "What Rahu rules",
+            "hi": ""
+          },
+          "body": {
+            "en": "When well placed, Rahu tends to drive bold firsts and unusual success. When troubled, it can show as restlessness, confusion or never feeling it is enough. Rahu's house shows where we hunger to grow.",
+            "hi": ""
+          },
+          "chips": [
+            {
+              "label": {
+                "en": "People",
+                "hi": ""
+              },
+              "items": {
+                "en": "outsiders, foreigners, innovators",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Self",
+                "hi": ""
+              },
+              "items": {
+                "en": "ambition, appetite for more",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Work",
+                "hi": ""
+              },
+              "items": {
+                "en": "technology, media, research, foreign lands",
+                "hi": ""
+              }
+            }
+          ],
+          "grahas": [
+            "RAHU"
+          ]
+        },
+        {
+          "id": "grahas.rahu.4",
+          "type": "learn",
+          "title": {
+            "en": "Rahu at a glance",
+            "hi": ""
+          },
+          "body": {
+            "en": "Did you know? AstroLingo uses the true node, the node's actual position, rather than the mean (averaged) node.",
+            "hi": ""
+          },
+          "rows": [
+            {
+              "label": {
+                "en": "Opposite",
+                "hi": ""
+              },
+              "value": {
+                "en": "always exactly opposite Ketu",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Motion",
+                "hi": ""
+              },
+              "value": {
+                "en": "backwards, about 18 months a sign",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Aspects",
+                "hi": ""
+              },
+              "value": {
+                "en": "5th, 7th, 9th in a common view",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Dasha",
+                "hi": ""
+              },
+              "value": {
+                "en": "18 years",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Nakshatras",
+                "hi": ""
+              },
+              "value": {
+                "en": "Ardra, Swati, Shatabhisha",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Colour · direction",
+                "hi": ""
+              },
+              "value": {
+                "en": "smoky blue · south-west",
+                "hi": ""
+              }
+            }
+          ],
+          "grahas": [
+            "RAHU"
+          ]
+        },
+        {
+          "id": "grahas.rahu.5",
+          "type": "yourChart",
+          "fact": "RAHU_RASHI",
+          "title": {
+            "en": "Your Rahu",
+            "hi": ""
+          },
+          "body": {
+            "en": "Your Rahu is in {value}. Look back at Rahu's nature and signs: is that its own sign, its exaltation, its debilitation, or none of these?",
+            "hi": ""
+          },
+          "grahas": [
+            "RAHU"
+          ]
+        },
+        {
+          "id": "grahas.rahu.6",
+          "type": "quiz",
+          "question": {
+            "en": "What is Rahu?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "A distant planet beyond Shani",
+              "hi": ""
+            },
+            {
+              "en": "A shadow point, the north node",
+              "hi": ""
+            },
+            {
+              "en": "A fixed star",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Rahu is a chhaya graha, a shadow point: the north node, where the Moon's path crosses the Sun's.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "grahas.rahu.7",
+          "type": "quiz",
+          "question": {
+            "en": "A traditional saying is that Rahu acts like which graha?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Guru",
+              "hi": ""
+            },
+            {
+              "en": "Chandra",
+              "hi": ""
+            },
+            {
+              "en": "Shani",
+              "hi": ""
+            }
+          ],
+          "answer": 2,
+          "explanation": {
+            "en": "'Shanivat Rahu': Rahu acts like Shani. Ketu, the saying goes, acts like Mangal.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "grahas.rahu.8",
+          "type": "quiz",
+          "question": {
+            "en": "How long is Rahu's Vimshottari dasha?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "7 years",
+              "hi": ""
+            },
+            {
+              "en": "18 years",
+              "hi": ""
+            },
+            {
+              "en": "20 years",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Rahu's dasha lasts 18 years. Ketu's lasts 7, and Shukra's 20.",
+            "hi": ""
+          }
+        }
+      ]
+    },
+    {
+      "id": "grahas.ketu",
+      "title": {
+        "en": "Ketu, the south node",
+        "hi": ""
+      },
+      "minutes": 4,
+      "cards": [
+        {
+          "id": "grahas.ketu.1",
+          "type": "learn",
+          "title": {
+            "en": "Ketu, the south node",
+            "hi": ""
+          },
+          "body": {
+            "en": "Ketu is the south node, always exactly opposite Rahu. It is detachment, intuition, spirituality and letting go. It points to skills carried from the past and to moksha, liberation. In the story it is the body without the head: it acts without wanting.",
             "hi": ""
           },
           "term": {
@@ -770,76 +3302,227 @@
             "kind": "graha",
             "value": "KETU"
           },
-          "flip": true
+          "flip": true,
+          "grahas": [
+            "KETU"
+          ]
         },
         {
-          "id": "grahas.rahu-ketu.6",
+          "id": "grahas.ketu.2",
           "type": "learn",
           "title": {
-            "en": "Nine together",
+            "en": "Ketu: nature and signs",
             "hi": ""
           },
           "body": {
-            "en": "With the two nodes the navagraha is complete: Surya, Chandra, Mangal, Budha, Guru, Shukra, Shani, Rahu and Ketu. Uranus, Neptune and Pluto are not part of classical Jyotish.",
-            "hi": ""
-          }
-        },
-        {
-          "id": "grahas.rahu-ketu.7",
-          "type": "quiz",
-          "question": {
-            "en": "What are Rahu and Ketu?",
+            "en": "Like Rahu, Ketu acts through the lord of the sign it sits in. The classics say it acts like Mangal, 'Kujavat Ketu': sudden and sharp. Yet in matters of the spirit, Ketu can be one of the most freeing grahas.",
             "hi": ""
           },
-          "options": [
-            {
-              "en": "Two small moons of Earth",
-              "hi": ""
-            },
-            {
-              "en": "Points where the Moon's path crosses the Sun's",
-              "hi": ""
-            },
-            {
-              "en": "Two planets beyond Shani",
+          "badge": {
+            "kind": "shadow",
+            "text": {
+              "en": "Shadow graha · malefic",
               "hi": ""
             }
+          },
+          "rows": [
+            {
+              "label": {
+                "en": "Owns",
+                "hi": ""
+              },
+              "value": {
+                "en": "no sign in most texts",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Exalted (uchcha)",
+                "hi": ""
+              },
+              "value": {
+                "en": "Vrishchika; some say Dhanu",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Debilitated (neecha)",
+                "hi": ""
+              },
+              "value": {
+                "en": "Vrishabha; some say Mithuna",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Day",
+                "hi": ""
+              },
+              "value": {
+                "en": "none of its own",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Acts like",
+                "hi": ""
+              },
+              "value": {
+                "en": "Mangal",
+                "hi": ""
+              }
+            }
           ],
-          "answer": 1,
-          "explanation": {
-            "en": "Rahu and Ketu are the lunar nodes, shadow points with no body. Eclipses happen when the Sun and Moon are near them.",
-            "hi": ""
-          }
+          "grahas": [
+            "KETU"
+          ]
         },
         {
-          "id": "grahas.rahu-ketu.8",
-          "type": "quiz",
-          "question": {
-            "en": "How far apart are Rahu and Ketu?",
+          "id": "grahas.ketu.3",
+          "type": "learn",
+          "title": {
+            "en": "What Ketu rules",
             "hi": ""
           },
-          "options": [
+          "body": {
+            "en": "When well placed, Ketu tends to give insight, focus and freedom from clinging. When troubled, it can show as feeling lost or cut off. Ketu's house shows what comes naturally to us, and where we learn to let go.",
+            "hi": ""
+          },
+          "chips": [
             {
-              "en": "90°",
-              "hi": ""
+              "label": {
+                "en": "People",
+                "hi": ""
+              },
+              "items": {
+                "en": "healers, researchers, seekers",
+                "hi": ""
+              }
             },
             {
-              "en": "120°",
-              "hi": ""
+              "label": {
+                "en": "Self",
+                "hi": ""
+              },
+              "items": {
+                "en": "insight, intuition, detachment",
+                "hi": ""
+              }
             },
             {
-              "en": "180°",
-              "hi": ""
+              "label": {
+                "en": "Work",
+                "hi": ""
+              },
+              "items": {
+                "en": "research, healing, precise skills, spiritual life",
+                "hi": ""
+              }
             }
           ],
-          "answer": 2,
-          "explanation": {
-            "en": "They are always exactly opposite, 180° apart. Where one is, the other is six signs away.",
-            "hi": ""
-          }
+          "grahas": [
+            "KETU"
+          ]
         },
         {
-          "id": "grahas.rahu-ketu.9",
+          "id": "grahas.ketu.4",
+          "type": "learn",
+          "title": {
+            "en": "Ketu at a glance",
+            "hi": ""
+          },
+          "body": {
+            "en": "Did you know? Ketu's three nakshatras, Ashwini, Magha and Mula, each begin a new third of the zodiac.",
+            "hi": ""
+          },
+          "rows": [
+            {
+              "label": {
+                "en": "Opposite",
+                "hi": ""
+              },
+              "value": {
+                "en": "always exactly opposite Rahu",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Motion",
+                "hi": ""
+              },
+              "value": {
+                "en": "backwards, about 18 months a sign",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Aspects",
+                "hi": ""
+              },
+              "value": {
+                "en": "5th, 7th, 9th in a common view",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Dasha",
+                "hi": ""
+              },
+              "value": {
+                "en": "7 years, first in the order",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Nakshatras",
+                "hi": ""
+              },
+              "value": {
+                "en": "Ashwini, Magha, Mula",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Colour",
+                "hi": ""
+              },
+              "value": {
+                "en": "smoky grey",
+                "hi": ""
+              }
+            }
+          ],
+          "grahas": [
+            "KETU"
+          ]
+        },
+        {
+          "id": "grahas.ketu.5",
+          "type": "yourChart",
+          "fact": "KETU_RASHI",
+          "title": {
+            "en": "Your Ketu",
+            "hi": ""
+          },
+          "body": {
+            "en": "Your Ketu is in {value}. Look back at Ketu's nature and signs: is that its own sign, its exaltation, its debilitation, or none of these?",
+            "hi": ""
+          },
+          "grahas": [
+            "KETU"
+          ]
+        },
+        {
+          "id": "grahas.ketu.6",
           "type": "quiz",
           "question": {
             "en": "Which node is linked with detachment and moksha?",
@@ -847,88 +3530,340 @@
           },
           "options": [
             {
+              "en": "Rahu",
+              "hi": ""
+            },
+            {
               "en": "Ketu",
               "hi": ""
             },
             {
-              "en": "Rahu",
+              "en": "Both equally",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Ketu, the south node, points to detachment, intuition and moksha. Rahu is desire and ambition.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "grahas.ketu.7",
+          "type": "quiz",
+          "question": {
+            "en": "The classics say Ketu acts like which graha?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Mangal",
               "hi": ""
             },
             {
               "en": "Shukra",
               "hi": ""
+            },
+            {
+              "en": "Budha",
+              "hi": ""
             }
           ],
           "answer": 0,
           "explanation": {
-            "en": "Ketu, the headless body, stands for letting go, intuition and liberation. Rahu, the head, is desire and ambition.",
+            "en": "'Kujavat Ketu': Ketu acts like Mangal, sudden and sharp. Rahu, the saying goes, acts like Shani.",
+            "hi": ""
+          }
+        },
+        {
+          "id": "grahas.ketu.8",
+          "type": "quiz",
+          "question": {
+            "en": "Which nakshatras does Ketu rule?",
+            "hi": ""
+          },
+          "options": [
+            {
+              "en": "Rohini, Hasta, Shravana",
+              "hi": ""
+            },
+            {
+              "en": "Ashwini, Magha, Mula",
+              "hi": ""
+            },
+            {
+              "en": "Ardra, Swati, Shatabhisha",
+              "hi": ""
+            }
+          ],
+          "answer": 1,
+          "explanation": {
+            "en": "Ketu rules Ashwini, Magha and Mula. Rohini, Hasta and Shravana are Chandra's; Ardra, Swati and Shatabhisha are Rahu's.",
             "hi": ""
           }
         }
       ]
     },
     {
-      "id": "grahas.nature",
+      "id": "grahas.sangraha",
       "title": {
-        "en": "Benefics and malefics",
+        "en": "Navagraha Sangraha",
         "hi": ""
       },
       "minutes": 4,
       "cards": [
         {
-          "id": "grahas.nature.1",
+          "id": "grahas.sangraha.1",
           "type": "learn",
           "title": {
-            "en": "Two natures",
+            "en": "Navagraha Sangraha",
             "hi": ""
           },
           "body": {
-            "en": "Jyotish sorts grahas by natural temperament. Saumya grahas (benefics) are gentle and tend to give ease. Krura grahas (malefics) are sharp and tend to bring challenge. Neither is simply good or bad.",
+            "en": "Sangraha means a gathering: all nine grahas on one page. For each, what to think of first, its nature, its signs and its day. Tap the page to open it full screen.",
             "hi": ""
           },
           "term": {
-            "devanagari": "सौम्य",
-            "roman": "Saumya"
-          }
+            "devanagari": "नवग्रह संग्रह",
+            "roman": "Navagraha Sangraha"
+          },
+          "sheet": [
+            {
+              "graha": "SURYA",
+              "name": {
+                "en": "Surya · Sun",
+                "hi": ""
+              },
+              "think": {
+                "en": "soul, father, authority, confidence",
+                "hi": ""
+              },
+              "nature": {
+                "kind": "malefic",
+                "text": {
+                  "en": "Mild malefic",
+                  "hi": ""
+                }
+              },
+              "facts": {
+                "en": "Owns Simha · Exalted Mesha · Debilitated Tula · Sunday · orange",
+                "hi": ""
+              }
+            },
+            {
+              "graha": "CHANDRA",
+              "name": {
+                "en": "Chandra · Moon",
+                "hi": ""
+              },
+              "think": {
+                "en": "mind, mother, feelings, comfort",
+                "hi": ""
+              },
+              "nature": {
+                "kind": "benefic",
+                "text": {
+                  "en": "Benefic when bright",
+                  "hi": ""
+                }
+              },
+              "facts": {
+                "en": "Owns Karka · Exalted Vrishabha · Debilitated Vrishchika · Monday · white",
+                "hi": ""
+              }
+            },
+            {
+              "graha": "MANGAL",
+              "name": {
+                "en": "Mangal · Mars",
+                "hi": ""
+              },
+              "think": {
+                "en": "energy, courage, siblings, land",
+                "hi": ""
+              },
+              "nature": {
+                "kind": "malefic",
+                "text": {
+                  "en": "Malefic",
+                  "hi": ""
+                }
+              },
+              "facts": {
+                "en": "Owns Mesha, Vrishchika · Exalted Makara · Debilitated Karka · Tuesday · red",
+                "hi": ""
+              }
+            },
+            {
+              "graha": "BUDHA",
+              "name": {
+                "en": "Budha · Mercury",
+                "hi": ""
+              },
+              "think": {
+                "en": "intellect, speech, trade, humour",
+                "hi": ""
+              },
+              "nature": {
+                "kind": "neutral",
+                "text": {
+                  "en": "Neutral",
+                  "hi": ""
+                }
+              },
+              "facts": {
+                "en": "Owns Mithuna, Kanya · Exalted Kanya · Debilitated Meena · Wednesday · green",
+                "hi": ""
+              }
+            },
+            {
+              "graha": "GURU",
+              "name": {
+                "en": "Guru · Jupiter",
+                "hi": ""
+              },
+              "think": {
+                "en": "wisdom, teachers, children, fortune",
+                "hi": ""
+              },
+              "nature": {
+                "kind": "benefic",
+                "text": {
+                  "en": "Great benefic",
+                  "hi": ""
+                }
+              },
+              "facts": {
+                "en": "Owns Dhanu, Meena · Exalted Karka · Debilitated Makara · Thursday · yellow",
+                "hi": ""
+              }
+            },
+            {
+              "graha": "SHUKRA",
+              "name": {
+                "en": "Shukra · Venus",
+                "hi": ""
+              },
+              "think": {
+                "en": "love, beauty, art, comfort",
+                "hi": ""
+              },
+              "nature": {
+                "kind": "benefic",
+                "text": {
+                  "en": "Benefic",
+                  "hi": ""
+                }
+              },
+              "facts": {
+                "en": "Owns Vrishabha, Tula · Exalted Meena · Debilitated Kanya · Friday · pink",
+                "hi": ""
+              }
+            },
+            {
+              "graha": "SHANI",
+              "name": {
+                "en": "Shani · Saturn",
+                "hi": ""
+              },
+              "think": {
+                "en": "time, discipline, work, patience",
+                "hi": ""
+              },
+              "nature": {
+                "kind": "malefic",
+                "text": {
+                  "en": "Malefic, but fair",
+                  "hi": ""
+                }
+              },
+              "facts": {
+                "en": "Owns Makara, Kumbha · Exalted Tula · Debilitated Mesha · Saturday · dark blue",
+                "hi": ""
+              }
+            },
+            {
+              "graha": "RAHU",
+              "name": {
+                "en": "Rahu · north node",
+                "hi": ""
+              },
+              "think": {
+                "en": "desire, ambition, the new and foreign",
+                "hi": ""
+              },
+              "nature": {
+                "kind": "shadow",
+                "text": {
+                  "en": "Shadow · malefic",
+                  "hi": ""
+                }
+              },
+              "facts": {
+                "en": "No sign of its own · Exalted Vrishabha · Debilitated Vrishchika · acts like Shani",
+                "hi": ""
+              }
+            },
+            {
+              "graha": "KETU",
+              "name": {
+                "en": "Ketu · south node",
+                "hi": ""
+              },
+              "think": {
+                "en": "detachment, intuition, letting go",
+                "hi": ""
+              },
+              "nature": {
+                "kind": "shadow",
+                "text": {
+                  "en": "Shadow · malefic",
+                  "hi": ""
+                }
+              },
+              "facts": {
+                "en": "No sign of its own · Exalted Vrishchika · Debilitated Vrishabha · acts like Mangal",
+                "hi": ""
+              }
+            }
+          ]
         },
         {
-          "id": "grahas.nature.2",
+          "id": "grahas.sangraha.2",
           "type": "learn",
           "title": {
-            "en": "The natural benefics",
+            "en": "Natures side by side",
             "hi": ""
           },
           "body": {
-            "en": "Guru and Shukra are the classic benefics. A bright, waxing Chandra is a benefic too, and Budha is one when it keeps good company. They tend to protect, soften and bless what they touch.",
+            "en": "Nature is a graha's temperament, not a verdict. A graha's sign, house and aspects can make a benefic struggle or a malefic shine.",
             "hi": ""
           },
-          "visual": {
-            "kind": "graha",
-            "value": "GURU"
-          }
+          "rows": [
+            {
+              "label": {
+                "en": "Benefics",
+                "hi": ""
+              },
+              "value": {
+                "en": "Guru, Shukra, bright Chandra, Budha in good company",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Malefics",
+                "hi": ""
+              },
+              "value": {
+                "en": "Surya (mild), Mangal, Shani, Rahu, Ketu",
+                "hi": ""
+              }
+            }
+          ]
         },
         {
-          "id": "grahas.nature.3",
-          "type": "learn",
-          "title": {
-            "en": "The natural malefics",
-            "hi": ""
-          },
-          "body": {
-            "en": "Shani, Mangal, Rahu and Ketu are natural malefics, and Surya is a mild one. A waning Chandra, and Budha with malefics, join them. Malefics bring pressure, and pressure builds courage, focus and strength.",
-            "hi": ""
-          },
-          "term": {
-            "devanagari": "क्रूर",
-            "roman": "Krura"
-          },
-          "visual": {
-            "kind": "graha",
-            "value": "SHANI"
-          }
-        },
-        {
-          "id": "grahas.nature.4",
+          "id": "grahas.sangraha.3",
           "type": "learn",
           "title": {
             "en": "Malefics have gifts",
@@ -937,14 +3872,148 @@
           "body": {
             "en": "A strong Mangal can make a brave athlete or a steady-handed surgeon; a strong Shani, a patient builder. The classics even say malefics tend to do well in the 3rd, 6th and 11th houses, where struggle turns into growth.",
             "hi": ""
-          },
-          "visual": {
-            "kind": "houses",
-            "value": 6
           }
         },
         {
-          "id": "grahas.nature.5",
+          "id": "grahas.sangraha.4",
+          "type": "learn",
+          "title": {
+            "en": "A graha for each day",
+            "hi": ""
+          },
+          "body": {
+            "en": "Each weekday has a lord, and the daily card's colour of the day comes from it. Rahu and Ketu have no day of their own.",
+            "hi": ""
+          },
+          "rows": [
+            {
+              "label": {
+                "en": "Sunday",
+                "hi": ""
+              },
+              "value": {
+                "en": "Surya · orange",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Monday",
+                "hi": ""
+              },
+              "value": {
+                "en": "Chandra · white",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Tuesday",
+                "hi": ""
+              },
+              "value": {
+                "en": "Mangal · red",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Wednesday",
+                "hi": ""
+              },
+              "value": {
+                "en": "Budha · green",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Thursday",
+                "hi": ""
+              },
+              "value": {
+                "en": "Guru · yellow",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Friday",
+                "hi": ""
+              },
+              "value": {
+                "en": "Shukra · pink",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "Saturday",
+                "hi": ""
+              },
+              "value": {
+                "en": "Shani · dark blue",
+                "hi": ""
+              }
+            }
+          ]
+        },
+        {
+          "id": "grahas.sangraha.5",
+          "type": "learn",
+          "title": {
+            "en": "Where each is strongest",
+            "hi": ""
+          },
+          "body": {
+            "en": "Each graha has one house where it feels most at home in direction, called dig bala. You'll see this again when reading houses.",
+            "hi": ""
+          },
+          "rows": [
+            {
+              "label": {
+                "en": "1st house",
+                "hi": ""
+              },
+              "value": {
+                "en": "Budha, Guru",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "4th house",
+                "hi": ""
+              },
+              "value": {
+                "en": "Chandra, Shukra",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "7th house",
+                "hi": ""
+              },
+              "value": {
+                "en": "Shani",
+                "hi": ""
+              }
+            },
+            {
+              "label": {
+                "en": "10th house",
+                "hi": ""
+              },
+              "value": {
+                "en": "Surya, Mangal",
+                "hi": ""
+              }
+            }
+          ]
+        },
+        {
+          "id": "grahas.sangraha.6",
           "type": "learn",
           "title": {
             "en": "Nature is only the start",
@@ -956,26 +4025,10 @@
           }
         },
         {
-          "id": "grahas.nature.6",
-          "type": "learn",
-          "title": {
-            "en": "A graha for each day",
-            "hi": ""
-          },
-          "body": {
-            "en": "Each weekday has a graha lord: Sunday Surya, Monday Chandra, Tuesday Mangal, Wednesday Budha, Thursday Guru, Friday Shukra, Saturday Shani. Rahu and Ketu have no day of their own. Your daily card uses this.",
-            "hi": ""
-          },
-          "visual": {
-            "kind": "graha",
-            "value": "SURYA"
-          }
-        },
-        {
-          "id": "grahas.nature.7",
+          "id": "grahas.sangraha.7",
           "type": "quiz",
           "question": {
-            "en": "Which pair are the classic natural benefics?",
+            "en": "Which two grahas are strongest in the 10th house?",
             "hi": ""
           },
           "options": [
@@ -984,22 +4037,22 @@
               "hi": ""
             },
             {
-              "en": "Guru and Shukra",
+              "en": "Chandra and Shukra",
               "hi": ""
             },
             {
-              "en": "Shani and Rahu",
+              "en": "Budha and Guru",
               "hi": ""
             }
           ],
-          "answer": 1,
+          "answer": 0,
           "explanation": {
-            "en": "Guru and Shukra are the classic benefics. Surya, Mangal, Shani and Rahu are counted among the malefics.",
+            "en": "Surya and Mangal have dig bala in the 10th. Chandra and Shukra are strongest in the 4th, Budha and Guru in the 1st, Shani in the 7th.",
             "hi": ""
           }
         },
         {
-          "id": "grahas.nature.8",
+          "id": "grahas.sangraha.8",
           "type": "quiz",
           "question": {
             "en": "Which weekday belongs to Shani?",
@@ -1026,7 +4079,7 @@
           }
         },
         {
-          "id": "grahas.nature.9",
+          "id": "grahas.sangraha.9",
           "type": "quiz",
           "question": {
             "en": "In which houses do malefics traditionally do well?",

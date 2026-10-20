@@ -492,7 +492,10 @@
           "visual": {
             "kind": "nakshatras",
             "value": 4
-          }
+          },
+          "grahas": [
+            "CHANDRA"
+          ]
         },
         {
           "id": "dasha.first.2",

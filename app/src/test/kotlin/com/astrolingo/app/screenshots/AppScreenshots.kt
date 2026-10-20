@@ -192,11 +192,10 @@ class AppScreenshots {
         compose.onNodeWithContentDescription("Close lesson").performClick()
         waitForText("The nine grahas")
         compose.onNodeWithText("The nine grahas").performClick()
-        waitForText("Sun and Moon")
+        waitForText("Surya, the Sun")
         shot("13_learn_chapter")
-        compose.onNodeWithText("Sun and Moon").performClick()
-        waitForText("Next card")
-        compose.onAllNodesWithText("Next card")[0].performClick()
+        // Each graha has its own lesson, which opens on its flip card (PO, 20 Oct 2026).
+        compose.onNodeWithText("Surya, the Sun").performScrollTo().performClick()
         waitForText("Tap to turn over")
         shot("14_learn_graha_front")
         compose.onNodeWithText("Tap to turn over").performClick()
@@ -249,10 +248,10 @@ class AppScreenshots {
         val store = InMemoryLearnStore(
             LearnProgress(
                 checkAnswered = true,
-                completedLessons = setOf("grahas.sun-moon"),
+                completedLessons = setOf("grahas.surya"),
                 review = listOf(
-                    ReviewItem("grahas.sun-moon.7", 1, today),
-                    ReviewItem("grahas.sun-moon.2", 1, today),
+                    ReviewItem("grahas.surya.6", 1, today),
+                    ReviewItem("grahas.surya.1", 1, today),
                 ).associateBy { it.cardId },
             ),
         )
@@ -273,8 +272,8 @@ class AppScreenshots {
         shot("25_learn_review_recall")
         compose.onNodeWithText("Show me").performClick()
         compose.onNodeWithText("I remembered").performScrollTo().performClick()
-        waitForText("soul (atma)")
-        compose.onNodeWithText("Surya").performClick()
+        waitForText("Which rashi does Surya own?")
+        compose.onNodeWithText("Simha").performClick()
         shot("26_learn_review_quiz")
         compose.onNodeWithText("Next card").performClick()
         waitForText("Review done")
