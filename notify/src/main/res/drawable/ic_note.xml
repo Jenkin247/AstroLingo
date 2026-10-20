@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- The note's status-bar icon: a planet with a ring. One colour, as Android draws it in white. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M12,6.5a5.5,5.5 0,1 0,0 11a5.5,5.5 0,1 0,0 -11z" />
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeWidth="1.4"
+        android:pathData="M3.2,15.6C1.9,13.6 6.6,10.3 12,8.6C17.4,6.9 22.1,7.4 20.8,9.4" />
+</vector>

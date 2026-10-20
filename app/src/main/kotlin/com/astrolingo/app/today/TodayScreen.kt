@@ -95,6 +95,7 @@ import kotlinx.coroutines.withContext
  * @param people people saved in Me whose day Today can show instead of the user's (LS-10).
  * @param viewing whose day is shown, or null for the user's own; [onView] is called when the user picks another.
  * @param onAddPerson opens Add a person in Me; shown as a link when nobody is saved. Null hides it.
+ * @param offer the daily note's offer, shown under the card on the user's own day; null when there is none.
  */
 @Composable
 fun TodayScreen(
@@ -111,6 +112,7 @@ fun TodayScreen(
     viewing: DayPerson? = null,
     onView: (DayPerson?) -> Unit = {},
     onAddPerson: (() -> Unit)? = null,
+    offer: (@Composable () -> Unit)? = null,
 ) {
     var choosingPlace by remember { mutableStateOf(false) }
     // A place picked while viewing someone else is for that view only: the user's own place stays as it was.
@@ -168,6 +170,7 @@ fun TodayScreen(
             )
         }
         if (reviewDue > 0 && viewing == null) Box(Modifier.riseIn(2)) { ReviewOffer(due = reviewDue, onStart = onReview) }
+        if (offer != null && viewing == null) Box(Modifier.riseIn(2)) { offer() }
         Row(horizontalArrangement = Arrangement.spacedBy(Spacing.md), modifier = Modifier.height(IntrinsicSize.Min).riseIn(3)) {
             InfoCard(modifier = Modifier.weight(1f).fillMaxHeight(), title = stringResource(R.string.today_label_colour)) {
                 Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(Spacing.sm)) {
@@ -441,14 +444,14 @@ private fun time(utcMillis: Long, zone: ZoneId): String =
 
 private const val HALF_MINUTE_MILLIS = 30_000L
 
-private val DayStrength.label: Int
+internal val DayStrength.label: Int
     get() = when (this) {
         DayStrength.STRONG -> R.string.today_strong
         DayStrength.STEADY -> R.string.today_steady
         DayStrength.GENTLE -> R.string.today_gentle
     }
 
-private val DayStrength.focus: Int
+internal val DayStrength.focus: Int
     get() = when (this) {
         DayStrength.STRONG -> R.array.daily_focus_strong
         DayStrength.STEADY -> R.array.daily_focus_steady
@@ -462,7 +465,7 @@ private val DayStrength.tips: Int
         DayStrength.GENTLE -> R.array.daily_tips_gentle
     }
 
-private val DayColour.label: Int
+internal val DayColour.label: Int
     get() = when (this) {
         DayColour.ORANGE -> R.string.colour_orange
         DayColour.WHITE -> R.string.colour_white

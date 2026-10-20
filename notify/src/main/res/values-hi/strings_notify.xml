@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="note_channel_name">रोज़ का संदेश</string>
+    <string name="note_channel_description">आपके दिन के बारे में रोज़ एक शांत संदेश, और कुछ दिन न आने पर हफ़्ते के बारे में एक संदेश।</string>
+    <string name="note_public_title">AstroLingo</string>
+    <string name="note_public_text">आपका दिन तैयार है</string>
+</resources>

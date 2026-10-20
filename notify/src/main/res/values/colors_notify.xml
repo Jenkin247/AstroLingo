@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tints the note's small icon: the app's teal (ic_launcher_foreground). -->
+    <color name="note_accent">#FF2C7D74</color>
+</resources>

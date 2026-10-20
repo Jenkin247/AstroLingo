@@ -33,6 +33,9 @@ jobs:
       - name: Learn module and course content tests
         run: ./gradlew -p learn test 2>&1 | tee -a build.log; exit ${PIPESTATUS[0]}
 
+      - name: Notification module tests and lint
+        run: ./gradlew :notify:testDebugUnitTest :notify:lintDebug 2>&1 | tee -a build.log; exit ${PIPESTATUS[0]}
+
       - name: Account and app unit tests, lint and debug APK
         run: ./gradlew :account:testDebugUnitTest :app:testDebugUnitTest :app:lintDebug :app:assembleDebug 2>&1 | tee -a build.log; exit ${PIPESTATUS[0]}
 
@@ -82,5 +85,6 @@ jobs:
           path: |
             engine/build/reports/
             learn/build/reports/
+            notify/build/reports/
             app/build/reports/
           retention-days: 14
