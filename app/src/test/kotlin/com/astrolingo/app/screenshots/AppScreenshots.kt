@@ -2,18 +2,21 @@ package com.astrolingo.app.screenshots
 
 import android.provider.Settings
 import androidx.activity.ComponentActivity
+import androidx.compose.ui.semantics.SemanticsActions
 import androidx.compose.ui.test.hasScrollToNodeAction
 import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onAllNodesWithText
 import androidx.compose.ui.test.onFirst
+import androidx.compose.ui.test.onLast
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
 import androidx.compose.ui.test.performScrollToNode
+import androidx.compose.ui.test.performSemanticsAction
 import com.astrolingo.app.learn.BundledCourse
 import com.astrolingo.app.learn.GoalCard
 import com.astrolingo.app.learn.InMemoryLearnStore
@@ -233,12 +236,13 @@ class AppScreenshots {
         compose.onNodeWithText("Tap to turn over").performClick()
         compose.waitForIdle()
         shot("15_learn_graha_back")
-        compose.onNodeWithContentDescription("Close lesson").performClick()
+        // Clicks through semantics: touch injection on this path kept failing on CI.
+        compose.onNodeWithContentDescription("Close lesson").performSemanticsAction(SemanticsActions.OnClick)
         // The lesson's cards also show the chapter's name, so wait for the lesson to be gone before looking for it.
         compose.waitUntil(WAIT_MILLIS) { compose.onAllNodesWithContentDescription("Close lesson").fetchSemanticsNodes().isEmpty() }
         waitForText("Up next")
         compose.onAllNodes(hasScrollToNodeAction()).onFirst().performScrollToNode(hasText("The nine grahas"))
-        compose.onNodeWithText("The nine grahas").performClick()
+        compose.onAllNodesWithText("The nine grahas").onLast().performSemanticsAction(SemanticsActions.OnClick)
         // The sheet shows the lessons after Surya locked until the one before is passed.
         waitForText("Opens after “Surya, the Sun”")
         shot("13_learn_chapter")
