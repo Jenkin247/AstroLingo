@@ -186,6 +186,7 @@ class AppScreenshots {
         // Inside a lesson the bottom tabs are hidden (LS-3).
         check(compose.onAllNodesWithText("Today").fetchSemanticsNodes().isEmpty()) { "tabs shown inside a lesson" }
         shot("11_learn_card")
+        compose.onAllNodesWithContentDescription("Save this card")[0].performClick()
         // On to the first quiz of the lesson.
         repeat(MAX_CARDS) {
             if (compose.onAllNodesWithText("Quick question").fetchSemanticsNodes().isEmpty()) {
@@ -198,28 +199,6 @@ class AppScreenshots {
         // Lessons open in order: a new learner sees the later chapters locked.
         waitForText("Opens after chapter 1")
         shot("60_learn_locked")
-        // Further along: Welcome passed and the first Grahas lesson done, so Surya is open. Learn reloads on its tab.
-        val welcome = BundledCourse.course.chapter("welcome")!!.lessons.map { it.id }
-        store.save(store.load().copy(completedLessons = (welcome + "grahas.meet").toSet()))
-        compose.onNodeWithText("Me").performClick()
-        compose.waitForIdle()
-        compose.onNodeWithText("Learn").performClick()
-        waitForText("The nine grahas")
-        // The taller Learn home leaves the chapter under the tabs: scroll the path to it first.
-        compose.onAllNodes(hasScrollToNodeAction()).onFirst().performScrollToNode(hasText("The nine grahas"))
-        compose.onNodeWithText("The nine grahas").performClick()
-        waitForText("Surya, the Sun")
-        shot("13_learn_chapter")
-        // Each graha has its own lesson, which opens on its flip card (PO, 20 Oct 2026).
-        compose.onNodeWithText("Surya, the Sun").performScrollTo().performClick()
-        waitForText("Tap to turn over")
-        shot("14_learn_graha_front")
-        compose.onNodeWithText("Tap to turn over").performClick()
-        compose.waitForIdle()
-        shot("15_learn_graha_back")
-        compose.onAllNodesWithContentDescription("Save this card")[0].performClick()
-        compose.onNodeWithContentDescription("Close lesson").performClick()
-        waitForText("Saved")
         compose.onNodeWithText("Saved").performClick()
         waitForText("Saved cards")
         shot("16_learn_saved")
@@ -232,6 +211,35 @@ class AppScreenshots {
         compose.onNodeWithText("Check me", substring = true).performScrollTo().performClick()
         waitForText("Question 1 of 2")
         shot("18_learn_check_question")
+    }
+
+    @Test
+    fun learnGraha() {
+        val answers = OnboardingAnswers(
+            purpose = Purpose.LEARN,
+            goal = DailyGoal.TEN,
+            level = Level.NEW,
+            birth = BirthDetails(LocalDate.of(1990, 8, 15), LocalTime.of(6, 30), index.search("Pune").first()),
+        )
+        // Further along: Welcome passed and the first Grahas lesson done, so Surya is up next.
+        val welcome = BundledCourse.course.chapter("welcome")!!.lessons.map { it.id }
+        val store = InMemoryLearnStore(LearnProgress(checkAnswered = true, completedLessons = (welcome + "grahas.meet").toSet()))
+        compose.setContent { AstroLingoTheme { AstroLingoApp(InMemoryProfileRepository(answers), learnStore = store) } }
+        waitForText("Surya, the Sun")
+        compose.onNodeWithText("Start lesson").performClick()
+        // Each graha has its own lesson, which opens on its flip card (PO, 20 Oct 2026).
+        waitForText("Tap to turn over")
+        shot("14_learn_graha_front")
+        compose.onNodeWithText("Tap to turn over").performClick()
+        compose.waitForIdle()
+        shot("15_learn_graha_back")
+        compose.onNodeWithContentDescription("Close lesson").performClick()
+        waitForText("The nine grahas")
+        compose.onAllNodes(hasScrollToNodeAction()).onFirst().performScrollToNode(hasText("The nine grahas"))
+        compose.onNodeWithText("The nine grahas").performClick()
+        // The sheet shows the lessons after Surya locked until the one before is passed.
+        waitForText("Opens after “Surya, the Sun”")
+        shot("13_learn_chapter")
     }
 
     @Test
