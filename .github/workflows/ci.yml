@@ -26,10 +26,19 @@ jobs:
       - uses: gradle/actions/setup-gradle@v4
 
       - name: Jyotish engine tests
-        run: ./gradlew -p engine test
+        run: ./gradlew -p engine test 2>&1 | tee -a build.log; exit ${PIPESTATUS[0]}
 
       - name: App unit tests, lint and debug APK
-        run: ./gradlew :app:testDebugUnitTest :app:lintDebug :app:assembleDebug
+        run: ./gradlew :app:testDebugUnitTest :app:lintDebug :app:assembleDebug 2>&1 | tee -a build.log; exit ${PIPESTATUS[0]}
+
+      # Puts compiler, lint and test errors on the checks page as annotations, so they can be read
+      # without opening the full log.
+      - name: Summarise build errors
+        if: failure()
+        run: |
+          grep -E "^e: |: error:|^\* What went wrong|^> |Error:|Caused by:" build.log \
+            | grep -v "^> Task " | head -40 \
+            | while IFS= read -r line; do echo "::error::${line}"; done
 
       - name: Upload debug APK
         uses: actions/upload-artifact@v4

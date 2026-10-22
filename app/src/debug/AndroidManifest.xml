@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Debug builds only: a second launcher icon for the encryption and restore spike. -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <application>
+        <activity
+            android:name=".spike.EncryptionSpikeActivity"
+            android:exported="true"
+            android:label="@string/spike_label"
+            android:taskAffinity="com.astrolingo.app.spike"
+            android:theme="@style/Theme.AstroLingo">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
