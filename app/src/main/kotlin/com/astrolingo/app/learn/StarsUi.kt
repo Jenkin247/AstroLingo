@@ -16,7 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.semantics.clearAndSetSemantics
-import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import com.astrolingo.app.R
 import com.astrolingo.app.ui.theme.Spacing
@@ -31,25 +31,24 @@ internal fun starsText(count: Int): String = stringResource(R.string.stars_count
 internal fun StarsCard(stars: Stars, epochDay: Long, modifier: Modifier = Modifier) {
     val name = stringResource(R.string.stars_name)
     val today = stars.earnedOn(epochDay)
-    val total = starsText(stars.total)
-    val todayText = stringResource(R.string.stars_today, today)
     val hint = if (today >= Stars.DAILY_MAX) stringResource(R.string.stars_limit, name) else stringResource(R.string.stars_how, name)
     Surface(
         shape = MaterialTheme.shapes.medium,
         color = MaterialTheme.colorScheme.surfaceVariant,
         modifier = modifier
             .fillMaxWidth()
-            .clearAndSetSemantics { contentDescription = "$total. $todayText. $hint" },
+            .semantics(mergeDescendants = true) {},
     ) {
         Row(
             Modifier.padding(Spacing.md),
             horizontalArrangement = Arrangement.spacedBy(Spacing.md),
             verticalAlignment = Alignment.CenterVertically,
         ) {
-            Text(STAR_GLYPH, style = MaterialTheme.typography.headlineMedium, color = MaterialTheme.colorScheme.primary)
+            // Decoration: the words already say Stars, so screen readers skip the symbol.
+            Text(STAR_GLYPH, style = MaterialTheme.typography.headlineMedium, color = MaterialTheme.colorScheme.primary, modifier = Modifier.clearAndSetSemantics {})
             Column(Modifier.weight(1f)) {
-                Text(total, style = MaterialTheme.typography.titleMedium)
-                if (today > 0) Text(todayText, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                Text(starsText(stars.total), style = MaterialTheme.typography.titleMedium)
+                if (today > 0) Text(stringResource(R.string.stars_today, today), style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
                 Text(hint, style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }

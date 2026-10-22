@@ -201,7 +201,7 @@ class AppScreenshots {
         compose.waitForIdle()
         compose.onNodeWithText("Learn").performClick()
         waitForText("The nine grahas")
-        compose.onNodeWithText("The nine grahas").performClick()
+        compose.onNodeWithText("The nine grahas").performScrollTo().performClick()
         waitForText("Surya, the Sun")
         shot("13_learn_chapter")
         // Each graha has its own lesson, which opens on its flip card (PO, 20 Oct 2026).
