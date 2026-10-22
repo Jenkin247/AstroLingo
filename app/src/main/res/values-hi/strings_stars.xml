@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- सितारे: नाम बदलना हो तो सिर्फ़ stars_name बदलें (values/strings_stars.xml भी)। -->
+<resources>
+    <string name="stars_name">सितारे</string>
+    <string name="stars_count">%1$d %2$s</string>
+    <string name="stars_earned">+%1$d %2$s</string>
+    <string name="stars_today">आज %1$d मिले</string>
+    <string name="stars_how">रोज़ आएँ, पाठ पास करें और अपना दोहराव पूरा करें, %1$s कमाएँ।</string>
+    <string name="stars_limit">आज के सबसे ज़्यादा %1$s मिल गए। कल और मिलेंगे।</string>
+</resources>

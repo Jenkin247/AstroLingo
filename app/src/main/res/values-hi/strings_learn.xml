@@ -85,4 +85,13 @@
     <string name="check_result_start">सीखना शुरू करें</string>
     <string name="check_know_this">यह मुझे आता है: 2 सवालों से छोड़ें</string>
     <string name="check_close">टेस्ट बंद करें</string>
+
+    <!-- Lessons open in order (PO, 22 Oct 2026). -->
+    <string name="learn_state_locked">अध्याय %1$d के बाद खुलेगा</string>
+    <string name="learn_lesson_locked">“%1$s” के बाद खुलेगा</string>
+    <string name="learn_lesson_locked_description">बंद</string>
+    <string name="learn_quiz_retry_title">बस थोड़ा और</string>
+    <string name="learn_quiz_retry_body">यह पाठ पास करने और अगला खोलने के लिए %2$d में से %1$d सही करें। सही जवाब और कारण कार्ड पर हैं।</string>
+    <string name="learn_quiz_retry">प्रश्न फिर से करें</string>
+    <string name="learn_preview_note">यह पाठ आपकी राह में आगे खुलेगा। इससे पहले के पाठ पास करें, तब यह गिना जाएगा।</string>
 </resources>

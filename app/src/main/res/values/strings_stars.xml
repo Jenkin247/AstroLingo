@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Stars (PO, 22 Oct 2026). The name is a working title: to rename Stars, change stars_name here and in
+     values-hi/strings_stars.xml. Every other line takes the name from it, and code never spells it out. -->
+<resources>
+    <string name="stars_name">Stars</string>
+    <string name="stars_count">%1$d %2$s</string>
+    <string name="stars_earned">+%1$d %2$s</string>
+    <string name="stars_today">%1$d earned today</string>
+    <string name="stars_how">Come back each day, pass lessons and finish your Review to earn %1$s.</string>
+    <string name="stars_limit">You\'ve earned today\'s most %1$s. More tomorrow.</string>
+</resources>

@@ -80,6 +80,7 @@ import com.astrolingo.learn.content.Lesson
 import com.astrolingo.learn.content.QuizCard
 import com.astrolingo.learn.content.Term
 import com.astrolingo.learn.content.YourChartCard
+import com.astrolingo.learn.path.QuizPass
 import kotlin.math.cos
 import kotlin.math.sin
 import kotlinx.coroutines.launch
@@ -385,7 +386,13 @@ internal fun QuizCardPage(
     }
 }
 
-/** Sitara celebrates the finished lesson, with stars drifting up, and offers the next lesson. */
+/**
+ * Sitara celebrates the finished lesson, with stars drifting up, and offers the next lesson.
+ *
+ * @param passed enough quiz answers right ([QuizPass]); otherwise the card offers the quiz again instead.
+ * @param unlocked false for a lesson peeked at before its turn on the path: it doesn't count yet, so no next lesson.
+ * @param starsEarned Stars this pass earned, shown under the score.
+ */
 @Composable
 internal fun LessonDonePage(
     chapter: Chapter,
@@ -398,10 +405,16 @@ internal fun LessonDonePage(
     onNext: (Lesson) -> Unit,
     onClose: () -> Unit,
     chapterDone: Boolean = false,
+    passed: Boolean = true,
+    unlocked: Boolean = true,
+    starsEarned: Int = 0,
+    onRetry: () -> Unit = {},
 ) {
     val reduceMotion = rememberReduceMotion()
     val haptics = LocalHapticFeedback.current
     LaunchedEffect(active) { if (active) haptics.confirm() }
+    // A pass in an open lesson moves the path on; otherwise the card says what's needed instead of celebrating.
+    val counts = passed && unlocked
     CardFrame(
         label = chapter.title.get(language),
         position = lesson.title.get(language),
@@ -409,11 +422,17 @@ internal fun LessonDonePage(
         onNext = null,
     ) {
         Box(Modifier.fillMaxWidth().heightIn(min = 160.dp), contentAlignment = Alignment.Center) {
-            if (active && !reduceMotion) DriftingStars(Modifier.matchParentSize())
+            if (active && counts && !reduceMotion) DriftingStars(Modifier.matchParentSize())
             SitaraAvatar(size = 120.dp)
         }
         Text(
-            stringResource(if (chapterDone) R.string.learn_chapter_complete else R.string.learn_lesson_complete),
+            stringResource(
+                when {
+                    !passed -> R.string.learn_quiz_retry_title
+                    chapterDone && counts -> R.string.learn_chapter_complete
+                    else -> R.string.learn_lesson_complete
+                },
+            ),
             style = MaterialTheme.typography.displaySmall,
             color = AstroLingoTheme.tabColors.onPastel,
             textAlign = TextAlign.Center,
@@ -427,13 +446,19 @@ internal fun LessonDonePage(
             modifier = Modifier.fillMaxWidth(),
         )
         Text(
-            stringResource(if (right == total) R.string.learn_lesson_sitara_great else R.string.learn_lesson_sitara_good),
+            when {
+                !passed -> stringResource(R.string.learn_quiz_retry_body, QuizPass.needed(total), total)
+                !unlocked -> stringResource(R.string.learn_preview_note)
+                right == total -> stringResource(R.string.learn_lesson_sitara_great)
+                else -> stringResource(R.string.learn_lesson_sitara_good)
+            },
             style = MaterialTheme.typography.bodyLarge,
             color = AstroLingoTheme.tabColors.onPastel,
             textAlign = TextAlign.Center,
             modifier = Modifier.fillMaxWidth(),
         )
-        if (chapterDone) {
+        if (counts && starsEarned > 0) StarsEarned(starsEarned, color = AstroLingoTheme.tabColors.onPastel)
+        if (chapterDone && counts) {
             // Names what the learner can now do, so finishing a chapter feels like a skill gained (LS-2).
             Text(
                 stringResource(R.string.learn_chapter_can_now, chapter.outcome.get(language)),
@@ -452,7 +477,11 @@ internal fun LessonDonePage(
                 )
             }
         }
-        if (next != null) {
+        if (!passed) {
+            Button(onClick = onRetry, modifier = Modifier.fillMaxWidth().heightIn(min = Spacing.touchTarget)) {
+                Text(stringResource(R.string.learn_quiz_retry))
+            }
+        } else if (next != null && unlocked) {
             Button(onClick = { onNext(next) }, modifier = Modifier.fillMaxWidth().heightIn(min = Spacing.touchTarget)) {
                 Text(stringResource(R.string.learn_next_lesson, next.title.get(language)))
             }

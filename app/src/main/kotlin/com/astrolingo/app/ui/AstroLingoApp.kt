@@ -405,6 +405,18 @@ private fun Tabs(
     var immersive by remember { mutableStateOf(false) }
     // A Review asked for from Today, handed to Learn once it opens.
     var learnRequest by remember { mutableStateOf<LearnRequest?>(null) }
+    // The day's first visit earns Stars. Learn counts it itself when the app opens there, so its progress on screen
+    // is never overwritten from here.
+    LaunchedEffect(resumed) {
+        if (selected == Tab.LEARN) return@LaunchedEffect
+        withContext(Dispatchers.IO) {
+            runCatching {
+                val progress = learnStore.load()
+                val visited = progress.recordVisit(LocalDate.now().toEpochDay())
+                if (visited != progress) learnStore.save(visited)
+            }
+        }
+    }
     // Due Review cards, for the small Review card on Today. Read again each time the tab changes.
     val reviewDue by produceState(0, selected) {
         value = withContext(Dispatchers.IO) {

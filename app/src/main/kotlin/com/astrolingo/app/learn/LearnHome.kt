@@ -1,5 +1,6 @@
 // Learn home: the "Up next" card and the path of 14 chapters, each with its progress ring.
-// Tapping a chapter opens a sheet with its lessons (docs/design/learn-module.md, UX/UI).
+// Tapping a chapter opens a sheet with its lessons (docs/design/learn-module.md, UX/UI). Lessons open in order, so
+// chapters and lessons not reached yet show a lock and what opens them.
 package com.astrolingo.app.learn
 
 import androidx.compose.animation.core.Animatable
@@ -28,6 +29,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -134,6 +136,7 @@ internal fun LearnHome(
                 chapter = open,
                 number = course.chapters.indexOf(open) + 1,
                 completedLessons = completedLessons,
+                unlocked = path.unlocked,
                 language = language,
                 onOpenLesson = { lesson ->
                     sheetChapter = null
@@ -222,8 +225,9 @@ private fun ChapterTile(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.spacedBy(Spacing.md),
     ) {
-        ProgressRing(fraction = item.fraction, glyph = item.chapter.glyph, known = item.state == ChapterState.KNOWN)
-        Column(Modifier.weight(1f)) {
+        val locked = item.state == ChapterState.LOCKED
+        ProgressRing(fraction = item.fraction, glyph = item.chapter.glyph, known = item.state == ChapterState.KNOWN, locked = locked)
+        Column(Modifier.weight(1f).graphicsLayer { alpha = if (locked) LOCKED_ALPHA else 1f }) {
             Text(
                 stringResource(R.string.learn_chapter_number, number),
                 style = MaterialTheme.typography.labelMedium,
@@ -240,6 +244,7 @@ private fun ChapterTile(
                     ChapterState.DONE -> stringResource(R.string.learn_state_done)
                     ChapterState.IN_PROGRESS -> stringResource(R.string.learn_state_progress, item.lessonsDone, item.lessonsTotal)
                     ChapterState.NOT_STARTED -> stringResource(R.string.learn_state_new, item.lessonsTotal)
+                    ChapterState.LOCKED -> stringResource(R.string.learn_state_locked, number - 1)
                 },
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -258,9 +263,9 @@ private fun ChapterTile(
     }
 }
 
-/** A ring that fills as lessons are finished, with the chapter's glyph inside. */
+/** A ring that fills as lessons are finished, with the chapter's glyph inside, or a lock while the chapter is closed. */
 @Composable
-private fun ProgressRing(fraction: Float, glyph: String, known: Boolean) {
+private fun ProgressRing(fraction: Float, glyph: String, known: Boolean, locked: Boolean = false) {
     val animated by animateFloatAsState(fraction, tween(RING_MILLIS), label = "chapter progress")
     val track = MaterialTheme.colorScheme.outlineVariant
     val fill = if (known) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.primary
@@ -272,16 +277,26 @@ private fun ProgressRing(fraction: Float, glyph: String, known: Boolean) {
             drawCircle(track, style = Stroke(stroke))
             drawArc(fill, -90f, 360f * animated, useCenter = false, style = Stroke(stroke, cap = StrokeCap.Round))
         }
-        Text(textGlyph(glyph), style = MaterialTheme.typography.titleLarge, textAlign = TextAlign.Center)
+        if (locked) {
+            Icon(
+                Icons.Filled.Lock,
+                contentDescription = stringResource(R.string.learn_lesson_locked_description),
+                tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier.size(24.dp),
+            )
+        } else {
+            Text(textGlyph(glyph), style = MaterialTheme.typography.titleLarge, textAlign = TextAlign.Center)
+        }
     }
 }
 
-/** A chapter's summary and its lessons, ticked when done. */
+/** A chapter's summary and its lessons, ticked when done, locked until the one before is passed. */
 @Composable
 private fun ChapterSheet(
     chapter: Chapter,
     number: Int,
     completedLessons: Set<String>,
+    unlocked: Set<String>,
     language: Language,
     onOpenLesson: (Lesson) -> Unit,
     actions: @Composable () -> Unit,
@@ -306,12 +321,14 @@ private fun ChapterSheet(
         chapter.lessons.forEachIndexed { index, lesson ->
             if (index > 0) HorizontalDivider()
             val done = lesson.id in completedLessons
+            val locked = lesson.id !in unlocked
             Row(
                 Modifier
                     .fillMaxWidth()
-                    .clickable(role = Role.Button) { onOpenLesson(lesson) }
+                    .clickable(enabled = !locked, role = Role.Button) { onOpenLesson(lesson) }
                     .heightIn(min = Spacing.touchTarget)
-                    .padding(vertical = Spacing.sm),
+                    .padding(vertical = Spacing.sm)
+                    .graphicsLayer { alpha = if (locked) LOCKED_ALPHA else 1f },
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(Spacing.md),
             ) {
@@ -321,18 +338,36 @@ private fun ChapterSheet(
                         .border(2.dp, MaterialTheme.colorScheme.outlineVariant, CircleShape),
                     contentAlignment = Alignment.Center,
                 ) {
-                    if (done) {
-                        Icon(
+                    when {
+                        done -> Icon(
                             Icons.Filled.CheckCircle,
                             contentDescription = stringResource(R.string.learn_lesson_done_description),
                             tint = MaterialTheme.colorScheme.primary,
                             modifier = Modifier.size(32.dp),
                         )
-                    } else {
-                        Text("${index + 1}", style = MaterialTheme.typography.labelLarge)
+                        locked -> Icon(
+                            Icons.Filled.Lock,
+                            contentDescription = stringResource(R.string.learn_lesson_locked_description),
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier.size(18.dp),
+                        )
+                        else -> Text("${index + 1}", style = MaterialTheme.typography.labelLarge)
                     }
                 }
-                Text(lesson.title.get(language), style = MaterialTheme.typography.titleMedium, modifier = Modifier.weight(1f))
+                Column(Modifier.weight(1f)) {
+                    Text(lesson.title.get(language), style = MaterialTheme.typography.titleMedium)
+                    if (locked) {
+                        Text(
+                            if (index > 0) {
+                                stringResource(R.string.learn_lesson_locked, chapter.lessons[index - 1].title.get(language))
+                            } else {
+                                stringResource(R.string.learn_state_locked, number - 1)
+                            },
+                            style = MaterialTheme.typography.bodySmall,
+                            color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        )
+                    }
+                }
                 Text(
                     stringResource(R.string.learn_minutes, lesson.minutes),
                     style = MaterialTheme.typography.bodySmall,
@@ -358,3 +393,6 @@ private const val STAGGER_MILLIS = 40L
 private const val APPEAR_MILLIS = 320
 private const val APPEAR_OFFSET_DP = 24f
 private const val RING_MILLIS = 700
+
+// Locked chapters and lessons are drawn faded, so the open path stands out.
+private const val LOCKED_ALPHA = 0.5f

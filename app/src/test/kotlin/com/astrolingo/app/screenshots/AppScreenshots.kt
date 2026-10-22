@@ -2,14 +2,21 @@ package com.astrolingo.app.screenshots
 
 import android.provider.Settings
 import androidx.activity.ComponentActivity
+import androidx.compose.ui.semantics.SemanticsActions
+import androidx.compose.ui.test.hasScrollToNodeAction
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onAllNodesWithText
-import androidx.compose.ui.test.onRoot
+import androidx.compose.ui.test.onFirst
+import androidx.compose.ui.test.onLast
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
+import androidx.compose.ui.test.performScrollToNode
+import androidx.compose.ui.test.performSemanticsAction
 import com.astrolingo.app.learn.BundledCourse
 import com.astrolingo.app.learn.GoalCard
 import com.astrolingo.app.learn.InMemoryLearnStore
@@ -171,7 +178,8 @@ class AppScreenshots {
             level = Level.NEW,
             birth = BirthDetails(LocalDate.of(1990, 8, 15), LocalTime.of(6, 30), index.search("Pune").first()),
         )
-        compose.setContent { AstroLingoTheme { AstroLingoApp(InMemoryProfileRepository(answers)) } }
+        val store = InMemoryLearnStore()
+        compose.setContent { AstroLingoTheme { AstroLingoApp(InMemoryProfileRepository(answers), learnStore = store) } }
         // A learner with a saved profile opens straight on Learn (LS-1), with no tab tapped, and sees the goal (LS-4).
         waitForText("Start lesson")
         waitForText("0 of 10 min today")
@@ -181,6 +189,7 @@ class AppScreenshots {
         // Inside a lesson the bottom tabs are hidden (LS-3).
         check(compose.onAllNodesWithText("Today").fetchSemanticsNodes().isEmpty()) { "tabs shown inside a lesson" }
         shot("11_learn_card")
+        compose.onAllNodesWithContentDescription("Save this card")[0].performClick()
         // On to the first quiz of the lesson.
         repeat(MAX_CARDS) {
             if (compose.onAllNodesWithText("Quick question").fetchSemanticsNodes().isEmpty()) {
@@ -190,20 +199,9 @@ class AppScreenshots {
         }
         shot("12_learn_quiz")
         compose.onNodeWithContentDescription("Close lesson").performClick()
-        waitForText("The nine grahas")
-        compose.onNodeWithText("The nine grahas").performClick()
-        waitForText("Surya, the Sun")
-        shot("13_learn_chapter")
-        // Each graha has its own lesson, which opens on its flip card (PO, 20 Oct 2026).
-        compose.onNodeWithText("Surya, the Sun").performScrollTo().performClick()
-        waitForText("Tap to turn over")
-        shot("14_learn_graha_front")
-        compose.onNodeWithText("Tap to turn over").performClick()
-        compose.waitForIdle()
-        shot("15_learn_graha_back")
-        compose.onAllNodesWithContentDescription("Save this card")[0].performClick()
-        compose.onNodeWithContentDescription("Close lesson").performClick()
-        waitForText("Saved")
+        // Lessons open in order: a new learner sees the later chapters locked.
+        waitForText("Opens after chapter 1")
+        shot("60_learn_locked")
         compose.onNodeWithText("Saved").performClick()
         waitForText("Saved cards")
         shot("16_learn_saved")
@@ -216,6 +214,38 @@ class AppScreenshots {
         compose.onNodeWithText("Check me", substring = true).performScrollTo().performClick()
         waitForText("Question 1 of 2")
         shot("18_learn_check_question")
+    }
+
+    @Test
+    fun learnGraha() {
+        val answers = OnboardingAnswers(
+            purpose = Purpose.LEARN,
+            goal = DailyGoal.TEN,
+            level = Level.NEW,
+            birth = BirthDetails(LocalDate.of(1990, 8, 15), LocalTime.of(6, 30), index.search("Pune").first()),
+        )
+        // Further along: Welcome passed and the first Grahas lesson done, so Surya is up next.
+        val welcome = BundledCourse.course.chapter("welcome")!!.lessons.map { it.id }
+        val store = InMemoryLearnStore(LearnProgress(checkAnswered = true, completedLessons = (welcome + "grahas.meet").toSet()))
+        compose.setContent { AstroLingoTheme { AstroLingoApp(InMemoryProfileRepository(answers), learnStore = store) } }
+        waitForText("Surya, the Sun")
+        compose.onNodeWithText("Start lesson").performClick()
+        // Each graha has its own lesson, which opens on its flip card (PO, 20 Oct 2026).
+        waitForText("Tap to turn over")
+        shot("14_learn_graha_front")
+        compose.onNodeWithText("Tap to turn over").performClick()
+        compose.waitForIdle()
+        shot("15_learn_graha_back")
+        // Clicks through semantics: touch injection on this path kept failing on CI.
+        compose.onNodeWithContentDescription("Close lesson").performSemanticsAction(SemanticsActions.OnClick)
+        // The lesson's cards also show the chapter's name, so wait for the lesson to be gone before looking for it.
+        compose.waitUntil(WAIT_MILLIS) { compose.onAllNodesWithContentDescription("Close lesson").fetchSemanticsNodes().isEmpty() }
+        waitForText("Up next")
+        compose.onAllNodes(hasScrollToNodeAction()).onFirst().performScrollToNode(hasText("The nine grahas"))
+        compose.onAllNodesWithText("The nine grahas").onLast().performSemanticsAction(SemanticsActions.OnClick)
+        // The sheet shows the lessons after Surya locked until the one before is passed.
+        waitForText("Opens after “Surya, the Sun”")
+        shot("13_learn_chapter")
     }
 
     @Test
@@ -239,6 +269,31 @@ class AppScreenshots {
         }
         waitForText("Chapter complete!")
         shot("22_learn_chapter_done")
+    }
+
+    @Test
+    fun quizRetry() {
+        // Fewer than 2 of 3 right: the lesson isn't passed, so the card offers the quiz again instead of the next lesson.
+        val chapter = BundledCourse.course.chapter("welcome")!!
+        compose.setContent {
+            AstroLingoTheme {
+                LessonDonePage(
+                    chapter = chapter,
+                    lesson = chapter.lessons.first(),
+                    language = Language.ENGLISH,
+                    right = 1,
+                    total = 3,
+                    active = true,
+                    next = chapter.lessons[1],
+                    onNext = {},
+                    onClose = {},
+                    passed = false,
+                )
+            }
+        }
+        waitForText("Try the quiz again")
+        check(compose.onAllNodesWithText("Next:", substring = true).fetchSemanticsNodes().isEmpty()) { "no next lesson before a pass" }
+        shot("61_learn_quiz_retry")
     }
 
     @Test

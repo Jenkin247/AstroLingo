@@ -86,4 +86,13 @@
     <string name="check_result_start">Start learning</string>
     <string name="check_know_this">I know this: skip it with 2 questions</string>
     <string name="check_close">Close the check</string>
+
+    <!-- Lessons open in order (PO, 22 Oct 2026). -->
+    <string name="learn_state_locked">Opens after chapter %1$d</string>
+    <string name="learn_lesson_locked">Opens after “%1$s”</string>
+    <string name="learn_lesson_locked_description">Locked</string>
+    <string name="learn_quiz_retry_title">Almost there</string>
+    <string name="learn_quiz_retry_body">Get %1$d of %2$d right to pass this lesson and open the next one. The right answers and why are on the cards.</string>
+    <string name="learn_quiz_retry">Try the quiz again</string>
+    <string name="learn_preview_note">This lesson opens later on your path. Pass the lessons before it and it will count.</string>
 </resources>
