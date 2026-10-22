@@ -2,14 +2,18 @@ package com.astrolingo.app.screenshots
 
 import android.provider.Settings
 import androidx.activity.ComponentActivity
+import androidx.compose.ui.test.hasScrollToNodeAction
+import androidx.compose.ui.test.hasText
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onAllNodesWithContentDescription
 import androidx.compose.ui.test.onAllNodesWithText
-import androidx.compose.ui.test.onRoot
+import androidx.compose.ui.test.onFirst
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.compose.ui.test.onNodeWithText
+import androidx.compose.ui.test.onRoot
 import androidx.compose.ui.test.performClick
 import androidx.compose.ui.test.performScrollTo
+import androidx.compose.ui.test.performScrollToNode
 import com.astrolingo.app.learn.BundledCourse
 import com.astrolingo.app.learn.GoalCard
 import com.astrolingo.app.learn.InMemoryLearnStore
@@ -201,7 +205,9 @@ class AppScreenshots {
         compose.waitForIdle()
         compose.onNodeWithText("Learn").performClick()
         waitForText("The nine grahas")
-        compose.onNodeWithText("The nine grahas").performScrollTo().performClick()
+        // The taller Learn home leaves the chapter under the tabs: scroll the path to it first.
+        compose.onAllNodes(hasScrollToNodeAction()).onFirst().performScrollToNode(hasText("The nine grahas"))
+        compose.onNodeWithText("The nine grahas").performClick()
         waitForText("Surya, the Sun")
         shot("13_learn_chapter")
         // Each graha has its own lesson, which opens on its flip card (PO, 20 Oct 2026).
