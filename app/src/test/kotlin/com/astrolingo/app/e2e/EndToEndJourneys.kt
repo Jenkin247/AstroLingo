@@ -296,6 +296,42 @@ class EndToEndJourneys {
     }
 
     @Test
+    fun `lessons open in order, only a pass opens the next one, and passing earns Stars`() {
+        // PO, 22 Oct 2026: start at the first lesson and prove it in the quiz (2 of 3) before going on.
+        val store = InMemoryLearnStore(LearnProgress(checkAnswered = true))
+        showApp(InMemoryProfileRepository(learnerAnswers()), store)
+        waitForText("Start lesson")
+        // The day's visit already earned Stars, and later chapters are locked.
+        waitForText("2 Stars")
+        waitForText("Opens after chapter 1")
+
+        tap("Start lesson")
+        val lesson = BundledCourse.course.chapters.first().lessons.first()
+        fun answerQuizzes(right: Boolean, from: Int = 0) {
+            lesson.cards.drop(from).forEach { card ->
+                if (card is QuizCard) {
+                    waitForText(card.question.en)
+                    val choice = if (right) card.answer else card.options.indices.first { it != card.answer }
+                    click(compose.onAllNodes(hasText(card.options[choice].en) and hasClickAction()), "an answer")
+                }
+                tap("Next card")
+            }
+        }
+        // Every answer wrong: not passed, so no next lesson, and the quiz can be taken again.
+        answerQuizzes(right = false)
+        waitForText("Almost there")
+        check(!shows("Next:")) { "the next lesson shouldn't open before a pass" }
+        assertThat(store.load().completedLessons).doesNotContain(lesson.id)
+        tap("Try the quiz again")
+        answerQuizzes(right = true, from = lesson.cards.indexOfFirst { it is QuizCard })
+        waitForText("Lesson complete!")
+        waitForText("+4 Stars")
+        waitForText("Next:")
+        waitFor("the pass to be saved") { lesson.id in store.load().completedLessons }
+        assertThat(store.load().stars.total).isEqualTo(6)
+    }
+
+    @Test
     fun `a brand-new learner sees the chart bubble on every card but quizzes`() {
         // PO, 19 Oct 2026: the bubble didn't show in the installed app, because it waited for the Grahas chapter.
         val profiles = InMemoryProfileRepository(learnerAnswers())

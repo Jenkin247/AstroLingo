@@ -132,7 +132,11 @@ fun LearnTab(
     val course by produceState<Course?>(null) { value = withContext(Dispatchers.IO) { BundledCourse.course } }
     var progress by remember(store) { mutableStateOf<LearnProgress?>(null) }
     LaunchedEffect(store) {
-        progress = withContext(Dispatchers.IO) { runCatching { store.load() }.getOrDefault(LearnProgress()) }
+        progress = withContext(Dispatchers.IO) {
+            val loaded = runCatching { store.load() }.getOrDefault(LearnProgress())
+            // Opening the app on Learn is the day's visit too (the other tabs count it in the app shell).
+            loaded.recordVisit(LocalDate.now().toEpochDay()).also { if (it != loaded) store.save(it) }
+        }
     }
     var routeValue by rememberSaveable { mutableStateOf(LearnRoute.Home.encode()) }
     val loadedCourse = course
@@ -188,10 +192,11 @@ fun LearnTab(
     // Leaving the Learn tab, or deleting the profile, always brings the tabs back.
     DisposableEffect(Unit) { onDispose { onImmersive(false) } }
 
+    val path = CoursePath.of(loadedCourse, loadedProgress)
     when (val route = LearnRoute.decode(routeValue)) {
         LearnRoute.Home -> LearnHome(
             course = loadedCourse,
-            path = CoursePath.of(loadedCourse, loadedProgress),
+            path = path,
             language = language,
             onOpenLesson = { lesson, start -> open(LearnRoute.Lesson(lesson.id, start)) },
             completedLessons = loadedProgress.completedLessons,
@@ -199,6 +204,7 @@ fun LearnTab(
             actions = { SavedButton(onClick = { open(LearnRoute.Saved) }) },
             banner = {
                 Column(verticalArrangement = Arrangement.spacedBy(Spacing.sm)) {
+                    StarsCard(loadedProgress.stars, today)
                     goalMinutes?.let { minutes -> GoalCard(GoalProgress(minutes, loadedProgress.secondsOn(today))) }
                     val due = ReviewQueue.dueToday(loadedProgress, loadedCourse, today).size
                     if (due > 0) ReviewOffer(due = due, onStart = openReview)
@@ -287,6 +293,7 @@ fun LearnTab(
                     },
                     nextLesson = { done -> CoursePath.of(loadedCourse, done).next },
                     keepResume = keepResume,
+                    unlocked = path.isUnlocked(lesson.id),
                     readAloud = readAloud,
                     overlay = { card -> ChartLensOverlay(card, people, loadedCourse, loadedProgress, language, onAddPerson) },
                     modifier = modifier,

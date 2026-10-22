@@ -171,7 +171,8 @@ class AppScreenshots {
             level = Level.NEW,
             birth = BirthDetails(LocalDate.of(1990, 8, 15), LocalTime.of(6, 30), index.search("Pune").first()),
         )
-        compose.setContent { AstroLingoTheme { AstroLingoApp(InMemoryProfileRepository(answers)) } }
+        val store = InMemoryLearnStore()
+        compose.setContent { AstroLingoTheme { AstroLingoApp(InMemoryProfileRepository(answers), learnStore = store) } }
         // A learner with a saved profile opens straight on Learn (LS-1), with no tab tapped, and sees the goal (LS-4).
         waitForText("Start lesson")
         waitForText("0 of 10 min today")
@@ -190,6 +191,15 @@ class AppScreenshots {
         }
         shot("12_learn_quiz")
         compose.onNodeWithContentDescription("Close lesson").performClick()
+        // Lessons open in order: a new learner sees the later chapters locked.
+        waitForText("Opens after chapter 1")
+        shot("60_learn_locked")
+        // Further along: Welcome passed and the first Grahas lesson done, so Surya is open. Learn reloads on its tab.
+        val welcome = BundledCourse.course.chapter("welcome")!!.lessons.map { it.id }
+        store.save(store.load().copy(completedLessons = (welcome + "grahas.meet").toSet()))
+        compose.onNodeWithText("Me").performClick()
+        compose.waitForIdle()
+        compose.onNodeWithText("Learn").performClick()
         waitForText("The nine grahas")
         compose.onNodeWithText("The nine grahas").performClick()
         waitForText("Surya, the Sun")
@@ -239,6 +249,31 @@ class AppScreenshots {
         }
         waitForText("Chapter complete!")
         shot("22_learn_chapter_done")
+    }
+
+    @Test
+    fun quizRetry() {
+        // Fewer than 2 of 3 right: the lesson isn't passed, so the card offers the quiz again instead of the next lesson.
+        val chapter = BundledCourse.course.chapter("welcome")!!
+        compose.setContent {
+            AstroLingoTheme {
+                LessonDonePage(
+                    chapter = chapter,
+                    lesson = chapter.lessons.first(),
+                    language = Language.ENGLISH,
+                    right = 1,
+                    total = 3,
+                    active = true,
+                    next = chapter.lessons[1],
+                    onNext = {},
+                    onClose = {},
+                    passed = false,
+                )
+            }
+        }
+        waitForText("Try the quiz again")
+        check(compose.onAllNodesWithText("Next:", substring = true).fetchSemanticsNodes().isEmpty()) { "no next lesson before a pass" }
+        shot("61_learn_quiz_retry")
     }
 
     @Test

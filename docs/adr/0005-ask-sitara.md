@@ -22,3 +22,11 @@ Sitara answers questions about lessons, with 3 free questions a day (PO decision
 ## Consequences
 - Needs the Firebase Blaze plan and an Anthropic or Vertex account. The PO action is due 6 November.
 - At about $0.0004 a question, 1,000 users asking 3 a day costs about $34 a month, under the cap.
+
+## Update, 22 Oct 2026 (PO direction, not built yet)
+- Sitara answers **learning questions about astrology only** (what the grahas are, what gunas are, and so on), never
+  questions about the user's own chart or life. No personal information is sent, so no consent screen is needed for
+  this first version. Answers are still labelled as written by AI, with a short line asking people not to type
+  personal details, because the question text does reach the AI service.
+- The free allowance is still being decided by the PO (the proposal suggests 2 questions a week plus questions earned
+  with Stars, ADR 0014). Personal answers from the chart would need a separate, explicit consent and a new ADR.

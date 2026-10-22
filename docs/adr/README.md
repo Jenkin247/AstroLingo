@@ -15,5 +15,6 @@
 | [0011](0011-learn-module.md) | Learn module as a pure-Kotlin build with its content |
 | [0012](0012-account-module.md) | Sign-in in its own module, optional, with an opt-in for updates |
 | [0013](0013-widget-module.md) | Home-screen widget as its own Android library module |
+| [0014](0014-locked-path-and-stars.md) | Lessons open in order, and Stars kept with learning progress |
 
 A change to modules, the data model, security or a new library needs a new or updated ADR, reviewed by the Architect.

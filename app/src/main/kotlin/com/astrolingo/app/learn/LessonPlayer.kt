@@ -1,5 +1,6 @@
 // The lesson player: full-screen cards, swipe up for the next one (vertical pager). A quiz must be answered
-// before the cards after it appear. Ends with a "Lesson complete" card (docs/design/learn-module.md, UX/UI).
+// before the cards after it appear. Ends with a "Lesson complete" card (docs/design/learn-module.md, UX/UI), or, with
+// fewer than 2 of 3 right, an offer to take the quiz again: only a pass opens the next lesson.
 package com.astrolingo.app.learn
 
 import androidx.compose.animation.core.Spring
@@ -29,6 +30,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateMapOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -53,6 +55,7 @@ import com.astrolingo.learn.content.Lesson
 import com.astrolingo.learn.content.QuizCard
 import com.astrolingo.learn.content.TeachingCard
 import com.astrolingo.learn.content.YourChartCard
+import com.astrolingo.learn.path.QuizPass
 import com.astrolingo.learn.progress.LearnProgress
 import java.time.LocalDate
 import kotlin.math.absoluteValue
@@ -70,6 +73,8 @@ import kotlinx.coroutines.launch
  * @param readAloud reads cards aloud (LS-7); null hides the speaker and Listening buttons.
  * @param overlay drawn over the cards, given the card that has settled on screen (null on the done card), such as the
  *   chart bubble (LS-9).
+ * @param unlocked false for a lesson whose turn on the path hasn't come (peeked at from Today): it can be read, but
+ *   finishing it doesn't count and leaving it doesn't replace "Continue".
  */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -89,6 +94,7 @@ internal fun LessonPlayer(
     keepResume: Boolean = true,
     readAloud: ReadAloud? = null,
     overlay: @Composable BoxScope.(Card?) -> Unit = {},
+    unlocked: Boolean = true,
 ) {
     val cards = lesson.cards
     // Chosen option per quiz card index. Kept for this visit only: reopening a lesson asks the quizzes again.
@@ -103,13 +109,31 @@ internal fun LessonPlayer(
     val latestProgress by rememberUpdatedState(progress)
     val latestPage by rememberUpdatedState(pager.currentPage)
     val finishedNow = pager.currentPage == cards.size
+    val right = cards.withIndex().count { (index, card) -> card is QuizCard && answers[index]?.let(card::isCorrect) == true }
+    val passed = QuizPass.passed(right, lesson.quizzes.size)
+    // Stars the pass on screen earned, worked out before it is recorded so the done card can show them.
+    var starsEarned by remember(lesson.id) { mutableIntStateOf(0) }
     LaunchedEffect(finishedNow) {
-        if (finishedNow && lesson.id !in latestProgress.completedLessons) onProgress { completeLesson(lesson.id) }
+        // Only a pass in an open lesson counts: it opens the next lesson and earns Stars the first time.
+        if (finishedNow && unlocked && passed && lesson.id !in latestProgress.completedLessons) {
+            val today = LocalDate.now().toEpochDay()
+            val perfect = right == lesson.quizzes.size
+            starsEarned = latestProgress.starsForPassing(lesson.id, perfect, today)
+            onProgress { passLesson(lesson.id, perfect, today) }
+        }
     }
     // Leaving part-way (close, back or another tab) remembers the card for "Continue".
     DisposableEffect(lesson.id) {
         onDispose {
-            if (keepResume && latestPage < cards.size) onProgress { leaveLesson(lesson.id, latestPage) }
+            if (keepResume && unlocked && latestPage < cards.size) onProgress { leaveLesson(lesson.id, latestPage) }
+        }
+    }
+    // Back to the first quiz with every answer cleared. Scrolls first: clearing the answers shortens the pager.
+    val retry: () -> Unit = {
+        scope.launch {
+            val firstQuiz = cards.indexOfFirst { it is QuizCard }.coerceAtLeast(0)
+            pager.scrollToPage(firstQuiz)
+            answers.clear()
         }
     }
     // What each card says aloud (LS-7). Quiz explanations are read only once the quiz is answered.
@@ -244,13 +268,17 @@ internal fun LessonPlayer(
                             chapter = chapter,
                             lesson = lesson,
                             language = language,
-                            right = lesson.cards.withIndex().count { (index, card) -> card is QuizCard && answers[index]?.let(card::isCorrect) == true },
+                            right = right,
                             total = lesson.quizzes.size,
                             active = active,
                             next = nextLesson(progress.completeLesson(lesson.id)),
                             onNext = onOpenLesson,
                             onClose = onClose,
                             chapterDone = progress.completeLesson(lesson.id).let { done -> chapter.lessons.all { it.id in done.completedLessons } },
+                            passed = passed,
+                            unlocked = unlocked,
+                            starsEarned = starsEarned,
+                            onRetry = retry,
                         )
                     }
                 }

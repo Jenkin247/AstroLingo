@@ -3,13 +3,15 @@ package com.astrolingo.learn.progress
 
 import com.astrolingo.learn.review.Leitner
 import com.astrolingo.learn.review.ReviewItem
+import com.astrolingo.learn.stars.Stars
 
 /**
  * Key/value layout of saved progress. A version key lets later releases migrate old values.
- * Version 2 added study time (LS-4) and Review (LS-5); version 1 values are read as they are, with neither.
+ * Version 2 added study time (LS-4) and Review (LS-5); version 3 added Stars. Older values are read as they are,
+ * without what came later.
  */
 object LearnProgressCodec {
-    const val VERSION = 2
+    const val VERSION = 3
 
     private const val K_VERSION = "version"
     private const val K_COMPLETED = "completed_lessons"
@@ -20,10 +22,12 @@ object LearnProgressCodec {
     private const val K_STUDY = "study_seconds"
     private const val K_REVIEW = "review"
     private const val K_REVIEW_TODAY = "review_today"
+    private const val K_STARS = "stars"
 
     // Content ids are lowercase letters, digits, dots and hyphens, so these separators never clash.
     private const val LINE = "\n"
     private const val FIELD = "\t"
+    private const val NONE = "-"
 
     fun encode(progress: LearnProgress): Map<String, String> = buildMap {
         put(K_VERSION, VERSION.toString())
@@ -35,6 +39,9 @@ object LearnProgressCodec {
         put(K_STUDY, progress.studySeconds.toSortedMap().entries.joinToString(LINE) { "${it.key}$FIELD${it.value}" })
         put(K_REVIEW, progress.review.values.sortedBy { it.cardId }.joinToString(LINE) { "${it.cardId}$FIELD${it.box}$FIELD${it.dueDay}" })
         progress.reviewDay?.let { put(K_REVIEW_TODAY, "$it$FIELD${progress.reviewCount}") }
+        with(progress.stars) {
+            put(K_STARS, listOf(total, day, earnedToday, visitDay, reviewDay).joinToString(FIELD) { it?.toString() ?: NONE })
+        }
     }
 
     /**
@@ -62,9 +69,14 @@ object LearnProgressCodec {
             },
             reviewDay = values[K_REVIEW_TODAY]?.split(FIELD)?.first()?.toLong(),
             reviewCount = values[K_REVIEW_TODAY]?.split(FIELD)?.get(1)?.toInt() ?: 0,
+            stars = values[K_STARS]?.split(FIELD)?.let { (total, day, earned, visit, review) ->
+                Stars(total.toInt(), day.dayOrNull(), earned.toInt(), visit.dayOrNull(), review.dayOrNull())
+            } ?: Stars(),
         )
         ContentMoves.apply(saved)
     }.getOrDefault(LearnProgress())
+
+    private fun String.dayOrNull(): Long? = if (this == NONE) null else toLong()
 
     private fun String?.lines(): List<String> = this?.split(LINE)?.filter { it.isNotEmpty() }.orEmpty()
 }

@@ -25,6 +25,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableIntStateOf
@@ -55,7 +56,8 @@ import java.time.LocalDate
  * The daily Review.
  *
  * @param cards today's due cards, fixed when Review opens so answering doesn't reshuffle them.
- * @param onProgress applies a change to progress: each answer, and Review time toward the daily goal.
+ * @param onProgress applies a change to progress: each answer, Review time toward the daily goal, and Stars once
+ *   Review is finished.
  * @param daysToNext with the progress after this Review, days until the next card is due, or null when none wait.
  */
 @Composable
@@ -103,6 +105,8 @@ internal fun ReviewScreen(
         ) {
             val location = cards.getOrNull(index)
             if (location == null) {
+                // Finishing the day's Review earns Stars once a day.
+                LaunchedEffect(Unit) { if (cards.isNotEmpty()) onProgress { finishReview(LocalDate.now().toEpochDay()) } }
                 ReviewDone(remembered = remembered, total = cards.size, daysToNext = daysToNext(), onClose = onClose)
             } else {
                 val position = stringResource(R.string.learn_review_position, index + 1, cards.size)

@@ -4,6 +4,7 @@ package com.astrolingo.learn.progress
 
 import com.astrolingo.learn.review.Leitner
 import com.astrolingo.learn.review.ReviewItem
+import com.astrolingo.learn.stars.Stars
 
 /**
  * A saved card.
@@ -32,6 +33,7 @@ data class ResumePoint(val lessonId: String, val cardIndex: Int)
  *   [StudyTime.DAYS_KEPT] days are kept.
  * @property review cards waiting in the daily Review, by card id.
  * @property reviewDay with [reviewCount]: how many Review cards were answered on that epoch day, for the daily cap.
+ * @property stars Stars earned for visits, passed lessons and finished Reviews.
  */
 data class LearnProgress(
     val completedLessons: Set<String> = emptySet(),
@@ -43,6 +45,7 @@ data class LearnProgress(
     val review: Map<String, ReviewItem> = emptyMap(),
     val reviewDay: Long? = null,
     val reviewCount: Int = 0,
+    val stars: Stars = Stars(),
 ) {
     fun isBookmarked(cardId: String): Boolean = bookmarks.any { it.cardId == cardId }
 
@@ -86,6 +89,27 @@ data class LearnProgress(
     /** Marks a lesson finished and clears its resume point. */
     fun completeLesson(lessonId: String): LearnProgress =
         copy(completedLessons = completedLessons + lessonId, resume = resume?.takeIf { it.lessonId != lessonId })
+
+    /**
+     * Marks a lesson passed. The first pass earns Stars ([Stars.forLesson]); passing it again earns none.
+     *
+     * @param perfect every quiz question right.
+     */
+    fun passLesson(lessonId: String, perfect: Boolean, epochDay: Long): LearnProgress {
+        val first = lessonId !in completedLessons
+        val passed = completeLesson(lessonId)
+        return if (first) passed.copy(stars = stars.earn(epochDay, *Stars.forLesson(perfect))) else passed
+    }
+
+    /** Stars a first pass of [lessonId] would earn now; 0 when it was passed before or today's limit is reached. */
+    fun starsForPassing(lessonId: String, perfect: Boolean, epochDay: Long): Int =
+        if (lessonId in completedLessons) 0 else stars.gain(epochDay, *Stars.forLesson(perfect))
+
+    /** The day's first visit earns Stars. */
+    fun recordVisit(epochDay: Long): LearnProgress = copy(stars = stars.visit(epochDay))
+
+    /** Finishing the day's Review earns Stars once a day. */
+    fun finishReview(epochDay: Long): LearnProgress = copy(stars = stars.reviewDone(epochDay))
 
     /** Remembers the card on screen in an unfinished lesson. */
     fun leaveLesson(lessonId: String, cardIndex: Int): LearnProgress =

@@ -14,7 +14,7 @@ class CoursePathTest {
         val path = CoursePath.of(course, LearnProgress())
         assertThat(path.next?.id).isEqualTo("a.l1")
         assertThat(path.resumeAt).isEqualTo(0)
-        assertThat(path.chapters.map { it.state }).containsExactly(ChapterState.NOT_STARTED, ChapterState.NOT_STARTED, ChapterState.NOT_STARTED)
+        assertThat(path.chapters.map { it.state }).containsExactly(ChapterState.NOT_STARTED, ChapterState.LOCKED, ChapterState.LOCKED)
         assertThat(path.chapters.map { it.isNext }).containsExactly(true, false, false).inOrder()
     }
 
@@ -41,11 +41,61 @@ class CoursePathTest {
 
     @Test
     fun `a lesson left part-way is continued at the same card`() {
-        val progress = LearnProgress().completeLesson("a.l1").leaveLesson("b.l2", 1)
+        val progress = LearnProgress().completeLesson("a.l1").completeLesson("a.l2").completeLesson("b.l1").leaveLesson("b.l2", 1)
         val path = CoursePath.of(course, progress)
         assertThat(path.next?.id).isEqualTo("b.l2")
         assertThat(path.resumeAt).isEqualTo(1)
         assertThat(path.chapters[1].state).isEqualTo(ChapterState.IN_PROGRESS)
+    }
+
+    @Test
+    fun `a new learner can open only the first lesson`() {
+        val path = CoursePath.of(course, LearnProgress())
+        assertThat(path.unlocked).containsExactly("a.l1")
+        assertThat(path.isUnlocked("a.l2")).isFalse()
+    }
+
+    @Test
+    fun `passing a lesson opens the next one, and finishing a chapter opens the next chapter`() {
+        val one = CoursePath.of(course, LearnProgress().completeLesson("a.l1"))
+        assertThat(one.unlocked).containsExactly("a.l1", "a.l2")
+        assertThat(one.chapters[1].state).isEqualTo(ChapterState.LOCKED)
+
+        val chapterDone = CoursePath.of(course, LearnProgress().completeLesson("a.l1").completeLesson("a.l2"))
+        assertThat(chapterDone.unlocked).containsExactly("a.l1", "a.l2", "b.l1")
+        assertThat(chapterDone.chapters.map { it.state })
+            .containsExactly(ChapterState.DONE, ChapterState.NOT_STARTED, ChapterState.LOCKED).inOrder()
+    }
+
+    @Test
+    fun `a chapter known from the check is open in full and counts as done for the next chapter`() {
+        val path = CoursePath.of(course, LearnProgress(knownChapters = setOf("a")))
+        assertThat(path.unlocked).containsExactly("a.l1", "a.l2", "b.l1")
+        assertThat(path.next?.id).isEqualTo("b.l1")
+    }
+
+    @Test
+    fun `a known chapter later in the course is open, but the chapter after it waits for the earlier ones`() {
+        val path = CoursePath.of(course, LearnProgress(knownChapters = setOf("b")))
+        assertThat(path.unlocked).containsExactly("a.l1", "b.l1", "b.l2", "b.l3")
+        assertThat(path.chapters[2].state).isEqualTo(ChapterState.LOCKED)
+        assertThat(path.next?.id).isEqualTo("a.l1")
+    }
+
+    @Test
+    fun `lessons finished before locking stay open, with the one after them`() {
+        // From when every lesson was open: b.l2 finished without chapter a.
+        val path = CoursePath.of(course, LearnProgress().completeLesson("b.l2"))
+        assertThat(path.unlocked).containsExactly("a.l1", "b.l1", "b.l2", "b.l3")
+        assertThat(path.next?.id).isEqualTo("a.l1")
+    }
+
+    @Test
+    fun `a resume point in a locked lesson is ignored`() {
+        val path = CoursePath.of(course, LearnProgress().leaveLesson("c.l2", 1))
+        assertThat(path.next?.id).isEqualTo("a.l1")
+        assertThat(path.resumeAt).isEqualTo(0)
+        assertThat(path.chapters[2].state).isEqualTo(ChapterState.LOCKED)
     }
 
     @Test

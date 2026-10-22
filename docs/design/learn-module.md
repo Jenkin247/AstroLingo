@@ -94,7 +94,7 @@ Accessibility: every card works at 200% font (text scrolls inside the card), all
 - Manual checks: TalkBack, 200% font, animations off, dark theme.
 
 ### Open questions for the PO (defaults already built)
-1. **Lock chapters until the one before is done?** Default: no, the path recommends an order but every chapter is open.
+1. **Lock chapters until the one before is done?** Default was no. **Changed by the PO on 22 Oct 2026:** lessons open in order and need 2 of 3 quiz answers right; see ADR 0014.
 2. **Two questions per chapter in the check?** Default: yes, both must be right to skip.
 3. **XP and streaks on lessons?** Default: not in this module; the streak story in the sprint plan picks up "lesson completed" later.
 
