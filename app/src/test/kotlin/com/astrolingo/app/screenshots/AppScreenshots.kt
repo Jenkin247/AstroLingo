@@ -234,7 +234,9 @@ class AppScreenshots {
         compose.waitForIdle()
         shot("15_learn_graha_back")
         compose.onNodeWithContentDescription("Close lesson").performClick()
-        waitForText("The nine grahas")
+        // The lesson's cards also show the chapter's name, so wait for the lesson to be gone before looking for it.
+        compose.waitUntil(WAIT_MILLIS) { compose.onAllNodesWithContentDescription("Close lesson").fetchSemanticsNodes().isEmpty() }
+        waitForText("Up next")
         compose.onAllNodes(hasScrollToNodeAction()).onFirst().performScrollToNode(hasText("The nine grahas"))
         compose.onNodeWithText("The nine grahas").performClick()
         // The sheet shows the lessons after Surya locked until the one before is passed.
