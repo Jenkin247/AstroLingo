@@ -440,8 +440,8 @@ private fun Tabs(
             }
         },
     ) { padding ->
-        // A quiet twinkling sky behind the daily card and the learning path.
-        if (selected == Tab.TODAY || (selected == Tab.LEARN && !immersive)) StarField(Modifier.fillMaxSize().padding(padding))
+        // A quiet twinkling sky behind the learning path. Today draws its own sky at the top.
+        if (selected == Tab.LEARN && !immersive) StarField(Modifier.fillMaxSize().padding(padding))
         when (selected) {
             Tab.KUNDLI -> {
                 // The user's own kundli unless they picked a saved person; a deleted person falls back to the user.
