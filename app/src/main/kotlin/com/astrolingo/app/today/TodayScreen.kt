@@ -9,18 +9,20 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
@@ -30,6 +32,7 @@ import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -50,6 +53,9 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringArrayResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
@@ -58,13 +64,17 @@ import com.astrolingo.app.R
 import com.astrolingo.app.learn.ReviewOffer
 import com.astrolingo.app.ui.components.FactRow
 import com.astrolingo.app.ui.components.InfoCard
+import com.astrolingo.app.ui.components.flowIn
 import com.astrolingo.app.ui.components.riseIn
 import com.astrolingo.app.ui.kundli.SampleChart
 import com.astrolingo.app.ui.kundli.displayName
 import com.astrolingo.app.ui.places.CitySearch
 import com.astrolingo.app.ui.places.UseMyLocation
 import com.astrolingo.app.ui.theme.AstroLingoTheme
+import com.astrolingo.app.ui.theme.SkyInk
+import com.astrolingo.app.ui.theme.SkyPhase
 import com.astrolingo.app.ui.theme.Spacing
+import com.astrolingo.app.ui.theme.moonLit
 import com.astrolingo.engine.jyotish.DailyCardFacts
 import com.astrolingo.engine.jyotish.DayColour
 import com.astrolingo.engine.jyotish.DayStrength
@@ -122,79 +132,121 @@ fun TodayScreen(
     val today = LocalDate.now(shownPlace.zone)
     val card = remember(chart, today, shownPlace) { TodayCard.build(chart, today, shownPlace) }
     val facts = card.facts
+    val scroll = rememberScrollState()
+    // The sky follows the clock where the day is shown; it is worked out again each time Today opens.
+    val now = remember(shownPlace) { System.currentTimeMillis() }
+    val panchang = facts?.panchang
+    val phase = SkyPhase.at(now, panchang?.sunriseUtcMillis, panchang?.sunsetUtcMillis, Instant.ofEpochMilli(now).atZone(shownPlace.zone).hour)
     Column(
         modifier = modifier
             .fillMaxSize()
-            .verticalScroll(rememberScrollState())
-            .padding(Spacing.md),
-        verticalArrangement = Arrangement.spacedBy(Spacing.md),
+            .verticalScroll(scroll),
     ) {
-        // The page fills in from the top down as it opens.
-        Column(Modifier.riseIn(0)) {
-            if (viewing != null) {
-                PersonTitle(viewing)
-            } else {
-                // The greeting follows the phone's own clock: that is the time where the user actually is.
+        SkyHeader(
+            phase = phase,
+            moonLit = panchang?.let { moonLit(it.tithi.number) } ?: 0f,
+            waxing = panchang?.tithi?.isShukla ?: true,
+            scroll = scroll,
+            overlap = SHEET_OVERLAP,
+        ) {
+            // The page fills in from the top down as it opens.
+            Column(Modifier.riseIn(0)) {
+                if (viewing != null) {
+                    PersonTitle(viewing)
+                } else {
+                    // The greeting follows the phone's own clock: that is the time where the user actually is.
+                    Text(
+                        stringResource(if (placeGiven) greeting(LocalTime.now()) else R.string.today_greeting),
+                        style = MaterialTheme.typography.headlineMedium,
+                    )
+                }
                 Text(
-                    stringResource(if (placeGiven) greeting(LocalTime.now()) else R.string.today_greeting),
-                    style = MaterialTheme.typography.headlineMedium,
+                    card.date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)),
+                    style = MaterialTheme.typography.bodyLarge,
+                    color = SkyInk.copy(alpha = SKY_SOFT_ALPHA),
                 )
             }
-            Text(
-                card.date.format(DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)),
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-            )
-        }
-        PersonChips(people, viewing, onView, onAddPerson)
-        PlaceRow(shownPlace, onChange = { choosingPlace = true })
-        if (viewing != null) PersonBanner(viewing, onBack = { onView(null) })
-        if (!placeGiven && viewing == null) {
-            // Profiles saved before onboarding asked where the user lives: ask once here instead.
-            InfoCard(title = stringResource(R.string.today_ask_place_title), icon = Icons.Filled.LocationOn) {
-                Text(stringResource(R.string.today_ask_place), style = MaterialTheme.typography.bodyMedium)
-                Button(onClick = { choosingPlace = true }) { Text(stringResource(R.string.today_ask_place_button)) }
-            }
-        }
-        val share = dayShare(card, viewing, shownPlace)
-        val context = LocalContext.current
-        val launcher = LocalShareLauncher.current
-        val chooserTitle = stringResource(R.string.today_share_chooser)
-        Box(Modifier.riseIn(1)) {
-            HeroCard(
-                card,
-                shownPlace.zone,
-                onLearn,
-                shareLabel = if (viewing != null) stringResource(R.string.today_share_person, viewing.name) else stringResource(R.string.today_share_mine),
-                onShare = { launcher.launch(context, shareIntent(share.text(), chooserTitle)) },
-            )
-        }
-        if (reviewDue > 0 && viewing == null) Box(Modifier.riseIn(2)) { ReviewOffer(due = reviewDue, onStart = onReview) }
-        if (offer != null && viewing == null) Box(Modifier.riseIn(2)) { offer() }
-        Row(horizontalArrangement = Arrangement.spacedBy(Spacing.md), modifier = Modifier.height(IntrinsicSize.Min).riseIn(3)) {
-            InfoCard(modifier = Modifier.weight(1f).fillMaxHeight(), title = stringResource(R.string.today_label_colour)) {
-                Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(Spacing.sm)) {
-                    Spacer(
-                        Modifier
-                            .size(28.dp)
-                            .background(card.colour.swatch, CircleShape)
-                            .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape),
+            if (facts != null) {
+                Column(Modifier.riseIn(1).padding(top = Spacing.sm), verticalArrangement = Arrangement.spacedBy(Spacing.sm)) {
+                    Text(
+                        stringArrayResource(facts.strength.focus)[facts.gocharHouse - 1],
+                        style = MaterialTheme.typography.headlineLarge,
+                        fontWeight = FontWeight.SemiBold,
+                        modifier = Modifier.semantics { heading() },
                     )
-                    Text(stringResource(card.colour.label), style = MaterialTheme.typography.titleMedium)
+                    Surface(shape = MaterialTheme.shapes.small, color = SkyInk.copy(alpha = SKY_PILL_ALPHA), contentColor = SkyInk) {
+                        Text(
+                            stringResource(facts.strength.label),
+                            style = MaterialTheme.typography.labelLarge,
+                            modifier = Modifier.padding(horizontal = Spacing.sm, vertical = Spacing.xs),
+                        )
+                    }
                 }
             }
-            if (showDeity) {
-                InfoCard(modifier = Modifier.weight(1f).fillMaxHeight(), title = stringResource(R.string.today_label_deity)) {
-                    Text(card.deity.displayName(), style = MaterialTheme.typography.titleMedium)
-                }
-            }
+            PlaceRow(shownPlace, onChange = { choosingPlace = true })
         }
-        LearnLink(R.string.today_why_colour, TodayTopic.VARA, onLearn)
-        if (facts != null) {
-            Box(Modifier.riseIn(4)) { TimingsCard(facts, shownPlace.zone, onLearn) }
-            Box(Modifier.riseIn(5)) { MoonCard(facts, shownPlace.zone, onLearn) }
-        } else {
-            InfoCard { Text(stringResource(R.string.today_no_sunrise), style = MaterialTheme.typography.bodyMedium) }
+        // The cards sit on a sheet that rises over the bottom of the sky.
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .offset(y = -SHEET_OVERLAP)
+                .background(
+                    MaterialTheme.colorScheme.background,
+                    MaterialTheme.shapes.large.copy(bottomStart = CornerSize(0.dp), bottomEnd = CornerSize(0.dp)),
+                )
+                .padding(Spacing.md),
+            verticalArrangement = Arrangement.spacedBy(Spacing.md),
+        ) {
+            PersonChips(people, viewing, onView, onAddPerson)
+            if (viewing != null) PersonBanner(viewing, onBack = { onView(null) })
+            if (!placeGiven && viewing == null) {
+                // Profiles saved before onboarding asked where the user lives: ask once here instead.
+                InfoCard(title = stringResource(R.string.today_ask_place_title), icon = Icons.Filled.LocationOn) {
+                    Text(stringResource(R.string.today_ask_place), style = MaterialTheme.typography.bodyMedium)
+                    Button(onClick = { choosingPlace = true }) { Text(stringResource(R.string.today_ask_place_button)) }
+                }
+            }
+            val share = dayShare(card, viewing, shownPlace)
+            val context = LocalContext.current
+            val launcher = LocalShareLauncher.current
+            val chooserTitle = stringResource(R.string.today_share_chooser)
+            // Each block flows in as it scrolls onto the screen, like the chapters on the Learn path.
+            Box(Modifier.flowIn(2)) {
+                HeroCard(
+                    card,
+                    shownPlace.zone,
+                    onLearn,
+                    shareLabel = if (viewing != null) stringResource(R.string.today_share_person, viewing.name) else stringResource(R.string.today_share_mine),
+                    onShare = { launcher.launch(context, shareIntent(share.text(), chooserTitle)) },
+                )
+            }
+            if (reviewDue > 0 && viewing == null) Box(Modifier.flowIn(3)) { ReviewOffer(due = reviewDue, onStart = onReview) }
+            if (offer != null && viewing == null) Box(Modifier.flowIn(3)) { offer() }
+            Row(horizontalArrangement = Arrangement.spacedBy(Spacing.md), modifier = Modifier.height(IntrinsicSize.Min).flowIn(4)) {
+                InfoCard(modifier = Modifier.weight(1f).fillMaxHeight(), title = stringResource(R.string.today_label_colour)) {
+                    Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(Spacing.sm)) {
+                        Spacer(
+                            Modifier
+                                .size(28.dp)
+                                .background(card.colour.swatch, CircleShape)
+                                .border(1.dp, MaterialTheme.colorScheme.outline, CircleShape),
+                        )
+                        Text(stringResource(card.colour.label), style = MaterialTheme.typography.titleMedium)
+                    }
+                }
+                if (showDeity) {
+                    InfoCard(modifier = Modifier.weight(1f).fillMaxHeight(), title = stringResource(R.string.today_label_deity)) {
+                        Text(card.deity.displayName(), style = MaterialTheme.typography.titleMedium)
+                    }
+                }
+            }
+            LearnLink(R.string.today_why_colour, TodayTopic.VARA, onLearn)
+            if (facts != null) {
+                Box(Modifier.flowIn(5)) { TimingsCard(facts, shownPlace.zone, onLearn) }
+                Box(Modifier.flowIn(6)) { MoonCard(facts, shownPlace.zone, onLearn) }
+            } else {
+                InfoCard { Text(stringResource(R.string.today_no_sunrise), style = MaterialTheme.typography.bodyMedium) }
+            }
         }
     }
     if (choosingPlace) {
@@ -244,24 +296,26 @@ private fun PlaceDialog(current: City, @StringRes resetLabel: Int, onDismiss: ()
     }
 }
 
-/** Where the day's times are worked out, with a way to change it. */
+/** Where the day's times are worked out, with a way to change it, in white on the sky. */
 @Composable
 private fun PlaceRow(place: City, onChange: () -> Unit) {
     Row(verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(Spacing.xs)) {
-        Icon(Icons.Filled.LocationOn, contentDescription = null, tint = MaterialTheme.colorScheme.primary, modifier = Modifier.size(18.dp))
+        Icon(Icons.Filled.LocationOn, contentDescription = null, tint = SkyInk, modifier = Modifier.size(18.dp))
         Text(
             stringResource(R.string.today_times_for, place.label),
             style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            color = SkyInk.copy(alpha = SKY_SOFT_ALPHA),
             modifier = Modifier.weight(1f),
         )
-        TextButton(onClick = onChange) { Text(stringResource(R.string.today_change_place)) }
+        TextButton(onClick = onChange, colors = ButtonDefaults.textButtonColors(contentColor = SkyInk)) {
+            Text(stringResource(R.string.today_change_place), fontWeight = FontWeight.Bold)
+        }
     }
 }
 
 /**
- * The day's message on the Today pastel, laid out to scan at a glance: the strength pill, a short focus headline,
- * two tips as a list, then one labelled row per star (two when the Moon changes star) and one for the weekday.
+ * The day's message on the Today pastel, laid out to scan at a glance: two tips as a list, then one labelled row per
+ * star (two when the Moon changes star) and one for the weekday. The strength and headline sit on the sky above it.
  */
 @Composable
 private fun HeroCard(card: TodayCard, zone: ZoneId, onLearn: ((TodayTopic) -> Unit)?, shareLabel: String, onShare: () -> Unit) {
@@ -269,16 +323,7 @@ private fun HeroCard(card: TodayCard, zone: ZoneId, onLearn: ((TodayTopic) -> Un
     val facts = card.facts
     InfoCard(container = AstroLingoTheme.tabColors.today) {
         if (facts != null) {
-            Surface(shape = MaterialTheme.shapes.small, color = ink.copy(alpha = PILL_ALPHA)) {
-                Text(
-                    stringResource(facts.strength.label),
-                    style = MaterialTheme.typography.labelLarge,
-                    color = ink,
-                    modifier = Modifier.padding(horizontal = Spacing.sm, vertical = Spacing.xs),
-                )
-            }
             val slot = facts.gocharHouse - 1
-            Text(stringArrayResource(facts.strength.focus)[slot], style = MaterialTheme.typography.titleLarge, color = ink)
             Column(verticalArrangement = Arrangement.spacedBy(Spacing.xs)) {
                 stringArrayResource(facts.strength.tips)[slot].split('\n').forEach { Tip(it, ink) }
             }
@@ -424,6 +469,9 @@ private fun greeting(now: LocalTime): Int = when (now.hour) {
 private const val MORNING_FROM = 5
 private const val LAST_HOUR = 23
 private const val PILL_ALPHA = 0.12f
+private const val SKY_PILL_ALPHA = 0.2f
+private const val SKY_SOFT_ALPHA = 0.85f
+private val SHEET_OVERLAP = 24.dp
 private const val NOON = 12
 private const val EVENING_FROM = 17
 

@@ -1,5 +1,6 @@
-// Shared motion pieces (ADR 0007): a twinkling star field behind Today and Learn, a staggered rise for blocks as a
-// screen opens, a burst of stars for a right answer, and haptic taps. All of them stay still when animations are off.
+// Shared motion pieces (ADR 0007): a twinkling star field behind Learn and in the Today sky, a staggered rise for blocks
+// as a screen opens, a flow-in for blocks as they scroll onto the screen, a burst of stars for a right answer, and
+// haptic taps. All of them stay still when animations are off.
 package com.astrolingo.app.ui.components
 
 import androidx.compose.animation.core.Animatable
@@ -14,8 +15,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
@@ -26,6 +30,10 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.graphics.luminance
 import androidx.compose.ui.hapticfeedback.HapticFeedback
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInWindow
+import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import com.astrolingo.app.learn.rememberReduceMotion
 import kotlin.math.PI
@@ -54,9 +62,12 @@ private val fieldStars: List<FieldStar> = Random(FIELD_SEED).let { random ->
 /**
  * A quiet night sky drawn behind a screen: small stars that slowly twinkle, with a few four-point sparkles. Only the
  * drawing repeats, so the screen above it is not recomposed. With animations off the stars hold still.
+ *
+ * @param tint draws every star in this colour, such as white on the Today sky; by default the theme's colours.
+ * @param strength how bright the stars are, 0 to 1; by default stronger on the dark theme.
  */
 @Composable
-fun StarField(modifier: Modifier = Modifier) {
+fun StarField(modifier: Modifier = Modifier, tint: Color? = null, strength: Float? = null) {
     val reduceMotion = rememberReduceMotion()
     val time: State<Float> = if (reduceMotion) {
         remember { mutableFloatStateOf(0.25f) }
@@ -65,13 +76,14 @@ fun StarField(modifier: Modifier = Modifier) {
             .animateFloat(0f, 1f, infiniteRepeatable(tween(TWINKLE_MILLIS, easing = LinearEasing)), label = "twinkle")
     }
     // Stronger on the dark theme, where a sky looks natural; faint on the light one so text stays easy to read.
-    val strength = if (MaterialTheme.colorScheme.background.luminance() < 0.5f) 0.7f else 0.35f
-    val colors = listOf(MaterialTheme.colorScheme.primary, MaterialTheme.colorScheme.tertiary, MaterialTheme.colorScheme.secondary)
+    val brightness = strength ?: if (MaterialTheme.colorScheme.background.luminance() < 0.5f) 0.7f else 0.35f
+    val colors = tint?.let { listOf(it, it, it) }
+        ?: listOf(MaterialTheme.colorScheme.primary, MaterialTheme.colorScheme.tertiary, MaterialTheme.colorScheme.secondary)
     Canvas(modifier) {
         val t = time.value
         fieldStars.forEach { star ->
             val wave = sin(2 * PI * (t + star.phase)).toFloat()
-            val alpha = strength * (0.55f + 0.45f * wave)
+            val alpha = brightness * (0.55f + 0.45f * wave)
             val at = Offset(star.x * size.width, star.y * size.height)
             val color = colors[star.tint]
             if (star.sparkle) {
@@ -118,6 +130,36 @@ fun Modifier.riseIn(order: Int): Modifier {
 }
 
 /**
+ * A block that flows into place the first time it comes onto the screen, like the chapters on the Learn path, so a
+ * long scrolling page fills in as the user reads down it. Blocks already on screen when the page opens rise in
+ * [order] steps after the first, as [riseIn] does. Shows at once when animations are off.
+ */
+@Composable
+fun Modifier.flowIn(order: Int = 0): Modifier {
+    val reduceMotion = rememberReduceMotion()
+    val shown = remember { Animatable(if (reduceMotion) 1f else 0f) }
+    var seen by remember { mutableStateOf(reduceMotion) }
+    val opened = remember { System.currentTimeMillis() }
+    val screenHeight = with(LocalDensity.current) { LocalConfiguration.current.screenHeightDp.dp.toPx() }
+    LaunchedEffect(seen) {
+        if (seen && shown.value < 1f) {
+            // Only the first screenful is staggered; a block reached by scrolling comes in straight away.
+            if (System.currentTimeMillis() - opened < OPENING_MILLIS) delay(order * RISE_STAGGER_MILLIS)
+            shown.animateTo(1f, tween(FLOW_MILLIS, easing = FastOutSlowInEasing))
+        }
+    }
+    // The position is not clipped by the scrolling page, so a block below the fold reads as below it.
+    return onGloballyPositioned { if (!seen && it.positionInWindow().y < screenHeight * FLOW_LINE) seen = true }
+        .graphicsLayer {
+            alpha = shown.value
+            translationY = (1f - shown.value) * FLOW_OFFSET_DP * density
+            val scale = FLOW_START_SCALE + (1f - FLOW_START_SCALE) * shown.value
+            scaleX = scale
+            scaleY = scale
+        }
+}
+
+/**
  * Stars bursting out from the middle of this element, for a right answer. [progress] runs from 0 (nothing) to 1 (the
  * burst has faded); hold it at 0 to show nothing.
  */
@@ -154,3 +196,10 @@ private const val RISE_STAGGER_MILLIS = 70L
 private const val RISE_MILLIS = 380
 private const val RISE_OFFSET_DP = 18
 private const val BURST_STARS = 10
+private const val FLOW_MILLIS = 520
+private const val FLOW_OFFSET_DP = 28
+private const val FLOW_START_SCALE = 0.97f
+private const val OPENING_MILLIS = 600L
+
+// A block starts to flow in once its top passes this far down the screen.
+private const val FLOW_LINE = 0.92f
